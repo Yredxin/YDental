@@ -16,6 +16,7 @@ class YDentalDocumentSelection(models.Model):
     actor_id = fields.Many2one('res.users', required=True, ondelete='restrict')
     selected_at = fields.Datetime(required=True)
     documents = fields.Json(required=True)
+    scope_sha256 = fields.Char(required=True, index=True)
     mode = fields.Selection([('draft', 'Incomplete source collection'), ('complete', 'All selected sources confirmed'),
         ('excerpt', 'Policy-approved confirmed excerpt')], required=True)
     template_id = fields.Many2one('ydental.document.template', ondelete='restrict')

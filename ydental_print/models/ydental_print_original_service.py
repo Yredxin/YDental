@@ -6,6 +6,8 @@ import re
 import zipfile
 from dataclasses import replace
 
+from psycopg2.errors import UniqueViolation
+
 from odoo import fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tools.pdf import PdfFileReader, PdfReadError
@@ -119,6 +121,16 @@ class YDentalPrintOriginalService(models.AbstractModel):
     def _original_request_template(self, kind, source_id, version, purpose, template_id):
         return template_id or None
 
+    def _original_chain_key(self, kind, source, store):
+        return source.id
+
+    def _original_previous(self, kind, source, store, previous_id):
+        latest = self.env['ydental.document.original'].sudo().search([
+            ('kind', '=', kind), ('source_id', '=', source.id), ('store_id', '=', store.id)], order='version desc', limit=1)
+        if latest.id != (previous_id or False):
+            raise UserError(self.env._('version_conflict: Select the latest original as the previous version.'))
+        return latest
+
     def _original_preview(self, kind, source_id, version, purpose=None, template_id=None):
         service, source, category, payload, signature, template, facts, template_sha = self._original_payload(kind, source_id, version, purpose, template_id)
         scope = service._original_scope(payload, signature, purpose)
@@ -146,13 +158,11 @@ class YDentalPrintOriginalService(models.AbstractModel):
         service, source, category, payload, signature, template, template_facts, template_sha = self._original_payload(kind, source_id, version, purpose, template_id)
         # Source version chains are serialized without changing any clinical,
         # accounting or inventory source to acquire a lock.
-        self.env.cr.execute('SELECT pg_advisory_xact_lock(%s, %s)', [32031, source.id])
         if signature != expected_digest:
             raise UserError(self.env._('version_conflict: The source changed. Review before generating an original.'))
         store = service.env['ydental.access.service']._scope().ydental_store_id
-        latest = originals.search([('kind', '=', kind), ('source_id', '=', source.id), ('store_id', '=', store.id)], order='version desc', limit=1)
-        if latest.id != (previous_id or False):
-            raise UserError(self.env._('version_conflict: Select the latest original as the previous version.'))
+        self.env.cr.execute('SELECT pg_advisory_xact_lock(%s, %s)', [32031, service._original_chain_key(kind, source, store)])
+        latest = service._original_previous(kind, source, store, previous_id)
         scope = service._original_scope(payload, signature, purpose)
         render_facts = json.loads(scope.payload)
         reports = service.env['ir.actions.report'].with_context(ydental_print_scope=scope, lang='zh_CN',
@@ -314,5 +324,8 @@ class YDentalPrintOriginalService(models.AbstractModel):
         self.env.cr.execute('SELECT id FROM ydental_access_membership WHERE ydental_user_id=%s AND ydental_store_id=%s FOR NO KEY UPDATE', [self.env.uid, session.ydental_store_id.id])
         member_ids = [row[0] for row in self.env.cr.fetchall()]
         self.env.cr.execute('SELECT id FROM ydental_access_grant WHERE ydental_membership_id=ANY(%s) FOR NO KEY UPDATE', [member_ids])
-        with self.env.cr.savepoint():
-            return handlers[operation](**payload)
+        try:
+            with self.env.cr.savepoint():
+                return handlers[operation](**payload)
+        except UniqueViolation as error:
+            raise UserError(self.env._('version_conflict: A concurrent request already preserved this version or file. Refresh the saved result before retrying.')) from error

@@ -36,6 +36,10 @@ class YDentalDocumentOriginal(models.Model):
     _version_once = models.Constraint('UNIQUE(kind, source_id, store_id, version)', 'A document original version is unique.')
     _key_once = models.Constraint('UNIQUE(actor_id, request_key)', 'An original request key is unique for its actor.')
     _positive_version = models.Constraint('CHECK(version > 0)', 'An original requires a positive version.')
+    _successor_once = models.Constraint('UNIQUE(previous_id)', 'An original can have only one successor version.')
+    _summary_version_once = models.UniqueIndex(
+        "(store_id, (source_facts->>'selection_scope_sha256'), version) WHERE kind = 'clinical_summary'",
+        'A clinical source collection scope has one original per version.')
 
     @api.model_create_multi
     def create(self, vals_list):

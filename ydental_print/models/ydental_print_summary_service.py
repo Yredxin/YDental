@@ -7,6 +7,31 @@ from .ydental_print_service import digest, normalized
 class YDentalPrintSummaryService(models.AbstractModel):
     _inherit = 'ydental.print.service'
 
+    def _original_chain_key(self, kind, source, store):
+        if kind != 'clinical_summary':
+            return super()._original_chain_key(kind, source, store)
+        return int(source.scope_sha256[:8], 16) & 0x7FFFFFFF
+
+    def _original_previous(self, kind, source, store, previous_id):
+        if kind != 'clinical_summary':
+            return super()._original_previous(kind, source, store, previous_id)
+        selections = self.env['ydental.document.selection'].sudo().search([
+            ('ydental_store_id', '=', store.id), ('scope_sha256', '=', source.scope_sha256)])
+        latest = self.env['ydental.document.original'].sudo().search([
+            ('kind', '=', kind), ('source_model', '=', source._name),
+            ('source_id', 'in', selections.ids), ('store_id', '=', store.id)], order='version desc', limit=1)
+        if latest.id != (previous_id or False):
+            raise UserError(self.env._('version_conflict: Select the latest original for this exact clinical source collection.'))
+        if latest:
+            _authorized, previous_selection, _category = self._original_reauthorize(latest)
+            patient = self.env['ydental.patient.service']._patient(source.ydental_patient_id.id)
+            previous_patient = self.env['ydental.patient.service']._patient(previous_selection.ydental_patient_id.id)
+            if patient != previous_patient or {row['id'] for row in source.documents} != {row['id'] for row in previous_selection.documents}:
+                raise UserError(self.env._('scope_conflict: A summary successor requires the same patient, store and complete intended document set.'))
+            if self.env['ydental.document.original'].sudo().search_count([('previous_id', '=', latest.id)]):
+                raise UserError(self.env._('version_conflict: This original already has a successor.'))
+        return latest
+
     def _summary_execution_facts(self, document_ids):
         orders = self.env['ydental.treatment.order'].sudo().search([
             ('ydental_document_id', 'in', document_ids)], order='id')
@@ -72,6 +97,7 @@ class YDentalPrintSummaryService(models.AbstractModel):
             raise UserError(self.env._('policy_required: A published current-store policy must explicitly permit confirmed excerpts.'))
         selection = self.env['ydental.document.selection']._new({'ydental_patient_id': patient.id, 'ydental_store_id': store.id,
             'ydental_version': 1, 'actor_id': self.env.uid, 'selected_at': fields.Datetime.now(),
+            'scope_sha256': digest(normalized([store.id, sorted(document_ids)])),
             'documents': rows, 'mode': mode, 'template_id': template.id})
         self._original_audit('source_selection', selection, 'medical', {'selection_id': selection.id,
             'document_ids': document_ids, 'mode': mode, 'template_id': template.id})
@@ -157,6 +183,7 @@ class YDentalPrintSummaryService(models.AbstractModel):
                 self._pair(self.env._('Excerpt policy template ID'), selection.template_id.id)],
             'sections': sections, 'teeth': [], 'lines': [], 'events': [],
             'selected_sources': all_payloads,
+            'selection_scope_sha256': selection.scope_sha256,
             'execution_facts': execution_facts,
             'versions': {'selection': [selection.id, 1, selection.mode],
                 'documents': [[row['document_id'], row['selected_version'], row['confirmed'], row['sha256']] for row in all_payloads],
