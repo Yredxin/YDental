@@ -1,39 +1,20 @@
 # S13 首批当前状态｜YD-S13-UX-DOCUMENTS-V1 / 1.0
 
-## IN_PROGRESS｜仅岗位界面、中文报表与文书版式整理
+## IN_PROGRESS｜最终权限、浏览器与独立保护验收
 
-- 2026-10-24 08:55：长表309检查器普通Unicode误判已定位：原PDF/原SHA在三页均有FDI表头，提取字形“⽛”需NFKC，原inspector只去空白而assert1，root缩放图目测亦误判。独立反查后立即停止8加载/生成；01659临床分块从未加载，已正常forward revert（不reset/不恢复DB），产品/测试代码净值回到已验c505（产品b9/layout7）。源309和全部业务/文件未改；保留原inspector1/signull和判断纠正，准备正确只读检查+实际bbox/逐页独立核，不能把原失败日志改成PASS。
-- 新源1313正常恢复、740开单/收500/独立审批退款100/实际退100和302—307各1页已独立验；阶段240原件不回改，后续正常免10→当前230/新close1cashier8gross500实际退0（退款执行者14）/pending0另计，所有旧1073cohort仍待最后统一fresh独立核。8临时结算权限已正常恢复，旧/刷新后读写403且正常logout清唯一session。新215draft+waiting281/长label308两页属长字段例外，raw5保持，新外部原字节上传及同用户跨店真实源拒绝已测。新1643/doc508长表保存v1→正常currentpendingv2/doctor9责任、无治疗/费用/库存；不重跑新患者/源309。服务082449已正常stop供原拟修复，现按净代码相同可正常复开，无需重新升级凑证据。
-
-- 2026-10-24 08:15前：layout7产品固定b9a9bd70cd918f11606a81bf8d26398d8df62c64并正常print-u exit0，完整post已采；新trace子模板实入冻结依赖。新增独立source审核过的单条MODEL回归：事务内改子模板，旧预览摘要应拒绝，新版另存，老件字节/快照不变；不mock渲染器、不使用真实1313来源。此仅测试工具增量，产品不变，准备最终39方法（新增1MODEL）实跑。新长件与经济正例仍待，不冒完成。
-
-- 2026-10-24 08:10后：layout6两长件仍实际纯trace续页（A4约5行、80mm仅存储边界一句），全部7页独立FAIL保留。layout7改为consent末正文段+blank+完整trace同分页组，并仅缩段距/标题上距；新共用trace子模板纳入真实qweb依赖快照，故最终候选补对应38方法与正常新版本/同key验证，不能拿纯呈现理由豁免快照检查。服务080507已正常stop；仍无newfee/款，1313/455与原lease expiry不改，8临时结算授权待正例/恢复。
-
-- 2026-10-24 08:00前：9ad布局5限定加载/38方法再次0/0/exit0并独立通过，50旧/新前态文件保全；正常10份后续PDF和label5已另存。逐页已证短病历1页、检查主要中文修好，长同意因首2×350字段落强keep仍余孤立trace页；现仅呈现最小改为标题+首个非空段(layout6)，不删正文。服务run075221已正常stop；新1313/455仍无费用或款项，临时8结算权限待普通正例与正常回收；恢复helper已备自有私密句柄保全，不进证据包。
-
-- 2026-10-24 07:35：293e呈现候选限定print+settlement加载/38方法0/0/exit0均独立通过。211(label layout4)及10份正常新版本已实际提交；全旧SHA保全。逐页效果验收发现新215检查标题/字段英文、214病历纯trace第二页、220/221长同意及summary标题/trace分页缺口，准备layout5/检查原生PO修复，现有211—221均不覆写。服务run072415已正常stop供影响加载，尚未开始任何付款/退款。
-- 新S13工具v1拟slot与09:00未来排期重叠遭真实409，无slot operation/患者提交，原失败保留；v2实际正常slot1115/患者1313/task818/execution482/doc455draft v1已提交，execute因工具误用teeth=[11]遭真实invalid_tooth409；独立RO已核event/fee/payment全0。原lease482真实expires07:37:15，不改期、不清状态，待自然到期用正常合成恢复续同患者，旧455内容/作者/责任保留，不重跑新患者全链。临时frontdesk8/store1 settlementwrite为正常新增测试授权，结束正常恢复原语义；其余身份/权限未改。
-- QR211实际decode与冻结载荷一致；首次工具误将internalcode送外部package-only wizard，实际code_unavailable拒绝（非扫码副作用或系统故障），失败回执保留。root仅补现有native工单searchview按内部业务识别码查找，不改变外包扫码语义、权限或接收/入库动作；后续正常受控定位另验。
-
-- 2026-10-24 07:15后独立效果复核：0d569限定加载/38方法原退出0及原39附件保全已独立核；界面发现外部原件手填ID/主面SHA、医生页若干翻译视图ref、结算费用/日结金额与技术主键仍抢占业务主列，列为真实待修缺口而非总PASS。documents负责外部授权搜索/选择/追溯及PO引用，root负责结算业务名/币种精度/折叠追溯；准备合并后限定print+settlement重新加载及适用回归。911候选尚未加载，服务仍正常停止，无临时导出/前台结算授权及新经济动作。
-
-- 2026-10-24 06:55后：已确认并修正本项目浏览器依赖不满足官方Playwright1.64范围的问题；greenlet3.5.6固定wheel仅本期private，旧snapshot未动，同Python/Playwright/Chromium/API。独立审查e631123e…，唯一无DB/无登录data小验证父子真实0及独立fb6dfc59…；0d569正常readonly完整BROWSER子/外层均0、42页两视口114图/全部子断言0issues（d0f71f714…，外层93eb0d6…）。这不是139根因确诊或用户亲手验收。0d569文书影响38方法再次0/0/进程0，无Native（29eba80…）。
-- 新标签183正常从155续版，SHA/关联及真实1张100×70和QR软件解码已采；页眉三条代码翻译漏odoo-python标记，仍有英文，作为可读单页但未最终中文通过的迭代样张保留。root修正标记并以原生CodeTranslations实际运行过滤验证中文，准备布局4正常新版本，不改93/155/183。服务已正常stop供本次最后翻译/资源加载；临时export/前台结算授权及新经济尚未执行，当前旧余额/库存/责任不变。
-
-- 当前检查点（2026-10-24 06:21 UTC）：正常客户端只读财务截图工具在输出结果后进程139/kernel SIGSEGV（python3067608），首因UNKNOWN；已停止浏览器及后续经济动作，不用JSON完成冒exit0。Odoo本体随后精确正常stop，child_exit_code0/noNative/owned组停止；原Native回执`.local/s13/verification/browser-native-exit139.json` SHA18f1e081da9513444b5edb2f5a77e6a9fece5528ef85e9b38bf12703759e4b7c，服务器终态另列，不反签旧风险。SOURCE核实获准浏览器snapshot的Playwright1.64.0/greenlet3.0.3不满足该版官方greenlet>=3.1.1依赖，团队仅准备项目私有依赖与生命周期修复；未因此声称确诊139根因，修复后先独立审查及无DB/无登录小验证。
-- 正常新原件155已实际提交（lab214当前sent、source v3、前版93），文件SHA ddba24e87f4292388f7533ca88421d65aeaab8f52e91aa3a895f2607e26899ff；它是100×70mm却2页的真实版式FAIL，93与155均保护。新布局3仅源码修复中，后续只能从155正常续版，不覆盖或删失败样张。尚未执行新付款/退款/治疗/库存/接收/入库。
-- 已获分层证据：产品a711→63b890影响38唯一方法=29MODEL+7真实HttpCase+2显式授权/编码器seam，修复后0failed/0error/exit0（首次1fail2error保留）；独立回执e0e7d491…。e85dbd正常HTTP12指标/20拒绝通过；当前4角色export均非write，12CSV403非导出正例。42浏览器页面/视口及正常native214中文已采，首networkidle超时/metric等待竞态保留，不能总签通过。doctor9仅正常本人偏好改lang=zh_CN，组/ACL/身份未改。未授临时export、未新经济，旧业务保持待最终完整核验。
-
-- 首个产品/工具候选已固定 `a711d1edb9b76c3a07a5076e68ef6542510f5b97`。12指标中文呈现/授权选项、财务/标签新布局、岗位搜索及按需办理已落代码；SOURCE/PURE检查通过，尚未声明MODEL/HTTP/PDF/最终验收PASS。未实现者SOURCE指出的语言上下文、分页前版选择和精确来源钻取缺陷已修，继续按实际运行验证。
-- before14张普通角色两视口与初始完整RO保护baseline已采；旧S12 owned服务已正常stop(child0/noNative/18411 free)。新S13独立资源scope正常创建至2026-10-24T17:42:54Z，旧scope未改；完整即时pre145业务/13技术/所有关联原件已成功，尚待限定升级。证据索引见docs/reports/s13-ux/evidence-index.md。服务当前停止，非用户可接手浏览器。
-
-- 2026-10-24 用户在当前对话交付完整计划并明确启用限定子范围，UX-01—08/P1/P2 全部必做；完整 S13/负载/备份恢复/实机/生产未启用。计划载体 `docs/execution/S13_UX_IMPLEMENTATION_PLAN.md`。无需逐批 GPT 签字；实施中不向 Issue 发布过程信息。
-- 起点 `a437464351220605bf14b8f50181132266272d65`，现场 origin/HEAD 一致、工作树干净；正常创建 `codex/s13-ux-documents-r1`，未 reset/clean/强推、未从 main 重建。main 仍为文档路由；S12 产品 `5cb1e46fbe1e4243c7a292f64ecfd375afb3dce2`、回执 #36/6379065844 承接，#36 CLOSED、#37 OPEN 已实时读回。
-- 单一主控 /root；reports 独占 ydental_reporting，documents 独占 print模型/报告/翻译及 settlement PDF，root 负责岗位页面/运行/集成，acceptance 不实现产品或测试工具，负责独立验收。同 OS 共享工作树，不冒隔离；旧 worktree 保留，无其他本团队活动线程。进程名称本身不构成独立主控证明，不终止旧 Codex 客户端。
-- W0 已读 main GPT_HANDOFF/AGENTS/CURRENT_TASK、活动状态、S12 summary/matrix/evidence/contracts/metric dictionary 及 #23/#36/#37 和有效增量。优先 W1 三财务指标/授权选择与钻取，并行 W2 新版票据/标签，随后 W3 岗位查看/办理。现阶段仅源码准备，尚未声明 UX PASS。
-- 唯一运行目标仍 `ydental_s11_synth_20261023_01 / OID2171423 / cluster7694897083368259627` 及原 filestore；运行前核真实身份/权限/owned服务，使用本阶段资源记录，旧 scope 不改期、不清 STOP，不新增/复制/重建数据库。凭据只在既有正常获准 provider，不进 Git/Issue/聊天/截图。
-- 全部旧原件字节/SHA、财务、库存、审计和未完成责任保全；旧58—63、标签93 draft 与 lab214 sent 各自时点不改，bill72/pay7/refund3、76/77/pay8、79旧600及现价620、lot253余8及604/669/700/701/280等按旧事实保护。当前应收旧集合1073=63+1010，新测试贡献另账。不重放旧付款/退款/治疗/出库/接收入库补证。新验证用独立合成来源及正常模板/原件新版本机制。
-- 结束只向 #37 提交一次最终子计划结果并保持 OPEN，#36不动，不产品合main/部署/启动下一计划；私有只读效果包不入 Public。最终候选、真实测试层级、独立视觉/保护/正常角色路径及同步读回按计划记录。当前用户亲手验收仍待确认。
+- 仅启用 [S13限定计划](docs/execution/S13_UX_IMPLEMENTATION_PLAN.md) 的UX-01—08/P1/P2；完整S13、负载、备份恢复、实机、生产及产品合main未启用。#36保持CLOSED，#37保持OPEN，尚未发布本批最终评论。用户亲手效果验收仍待确认。
+- 正常承接a437464351220605bf14b8f50181132266272d65至 `codex/s13-ux-documents-r1`；未reset/clean/强推/覆盖未知工作。产品b9a9bd70cd918f11606a81bf8d26398d8df62c64，最终工具候选c5052e519cb8fc97bc41a2867ab7155cf11d3547；当前HEAD a3409907ae4c5b6dd7f2aaf0a17d36c1999f8705相对c505仅CURRENT文档净差异。core f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb不改。
+- /root唯一主控/运行/集成；reports报表，documents文书，tester验证工具，acceptance未实现产品或测试工具，独立SOURCE/原始结果/全部PDF逐页/普通角色及提交事实验收。共用OS不冒隔离。主文件写者分配明确，未终止或覆盖未知旧进程/worktree。
+- W1/W2/W3已落真实产品：12中文指标、授权范围选择、源钻取/CSV；岗位业务搜索、默认查看/明确办理、终态复诊只读；外部原件授权账单/前版选择；A4/80mm和100×70演示标签。模板/布局7，旧原件不重写。最终限定加载实际0；最终39唯一方法=30MODEL+7真实HttpCase+2显式seam，0fail/0error/exit0，独立回执8bad928b…；不冒55业务场景或全S13。
+- 唯一既有合成目标 `ydental_s11_synth_20261023_01 / OID2171423 / cluster7694897083368259627`及原filestore不变，无新建/复制/重命名数据库。当前ownedrun `20261024T090110Z-8e7b85588974` / loopback18411，resource scope至17:42:54UTC；实际服务在线/终态以结束时现场核验为准。正常重开采用新鲜admission，未改旧scope/STOP/平台配置。
+- 所有旧20原件/37附件及审计、账务、库存和责任纳入保护；58—63、93draft与214sent各自时点保持。bill72/pay7/refund3、76/77/pay8、79旧600/目录620、lot253收10用2余8和604/669/700/701/280不重放。旧应收集合1073=63+1010，新增贡献另账，最终fresh独立核尚待。
+- 新合成1313原lease482自然过期后按正常接续，不改期/清状态；旧455pending/v1作者责任9保持。exec536/doc507/event350/fee350正常形成bill164740，前台8收500/payment30、申请refund11，审批15批准、结算14执行100；阶段欠240留原件，后正常免10/credit168→当前欠230；cashier8日结1为500/实退0/pending0（退款执行者14）。真实browser+独立连接已核，旧链未重跑。
+- 新lab215draft/跟进281waiting责任11，长标签308特殊长字段2张；普通301单张100×70/QR一致。新external20仅合法新bill302原字节上传、旧external5不变。新1643/doc508长齿表52行、309三页；保存v1→当前pending v2/责任9，无治疗/费用/库存。新post_visit282一次手工“未接通”，仍待联系/责任11，无真实电话或发送声明；以上独立回执已采。
+- 最终11共用/6财务/特殊长标签/长齿表PDF均已逐页独立通过；长同意A4三页/80mm四页含完整24段、特殊长标签两页明确例外。旧文件及失败迭代均保留。剩余最终浏览器全矩阵、导出四组合、fresh全保护及效果包/同步不得以旧候选截图冒PASS。
+- 临时前台8结算权限已正常恢复原none，旧/刷新请求均403，正常logout及唯一私有句柄删除。warehouse-only17测试已完成：耗用/钻取200、加工/财务/临床/标签403，文书页200但源/原件为空；已恢复warehouse none。当前仅临时exportwrite测试窗口UID9/11/13/14/17，完成后正常恢复原语义，物理新增历史授权行/审计不删除。
+- 首次浏览器只读客户端139/kernelSIGSEGV真实发生，根因UNKNOWN；原首因18f1e081…及server正常child0分列。修正本项目私有Playwright1.64与greenlet3.0.3依赖不符→3.5.6、生命周期/完整清单核验后，同入口无DB小验证及后续正常browser均实际0；不声称确诊或反签历史事故。原source测试失败、工具slot重叠/teeth格式、内部码误用外部扫码契约、样张分页/PO漏项等按普通错误修复，日志不改PASS。
+- 长表309原inspector只去空白，因PDF兼容字形未NFKC而普通assert1；root亦误读缩放图，独立复核三页实际均有表头。01659临床分块提议从未加载/生成，已14ef正常forward revert，不回滚DB；只读NFKC检查实际0、52行恰一次、原SHA不变，独立视觉/文本通过d5a725…/28b7bf…。
+- 原始材料和凭据仅私有获准provider/忽略目录，不上传Public。最终交付见 [summary](docs/reports/s13-ux/summary.md)、[矩阵](docs/reports/s13-ux/acceptance-matrix.md)、[索引](docs/reports/s13-ux/evidence-index.md)；目前这些报告尚待最终整合，不冒完成/SYNCED。结束正常push/readback、仅#37一次最终结果、私有只读效果包，main仅必要文档路由，不部署或启动下一计划。
 
 ---
 

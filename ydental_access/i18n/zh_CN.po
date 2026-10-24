@@ -1216,6 +1216,7 @@ msgstr "加工工单"
 
 #. module: ydental_access
 #: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_template_preview
 msgid "Scrollable details"
 msgstr "可局部滚动的明细"
 

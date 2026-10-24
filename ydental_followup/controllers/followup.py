@@ -26,7 +26,7 @@ class YDentalFollowup(http.Controller):
             if kwargs.get('followup_id'):
                 domain &= fields.Domain('id', '=', int(kwargs['followup_id']))
         except (ValueError, TypeError):
-            return request.make_json_response({'error': 'Invalid follow-up selection.'}, status=400)
+            return request.make_json_response({'error': request.env._('Invalid follow-up selection.')}, status=400)
         rows = model.search_fetch(domain, ['name', 'ydental_patient_id', 'ydental_followup_type', 'ydental_planned_at',
             'ydental_appointment_at', 'ydental_appointment_status', 'ydental_responsible_id', 'state'],
             limit=100, order='ydental_planned_at, id')

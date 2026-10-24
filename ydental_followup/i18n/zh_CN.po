@@ -959,3 +959,24 @@ msgstr "计划时点（UTC）："
 #: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
 msgid "Closure reason:"
 msgstr "关闭原因："
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "<strong>Follow-up plan:</strong>"
+msgstr "<strong>复诊计划：</strong>"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "· <span>Planned time (UTC):</span>"
+msgstr "· <span>计划时间（UTC）：</span>"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "<br/><strong>Closure reason:</strong>"
+msgstr "<br/><strong>关闭原因：</strong>"
+
+#. module: ydental_followup
+#. odoo-python
+#: code:addons/ydental_followup/controllers/followup.py:0
+msgid "Invalid follow-up selection."
+msgstr "复诊选择无效，请刷新后重新选择。"

@@ -41,27 +41,27 @@
                 <section>
                     <h2>今日未出账费用</h2>
                     <p t-if="not today">无</p>
-                    <div class="o_ydental_access_scroll" tabindex="0" aria-label="Scrollable details"><table t-if="today" class="table"><thead><tr><th>费用项目</th><th>患者</th><th>确认金额</th><th>业务日</th><th>追溯</th></tr></thead>
+                    <div class="o_ydental_access_scroll" tabindex="0" aria-label="Scrollable details"><table t-if="today" class="table"><thead><tr><th>Fee item</th><th>患者</th><th>确认金额</th><th>业务日</th><th>Trace</th></tr></thead>
                         <tbody><tr t-foreach="today" t-as="fee"><td t-out="fee.ydental_event_id.ydental_catalog_id.name"/><td t-out="fee.ydental_patient_id.ydental_number"/>
-                            <td t-out="money(fee.ydental_amount, fee.ydental_currency_id)"/><td t-out="fee.ydental_event_id.ydental_business_date"/><td><details><summary>来源追溯</summary>费用键 <t t-out="fee.id"/>；原名称 <t t-out="fee.name"/>；执行事件 <t t-out="fee.ydental_event_id.id"/></details></td></tr></tbody>
+                            <td t-out="money(fee.ydental_amount, fee.ydental_currency_id)"/><td t-out="fee.ydental_event_id.ydental_business_date"/><td><details><summary>Source trace</summary>Fee reference <t t-out="fee.id"/>; original name <t t-out="fee.name"/>; execution event <t t-out="fee.ydental_event_id.id"/></details></td></tr></tbody>
                     </table>
                     </div><t t-set="page_kind" t-value="'today'"/><t t-call="ydental_settlement.ydental_settlement_page_links"/>
                 </section>
                 <section><h2>历史未出账费用</h2><p t-if="not history">无</p>
-                    <div class="o_ydental_access_scroll" tabindex="0" aria-label="Scrollable details"><table t-if="history" class="table"><thead><tr><th>费用项目</th><th>患者</th><th>确认金额</th><th>业务日</th><th>追溯</th></tr></thead><tbody><tr t-foreach="history" t-as="fee">
+                    <div class="o_ydental_access_scroll" tabindex="0" aria-label="Scrollable details"><table t-if="history" class="table"><thead><tr><th>Fee item</th><th>患者</th><th>确认金额</th><th>业务日</th><th>Trace</th></tr></thead><tbody><tr t-foreach="history" t-as="fee">
                         <td t-out="fee.ydental_event_id.ydental_catalog_id.name"/><td t-out="fee.ydental_patient_id.ydental_number"/><td t-out="money(fee.ydental_amount, fee.ydental_currency_id)"/>
-                        <td t-out="fee.ydental_event_id.ydental_business_date"/><td><details><summary>来源追溯</summary>费用键 <t t-out="fee.id"/>；原名称 <t t-out="fee.name"/>；执行事件 <t t-out="fee.ydental_event_id.id"/></details></td></tr></tbody></table>
+                        <td t-out="fee.ydental_event_id.ydental_business_date"/><td><details><summary>Source trace</summary>Fee reference <t t-out="fee.id"/>; original name <t t-out="fee.name"/>; execution event <t t-out="fee.ydental_event_id.id"/></details></td></tr></tbody></table>
                     </div><t t-set="page_kind" t-value="'history'"/><t t-call="ydental_settlement.ydental_settlement_page_links"/>
                 </section>
                 <section><h2>待核对，禁止出账</h2><p t-if="not pending">无</p>
-                    <div class="o_ydental_access_scroll" tabindex="0" aria-label="Scrollable details"><table t-if="pending" class="table"><thead><tr><th>待核对项目</th><th>患者</th><th>业务日</th><th>实际执行人</th><th>待核对原因</th></tr></thead>
+                    <div class="o_ydental_access_scroll" tabindex="0" aria-label="Scrollable details"><table t-if="pending" class="table"><thead><tr><th>Item awaiting reconciliation</th><th>患者</th><th>业务日</th><th>实际执行人</th><th>待核对原因</th></tr></thead>
                         <tbody><tr t-foreach="pending" t-as="event">
-                            <td><t t-out="event.ydental_catalog_id.name"/><details><summary>来源追溯</summary>执行事件 <t t-out="event.id"/>；原名称 <t t-out="event.name"/></details></td><td t-out="event.ydental_patient_id.ydental_number"/>
+                            <td><t t-out="event.ydental_catalog_id.name"/><details><summary>Source trace</summary>Execution event <t t-out="event.id"/>; original name <t t-out="event.name"/></details></td><td t-out="event.ydental_patient_id.ydental_number"/>
                             <td t-out="event.ydental_business_date"/><td t-out="event.ydental_actor_id.name"/>
                             <td t-out="event.ydental_pending_reason or '待核对'"/></tr></tbody></table>
                     </div><t t-set="page_kind" t-value="'pending'"/><t t-call="ydental_settlement.ydental_settlement_page_links"/>
                 </section>
-                <details name="settlement-operation" class="o_ydental_access_operation" t-if="can_write and (today or history)"><summary>选择费用出账</summary><form method="post" action="/ydental/settlement/action">
+                <details name="settlement-operation" class="o_ydental_access_operation" t-if="can_write and (today or history)"><summary>Select fees to bill</summary><form method="post" action="/ydental/settlement/action">
                     <t t-call="ydental_settlement.ydental_settlement_tokens"/>
                     <input type="hidden" name="operation" value="bill"/>
                     <h3>选择本店已确认费用出账</h3>
@@ -73,14 +73,14 @@
                     <label>折扣原因 <input type="text" name="reason" maxlength="300"/></label>
                     <button type="submit">生成原生过账账单</button>
                 </form>
-                <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">取消并返回查阅</a></details><section><h2>已出账未付清</h2><p t-if="not invoices">无</p>
+                <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">Cancel and return to viewing</a></details><section><h2>已出账未付清</h2><p t-if="not invoices">无</p>
                     <div class="o_ydental_access_scroll" tabindex="0" aria-label="Scrollable details"><table t-if="invoices" class="table"><thead><tr><th>原生单号</th><th>业务日</th><th>原金额</th><th>应收余额</th><th>内部账单</th></tr></thead>
                         <tbody><tr t-foreach="invoices" t-as="invoice" t-att-id="'invoice-%s' % invoice.id">
                             <td t-out="invoice.name"/><td t-out="invoice.invoice_date"/>
                             <td t-out="money(invoice.amount_total, invoice.currency_id)"/><td t-out="money(invoice.amount_residual, invoice.currency_id)"/>
                             <td><a t-if="can_export" t-att-href="'/ydental/settlement/pdf/bill/%s' % invoice.id">下载中文 PDF</a>
                                 <span t-else="">仅供查阅</span>
-                                <details name="settlement-operation" class="o_ydental_access_operation" t-if="can_write"><summary>有据免单</summary><form method="post" action="/ydental/settlement/action">
+                                <details name="settlement-operation" class="o_ydental_access_operation" t-if="can_write"><summary>Waive receivable with evidence</summary><form method="post" action="/ydental/settlement/action">
                                     <t t-call="ydental_settlement.ydental_settlement_tokens"/>
                                     <input type="hidden" name="operation" value="waive"/>
                                     <input type="hidden" name="invoice_id" t-att-value="invoice.id"/>
@@ -88,11 +88,11 @@
                                     <label>有据免单原因 <input type="text" name="reason" maxlength="300" required="required"/></label>
                                     <button type="submit">原生贷项冲减未收应收</button>
                                 </form>
-                            <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">取消并返回查阅</a></details></td>
+                            <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">Cancel and return to viewing</a></details></td>
                         </tr></tbody></table>
                     </div><t t-set="page_kind" t-value="'invoices'"/><t t-call="ydental_settlement.ydental_settlement_page_links"/>
                 </section>
-                <details name="settlement-operation" class="o_ydental_access_operation" t-if="can_write and invoices"><summary>登记实际收款</summary><form method="post" action="/ydental/settlement/action">
+                <details name="settlement-operation" class="o_ydental_access_operation" t-if="can_write and invoices"><summary>Record actual collection</summary><form method="post" action="/ydental/settlement/action">
                     <t t-call="ydental_settlement.ydental_settlement_tokens"/>
                     <input type="hidden" name="operation" value="pay"/>
                     <h3>仅选择本次付款核销的账单</h3>
@@ -105,12 +105,12 @@
                     <label>真实线下凭据说明 <input type="text" name="proof" maxlength="200" required="required"/></label>
                     <button type="submit">确认实际收款并原生核销</button>
                 </form>
-                <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">取消并返回查阅</a></details><section name="settled-bills">
+                <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">Cancel and return to viewing</a></details><section name="settled-bills">
                     <h2>已结清本店账单</h2><p t-if="not settled">本页无已结清本店账单。</p>
                     <div class="o_ydental_access_scroll" tabindex="0" aria-label="Scrollable details"><table t-if="settled" class="table">
                         <thead><tr><th>原生单号</th><th>业务日</th><th>总额</th><th>已结清余额</th><th>内部账单</th></tr></thead>
                         <tbody><tr t-foreach="settled" t-as="invoice" t-att-id="'invoice-%s' % invoice.id">
-                            <td><t t-out="invoice.name"/><details><summary>来源追溯</summary>账单键 <t t-out="invoice.id"/></details></td><td t-out="invoice.invoice_date"/>
+                            <td><t t-out="invoice.name"/><details><summary>Source trace</summary>Bill key <t t-out="invoice.id"/></details></td><td t-out="invoice.invoice_date"/>
                             <td t-out="money(invoice.amount_total, invoice.currency_id)"/><td t-out="money(invoice.amount_residual, invoice.currency_id)"/>
                             <td><a t-if="can_export" t-att-href="'/ydental/settlement/pdf/bill/%s' % invoice.id">下载当前内部账单 PDF</a>
                                 <span t-else="">仅供查阅</span>
@@ -134,11 +134,11 @@
                 </section>
                 <section><h2>线下付款与退款</h2>
                     <div t-foreach="payments" t-as="payment" t-att-id="'payment-%s' % payment.id">
-                        <p>收款 <span t-out="payment.ydental_payment_id.name"/>：
+                        <p>Collection <span t-out="payment.ydental_payment_id.name"/>：
                             <span t-out="money(payment.ydental_amount, payment.ydental_currency_id)"/>，<span t-out="channel_labels[payment.ydental_channel]"/>，
                             <a t-if="can_export" t-att-href="'/ydental/settlement/pdf/receipt/%s' % payment.id">下载小票 PDF</a>
                             <span t-else="">仅供查阅</span></p>
-                        <details><summary>来源追溯</summary>收款键 <t t-out="payment.id"/>；原生付款键 <t t-out="payment.ydental_payment_id.id"/></details>
+                        <details><summary>Source trace</summary>Collection reference <t t-out="payment.id"/>; native payment reference <t t-out="payment.ydental_payment_id.id"/></details>
                         <details name="settlement-operation" class="o_ydental_access_operation" t-if="can_write"><summary>申请退款</summary><form method="post" action="/ydental/settlement/action">
                             <t t-call="ydental_settlement.ydental_settlement_tokens"/>
                             <input type="hidden" name="operation" value="refund_request"/>
@@ -147,7 +147,7 @@
                             <label>原因 <input type="text" name="reason" maxlength="300" required="required"/></label>
                             <button type="submit">申请退款</button>
                         </form>
-                        <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">取消并返回查阅</a></details><details name="settlement-operation" class="o_ydental_access_operation" t-if="can_write"><summary>更正收款渠道</summary><form method="post" action="/ydental/settlement/action">
+                        <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">Cancel and return to viewing</a></details><details name="settlement-operation" class="o_ydental_access_operation" t-if="can_write"><summary>Correct collection channel</summary><form method="post" action="/ydental/settlement/action">
                             <t t-call="ydental_settlement.ydental_settlement_tokens"/>
                             <input type="hidden" name="operation" value="reclassify"/>
                             <input type="hidden" name="payment_id" t-att-value="payment.id"/>
@@ -157,21 +157,21 @@
                             <label>更正原因 <input type="text" name="reason" maxlength="300" required="required"/></label>
                             <button type="submit">原生重分类更正</button>
                         </form>
-                    <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">取消并返回查阅</a></details></div>
+                    <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">Cancel and return to viewing</a></details></div>
                     <t t-set="page_kind" t-value="'payments'"/><t t-call="ydental_settlement.ydental_settlement_page_links"/>
                     <div t-foreach="refunds" t-as="refund" t-att-id="'refund-%s' % refund.id">
-                        <details><summary>来源追溯</summary>退款键 <t t-out="refund.id"/>；录入 UTC <t t-out="refund.create_date"/>；申请原因 <t t-out="refund.ydental_reason"/></details>
-                        <p>退款申请 · 关联收款 <span t-out="refund.ydental_payment_id.ydental_payment_id.name"/>：<span t-out="money(refund.ydental_amount, refund.ydental_currency_id)"/>，状态 <span t-out="refund_labels[refund.ydental_state]"/>
+                        <details><summary>Source trace</summary>Refund reference <t t-out="refund.id"/>; entered UTC <t t-out="refund.create_date"/>; request reason <t t-out="refund.ydental_reason"/></details>
+                        <p>Refund request · original collection <span t-out="refund.ydental_payment_id.ydental_payment_id.name"/>：<span t-out="money(refund.ydental_amount, refund.ydental_currency_id)"/>，状态 <span t-out="refund_labels[refund.ydental_state]"/>
                             <a t-if="can_export" t-att-href="'/ydental/settlement/pdf/refund/%s' % refund.id">下载退款凭据 PDF</a>
                             <span t-else="">仅供查阅</span></p>
-                        <details name="settlement-operation" class="o_ydental_access_operation" t-if="can_approve and refund.ydental_state == 'requested'"><summary>审批退款申请</summary><form method="post" action="/ydental/settlement/action">
+                        <details name="settlement-operation" class="o_ydental_access_operation" t-if="can_approve and refund.ydental_state == 'requested'"><summary>Review refund request</summary><form method="post" action="/ydental/settlement/action">
                             <t t-call="ydental_settlement.ydental_settlement_tokens"/>
                             <input type="hidden" name="refund_id" t-att-value="refund.id"/>
                             <label>审批原因 <input type="text" name="reason" maxlength="300" required="required"/></label>
                             <button name="operation" value="refund_approve">另一人批准，在途</button>
                             <button name="operation" value="refund_reject">驳回，不退款</button>
                         </form>
-                        <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">取消并返回查阅</a></details><details name="settlement-operation" class="o_ydental_access_operation" t-if="can_write and refund.ydental_state == 'approved'"><summary>确认实际退款</summary><form method="post" action="/ydental/settlement/action">
+                        <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">Cancel and return to viewing</a></details><details name="settlement-operation" class="o_ydental_access_operation" t-if="can_write and refund.ydental_state == 'approved'"><summary>Confirm actual refund</summary><form method="post" action="/ydental/settlement/action">
                             <t t-call="ydental_settlement.ydental_settlement_tokens"/>
                             <input type="hidden" name="operation" value="refund_execute"/>
                             <input type="hidden" name="refund_id" t-att-value="refund.id"/>
@@ -179,7 +179,7 @@
                             <label>实际线下退款凭据 <input type="text" name="proof" maxlength="200" required="required"/></label>
                             <button type="submit">确认已实际退款</button>
                         </form>
-                        <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">取消并返回查阅</a></details><details name="settlement-operation" class="o_ydental_access_operation" t-if="can_write and refund.ydental_state == 'approved'"><summary>记录退款未知结果</summary><form method="post" action="/ydental/settlement/action">
+                        <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">Cancel and return to viewing</a></details><details name="settlement-operation" class="o_ydental_access_operation" t-if="can_write and refund.ydental_state == 'approved'"><summary>Record unknown refund result</summary><form method="post" action="/ydental/settlement/action">
                             <t t-call="ydental_settlement.ydental_settlement_tokens"/>
                             <input type="hidden" name="operation" value="refund_uncertain"/>
                             <input type="hidden" name="refund_id" t-att-value="refund.id"/>
@@ -188,7 +188,7 @@
                             <label>核查原因 <input type="text" name="reason" maxlength="300" required="required"/></label>
                             <button type="submit">标记未知或失败，继续占用额度</button>
                         </form>
-                        <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">取消并返回查阅</a></details><details name="settlement-operation" class="o_ydental_access_operation" t-if="can_approve and refund.ydental_state in ('failed', 'unknown') and refund.ydental_requester_id.id != request.env.uid"><summary>核实未退后恢复</summary><form method="post" action="/ydental/settlement/action">
+                        <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">Cancel and return to viewing</a></details><details name="settlement-operation" class="o_ydental_access_operation" t-if="can_approve and refund.ydental_state in ('failed', 'unknown') and refund.ydental_requester_id.id != request.env.uid"><summary>Verify no refund before recovery</summary><form method="post" action="/ydental/settlement/action">
                             <t t-call="ydental_settlement.ydental_settlement_tokens"/>
                             <input type="hidden" name="operation" value="refund_recover"/>
                             <input type="hidden" name="refund_id" t-att-value="refund.id"/>
@@ -196,7 +196,7 @@
                             <label>恢复原因 <input type="text" name="reason" maxlength="300" required="required"/></label>
                             <button type="submit">财务核查后恢复执行</button>
                         </form>
-                        <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">取消并返回查阅</a></details><details name="settlement-operation" class="o_ydental_access_operation" t-if="(can_write and refund.ydental_state == 'requested' and refund.ydental_requester_id.id == request.env.uid) or (can_approve and refund.ydental_state in ('requested', 'approved', 'failed', 'unknown') and refund.ydental_requester_id.id != request.env.uid)"><summary>取消退款申请</summary><form method="post" action="/ydental/settlement/action">
+                        <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">Cancel and return to viewing</a></details><details name="settlement-operation" class="o_ydental_access_operation" t-if="(can_write and refund.ydental_state == 'requested' and refund.ydental_requester_id.id == request.env.uid) or (can_approve and refund.ydental_state in ('requested', 'approved', 'failed', 'unknown') and refund.ydental_requester_id.id != request.env.uid)"><summary>Cancel refund request</summary><form method="post" action="/ydental/settlement/action">
                             <t t-call="ydental_settlement.ydental_settlement_tokens"/>
                             <input type="hidden" name="operation" value="refund_cancel"/>
                             <input type="hidden" name="refund_id" t-att-value="refund.id"/>
@@ -205,11 +205,11 @@
                             <label>撤销原因 <input type="text" name="reason" maxlength="300" required="required"/></label>
                             <button type="submit">撤销申请并释放受保护额度</button>
                         </form>
-                    <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">取消并返回查阅</a></details></div>
+                    <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">Cancel and return to viewing</a></details></div>
                     <t t-set="page_kind" t-value="'refunds'"/><t t-call="ydental_settlement.ydental_settlement_page_links"/>
                 </section>
                 <section><h2>收费员日结</h2>
-                    <details name="settlement-operation" class="o_ydental_access_operation" t-if="can_write"><summary>办理日结</summary><form method="post" action="/ydental/settlement/action">
+                    <details name="settlement-operation" class="o_ydental_access_operation" t-if="can_write"><summary>Complete daily close</summary><form method="post" action="/ydental/settlement/action">
                         <t t-call="ydental_settlement.ydental_settlement_tokens"/>
                         <input type="hidden" name="operation" value="close"/>
                         <label>门店业务日 <input type="date" name="business_date" required="required"/></label>
@@ -217,23 +217,23 @@
                             <option value="alipay">支付宝线下</option><option value="card">银行卡线下</option></select></label>
                         <button type="submit">确认日结并锁定</button>
                     </form>
-                    <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">取消并返回查阅</a></details><div t-foreach="closes" t-as="close">
+                    <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">Cancel and return to viewing</a></details><div t-foreach="closes" t-as="close">
                         <p>日结 <span t-out="close.ydental_business_date"/> · <span t-out="close.ydental_cashier_id.name"/> /
-                            <span t-out="channel_labels[close.ydental_channel]"/> / <span t-out="close_labels[close.ydental_state]"/>：
-                            实收 <span t-out="money(close.ydental_gross, close.ydental_currency_id)"/>、实退 <span t-out="money(close.ydental_refunded, close.ydental_currency_id)"/>、未终结退款占用（确认时快照，含未批准申请） <span t-out="money(close.ydental_pending, close.ydental_currency_id)"/></p>
-                        <details name="settlement-operation" class="o_ydental_access_operation" t-if="can_approve and close.ydental_state == 'confirmed'"><summary>有据解锁日结</summary><form method="post" action="/ydental/settlement/action">
+                            <span t-out="channel_labels[close.ydental_channel]"/> / <span t-out="close_labels[close.ydental_state]"/>:
+                            Actual collections <span t-out="money(close.ydental_gross, close.ydental_currency_id)"/>、实退 <span t-out="money(close.ydental_refunded, close.ydental_currency_id)"/>, non-terminal refund exposure (snapshot at confirmation, includes unapproved requests) <span t-out="money(close.ydental_pending, close.ydental_currency_id)"/></p>
+                        <details name="settlement-operation" class="o_ydental_access_operation" t-if="can_approve and close.ydental_state == 'confirmed'"><summary>Unlock daily close with evidence</summary><form method="post" action="/ydental/settlement/action">
                             <t t-call="ydental_settlement.ydental_settlement_tokens"/>
                             <input type="hidden" name="operation" value="unlock"/>
                             <input type="hidden" name="close_id" t-att-value="close.id"/>
                             <label>财务解锁原因 <input type="text" name="reason" maxlength="300" required="required"/></label>
                             <button type="submit">财务解锁</button>
                         </form>
-                    <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">取消并返回查阅</a></details><details><summary>来源追溯</summary>日结键 <t t-out="close.id"/>；周期 <t t-out="close.ydental_cycle"/>；确认 UTC <t t-out="close.ydental_confirmed_at"/></details></div>
+                    <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">Cancel and return to viewing</a></details><details><summary>Source trace</summary>Daily close reference <t t-out="close.id"/>; cycle <t t-out="close.ydental_cycle"/>; confirmed UTC <t t-out="close.ydental_confirmed_at"/></details></div>
                     <t t-set="page_kind" t-value="'closes'"/><t t-call="ydental_settlement.ydental_settlement_page_links"/>
                 </section>
                 <section t-if="can_trade"><h2>跨法人真实销售与采购</h2>
                     <p>仅在双方门店均有仓库及财务审批权、已配置原生科目与两批次时确认。</p>
-                    <details name="settlement-operation" class="o_ydental_access_operation"><summary>办理跨法人库存交易</summary><form method="post" action="/ydental/settlement/action">
+                    <details name="settlement-operation" class="o_ydental_access_operation"><summary>Process intercompany stock transaction</summary><form method="post" action="/ydental/settlement/action">
                         <t t-call="ydental_settlement.ydental_settlement_tokens"/>
                         <input type="hidden" name="operation" value="trade"/>
                         <label>目标门店 ID <input type="number" name="target_store_id" min="1" required="required"/></label>
@@ -246,7 +246,7 @@
                         <label>双方审批与实物交易原因 <input type="text" name="reason" maxlength="300" required="required"/></label>
                         <button type="submit">确认双法人原生订单、收发与凭证</button>
                     </form>
-                <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">取消并返回查阅</a></details></section>
+                <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">Cancel and return to viewing</a></details></section>
             </main>
         </t>
     </template>

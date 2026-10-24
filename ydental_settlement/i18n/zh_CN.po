@@ -2777,3 +2777,179 @@ msgstr "size_limit: 账单选项过多，请缩小患者或账单查询范围。
 #: code:addons/ydental_settlement/models/ydental_settlement_tax_service.py:0
 msgid "size_limit: This bill exceeds the 5000-original selector capacity."
 msgstr "size_limit: 此账单原件超过5000份选择器容量，未截断返回结果。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Fee item"
+msgstr "费用项目"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Trace"
+msgstr "追溯"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Source trace"
+msgstr "来源追溯"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Fee reference"
+msgstr "费用键"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "; original name"
+msgstr "；原名称"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "; execution event"
+msgstr "；执行事件"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Item awaiting reconciliation"
+msgstr "待核对项目"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Execution event"
+msgstr "执行事件"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Select fees to bill"
+msgstr "选择费用出账"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Cancel and return to viewing"
+msgstr "取消并返回查阅"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Waive receivable with evidence"
+msgstr "有据免单"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Record actual collection"
+msgstr "登记实际收款"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Bill key"
+msgstr "账单键"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Collection"
+msgstr "收款"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Collection reference"
+msgstr "收款键"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "; native payment reference"
+msgstr "；原生付款键"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Correct collection channel"
+msgstr "更正收款渠道"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Refund reference"
+msgstr "退款键"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "; entered UTC"
+msgstr "；录入 UTC"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "; request reason"
+msgstr "；申请原因"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Refund request · original collection"
+msgstr "退款申请 · 关联收款"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Review refund request"
+msgstr "审批退款申请"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Confirm actual refund"
+msgstr "确认实际退款"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Record unknown refund result"
+msgstr "记录退款未知结果"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Verify no refund before recovery"
+msgstr "核实未退后恢复"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Cancel refund request"
+msgstr "取消退款申请"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Complete daily close"
+msgstr "办理日结"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid ""
+":\n"
+"                            Actual collections"
+msgstr ""
+"：\n"
+"                            实收"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid ""
+", non-terminal refund exposure (snapshot at confirmation, includes "
+"unapproved requests)"
+msgstr "、未终结退款占用（确认时快照，含未批准申请）"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Unlock daily close with evidence"
+msgstr "有据解锁日结"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Daily close reference"
+msgstr "日结键"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "; cycle"
+msgstr "；周期"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "; confirmed UTC"
+msgstr "；确认 UTC"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Process intercompany stock transaction"
+msgstr "办理跨法人库存交易"
