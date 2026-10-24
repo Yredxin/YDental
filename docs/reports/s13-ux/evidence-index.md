@@ -2,7 +2,7 @@
 
 本目录只公布索引和必要SHA，不上传原件、截图、原始审阅报告、请求日志、身份/provider、认证散列或运行连接配置。下列相对路径均位于本机忽略的 `.local/s13/`，不是可从Public下载的文件。正常角色及权限、源码边界见[summary](summary.md)，适用断言见[矩阵](acceptance-matrix.md)。
 
-最终独立fresh与软件总验已完成；远端同步待收口，缺证据不补PASS。历史错误scope页眉不用于新准入；实际模板/布局、每页审阅及源码候选分开。
+最终独立fresh、软件总验及正常远端/Issue同步读回已完成；缺证据不补PASS。历史错误scope页眉不用于新准入；实际模板/布局、每页审阅及源码候选分开。
 
 |证据|实际层级/限定|私有相对路径|SHA256|
 |---|---|---|---|
@@ -108,4 +108,4 @@
 
 ## 最终同步
 
-正常push/ref、main仅文档路由及#37唯一最终评论读回待末次追加。当前SYNC_PENDING；#37仍须OPEN，#36保持CLOSED。
+**SYNCED**：首报告fa89ef1f5e4ee6365846aad67cab3de85f252bba与main两文档0b3cf95e1762786f8ccbea48291ef2fa0b630b12实际ref/全文/blobSHA读回一致；[唯一#37最终评论6382778460](https://github.com/Yredxin/YDental/issues/37#issuecomment-6382778460)逐字匹配且OPEN/2评论，#36仍CLOSED/2评论未改。首私有`verification/first-final-sync-readback.json` SHA `222a06b9e64a23610901e337df687934ee09055329011fe07948a2a61e92a172`。末次同名元事实文档正常push/ref及同一评论更新再读回写`verification/final-sync-readback.json`，不为自引用SHA循环追加业务；最终full报告HEAD见同一#37评论。产品/执行候选d601/e85不变。

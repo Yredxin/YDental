@@ -1,6 +1,6 @@
 # S13 首批岗位界面、中文报表与文书版式结果
 
-`YD-S13-UX-DOCUMENTS-V1 / 1.0`。**TECHNICALLY_COMPLETE / SYNC_PENDING**：本子计划UX-01—08（含P2）、F1—5及T01—21适用软件断言、T22本地包和复现路径完成，未实现者独立总验无剩余必需软件缺口；远端同步收口中。完整 S13 未完成，#37 保持 OPEN，#36 保持 CLOSED。用户亲手效果验收待确认；正式发布、实机、生产、产品合 main 未启用。
+`YD-S13-UX-DOCUMENTS-V1 / 1.0`。**TECHNICALLY_COMPLETE / SYNCED**：本子计划UX-01—08（含P2）、F1—5及T01—21适用软件断言、T22本地包、复现路径及正常远端/Issue同步读回完成，未实现者独立总验无剩余必需软件缺口。完整 S13 未完成，#37 保持 OPEN，#36 保持 CLOSED。用户亲手效果验收待确认；正式发布、实机、生产、产品合 main 未启用。
 
 ## 候选和组织
 
@@ -118,4 +118,4 @@ frontdesk8结算、warehouse-only17、export9/11/13/14/17临时权限均由正�
 
 最后正常窗口 `20261024T092730Z-868987ca8c34` 于09:32:38UTC正常stop，child0/signull/noNative、owned进程组已停、无active-owner记录。资源scope原17:42:54UTC未延；有效scope不代表服务仍在线。正常复开须另核实际资源记录/所有权和fresh admission；127.0.0.1:18411仅服务器本机地址，不是其他电脑直达承诺，无用户可接手窗口声明。正常复开核真实目标、权限、filestore、owned进程和新鲜admission，走现有launcher，不装桌面/共享会话/改认证或旧STOP。
 
-最终正常push/ref、必要main文档路由、仅#37一次最终结果及状态均须实际读回；当前SYNC_PENDING。结束不自动启下一计划。
+**SYNCED**：首报告fa89ef1f5e4ee6365846aad67cab3de85f252bba的业务ref及计划/CURRENT/三报告实际正文与本地逐字/blobSHA同；main仅两份文档0b3cf95e1762786f8ccbea48291ef2fa0b630b12正常push/ref/全文读回。[#37唯一最终结果6382778460](https://github.com/Yredxin/YDental/issues/37#issuecomment-6382778460)逐字读回，OPEN/2评论；#36保持CLOSED/2评论，无重开/追加。首同步私有回执SHA222a06b9e64a23610901e337df687934ee09055329011fe07948a2a61e92a172。其后只补同步事实的报告提交/最终ref及本评论更新实际读回记同一回执，最终full报告HEAD见#37，不自嵌自身hash。结束不自动启下一计划。

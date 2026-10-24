@@ -1,8 +1,8 @@
 # S13 首批当前状态｜YD-S13-UX-DOCUMENTS-V1 / 1.0
 
-## TECHNICALLY_COMPLETE（限定合成软件范围）/ SYNC_PENDING
+## TECHNICALLY_COMPLETE（限定合成软件范围）/ SYNCED
 
-- 本批 [完整计划](docs/execution/S13_UX_IMPLEMENTATION_PLAN.md) 的 UX-01—08（含P2）、F1—5和T01—21适用软件断言已获未实现者独立通过；T22本地代码/私有只读包/三岗位复现路径通过，正常远端/Issue同步收口中。总独立回执cf9bbc6cc4a5bd3cfda972478136add714afd0da950dfdb584177ad9664abd7d，无剩余必需软件缺口。最终结果、层级/限制、逐项预期实际及SHA见 [summary](docs/reports/s13-ux/summary.md)、[矩阵](docs/reports/s13-ux/acceptance-matrix.md)、[索引](docs/reports/s13-ux/evidence-index.md)。用户亲手效果验收待确认；完整S13未完成，#37保持OPEN，#36保持CLOSED。
+- 本批 [完整计划](docs/execution/S13_UX_IMPLEMENTATION_PLAN.md) 的 UX-01—08（含P2）、F1—5和T01—21适用软件断言已获未实现者独立通过；T22本地代码/私有只读包/三岗位复现路径及正常远端/Issue同步读回完成。总独立回执cf9bbc6cc4a5bd3cfda972478136add714afd0da950dfdb584177ad9664abd7d，无剩余必需软件缺口。最终结果、层级/限制、逐项预期实际及SHA见 [summary](docs/reports/s13-ux/summary.md)、[矩阵](docs/reports/s13-ux/acceptance-matrix.md)、[索引](docs/reports/s13-ux/evidence-index.md)。用户亲手效果验收待确认；完整S13未完成，#37保持OPEN，#36保持CLOSED。
 - 正常承接 a437464351220605bf14b8f50181132266272d65 至 `codex/s13-ux-documents-r1`；最终产品 `d601bef157c5539875504ed217170eb31780cbc4`、执行/工具 `e85ae5a700d2ec308ed07806c97745be40e4c341`，其后仅报告/路由文档。core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`不改。无reset/clean/强推/覆盖未知worktree；main只文档路由，不合产品。
 - /root唯一主控/运行/集成；reports报表、documents文书及翻译、tester验证工具；acceptance未实现产品或测试工具，独立SOURCE/原始进程、全部PDF逐页/两视口图片及新物理提交保护。共享OS不冒隔离，旧未知进程/worktree保留，没有并行主控调度。
 - 中文12指标/授权选择/真实回源及CSV、三岗位业务搜索/默认查阅/按需办理、终态复诊只读与旧页409、外部原件账单/前版选择、A4/80mm/100×70演示版式均已落实际产品。默认合成模板7、共同布局7；显式既有/新发布合成内容模板保留实际code/version，新原件另存，旧原件不重排。
@@ -17,6 +17,8 @@
 - 私有只读效果包 `.local/s13/viewing/S13-UX-view-only-20261024.zip`，49,275,591bytes/0400，SHA761163a3d8b9e16265561b1db151d8051dfcbe079e65af333e7186184901b01e；222成员=19最终PDF+17旧PDF+183PNG+README/派生审阅索引/manifest，全成员实际SHA读回，独立126c9c01…核。无凭据/session/profile/连接配置/原始请求日志/备份/独立字体。26中间迭代原件仍保留在库/私有证据，未装包不等于删除。
 - 真实浏览器Native139首因UNKNOWN保留18f1e081…，Odoo另正常0；本项目private Playwright/greenlet兼容和生命周期修正后同入口实际0，不确诊根因或反签旧风险。309检查器Unicode/NFKC及root目测误判已纠正，01659提议从未加载、正常forward revert，原PDF不改。snapshot旧S12页眉e62c未获绑定，新e85使用当前S13scope/实际基线，不改旧资源/业务。全部普通失败原日志保留。
 - 结束仅#37一份本子计划最终结果并保持OPEN，不动#36，不产品合main/部署/启动下一计划。完整S13全链/50活动会话/持续备份恢复/实机/正式政策/真实患者资金/外部通道/生产及用户亲手验收仍未启用或待用户；S11一次扫码接收入库仍待产品决定。最终报告HEAD/同步回执以#37及实际读回为准，不自嵌自身hash。
+
+- **SYNCED**：第一轮报告fa89ef1f5e4ee6365846aad67cab3de85f252bba正常push/ref及5份计划/报告/状态正文逐字/实际blobSHA读回同；main仅CURRENT/GPT_HANDOFF文档0b3cf95e1762786f8ccbea48291ef2fa0b630b12正常push/ref/正文读回，无产品合并。[#37唯一最终回执6382778460](https://github.com/Yredxin/YDental/issues/37#issuecomment-6382778460)正文逐字同，#37 OPEN/2评论；#36 CLOSED/2评论保持未改。首回执first-final-sync-readback.json SHA222a06b9e64a23610901e337df687934ee09055329011fe07948a2a61e92a172。此后仅本地/远端同步元事实文档，最终full报告HEAD见同一#37评论及最后ref读回；不重复业务。
 
 ---
 
