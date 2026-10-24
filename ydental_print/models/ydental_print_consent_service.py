@@ -57,11 +57,20 @@ class YDentalPrintConsentService(models.AbstractModel):
                 raise ValidationError(self.env._('invalid_evidence: Upload a valid PDF of at most 5 MB and 80 pages.'))
         except (binascii.Error, ValueError, PdfReadError) as error:
             raise ValidationError(self.env._('invalid_evidence: Upload a valid bounded PDF.')) from error
+        file_sha = hashlib.sha256(raw).hexdigest()
+        prior = self.env['ydental.consent.evidence'].sudo().search([('sha256', '=', file_sha)], limit=1)
+        if prior:
+            if prior.original_id != original:
+                raise UserError(self.env._('signature_reuse: This uploaded file is already associated with another consent original. Do not reuse a signature for a different document.'))
+            service._original_audit('consent_upload_repeat', source, 'medical', {'evidence_id': prior.id,
+                'state': prior.state, 'synthetic': prior.synthetic, 'sha256': prior.sha256})
+            return {'evidence_id': prior.id, 'state': prior.state, 'sha256': prior.sha256,
+                'synthetic': prior.synthetic, 'duplicate': True}
         evidence = self.env['ydental.consent.evidence']._new({'original_id': original.id, 'patient_id': original.patient_id.id,
             'store_id': original.store_id.id, 'template_id': original.template_id.id,
             'template_sha256': original.template_sha256, 'uploaded_by_id': self.env.uid,
             'uploaded_at': fields.Datetime.now(), 'filename': filename.strip(),
-            'sha256': hashlib.sha256(raw).hexdigest(), 'synthetic': original.template_facts['synthetic'], 'state': 'pending'})
+            'sha256': file_sha, 'synthetic': original.template_facts['synthetic'], 'state': 'pending'})
         attachment = self.env['ir.attachment'].sudo().create({'name': filename.strip(), 'type': 'binary', 'raw': raw,
             'mimetype': 'application/pdf', 'res_model': evidence._name, 'res_id': evidence.id,
             'company_id': original.company_id.id, 'public': False, 'access_token': False})
