@@ -1,0 +1,55 @@
+<odoo>
+    <record id="ydental_operating_report_action" model="ir.actions.act_url">
+        <field name="name">经营报表与回源</field><field name="url">/ydental/reports</field><field name="target">self</field>
+    </record>
+    <menuitem id="ydental_operating_report_menu" name="经营报表与回源" action="ydental_operating_report_action" groups="ydental_base.ydental_base_group_user"/>
+    <template id="ydental_operating_report_source" name="Reauthorized operating report source detail">
+        <t t-call="web.layout"><main class="container py-4 o_ydental_reporting_source">
+            <h1 t-out="title"/><p>本次原业务事实及过滤（重新核源权）：</p><pre t-out="filters"/>
+            <article t-foreach="rows" t-as="row"><h2><t t-out="row['source_model']"/> / <t t-out="row['source_id']"/></h2>
+                <p>门店<t t-out="row['store_id']"/>；法人<t t-out="row['company_id']"/>；事件日期<t t-out="row['event_date']"/>；状态<t t-out="row['state']"/></p>
+                <p>数值<t t-out="row['value']"/> / <t t-out="row['unit']"/></p><pre t-out="row['facts']"/>
+                <p t-if="row['requires_store_switch']">原业务页面需先选择此来源门店；报表链接不代替原单权限。</p>
+                <p><a t-att-href="row['native_url']">原生来源（另核模型权限）</a> | <a href="/ydental/settlement">结算原单、收款分摊及退款</a> | <a href="/ydental/queue">正常临床入口</a> | <a href="/ydental/followups">复诊来源</a> | <a href="/ydental/access">选择门店</a></p>
+            </article><a href="/ydental/reports">经营报表</a>
+        </main></t>
+    </template>
+    <template id="ydental_operating_report_page" name="Source-backed operating reports">
+        <t t-call="web.layout">
+            <main class="container py-4 o_ydental_reporting">
+                <h1>经营报表与原业务回源</h1>
+                <p>合成软件口径待业务负责人审核。实收不是收入、贷项不是实退。币种、项目及单位分组，不提供完整毛利或历史截至日余额。</p>
+                <nav><a href="/ydental/access">当前门店与权限</a> | <a href="/ydental/documents">文书原件</a> | <a href="/ydental/settlement">线下结算</a></nav>
+                <form action="/ydental/reports" method="get">
+                    <input type="hidden" name="revision" t-att-value="revision"/>
+                    <p><label>指标 <select name="metric"><option t-foreach="choices" t-as="choice" t-att-value="choice['key']" t-att-selected="choice['key'] == values['metric']" t-out="choice['label']"/></select></label></p>
+                    <p><label>当地开始日 <input name="date_from" type="date" t-att-value="values['date_from']" required="required"/></label> <label>当地结束日 <input name="date_to" type="date" t-att-value="values['date_to']" required="required"/></label></p>
+                    <p><label>门店ID（逗号分隔，逐店鉴权） <input name="store_ids" t-att-value="values.get('store_ids','')"/></label> <label>法人ID <input name="company_id" type="number" t-att-value="values.get('company_id','')"/></label> <label>币种ID <input name="currency_id" type="number" t-att-value="values.get('currency_id','')"/></label> <label>来源状态 <input name="state" maxlength="50" t-att-value="values.get('state','')"/></label></p>
+                    <button type="submit">按源权限查询</button>
+                </form>
+                <h2 t-out="report['title']"/>
+                <p><strong t-out="'期间发生额' if report['filters']['period_or_snapshot']=='period' else '查询时点快照；日期只限定来源群，非历史截至日余额'"/></p>
+                <p>查询UTC：<t t-out="report['filters']['query_at_utc']"/>；源记录：<t t-out="report['source_row_count']"/>。</p>
+                <p>联合范围合计（唯一患者为联合去重，不相加门店人数）：<span t-out="report['totals']"/></p>
+                <p>分门店：<span t-out="report['store_totals']"/></p>
+                <details><summary>本次过滤及各店当地日/UTC边界</summary><pre t-out="report['filters']"/></details>
+                <form action="/ydental/reports/export" method="post">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input type="hidden" name="revision" t-att-value="revision"/>
+                    <input t-foreach="['metric','date_from','date_to','store_ids','company_id','currency_id','state']" t-as="field_name" type="hidden" t-att-name="field_name" t-att-value="values.get(field_name,'')"/>
+                    <button type="submit">导出本次全部来源（另核逐店导出权）</button>
+                </form>
+                <table class="table"><thead><tr><th>门店 / 法人</th><th>来源 / 实际日期</th><th>状态</th><th>数值 / 单位</th><th>必要回源事实</th><th>钻取原单</th></tr></thead><tbody>
+                    <tr t-foreach="report['rows']" t-as="row">
+                        <td><t t-out="row['store_id']"/> / <t t-out="row['company_id']"/></td>
+                        <td><t t-out="row['source_model']"/> / <t t-out="row['source_id']"/><br/><t t-out="row['event_date']"/></td>
+                        <td t-out="row['state']"/><td><t t-out="row['value']"/> <t t-out="row['unit']"/></td>
+                        <td t-out="row['facts']"/>
+                        <td><p t-if="row['requires_store_switch']">先在正常入口选择该来源门店，再打开原单。</p><a t-att-href="row['source_url']">原业务单据（重新鉴权）</a></td>
+                    </tr>
+                </tbody></table>
+                <nav><a t-if="report['page'] > 1" t-att-href="previous_url">上一页</a> 第<t t-out="report['page']"/>页 <a t-if="report['page'] * report['page_size'] &lt; report['source_row_count']" t-att-href="next_url">下一页</a></nav>
+            </main>
+        </t>
+    </template>
+</odoo>
