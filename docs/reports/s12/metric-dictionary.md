@@ -9,7 +9,7 @@
 |executions / 执行事件及项目单位|confirmed treatment.event，按catalog/uom/kind分别sum(quantity)和count；correction单列符号数量|ydental_business_date；排除pending、订单/草稿；prescription显示实际发药，不能当治疗项目|逐店实际medical/exam/pharmacy类别源读取，页面和导出明示纳入类别；钻实际事件/来源文书/价格快照|
 |original_billing / 币种金额|所选店settlement.source引用posted out_invoice去重后sum(amount_total)|account.move.invoice_date，原出账正数；不扣冲销，不重定价|settlement；钻原生invoice及source/fee/charge|
 |credits / 币种金额|posted out_refund的amount_total正数单列；由本店source、实际refund关联或实际native partial.reconcile连到本店原账单确定；origin文本只在已获权候选内精确定位，不能作为授权|invoice_date；排除draft/cancelled，贷项不冒实退|settlement；钻credit及原bill关联，输出显式original_bill_ids|
-|collections / 币种金额|sum(settlement.payment.ydental_amount)，必须有posted原生付款分录|ydental_business_date，actual_at/entered_at/cashier/channel回源；不把生成凭据当收款|settlement；钻offline确认及原生payment/所选invoices|
+|collections / 币种金额|sum(settlement.payment.ydental_amount)，必须有posted原生付款分录|ydental_business_date，actual_at/entered_at/cashier回源；original_channel不可变，effective_channel复用S10最新correction标签并列correction IDs，不追改原收款发生额；不把生成凭据当收款|settlement；钻offline确认及原生payment/所选invoices|
 |refunds / 币种金额|sum(settlement.refund.ydental_amount)，state=done且native_payment实际posted|ydental_refund_business_date优先；历史NULL用actual_at当地日并逐行标来源；两日期都无则明确拒绝完整统计，actual_at/executor/channel；跨日不改收款日|settlement；钻refund及payment/credit|
 |approved_pending / 当前币种金额|当前approved/failed/unknown且未done的refund金额|查询时点快照，按requested_at当地日筛选可追溯请求；历史NULL用create_date当地日并逐行标来源；requested/rejected/cancelled与done排除|settlement；批准待执行不是实退；钻refund|
 |receivables / 当前币种余额|posted本店out_invoice当前amount_residual，逐单核receivable与partial.reconcile|查询时点快照；日期仅限定原账单群，非历史截至日余额|settlement；钻原bill及核销；不用期间收款相减替代|

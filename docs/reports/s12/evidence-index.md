@@ -9,3 +9,13 @@
 |独立清单|SOURCE F1—F4/T01—T12，不冒动态PASS|.local/s12/acceptance/checklist.md|待固定|
 
 最终16行矩阵须实际产品/文件/请求/独立提交及升级完成后填写；正式正文/真实税票/物理设备分别NOT_RUN。
+
+|证据|层级/结论|私有路径|SHA-256|
+|---|---|---|---|
+|首chain最终原key恢复|NORMAL_HTTP＋不同物理连接提交读回|.local/s12/first-loop/first-normal-recover-font-20261024/result.json|1a18f99e715d2619b38f2635074fbd314bd10c0cc9b1a0e5c36deca4e4db1a1d|
+|真实PDF前/后|2页A4，改新主档后原bytes相同|同目录original-before.pdf / original-after.pdf|ddb3962685c62ff531360c16edcf1e5ab9d9a829cd616ee81688e7b8a01ac8d1|
+|首链独立总回执|原始19步HTTP、新RO快照/文件/17表逐值、逐页亲看；有旧排版跟进，不冒全S12|.local/s12/acceptance/first-loop-independent.json|3828129241eb8d68da59eaa278c28d340842f76dfb98e0f1a2bf544ec26a1976|
+|首链独立RO|backend3899453/源/模板/render SHA/附件与两HTTP文件/审计/经济保护|.local/s12/acceptance/first-original-readback.json|2ea980e333ac92f13d380e4365f0a48d56ba15b582750355558e2c9d8beb0b5d|
+|首语言失败|真实preview409，无原件无更名；正常管理后续行|.local/s12/first-loop/first-normal-20261024/result.json|2b1c99b12c103509b758fd539fd50421d18b4beeff9537961e01e618151b8c10|
+|首字体失败|真实generate409，独立核原key无提交后同key恢复|.local/s12/first-loop/first-normal-resume-zhcn-20261024/result.json|d5de94a48080908601e2f3ccc19c95c34a52ac0cf56653adeeffd068b3a55e0d|
+|初始升级独立|完整即时pre后限定4模块，0/ERROR0，旧事实/附件保持；非final|.local/s12/acceptance/initial-upgrade-independent.json|932e7ad196ffd12b5f42e56af1750488af2373270d45f5c74cf09c461e03d04c|

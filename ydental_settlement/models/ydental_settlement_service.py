@@ -684,9 +684,15 @@ class YDentalSettlementService(models.AbstractModel):
                 'actually_refunded': 0}
 
     def _effective_channel(self, payment):
-        correction = self._model('correction').search([('ydental_payment_id', '=', payment.id)],
-                                                     order='id desc', limit=1)
-        return correction.ydental_new_channel if correction else payment.ydental_channel
+        return self._effective_channels(payment)[payment.id]
+
+    def _effective_channels(self, payments):
+        result = {payment.id: payment.ydental_channel for payment in payments}
+        corrections = self._model('correction').search([
+            ('ydental_payment_id', 'in', payments.ids)], order='id')
+        for correction in corrections:
+            result[correction.ydental_payment_id.id] = correction.ydental_new_channel
+        return result
 
     def _day_bounds(self, store, day):
         zone = ZoneInfo(store.ydental_timezone)

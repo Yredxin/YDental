@@ -55,7 +55,7 @@ NATIVE_BUSINESS={
 }
 TECH_TABLES={'ir_model','ir_model_fields','ir_model_access','ir_rule','ir_ui_view','ir_ui_menu','ir_model_data',
              'ir_module_module','ir_cron','ir_actions','ir_act_window',
-             'ir_act_report_xml','report_paperformat'}
+             'ir_act_report_xml','report_paperformat','ir_act_url','res_lang'}
 
 def canonical(v):
  if isinstance(v,(dt.datetime,dt.date,dt.time)):return v.isoformat()
@@ -156,6 +156,8 @@ def collect(args):
     'ir_act_window':"id IN (SELECT res_id FROM ir_model_data WHERE model='ir.actions.act_window' AND module LIKE 'ydental%')",
     'ir_act_report_xml':'TRUE',
     'report_paperformat':'TRUE',
+    'ir_act_url':'TRUE',
+    'res_lang':'TRUE',
    }
    for t,where in technical_where.items():
     if t in schema:selected[t]=(where,())

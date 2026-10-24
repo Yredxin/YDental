@@ -175,7 +175,7 @@ class YDentalReportingService(models.AbstractModel):
                 # native bill by source, refund, or actual native reconciliation.
                 # Invoice-origin text alone is never a cross-store authorizer.
                 refunds = self._bounded('ydental.settlement.refund', fields.Domain('ydental_payment_id.ydental_store_id', '=', store.id))
-                direct = links.ydental_invoice_id | refunds.ydental_credit_note_ids
+                direct = links.ydental_invoice_id | refunds.ydental_credit_note_ids | refunds.ydental_credit_note_id
                 partials = self._bounded('account.partial.reconcile',
                     fields.Domain('debit_move_id', 'in', invoices.line_ids.ids)
                     & fields.Domain('credit_move_id.move_id.move_type', '=', 'out_refund'))
@@ -183,7 +183,7 @@ class YDentalReportingService(models.AbstractModel):
                 for part in partials:
                     credit_origins[part.credit_move_id.move_id.id].add(part.debit_move_id.move_id.id)
                 for refund in refunds:
-                    for credit in refund.ydental_credit_note_ids:
+                    for credit in refund.ydental_credit_note_ids | refund.ydental_credit_note_id:
                         credit_origins[credit.id].update(refund.ydental_payment_id.ydental_invoice_ids.filtered(
                             lambda row: row.company_id == credit.company_id and row.partner_id == credit.partner_id
                             and row.currency_id == credit.currency_id and row.name == credit.invoice_origin).ids)
@@ -207,10 +207,19 @@ class YDentalReportingService(models.AbstractModel):
             return rows
         if metric == 'collections':
             sources = self._bounded('ydental.settlement.payment', scope & dates('ydental_business_date'))
+            finance = self.env['ydental.settlement.service']
+            channels = finance._effective_channels(sources)
+            corrections = self._bounded('ydental.settlement.correction', fields.Domain('ydental_payment_id', 'in', sources.ids))
+            correction_ids = defaultdict(list)
+            for correction in corrections:
+                correction_ids[correction.ydental_payment_id.id].append(correction.id)
             return [self._row(row, store, row.ydental_amount, 'currency:%s' % row.ydental_currency_id.id,
                 row.ydental_business_date, 'posted', row.ydental_patient_id.id, currency=row.ydental_currency_id.name,
                 actual_at=str(row.ydental_actual_at), entered_at=str(row.ydental_entered_at),
-                actor_id=row.ydental_cashier_id.id, channel=row.ydental_channel,
+                actor_id=row.ydental_cashier_id.id, original_channel=row.ydental_channel,
+                effective_channel=channels[row.id],
+                channel_basis='current_corrected_label_with_immutable_original',
+                channel_correction_ids=correction_ids[row.id],
                 native_payment_id=row.ydental_payment_id.id, invoice_ids=row.ydental_invoice_ids.ids)
                 for row in sources if row.ydental_payment_id.move_id.state == 'posted']
         if metric in ('refunds', 'approved_pending'):
@@ -240,7 +249,8 @@ class YDentalReportingService(models.AbstractModel):
                     row.ydental_state, row.ydental_payment_id.ydental_patient_id.id,
                     currency=row.ydental_currency_id.name, actual_at=str(row.ydental_actual_at or ''),
                     actor_id=row.ydental_executor_id.id, approver_id=row.ydental_approver_id.id,
-                    native_payment_id=row.ydental_native_payment_id.id, credit_note_ids=row.ydental_credit_note_ids.ids,
+                    native_payment_id=row.ydental_native_payment_id.id,
+                    credit_note_ids=(row.ydental_credit_note_ids | row.ydental_credit_note_id).ids,
                     original_payment_id=row.ydental_payment_id.id, channel=row.ydental_refund_channel or '',
                     event_date_source=date_source))
             return rows

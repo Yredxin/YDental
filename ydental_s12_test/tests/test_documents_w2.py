@@ -2,6 +2,7 @@ import base64
 import hashlib
 from unittest.mock import patch
 
+from odoo import Command
 from odoo.addons.base.tests.common import BaseCommon
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tests import tagged
@@ -20,6 +21,11 @@ class TestDocumentsW2(BaseCommon):
         demo_supply = patch.object(type(cls.env['ydental.supply.service']), '_allow_demo_supply', return_value=True)
         demo_supply.start()
         cls.addClassCleanup(demo_supply.stop)
+        root = cls.env['base'].sudo().env
+        root.ref('base.group_user').write({'implied_ids': [
+            Command.link(root.ref('stock.group_stock_multi_warehouses').id),
+            Command.link(root.ref('stock.group_stock_multi_locations').id),
+        ]})
         setup(cls)
 
     def _source(self, confirmed=True):

@@ -1,5 +1,6 @@
 import hashlib
 import json
+from unittest.mock import patch
 
 from odoo.tests import HttpCase, tagged
 
@@ -14,6 +15,10 @@ class TestDocumentOriginalsHTTP(TestClinicalHTTP):
     @classmethod
     def setUpClass(cls):
         HttpCase.setUpClass.__func__(cls)
+        cls.demo_supply_patch = patch.object(type(cls.env['ydental.supply.service']),
+                                            '_allow_demo_supply', return_value=True)
+        cls.demo_supply_patch.start()
+        cls.addClassCleanup(cls.demo_supply_patch.stop)
         setup(cls)
 
     def document_action(self, operation, payload, revision=None):

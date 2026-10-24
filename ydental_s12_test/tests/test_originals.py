@@ -9,8 +9,8 @@ from odoo.exceptions import AccessError, UserError
 from odoo.tests import tagged
 from odoo.tools.pdf import PdfFileReader
 
-from odoo.addons.ydental_treatment_test.tests.common import bind, key, save_args
-from odoo.addons.ydental_treatment_test.tests.treatment_common import opened_actual, setup
+from odoo.addons.ydental_treatment_test.tests.common import bind, key, save_args, setup
+from odoo.addons.ydental_treatment_test.tests.treatment_common import opened_actual
 
 
 @tagged('post_install', '-at_install')
@@ -20,6 +20,12 @@ class TestDocumentOriginals(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        # A class-local synthetic supply seam, as in the accepted S11 tests.
+        # Persistent normal-role business evidence uses the unpatched service.
+        cls.demo_supply_patch = patch.object(type(cls.env['ydental.supply.service']),
+                                            '_allow_demo_supply', return_value=True)
+        cls.demo_supply_patch.start()
+        cls.addClassCleanup(cls.demo_supply_patch.stop)
         setup(cls)
 
     def source(self, confirmed=True):

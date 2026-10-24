@@ -2,6 +2,16 @@
 
 ## 当前：IMPLEMENTING；#36 OPEN
 
+### 2026-10-24 UTC：首条真实原件闭环已完成，连续实施W1—W5
+
+- 初始产品/执行候选333ef107925a61d9f247640c7c0c0d6754f9e2e9。完整140业务/11技术/14附件即时pre成功后限定升级print/exam/settlement/lab，原生0/ERROR0；post143/11/14，独立932e7ad…逐值分类：3新空模型表、771原生write_date及本次模型/视图/80mm等新增，旧业务/权限语义/附件/配置保持。不是最终带数据升级。
+- 首链新slot697/patient254/task603/execution293/document273 confirmed v2/author9，经普通6/8/9正常HTTP形成；handover后continuation604 pending为真实待处理，不假完成/删除。首preview真实409因zh_CN inactive，后generate真实409因Noto缺环境。均先独立RO核无original/未更名/经济保持，再恢复；不重做前段。
+- 正常UID2原生res.lang.action_activate_langs启用zh_CN（未重装模块/未覆盖翻译）；S12私有fontconfig引用受版本管理Noto真实字体，fc-match核family/file/hash，未改字体validator/OS配置。scope真实延续，不倒填旧窗口。第一次owned run001116正常stop/child0；第二run001857Z-1429b87d5941同候选携真实FONTCONFIG_FILE，后已正常stop/child0/无active。
+- **首条闭环实际PASS（限定）**：原key生成original1→普通9下载2页A4→普通8正常更名patient254/v2→9重印，真实PDF前后字节一致，SHA `ddb3962685c62ff531360c16edcf1e5ab9d9a829cd616ee81688e7b8a01ac8d1`。首原件1保持，不改写。独立原始HTTP+新物理RO3899453核source/template/render哈希、actor/author/实际生成时间、附件原bytes、四种行为审计及17经济库存表全字段保持。独立总回执3828129241eb8d68da59eaa278c28d340842f76dfb98e0f1a2bf544ec26a1976。
+- 首两页亲看中文可读无裁切/重叠；旧333版页1病史标题孤立与页2缺来源footer均保留。W2新模板已修keep-together/footer，须新版本逐页复验，不能改原件1冒修复。不是浏览器/并发/正式正文/出纸或全S12通过。
+- 已继续集成W2同意书/核验/显式政策、全集合草稿/完整/摘录和跨selection更正链；报表只读投影、字典与源授权初稿已落。独立SOURCE限定通过，未动态冒PASS。下一动作：冻结新增产品/测试，完整pre→仅安装reporting+s12_test、限定升级四现有模块→运行适用原生测试；接真实新合成F2/T11经济链、双连接、浏览器与全部样张视觉、最终带数据升级。
+
+
 - 用户本会话明确启用S12，替代上一计划“不启动S12”；不启动S13、不合并、不部署。[完整计划](docs/execution/S12_IMPLEMENTATION_PLAN.md)已纳入。计划原文日期2026-10-24，现场系统日期2026-10-23，执行用实际UTC，不倒填。
 - 已完整读main/GPT_HANDOFF、AGENTS、CURRENT_TASK、活动状态、#23及有效评论、#36及6246235470、#35最终6368848927。origin=Yredxin/YDental；工作树干净，本地/远端S11均e100e098dea5b919f3c9ca09454d239189e69ad1，从此建 `codex/s12-documents-reports-r1`。main最小文档同步待做。
 - 主控 `/root` 统一写权/数据库/服务调度并实现财务文书及指标；真实 `/root/developer` 负责临床原件/同意/检查处方标签，`/root/tester` 负责测试/工具，`/root/acceptance` 未实现者独立验收。共享OS不冒隔离，不能自签实现。没有其他活跃团队。
