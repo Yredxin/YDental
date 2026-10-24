@@ -312,6 +312,7 @@ msgstr "下载 PDF"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Draft"
 msgstr "草稿"
 
@@ -2057,3 +2058,36 @@ msgid ""
 "Patient labels identify the source patient record. Saved PDFs retain the "
 "identity and state at generation."
 msgstr "患者标签用于识别来源患者主档；已保存PDF保留生成时的身份和状态。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Operation accepted. Review the saved original or related record below."
+msgstr "操作已受理，请核对下方保存原件或相关记录。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Operation trace"
+msgstr "操作追溯"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Latest saved original"
+msgstr "此来源的最新原件"
+
+#. module: ydental_print
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+#, python-format
+msgid "Synthetic / unreviewed"
+msgstr "合成演示／未审核"
+
+#. module: ydental_print
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+#, python-format
+msgid "Reviewed"
+msgstr "已审核"
+
+#. module: ydental_print
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+#, python-format
+msgid "Published"
+msgstr "已发布"

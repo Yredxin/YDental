@@ -1400,3 +1400,8 @@ msgstr "下一页来源"
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
 msgid "Scrollable details"
 msgstr "可局部滚动的明细"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "Cancel and return to viewing"
+msgstr "取消并返回查阅"

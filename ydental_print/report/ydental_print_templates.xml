@@ -44,6 +44,7 @@
                     <p>Identification only; no receipt, put-away or notification.</p>
                     <p><span>Generated UTC:</span> <t t-out="p['generated_at']"/> / v<t t-out="p['version']"/></p>
                     <p><span>Layout:</span> <t t-out="p.get('layout_version', p['template'])"/></p>
+                    <p t-foreach="p.get('template_paragraphs', [])" t-as="paragraph" t-out="paragraph"/>
                     <p>Authorized source and full version trace: /ydental/documents</p>
                 </article>
             </t>
@@ -64,6 +65,7 @@
                 <p t-if="financial.get('channel')"><strong>Recorded channel:</strong> <t t-out="financial['channel']"/></p>
                 <p t-if="financial.get('reason')"><strong>Refund reason:</strong> <t t-out="financial['reason']"/></p>
             </div>
+            <section t-if="financial and p.get('template_paragraphs')"><h2>Reviewed template content</h2><p t-foreach="p['template_paragraphs']" t-as="paragraph" t-out="paragraph"/></section>
             <table t-if="not financial"><tbody><tr t-foreach="p.get('business_identity', p['identity']) + p.get('business_details', p['details'])" t-as="row"><td class="label" t-out="row[0]"/><td t-out="row[1]"/></tr></tbody></table>
             <section t-if="not financial" t-foreach="p['sections']" t-as="section">
                 <div class="o_ydental_print_section_intro"><h2 t-out="section['label']"/><p t-if="section['paragraphs']" t-out="section['paragraphs'][0]"/></div>

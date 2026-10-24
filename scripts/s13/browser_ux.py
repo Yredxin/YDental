@@ -1,0 +1,187 @@
+"""Normal-role browser software checks for the fixed S13 limited UX candidate.
+
+Only login, store selection, GET navigation, native details and cancel links.
+Economic forms are never submitted. No injected CSS or edited PDF is used.
+"""
+import argparse
+import datetime as dt
+import hashlib
+import importlib.util
+import json
+import os
+from pathlib import Path
+import re
+import sys
+from urllib.parse import urlencode, urlsplit, parse_qs
+
+ROOT=Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(ROOT/'scripts/s13'))
+from admission_probe import PLAN,PRIVATE,write_receipt
+from http_client import BASE,ROLE_PROVIDER,owned_service,private_json
+
+import browser_client as view
+SOURCE=ROOT/'scripts/s13/browser_client.py'
+
+def now():return dt.datetime.now(dt.UTC).isoformat()
+
+
+def screenshot(page,directory,label):
+    if page.locator('input[type="password"]').count():raise RuntimeError('No login-page screenshots')
+    out=directory/(label+'.png')
+    if out.exists():raise RuntimeError('Screenshots are never overwritten')
+    page.screenshot(path=str(out),full_page=True,timeout=30000);os.chmod(out,0o600)
+    return {'path':str(out.relative_to(ROOT)),'bytes':out.stat().st_size,'sha256':hashlib.sha256(out.read_bytes()).hexdigest(),'visual_review':'NOT_PERFORMED_BY_THIS_TOOL'}
+
+
+def measure(page):
+    return page.evaluate('''() => ({root:{scrollWidth:document.documentElement.scrollWidth,clientWidth:document.documentElement.clientWidth},
+        body:{scrollWidth:document.body.scrollWidth,clientWidth:document.body.clientWidth},devicePixelRatio:devicePixelRatio,
+        localScrollRegions:[...document.querySelectorAll('[role="region"], .o_ydental_access_scroll')].map(e=>({scrollWidth:e.scrollWidth,clientWidth:e.clientWidth,overflowX:getComputedStyle(e).overflowX})),
+        clippedContainers:[...document.querySelectorAll('main, main *')].filter(e=>getComputedStyle(e).overflowX==='hidden' && e.scrollWidth>e.clientWidth+1).slice(0,20).map(e=>({tag:e.tagName,classes:e.className}))})''')
+
+
+def visit(page,path,directory,label):
+    response=page.goto(BASE+path,wait_until='networkidle',timeout=40000)
+    page.evaluate('() => document.fonts.ready.then(()=>true)')
+    dimensions=measure(page)
+    item={'path':urlsplit(path).path,'query':parse_qs(urlsplit(path).query),'status':response.status if response else None,
+          'headings':page.locator('h1,h2').all_text_contents()[:12],'dimensions':dimensions,
+          'screenshot':screenshot(page,directory,label),'layer':'BROWSER'}
+    item['root_no_overflow']=dimensions['root']['scrollWidth']<=dimensions['root']['clientWidth']+1
+    item['no_clipped_container']=not dimensions['clippedContainers']
+    return item
+
+
+
+def search_interaction(page,directory,prefix,label):
+    form=page.locator('form[method="get"]').filter(has=page.locator('input[name="q"]')).first
+    if not form.count():return {'available':False}
+    if label=='documents':
+        options=page.locator('select[name="selection"] option').all_text_contents()
+        selected=next((value for value in options if ' / ' in value),'')
+        term=selected.split(' / ')[0].strip()
+    elif label=='settlement':
+        links=page.locator('.o_ydental_access_search li a').all_text_contents()
+        term=links[0].split(' · ')[-1].strip() if links else ''
+    else:
+        cells=page.locator('main table tbody tr td:first-child').all_text_contents()
+        term=next((value.strip() for value in cells if value.strip()),'')
+    if not term:return {'available':True,'result':'NO_EXISTING_AUTHORIZED_SEARCH_CHOICE'}
+    form.locator('input[name="q"]').fill(term)
+    form.locator('button').click();page.wait_for_load_state('networkidle',timeout=40000)
+    found={'business_text_search':term,'query_preserved':parse_qs(urlsplit(page.url).query).get('q')==[term],
+           'screenshot':screenshot(page,directory,prefix+'-search'),'dimensions':measure(page)}
+    if label=='settlement':
+        links=page.locator('.o_ydental_access_search li a')
+        if links.count():
+            links.first.click();page.wait_for_load_state('networkidle',timeout=40000)
+            found['normal_result_opened']=True;found['detail_screenshot']=screenshot(page,directory,prefix+'-search-detail')
+    form=page.locator('form[method="get"]').filter(has=page.locator('input[name="q"]')).first
+    form.locator('input[name="q"]').fill('S13-no-result-unique-query')
+    form.locator('button').click();page.wait_for_load_state('networkidle',timeout=40000)
+    found['no_result_screenshot']=screenshot(page,directory,prefix+'-no-result')
+    found['no_result_dimensions']=measure(page)
+    return found
+
+
+def report_selector_interaction(page,directory,prefix,metric):
+    form=page.locator('form.o_ydental_reporting_filters')
+    options=form.locator('select[name="metric"] option').evaluate_all('(rows)=>rows.map(row=>({value:row.value,label:row.textContent}))')
+    target=next((row for row in options if row['value']!=metric),None)
+    if not target:return {'result':'ONLY_ONE_AUTHORIZED_METRIC'}
+    form.locator('select[name="metric"]').select_option(label=target['label'])
+    page.wait_for_load_state('networkidle',timeout=40000)
+    changed=parse_qs(urlsplit(page.url).query)
+    result={'selected_metric_by_label':target['label'],'metric':target['value'],'stale_currency_company_state_cleared':not any(k in changed for k in ('currency_id','company_id','state'))}
+    form=page.locator('form.o_ydental_reporting_filters')
+    form.locator('input[name="date_from"]').fill('2026-10-01');form.locator('input[name="date_to"]').fill('2026-11-30')
+    stores=form.locator('select[name="store_ids"] option').evaluate_all('(rows)=>rows.map(row=>({value:row.value,label:row.textContent}))')
+    store=next((row for row in stores if row['value']=='1'),None)
+    if not store:raise RuntimeError('Current authorized store was absent from selector')
+    form.locator('select[name="store_ids"]').select_option(label=store['label']);result['store_selected_by_label']=store['label']
+    if form.locator('select[name="currency_id"]').count():
+        form.locator('select[name="currency_id"]').select_option(label='USD');result['currency_selected_by_label']='USD'
+    form.locator('button[type="submit"]').click();page.wait_for_load_state('networkidle',timeout=40000)
+    result['effective_query']=parse_qs(urlsplit(page.url).query);result['screenshot']=screenshot(page,directory,prefix+'-selector-submit');result['dimensions']=measure(page)
+    return result
+
+
+def main():
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--run-id',required=True);parser.add_argument('--label',required=True)
+    args=parser.parse_args()
+    if not re.fullmatch('[A-Za-z0-9_-]{1,60}',args.label):raise RuntimeError('Explicit bounded label required')
+    service=owned_service(args.run_id)
+    directory=PRIVATE/'verification'/('browser-'+args.label);directory.mkdir(mode=0o700,parents=True)
+    record={'status':'INCOMPLETE_BROWSER_CHECK','plan_id':PLAN,'service':service,'started_at_utc':now(),'actors':{},'pages':[],
+            'tool_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'layer':'BROWSER_HEADLESS_SOFTWARE',
+            'user_hand_verified':False,'credentials_profile_session_recorded':False,'business_actions_submitted':False,'automatic_replay':False,
+            'existing_browser_helper_sha256':hashlib.sha256(SOURCE.read_bytes()).hexdigest()}
+    write_receipt(directory/'intent.json',record)
+    accounts=private_json(ROLE_PROVIDER)['users']
+    report=lambda metric:'/ydental/reports?'+urlencode(dict(metric=metric,date_from='2026-10-01',date_to='2026-11-30',store_ids='1',**({'currency_id':1} if metric in ('original_billing','credits','collections','refunds','approved_pending','receivables') else {})))
+    jobs={'settlement':[('/ydental/access','access'),('/ydental/settlement?patient_id=521','settlement'),('/ydental/settlement/external-originals','external-originals')]+[(report(metric),metric) for metric in ('original_billing','credits','collections','refunds','approved_pending','receivables')],
+          'doctor':[('/ydental/documents','documents'),('/odoo/ydental.lab.order/214','native-lab214')]+[(report(metric),metric) for metric in ('unique_patients','arrivals','executions','lab_pending')],
+          'warehouse':[('/ydental/inventory','inventory'),(report('consumption'),'consumption')],
+          'followup':[('/ydental/followups','followups'),('/ydental/followups?followup_id=280#followup-280','followup280'),('/ydental/followups?followup_id=277#followup-277','closed-followup277'),(report('followups'),'followups-report')]}
+    sync=view.import_browser()
+    try:
+        with sync() as pw:
+            browser=pw.chromium.launch(headless=True,executable_path=str(view.CHROMIUM))
+            try:
+                for alias,cases in jobs.items():
+                    owned_service(args.run_id)
+                    context=browser.new_context(locale='zh-CN',timezone_id='UTC',viewport={'width':1366,'height':768})
+                    observer=view.Observer(context);page=context.new_page()
+                    auth=view.login(page,accounts[alias],accounts[alias]['id']);selected=view.switch_store(page,1)
+                    record['actors'][alias]={'authentication':auth,'store':selected}
+                    for width,height in ((1366,768),(1440,900)):
+                        page.set_viewport_size({'width':width,'height':height})
+                        for path,label in cases:
+                            owned_service(args.run_id)
+                            prefix=f'{alias}-{label}-{width}x{height}'
+                            item=visit(page,path,directory,prefix);item.update(alias=alias,viewport={'width':width,'height':height})
+                            record['pages'].append(item)
+                            item['visible_form_labels']=page.locator('label').all_text_contents()[:20]
+                            if label=='closed-followup277':
+                                closed=page.locator('#followup-277')
+                                item['closed_row_present']=closed.count()==1
+                                item['closed_contact_form_count']=closed.locator('input[name="operation"][value="contact"]').count() if closed.count() else None
+                            item['chinese_visible_heading']=any(re.search('[\u3400-\u9fff]',value) for value in item['headings'])
+                            if label in ('documents','settlement','inventory') and item['status']==200:
+                                item['search_interaction']=search_interaction(page,directory,prefix,label)
+                                page.goto(BASE+path,wait_until='networkidle',timeout=40000)
+                            if '/reports?' in path and item['status']==200:
+                                drill=page.locator('a[href^="/ydental/reports/source/"]').first
+                                if drill.count():
+                                    origin=page.url;href=drill.get_attribute('href');drill.click();page.wait_for_load_state('networkidle',timeout=40000)
+                                    source={'path':urlsplit(page.url).path,'screenshot':screenshot(page,directory,prefix+'-source'),'dimensions':measure(page)}
+                                    traces=page.locator('details').filter(has=page.locator('pre'))
+                                    if traces.count():
+                                        traces.first.locator('summary').click();source['trace_open_screenshot']=screenshot(page,directory,prefix+'-trace');source['trace_dimensions']=measure(page)
+                                    back=page.locator('a[href^="/ydental/reports?"]').first
+                                    back.click();page.wait_for_load_state('networkidle',timeout=40000)
+                                    source['return_filters_preserved']=all(parse_qs(urlsplit(page.url).query).get(k)==v for k,v in parse_qs(urlsplit(origin).query).items())
+                                    item['source_drill']=source
+                            if '/reports?' in path and item['status']==200 and width==1366:
+                                item['selector_interaction']=report_selector_interaction(page,directory,prefix,parse_qs(urlsplit(path).query)['metric'][0])
+                                page.goto(BASE+path,wait_until='networkidle',timeout=40000)
+                            if label=='settlement' and item['status']==200:
+                                panels=page.locator('details.o_ydental_access_operation')
+                                item['operation_panels']=panels.count();item['default_open_operations']=page.locator('details.o_ydental_access_operation[open]').count()
+                                if panels.count():
+                                    before=len(observer.responses);panels.first.locator('summary').click();page.wait_for_timeout(200)
+                                    item['entered_operation_screenshot']=screenshot(page,directory,prefix+'-operation');item['operation_dimensions']=measure(page)
+                                    cancel=panels.first.locator('a').last;cancel.click();page.wait_for_load_state('networkidle',timeout=40000)
+                                    item['cancel_no_settlement_post']=not any(e['method']=='POST' and e['path']=='/ydental/settlement/action' for e in observer.responses[before:])
+                    record['actors'][alias]['observation']=observer.facts();context.close()
+            finally:browser.close()
+        issues=[{'alias':p['alias'],'path':p['path'],'status':p['status'],'root_no_overflow':p['root_no_overflow'],'no_clipped_container':p['no_clipped_container']} for p in record['pages'] if p['status']!=200 or not p['root_no_overflow'] or not p['no_clipped_container']]
+        record.update(status='BROWSER_ASSERTIONS_PASSED_VISUAL_REVIEW_SEPARATE' if not issues else 'BROWSER_SOFTWARE_ASSERTIONS_FAILED',issues=issues)
+    except Exception as error:
+        record.update(status='BROWSER_CHECK_FAILED_NO_BUSINESS_REPLAY',error_class=type(error).__name__)
+    record['finished_at_utc']=now();digest=write_receipt(directory/'result.json',record)
+    print(json.dumps({'status':record['status'],'pages':len(record['pages']),'issues':len(record.get('issues',[])),'output':str((directory/'result.json').relative_to(ROOT)),'sha256':digest}))
+    return 0 if record['status']=='BROWSER_ASSERTIONS_PASSED_VISUAL_REVIEW_SEPARATE' else 2
+
+
+if __name__=='__main__':raise SystemExit(main())

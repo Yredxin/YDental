@@ -1,4 +1,5 @@
 import json
+from datetime import datetime, timezone
 from urllib.parse import urlencode
 
 from odoo import fields, models
@@ -91,7 +92,10 @@ class YDentalReportingPresentation(models.AbstractModel):
             return self.env._('Not recorded')
         if len(str(value)) == 10:
             return str(value)
-        return '%s (%s)' % (format_datetime(self.env, fields.Datetime.to_datetime(value),
+        instant = datetime.fromisoformat(str(value))
+        if instant.tzinfo:
+            instant = instant.astimezone(timezone.utc).replace(tzinfo=None)
+        return '%s (%s)' % (format_datetime(self.env, instant,
             tz=store.ydental_timezone, dt_format='yyyy-MM-dd HH:mm:ss'), store.ydental_timezone)
 
     def _presentation(self, result, detail=False):

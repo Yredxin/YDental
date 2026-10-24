@@ -51,6 +51,7 @@ class TestDocumentOriginalsHTTP(TestClinicalHTTP):
         return generated.json(), arguments
 
     def test_http_saved_original_and_print_request_have_distinct_audits(self):
+        audit_before = self.root['ydental.access.audit'].search([], order='id desc', limit=1).id or 0
         generated, arguments = self.generated(self.source())
         downloaded = self.document_action('download', {'original_id': generated['original_id']})
         self.assertEqual(downloaded.status_code, 200)
@@ -69,7 +70,14 @@ class TestDocumentOriginalsHTTP(TestClinicalHTTP):
             response = self.document_action(operation, {'original_id': generated['original_id']})
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.content, downloaded.content)
-        events = self.root['ydental.access.audit'].search([('ydental_event', 'like', 'document.%')])
+        events = self.root['ydental.access.audit'].search([
+            ('id', '>', audit_before), ('ydental_event', 'like', 'document.%'),
+            ('ydental_user_id', '=', self.users['doctor'].id),
+            ('ydental_store_id', '=', self.stores[0].id),
+            ('ydental_target_model', '=', 'ydental.clinical.document'),
+            ('ydental_target_id', '=', arguments['source_id']),
+            ('ydental_source', '=', 'document_original'),
+        ])
         self.assertTrue({'document.view', 'document.generate', 'document.download',
                          'document.pdf_view', 'document.print_request'} <= set(events.mapped('ydental_event')))
         self.assertTrue(all(row.ydental_after.get('paper_output') == 'unknown' for row in events))

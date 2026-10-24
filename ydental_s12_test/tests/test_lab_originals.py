@@ -25,7 +25,9 @@ class TestLaboratoryOriginalEncoding(TransactionCase):
             ydental_rework_no=0, ydental_parent_order_id=SimpleNamespace(id=False),
             ydental_teeth=[16], ydental_material='Synthetic material', ydental_shade=False,
             ydental_quantity=1, ydental_responsible_id=SimpleNamespace(name='Synthetic responsible person'),
-            ydental_planned_at='2026-10-24 00:00:00', ydental_patient_id=SimpleNamespace(id=48),
+            ydental_planned_at='2026-10-24 00:00:00',
+            ydental_patient_id=SimpleNamespace(id=48, ydental_number='SYNTHETIC-P48'),
+            ydental_instructions='Synthetic source-only instructions',
             ydental_source_event_id=SimpleNamespace(id=49))
 
     def test_source_digest_never_depends_on_volatile_png_and_tracks_actual_code(self):
@@ -33,6 +35,7 @@ class TestLaboratoryOriginalEncoding(TransactionCase):
         order = self.order()
         with (
             patch.object(type(printing), '_original_authorize', return_value=(printing, order, False, 'medical')),
+            patch.object(type(self.env['ydental.patient.service']), '_patient', return_value=order.ydental_patient_id),
             patch.object(type(self.env['ir.actions.report']), 'barcode', side_effect=AssertionError('Encoder must not enter source facts')),
         ):
             first = printing._original_source('lab_label', order.id, 2)
@@ -48,7 +51,10 @@ class TestLaboratoryOriginalEncoding(TransactionCase):
     def test_typed_render_freezes_actual_png_without_mutating_reviewed_source(self):
         printing = self.env['ydental.print.service']
         order = self.order()
-        with patch.object(type(printing), '_original_authorize', return_value=(printing, order, False, 'medical')):
+        with (
+            patch.object(type(printing), '_original_authorize', return_value=(printing, order, False, 'medical')),
+            patch.object(type(self.env['ydental.patient.service']), '_patient', return_value=order.ydental_patient_id),
+        ):
             _service, _order, _category, payload, signature = printing._original_source('lab_label', order.id, 2)
         original = copy.deepcopy(payload)
         # Deliberately different encoder byte results for the same semantics.

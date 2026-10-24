@@ -134,12 +134,11 @@
                         <button type="submit">Publish to this database</button>
                     </form>
                 </t>
-                <h2>Audit</h2>
-                <div class="o_ydental_access_scroll" tabindex="0" aria-label="Scrollable details"><table class="table"><thead><tr><th>Time (UTC)</th><th>Event</th><th>Result</th></tr></thead>
+                <details><summary>Audit and technical trace</summary><div class="o_ydental_access_scroll" tabindex="0" aria-label="Scrollable details"><table class="table"><thead><tr><th>Time (UTC)</th><th>Event</th><th>Result</th></tr></thead>
                     <tbody><tr t-foreach="audits" t-as="audit"><td t-out="audit['create_date']"/>
                         <td t-out="audit['ydental_event']"/><td t-out="audit['ydental_result']"/></tr></tbody>
                 </table>
-            </div></main>
+            </div></details></main>
         </t>
     </template>
     <template id="ydental_template_preview" name="Confirm template changes">

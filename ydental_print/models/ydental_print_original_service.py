@@ -148,6 +148,13 @@ class YDentalPrintOriginalService(models.AbstractModel):
             template_state=template_facts['state'], applicability=template_facts['applicability'],
             template_digest=template_sha, template=payload['template'] + ' / ' + template_facts['code'])
         payload['layout_version'] = template_facts['layout_version']
+        payload['template_state_label'] = {
+            'synthetic_unreviewed': self.env._('Synthetic / unreviewed'),
+            'draft': self.env._('Draft'), 'reviewed': self.env._('Reviewed'),
+            'published': self.env._('Published'),
+        }[template_facts['state']]
+        payload['template_paragraphs'] = [template_facts['body'][i:i + 350]
+            for i in range(0, len(template_facts['body']), 350)]
         payload['template_state_label'] = {'published': self.env._('Published'),
             'reviewed': self.env._('Reviewed'), 'draft': self.env._('Draft / unreviewed'),
             'synthetic_unreviewed': self.env._('Synthetic / unreviewed')}.get(template_facts['state'], template_facts['state'])
