@@ -7,6 +7,8 @@
 - 主控/root唯一环境运行与集成写者；/root/documents为4文件产品唯一写者，/root/tester验证工具与浏览器，/root/acceptance未实现产品/测试工具独立核验；不以共享OS冒隔离。W0—W2已完成，当前W3：固定产品候选并核限定加载/影响面。现场指定target/OID/cluster及角色五高权false；初始145业务/13技术/83实际文件与P1最终逐值同，另新物理RO独立核同。
 - 新P2合法scope独立建立，不修改旧scope/STOP；准备候选9b5325fe0c23bac9af96d6496cb23a8ca17f57d8的真实前态已采同条件5视口/只读预览/代表旁路，客户端实际0，owned run20261024T234358Z-f5ec36038cfa于2026-10-24T23:45:01UTC正常child0/signull/group stopped。仅4产品文件：XML、新header SCSS、manifest、zh_CN；三类原说明正文逐字迁至默认可见分组，P1 JS/SCSS/表单/帮助/ARIA和preview以下内容保持。实现者静态XML/PO/SCSS通过不冒动态PASS，待最终候选测试/保护/独立验收。未发生新原件/PDF/打印/经济库存动作。所有保护/未验限制承接下方P1记录。
 
+- W3首产品93ad3846183dac1e705b83bcffa12bea4b6b79f0已限定print-u实际0/ERROR0/无Native；即时pre/post和新物理RO独立核，25原生access/group69仅write_date，技术8表769行时间及本页view1618 arch变化，全部83文件/业务事实保持。真实after首轮退出2：320选择helper被自动滚动触发既有P1取消；最小正常诊断确认显式滚动稳定后同键盘可用，仅修工具。另真实发现旧inline portal !important压新导航色，仅新header SCSS局部default/hover加同权声明修复。原失败和独立记录保留，不反签；不改P1选择器JS、不重复-u，待新最终候选资产/动态/保护复验。末首产品run20261024T234852Z-5239bd9b01cd已正常child0/signull/group stopped。
+
 ---
 
 以下为P1已结束交付及用户回传复核历史；历史P2未授权已被上述本轮明确启用替代，其余范围和保护事实保持。

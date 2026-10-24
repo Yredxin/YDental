@@ -63,12 +63,13 @@
         max-inline-size: 100%;
         padding-block: 0.25em;
         border-radius: 0.125rem;
-        color: var(--ydental-header__accent-color);
+        // The portal page sets its anchor color with an inline important rule.
+        color: var(--ydental-header__accent-color) !important;
         text-decoration: underline;
         text-underline-offset: 0.2em;
 
         &:hover {
-            color: var(--ydental-header__accent-color--hover);
+            color: var(--ydental-header__accent-color--hover) !important;
         }
 
         &:focus-visible {
