@@ -92,11 +92,52 @@
 
 ## 9. 正常效果入口与数据
 
-2026-10-24用户在技术交付后另明确授权“用户效果复核准备与现场查看支持”，接收产品/工具5cb及报告8749181。本轮复开和查看准备进行中；下列03:34离线事实与旧孤儿回收历史保留，新运行实况在本节追加，不要求先查明旧监督退出根因。只支持现有成果的正常用户查看，不重跑S12、不重开#36，#37保持OPEN；用户尚未实际反馈的部分全部待用户确认。
+2026-10-24用户在技术交付后另明确授权“用户效果复核准备与现场查看支持”，接收产品/工具5cb及报告8749181。本机查看准备已就绪，用户端访问路径仍待确认；下列03:34离线事实与旧孤儿回收历史保留，不要求先查明旧监督退出根因。只支持现有成果的正常用户查看，不重跑S12、不重开#36，#37保持OPEN；用户尚未实际反馈的部分全部待用户确认。
+
+**当前新窗口：正常运行、仅本机已证实可达。** 既有tmux3.6、专用私有`.local/s12/effects-tmux.sock`（600/父目录700）、session `review-20261024`承载原launcher前台exec，没有新装系统服务或修改网络。run `20261024T035253Z-ab4dc7b8a006`，03:52:53.065143 UTC启动；tmux server2975800→pane/supervisor2975801 birth128996474→Odoo2975839 birth128996491的实际父子/用户/命令/出生均核实。pane活、无附着客户端、exit-unattached off；实际应用登录页200和普通角色浏览器可用，结论不只来自端口。独立OS/登录页回执`57e954d8929f9331e78bb9927e3744b03a0ccdb2ef113cecb8933733142a307e`。最大窗口为min(本次启动+2h,原scope08:00)=**2026-10-24 05:52:53.065143 UTC**；日志容量/正常停止或异常可能提前结束，不承诺持续在线。外发off、cron0、全部测试flag off，仍是同一库和filestore，没有重装/复制或业务重放。
+
+本次fresh RO原始准入e7613f93…经未实现者审阅b095d65a…，新admission665487ce…归档旧字节后只更新实际核验元事实，候选仍3127（与5cb产品/工具字节一致），scope原08:00不变。保护checkpoint沿用已验最终post，未声称新全库零diff。doctor9、settlement14正常浏览器登录选store1，指定10/6原件行均可定位；100/99/97/93/59/61与non-tax5共7次真实下载SHA均与交付一致，521/522/523结算、日期/门店/公司/币种报表正常。followup11正常查看加工214及复诊280真实source链接；不生成新件、执行打印或经济动作。原件99首页已从本次下载文件实际渲染在聊天展示，不替用户签效果。
+
+首次查看工具原结果f600f564…保留FAILED：主要页面/下载与collection源页本身均成功，但工具误拦正常登录后原生`/web/action/load`及`/mail/store`页面加载，收尾判定失败；该预拦不是产品拒绝或产品故障。最小接续使用正常登录`redirect=/ydental/access`与报表页面实际链接，仅补所缺登录/钻取，不重复样张下载、业务或生成；实际接续92f3065b…成功，无拦截项。完整结果与路径见证据索引。
+
+**用户实际访问条件**：已询问用户浏览器位于Ubuntu本机、既有远程桌面还是另一台电脑的既有SSH/转发入口，尚未收到回答。当前仅能确认Ubuntu本机可用`http://127.0.0.1:18411/ydental/documents`；通过远程桌面在Ubuntu内开浏览器也使用此地址。若在另一台电脑直接打开，须先核用户已有获准访问方式及其本地映射地址，不能把服务器127.0.0.1直接当成用户可达地址；本轮没有开放公网、改防火墙/监听或创建网络通道。远端客户端可达性与用户实际查看均为待确认。
+
+普通角色别名`doctor`、`settlement`、必要时`followup`/`warehouse`；门店选择`1`（S11 Synthetic Store A）。登录信息只沿用既有本机私有provider `.local/s11/new-target-tests/roles.json` 的对应`users.doctor`/`users.settlement`/`users.followup`条目；仅列本机定位符，不复制任何凭据值到Git、报告、聊天或截图。金额样本实际为**USD，精度0.01**；报表先明确23—24日/门店1/公司1/财务币种1（非财务不传币种），当前应收不冒历史截至日余额，整库已有背景行不冒新场景贡献。
+
+简明查看清单（登录后先在`/ydental/access`选门店1；原件列表目前无ID筛选，用浏览器查找`#编号`定位行，只点`View original`或`Download original`）：
+
+|角色/页面|定位|本次查看重点|
+|---|---|---|
+|doctor / `/ydental/documents`|1/30/57/100|同一来源的原件版本与历史作者，旧文件不随当前身份变化|
+|doctor / 同页|95/96/99、97/98|draft/excerpt/complete的范围差异；合成同意材料仍非真实签署|
+|settlement / 同页及`/ydental/settlement?patient_id=521`、522、523|58—63；bill72/76/77/79、refund3|原票据冻结时状态与当前余额分开，270+30分摊与实际退款|
+|settlement / `/ydental/settlement/external-originals`|non-tax5|仅下载醒目非税票示例，入口不等于税务开票|
+|对应源角色 / `/ydental/reports`|23—24日/门店1/财务USD，必要时24—26日加工复诊|核日期/币种/当前余额标签，再点击表内实际source链接|
+|doctor / 原件列表；followup / 报表|label93、current lab214|93冻结draftv2；214当前sentv3，查看不触发接收/入库|
+
+可复现运行方式（项目根目录；status/stop核当前owner，重新start另需有效scope、fresh准入和符合既有guard的工作树）：
+
+```sh
+../.venv/bin/python scripts/s12/launcher.py status
+# 本次前台监督位于已安装tmux的专用私有socket，可查看既有pane：
+tmux -S "$PWD/.local/s12/effects-tmux.sock" attach-session -t review-20261024
+# tmux内只分离终端：Ctrl-b 后按 d，不用kill-session代停。
+../.venv/bin/python scripts/s12/launcher.py stop
+```
+
+正常stop核原生`runs/<run_id>/exit.json`、active消失与18411释放；确认pane已退出后才清理本次tmux。再次启动仍用原`launcher.py start`前台命令，由已有tmux独立会话承载；先按当前现场核目标、私有provider、权限、scope、30分钟内独立准入、无其他owner/端口及候选，过期按既有正常记录流程重新核验，不伪改旧时间或清STOP。没有自动重启或系统服务安装。一次tmux复现启动命令（当前run仍活时不得执行第二次）：
+
+```sh
+tmux -S "$PWD/.local/s12/effects-tmux.sock" -f /dev/null new-session -d -s review-next -c "$PWD" "exec ../.venv/bin/python scripts/s12/launcher.py start"
+```
+
+未实现者离线核本次原始结果、7下载真实字节SHA及14张截图hash，亲看7张图，限定结论为`LOCAL_VIEWING_PREPARATION_AVAILABLE_USER_FEEDBACK_PENDING`，独立回执`15bba3c8551f38ee00b6be1c2db044f2c51cea4f709a09035e22ee0d8728564b`；没有重看旧49页、另采DB或代签用户效果。04:00:51UTC主控另一次实际OS核同一tmux/监督/child仍活、log ERROR/CRITICAL均0，此为主控观察，不冒未实现者再查。
+
+用户反馈在本节按“具体页面/文件/字段、用户原话、分类、处理/状态”记录。分类为实际功能错误、排版/交互改善、业务需求取舍、正式材料/设备缺失；**目前尚未收到具体反馈，全部待用户确认**，不从agent准备结果推断认可。排版反馈只能影响后续新文件/模板，不覆盖旧原件；S11组合扫码仍待决定、closed复诊表单旧限制照实保留。
 
 最终数据升级后曾正常建立只读效果窗口：run `20261024T025453Z-f8f22a02427f`，执行source3127，loopback18411/cron0/外发off/全部测试延迟与S11 clock flag均off，原定最多至2026-10-24约04:54 UTC；原scope08:00未延，不承诺永久在线。该窗的复核操作仅读取，服务仍保留正常角色权限。normal doctor/settlement升级后真实浏览器再次只读预览、下载原件100同SHA、过滤/钻新来源均PASS，未重做业务。
 
-**当前离线（2026-10-24 03:34 UTC核实）**：用户“继续”后的运行巡检实际返回STALE_OWNER_RECORD；supervisor2939395已不存在，child2939433出生ticks128648511匹配、PPID1，仍独占loopback18411。旧exec session29331实际Unknown process id；原run日志最后02:55:19，ERROR/CRITICAL均0，失去supervisor的原因未定，不能据此推断Native崩溃或业务损坏。主控与未实现者分别dry通过，复用既有精确孤儿回收函数、仅绑定现有S12 launcher常量，没有删改检查。03:34:03—04UTC只发一次pidfd SIGTERM并确认exit/无listener后归档原active字节；status STOPPED/exit0。原supervisor及child退出码均不可得，保留null，不冒正常退出0；回收结果SHA `fd7acbaff92d2dc071a7215c7490564cb41f8932b66868369a34e4ea60b3e63f`。本次没有DB/HTTP业务请求、业务重放或产品更改；未自动复开效果服务。既有技术/独立验收结论保留，历史在线窗口不代表当前在线。
+**03:34 UTC时离线的历史记录**：用户“继续”后的运行巡检实际返回STALE_OWNER_RECORD；supervisor2939395已不存在，child2939433出生ticks128648511匹配、PPID1，仍独占loopback18411。旧exec session29331实际Unknown process id；原run日志最后02:55:19，ERROR/CRITICAL均0，失去supervisor的原因未定，不能据此推断Native崩溃或业务损坏。主控与未实现者分别dry通过，复用既有精确孤儿回收函数、仅绑定现有S12 launcher常量，没有删改检查。03:34:03—04UTC只发一次pidfd SIGTERM并确认exit/无listener后归档原active字节；status STOPPED/exit0。原supervisor及child退出码均不可得，保留null，不冒正常退出0；回收结果SHA `fd7acbaff92d2dc071a7215c7490564cb41f8932b66868369a34e4ea60b3e63f`。本次没有DB/HTTP业务请求、业务重放或产品更改；未自动复开效果服务。既有技术/独立验收结论保留，历史在线窗口不代表当前在线。
 
 运行配置/凭据仅本机私有provider，不入报告或Git。后续按用户明确的效果复核方向，先核真实目标、权限、有效资源记录及可靠owned运行窗口，再经既有正常launcher复开；不承诺跨会话永久在线。复开后的正常入口为本机loopback18411的Odoo登录，选择store1，再打开：
 
@@ -111,4 +152,4 @@
 
 ## 10. 最终同步
 
-技术已完成并取得独立16行总签；分支正常push、远端ref及报告正文逐字一致。#36于2026-10-24T02:59:01Z正常closed/completed，正文仅最小同步当前技术状态并保留全部原要求；唯一[最终回执6379065844](https://github.com/Yredxin/YDental/issues/36#issuecomment-6379065844)已发布且逐字读回，目前总评论2（原有效增量+本最终结果），没有过程审查评论。main仅CURRENT_TASK/GPT_HANDOFF路由更新至e277ee093e5eaa333134a85afd5e4c9c4e199ae4并正常ref读回；无产品合并。首完整同步回执c4b9d8e6ea72772d4d1969c23196acf708851750e5d3d9d718afe93403e08b3c。最终报告元事实随后正常docs-only提交/ref读回，实际最后full SHA原位更新在同一#36回执，不另发重复评论。#37继续承接正式条件/用户效果，Projects未当许可或验收依据；本计划结束，不新增任务、不自动S13、不合并、不部署。
+技术已完成并取得独立16行总签；分支正常push、远端ref及报告正文逐字一致。#36于2026-10-24T02:59:01Z正常closed/completed，正文仅最小同步当前技术状态并保留全部原要求；唯一[最终回执6379065844](https://github.com/Yredxin/YDental/issues/36#issuecomment-6379065844)已发布且逐字读回，目前总评论2（原有效增量+本最终结果），没有过程审查评论。main仅CURRENT_TASK/GPT_HANDOFF路由更新至e277ee093e5eaa333134a85afd5e4c9c4e199ae4并正常ref读回；无产品合并。首完整同步回执c4b9d8e6ea72772d4d1969c23196acf708851750e5d3d9d718afe93403e08b3c。最终报告元事实随后正常docs-only提交/ref读回，实际最后full SHA原位更新在同一#36回执，不另发重复评论。#37继续承接正式条件/用户效果，Projects未当许可或验收依据；原S12技术实施计划已结束；另获准的本轮效果准备按第9节执行，不自动S13、不合并、不部署。

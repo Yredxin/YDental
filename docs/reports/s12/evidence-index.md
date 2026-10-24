@@ -10,7 +10,19 @@ Plan ID：YD-S12-DOCUMENTS-REPORTS-V1 / 1.0。最终带数据限定六模块升�
 
 ## 交付后的运行事实更正
 
-2026-10-24用户“继续”后，实际巡检发现最终效果窗supervisor已不在、原child成为精确可核的孤儿；此前“最多04:54UTC”的上限不能证明当前持续在线。主控及未实现者分别dry核通过，主控于03:34:03—04UTC复用已有pidfd单SIGTERM与全套精确检查完成回收，原active原字节归档，当前STOPPED/18411无监听。原supervisor/child退出码未知、不补0；无DB/HTTP业务请求、无重放、未自动复开。不改变已完成软件、实际文件与独立技术验收结论。
+用户后续明确启用S12效果准备，当前新run与用户待确认状态见下表和summary第9节。这里的03:34停止记录是历史收尾，不能用它覆盖新窗口实际状态；原S12技术验收、候选和失败记录保持。
+
+|效果准备证据|实际层级与限制|私有路径|SHA-256|
+|---|---|---|---|
+|本次目标/权限/外发只读核实|真实新PG/RR/RO、rollback/close；未业务写或重装|`.local/s12/admission/effects-review-target-20261024.json`|`e7613f937d0495bd13d8db4f300a998f754d780f354851b3d939ba94b9f82225`|
+|未实现者fresh准入审阅|SOURCE/实际原始观察/环境PURE；保留旧保护post，不冒新全库零diff|`.local/s12/acceptance/effects-window-fresh-probe-independent-review.json`|`b095d65a0f06ef8c1a5b358e687795ca0430bee29ef1e83251ef83c113bbd1a7`|
+|本次tmux/监督/子进程及登录页独立就绪|真实OS、出生/父子/严格argv/独占loopback与HTTP登录页；最大窗口05:52:53UTC，非用户认可|`.local/s12/acceptance/effects-tmux-os-login-readiness-independent.json`|`57e954d8929f9331e78bb9927e3744b03a0ccdb2ef113cecb8933733142a307e`|
+|首次查看准备结果及工具收尾FAIL保留|正常doctor/settlement登录、16原件行、7下载、账单/报表均实际成功；误拦原生登录后页面加载，不冒产品拒绝|`.local/s12/verification/user-effects-20261024/result.json`|`f600f564917743fdfb8ee600bd32ce9d8054bb23060f3ed9985e62b4fb83c365`|
+|限定接续真实链接查看成功|普通settlement/followup正常目标登录，collections7/lab214/followup280表内真实drill；无重复下载/经济/生成，用户效果仍待确认|`.local/s12/verification/user-effects-drill-continue-20261024/result.json`|`92f3065b33bdab899a1def6283525ba92e5c52bc982640c0c5316d64032aa2e7`|
+|聊天展示的已保存原件99首页|从本次正常下载PDF渲染，不新生成文件内容；PDF SHA仍230d82e7…，展示不冒用户反馈|`.local/s12/verification/user-effects-20261024/original-99-page-1.png`|`c43e314b052befa7a5c16a0379f40844099f6c6f4e1d01a874d75adde7f63053`|
+|未实现者查看准备独立核验|离线SOURCE/原始结果、7下载实际SHA及14截图hash；亲看7张图，保留首FAIL及限定接续；只签本机准备可用，客户端路径/用户反馈仍待确认|`.local/s12/acceptance/user-effects-preparation-independent-review.json`|`15bba3c8551f38ee00b6be1c2db044f2c51cea4f709a09035e22ee0d8728564b`|
+
+2026-10-24用户“继续”后，实际巡检发现最终效果窗supervisor已不在、原child成为精确可核的孤儿；此前“最多04:54UTC”的上限不能证明当前持续在线。主控及未实现者分别dry核通过，主控于03:34:03—04UTC复用已有pidfd单SIGTERM与全套精确检查完成回收，原active原字节归档，该次03:34核实STOPPED/18411无监听。原supervisor/child退出码未知、不补0；无DB/HTTP业务请求、无重放、未自动复开。不改变已完成软件、实际文件与独立技术验收结论。
 
 |证据|层级与限制|私有路径|SHA-256|
 |---|---|---|---|
