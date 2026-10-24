@@ -128,7 +128,7 @@ class YDentalPrintOriginalService(models.AbstractModel):
                 'approval_reference': template.approval_reference, 'reviewer': template.reviewed_by_id.id,
                 'reviewed_at': str(template.reviewed_at), 'publisher': template.published_by_id.id,
                 'published_at': str(template.published_at)})
-        facts['layout_version'] = 'YD-S13-UX-LAYOUT-7'
+        facts['layout_version'] = 'YD-S13-UX-CLINICAL-TABLE-8' if kind == 'clinical' else 'YD-S13-UX-LAYOUT-7'
         facts['qweb'] = {xmlid: self.env.ref(xmlid).sudo().with_context(lang='zh_CN').arch_db for xmlid in (
             'ydental_print.ydental_document_pdf', 'ydental_print.ydental_pdf_layout',
             'ydental_print.ydental_document_trace')}

@@ -2,6 +2,10 @@
 
 ## IN_PROGRESS｜仅岗位界面、中文报表与文书版式整理
 
+- 2026-10-24 08:50前：最终工具c505实际39方法(30MODEL/7HTTP/2显式seam)0/0/exit0，独立核63files全同。layout7长同意/其余11样张逐页PASS，资金正常新源1313成功恢复（旧455pending/v1/作者责任9不改，原482expiry不改）；new eventfee350→bill164740→pay30500 cashier8→refund11申请8/批准15/实际执行14=100，阶段余额240。新302—307各1页(含80mm)，已独立真时点/字节/8张正常办理图核PASS；后续另免10→当前230、cashier8独立新close1gross500/ref0/pending0，原240时点不回改。8 temporary结算已正常恢复原有效权限；old/fresh direct/搜索/drill/download403、正常退出清唯一session文件已实测。
+- 长字段标签新215/draft+waiting281、原件308正常提交，2×100×70长字段页全保留且不发货/接收/入库/联系；初工具误直读被保护product.product已正确拒绝，未绕权限，后仅使用授权工单可见引用由原生create重核。外部新bill164原字节正常multipart303上传+同用户正常store2拒绝store1来源已通过，旧raw5不改。
+- 新独立长表合成患者1643/doc508保存v1→正常交接currentv2pending/doctor9，未execute/确认/费用/库存；新原件309完整52unknown行但第三页漏thead，actual inspector1/signull为真实呈现FAIL，source业务/字节已读回不重跑。仅clinical表分块+clinical布局标记8修复；金融/consent/标签/RX/summary DOM与layout7逐字保持，已采真实财务时点按不受影响证据承接，禁止重造批准退款。source309/其他旧件保持。服务082449已正常stop供限定print加载；正常身份/租约/责任不清理造PASS。
+
 - 2026-10-24 08:15前：layout7产品固定b9a9bd70cd918f11606a81bf8d26398d8df62c64并正常print-u exit0，完整post已采；新trace子模板实入冻结依赖。新增独立source审核过的单条MODEL回归：事务内改子模板，旧预览摘要应拒绝，新版另存，老件字节/快照不变；不mock渲染器、不使用真实1313来源。此仅测试工具增量，产品不变，准备最终39方法（新增1MODEL）实跑。新长件与经济正例仍待，不冒完成。
 
 - 2026-10-24 08:10后：layout6两长件仍实际纯trace续页（A4约5行、80mm仅存储边界一句），全部7页独立FAIL保留。layout7改为consent末正文段+blank+完整trace同分页组，并仅缩段距/标题上距；新共用trace子模板纳入真实qweb依赖快照，故最终候选补对应38方法与正常新版本/同key验证，不能拿纯呈现理由豁免快照检查。服务080507已正常stop；仍无newfee/款，1313/455与原lease expiry不改，8临时结算授权待正例/恢复。

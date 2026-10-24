@@ -40,6 +40,8 @@
             .o_ydental_print_label_identity {font-weight: bold;}
             .o_ydental_print_finance_identity {margin-bottom: 5px;}
             .o_ydental_print_finance_identity span {display: inline-block; margin-right: 10px;}
+            table.o_ydental_print_fdi_block {font-size: 9.5pt; border: 0; margin: 0; page-break-inside: avoid;}
+            td.o_ydental_print_fdi_container {font-size: 9.5pt; border: 0; padding: 0; page-break-inside: avoid;}
         </style>
             <t t-set="financial" t-value="p.get('financial')"/>
             <t t-if="p['kind'] == 'lab_label'">
@@ -106,10 +108,15 @@
                 </t>
             </section>
             <t t-if="p['kind'] == 'clinical'">
-                <h2>Recorded FDI teeth and surfaces</h2>
-                <p>Unlisted teeth have no recorded conclusion. 0 means no corresponding tooth.</p>
-                <table><thead><tr><th>FDI tooth</th><th>Recorded state</th><th>Recorded surfaces</th></tr></thead><tbody><tr t-foreach="p['teeth']" t-as="tooth"><td t-out="tooth['tooth']"/><td t-out="tooth['state']"/><td t-out="tooth['surfaces']"/></tr></tbody></table>
-                <p t-if="not p['teeth']">No tooth findings recorded.</p>
+                <t t-if="p['teeth']">
+                    <table t-foreach="range(0, len(p['teeth']), 10)" t-as="tooth_start" class="o_ydental_print_fdi_block"><tbody><tr><td class="o_ydental_print_fdi_container">
+                        <t t-if="tooth_start == 0"><h2>Recorded FDI teeth and surfaces</h2><p>Unlisted teeth have no recorded conclusion. 0 means no corresponding tooth.</p></t>
+                        <table><thead><tr><th>FDI tooth</th><th>Recorded state</th><th>Recorded surfaces</th></tr></thead><tbody><tr t-foreach="p['teeth'][tooth_start:tooth_start + 10]" t-as="tooth"><td t-out="tooth['tooth']"/><td t-out="tooth['state']"/><td t-out="tooth['surfaces']"/></tr></tbody></table>
+                    </td></tr></tbody></table>
+                </t>
+                <t t-else=""><h2>Recorded FDI teeth and surfaces</h2><p>Unlisted teeth have no recorded conclusion. 0 means no corresponding tooth.</p>
+                    <table><thead><tr><th>FDI tooth</th><th>Recorded state</th><th>Recorded surfaces</th></tr></thead><tbody/></table><p>No tooth findings recorded.</p>
+                </t>
             </t>
             <t t-if="p['kind'] == 'prescription'">
                 <h2>Actual prescribed medicine lines</h2>
