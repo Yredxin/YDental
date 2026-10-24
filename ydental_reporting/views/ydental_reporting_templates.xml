@@ -32,6 +32,7 @@
                 <p>查询UTC：<t t-out="report['filters']['query_at_utc']"/>；源记录：<t t-out="report['source_row_count']"/>。</p>
                 <p>联合范围合计（唯一患者为联合去重，不相加门店人数）：<span t-out="report['totals']"/></p>
                 <p>分门店：<span t-out="report['store_totals']"/></p>
+                <p>分单位/状态的来源事件数：<span t-out="report['event_counts_by_unit']"/></p>
                 <details><summary>本次过滤及各店当地日/UTC边界</summary><pre t-out="report['filters']"/></details>
                 <form action="/ydental/reports/export" method="post">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>

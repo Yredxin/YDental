@@ -14,7 +14,7 @@ _lt = LazyTranslate(__name__)
 METRICS = {
     'unique_patients': (_lt('Unique patients with actual arrival'), 'arrivals', 'period'),
     'arrivals': (_lt('Actual store arrivals'), 'arrivals', 'period'),
-    'executions': (_lt('Confirmed actual project / dispensing events'), 'medical', 'period'),
+    'executions': (_lt('Confirmed actual project / dispensing events in authorized source categories'), 'execution', 'period'),
     'original_billing': (_lt('Original posted billing'), 'settlement', 'period'),
     'credits': (_lt('Posted credit notes, not cash refunds'), 'settlement', 'period'),
     'collections': (_lt('Actual offline collections, not revenue'), 'settlement', 'period'),
@@ -41,7 +41,8 @@ class YDentalReportingService(models.AbstractModel):
             raise AccessError(self.env._('access_denied: Select an active store in an allowed company.'))
         category = METRICS[metric][1]
         options = {'arrivals': ('frontdesk', 'medical', 'exam'),
-                   'laboratory': ('medical', 'warehouse')}.get(category, (category,))
+                   'laboratory': ('medical',),
+                   'execution': ('medical', 'exam', 'pharmacy')}.get(category, (category,))
         authorized = False
         for candidate in options:
             try:
@@ -54,6 +55,17 @@ class YDentalReportingService(models.AbstractModel):
             raise AccessError(self.env._('access_denied: Every selected store requires the metric source reading permission.'))
         if export:
             access._check('export', 'write', store_id=store.id)
+
+    def _execution_categories(self, store):
+        access = self.env['ydental.access.service']
+        result = []
+        for category in ('medical', 'exam', 'pharmacy'):
+            try:
+                access._check(category, 'read', store_id=store.id)
+                result.append(category)
+            except AccessError:
+                continue
+        return result
 
     def _filters(self, metric, date_from, date_to, store_ids=None, company_id=None,
                  currency_id=None, state=None, export=False):
@@ -84,6 +96,8 @@ class YDentalReportingService(models.AbstractModel):
         if currency_id is not None and (type(currency_id) is not int or currency_id < 1
                 or not self.env['res.currency'].sudo().browse(currency_id).exists()):
             raise ValidationError(self.env._('invalid_currency: Select an existing currency.'))
+        if currency_id is not None and METRICS[metric][1] != 'settlement':
+            raise ValidationError(self.env._('invalid_currency: Currency filtering applies only to money metrics.'))
         if state is not None and (not isinstance(state, str) or len(state) > 50):
             raise ValidationError(self.env._('invalid_state: Select a bounded source state.'))
         bounds = {}
@@ -140,12 +154,15 @@ class YDentalReportingService(models.AbstractModel):
                 patient_id=canonical[row.ydental_patient_id.id], occurred_at=str(row.ydental_occurred_at),
                 event_timezone=row.ydental_timezone, source_patient_id=row.ydental_patient_id.id) for row in sources]
         if metric == 'executions':
-            sources = self._bounded('ydental.treatment.event', scope & dates('ydental_business_date') & fields.Domain('state', '=', 'confirmed'))
+            sources = self._bounded('ydental.treatment.event', scope & dates('ydental_business_date')
+                & fields.Domain('state', '=', 'confirmed')
+                & fields.Domain('ydental_category', 'in', self._execution_categories(store)))
             return [self._row(row, store, row.ydental_quantity, 'catalog:%s/uom:%s/kind:%s' % (
                     row.ydental_catalog_id.id, row.ydental_uom_id.id, row.ydental_kind),
-                row.ydental_business_date, row.ydental_kind, row.ydental_patient_id.id,
+                row.ydental_business_date, row.state, row.ydental_patient_id.id,
                 execution_id=row.ydental_execution_id.id, document_id=row.ydental_document_id.id,
                 actual_at=str(row.ydental_actual_at), actor_id=row.ydental_actor_id.id,
+                source_category=row.ydental_category, event_kind=row.ydental_kind,
                 price_snapshot_id=row.ydental_price_snapshot_id.id) for row in sources]
         if metric in ('original_billing', 'credits', 'receivables'):
             links = self._bounded('ydental.settlement.source', scope)
@@ -167,7 +184,9 @@ class YDentalReportingService(models.AbstractModel):
                     credit_origins[part.credit_move_id.move_id.id].add(part.debit_move_id.move_id.id)
                 for refund in refunds:
                     for credit in refund.ydental_credit_note_ids:
-                        credit_origins[credit.id].update(refund.ydental_payment_id.ydental_invoice_ids.ids)
+                        credit_origins[credit.id].update(refund.ydental_payment_id.ydental_invoice_ids.filtered(
+                            lambda row: row.company_id == credit.company_id and row.partner_id == credit.partner_id
+                            and row.currency_id == credit.currency_id and row.name == credit.invoice_origin).ids)
                 candidates = self._bounded('account.move', fields.Domain('company_id', '=', store.company_id.id)
                     & fields.Domain('move_type', '=', 'out_refund') & fields.Domain('state', '=', 'posted')
                     & fields.Domain('id', 'in', direct.ids))
@@ -196,20 +215,34 @@ class YDentalReportingService(models.AbstractModel):
                 for row in sources if row.ydental_payment_id.move_id.state == 'posted']
         if metric in ('refunds', 'approved_pending'):
             domain = fields.Domain('ydental_payment_id.ydental_store_id', '=', store.id)
-            domain &= (fields.Domain('ydental_state', '=', 'done') & dates('ydental_refund_business_date')
-                if metric == 'refunds' else fields.Domain('ydental_state', 'in', ['approved', 'failed', 'unknown'])
-                & instants('ydental_requested_at'))
+            if metric == 'refunds' and self._bounded('ydental.settlement.refund', domain
+                    & fields.Domain('ydental_state', '=', 'done')
+                    & fields.Domain('ydental_refund_business_date', '=', False)
+                    & fields.Domain('ydental_actual_at', '=', False)):
+                raise UserError(self.env._('source_dates_incomplete: A completed legacy refund has no verifiable event date. No complete period total can be reported.'))
+            domain &= (fields.Domain('ydental_state', '=', 'done') & (
+                dates('ydental_refund_business_date') | fields.Domain('ydental_refund_business_date', '=', False)
+                & instants('ydental_actual_at')) if metric == 'refunds' else
+                fields.Domain('ydental_state', 'in', ['approved', 'failed', 'unknown']) & (
+                    instants('ydental_requested_at') | fields.Domain('ydental_requested_at', '=', False) & instants('create_date')))
             sources = self._bounded('ydental.settlement.refund', domain)
             for row in sources:
                 if metric == 'refunds' and row.ydental_native_payment_id.move_id.state != 'posted':
                     continue
+                event_date = row.ydental_refund_business_date if metric == 'refunds' else row.ydental_requested_at
+                date_source = 'refund_business_date' if metric == 'refunds' else 'requested_at'
+                if not event_date:
+                    stamp = row.ydental_actual_at if metric == 'refunds' else row.create_date
+                    event_date = stamp.replace(tzinfo=timezone.utc).astimezone(ZoneInfo(store.ydental_timezone)).date()
+                    date_source = 'actual_at_local_legacy' if metric == 'refunds' else 'create_date_local_legacy'
                 rows.append(self._row(row, store, row.ydental_amount, 'currency:%s' % row.ydental_currency_id.id,
-                    row.ydental_refund_business_date if metric == 'refunds' else row.ydental_requested_at,
+                    event_date,
                     row.ydental_state, row.ydental_payment_id.ydental_patient_id.id,
                     currency=row.ydental_currency_id.name, actual_at=str(row.ydental_actual_at or ''),
                     actor_id=row.ydental_executor_id.id, approver_id=row.ydental_approver_id.id,
                     native_payment_id=row.ydental_native_payment_id.id, credit_note_ids=row.ydental_credit_note_ids.ids,
-                    original_payment_id=row.ydental_payment_id.id, channel=row.ydental_refund_channel or ''))
+                    original_payment_id=row.ydental_payment_id.id, channel=row.ydental_refund_channel or '',
+                    event_date_source=date_source))
             return rows
         if metric == 'consumption':
             sources = self._bounded('ydental.inventory.event', scope & instants('ydental_actual_at')
@@ -217,15 +250,16 @@ class YDentalReportingService(models.AbstractModel):
                 & fields.Domain('ydental_move_id.state', '=', 'done'))
             return [self._row(row, store, row.ydental_input_quantity, 'product:%s/lot:%s/uom:%s' % (
                 row.ydental_product_id.id, row.ydental_lot_id.id, row.ydental_uom_id.id),
-                row.ydental_actual_at, row.ydental_kind, native_move_id=row.ydental_move_id.id,
+                row.ydental_actual_at, row.state, native_move_id=row.ydental_move_id.id,
                 product_id=row.ydental_product_id.id, lot_id=row.ydental_lot_id.id,
                 uom_id=row.ydental_uom_id.id, stock_quantity=row.ydental_quantity,
-                from_location_id=row.ydental_from_id.id, to_location_id=row.ydental_to_id.id) for row in sources]
+                from_location_id=row.ydental_from_id.id, to_location_id=row.ydental_to_id.id,
+                event_kind=row.ydental_kind) for row in sources]
         if metric == 'lab_pending':
             active = ['sent', 'processing', 'received', 'available', 'rework_returned']
             sources = self._bounded('ydental.lab.order', scope & instants('ydental_planned_at') & fields.Domain('state', 'in', active))
             children = self._bounded('ydental.lab.order', scope & fields.Domain('ydental_parent_order_id', 'in', sources.ids)
-                & fields.Domain('state', 'not in', ['cancelled', 'exception']))
+                & fields.Domain('state', '!=', 'cancelled'))
             superseded = set(children.ydental_parent_order_id.ids)
             return [self._row(row, store, event_date=row.ydental_planned_at, state=row.state,
                 patient_id=row.ydental_patient_id.id, parent_order_id=row.ydental_parent_order_id.id,
@@ -254,6 +288,7 @@ class YDentalReportingService(models.AbstractModel):
         if state:
             rows = [row for row in rows if row['state'] == state]
         totals = defaultdict(float)
+        event_counts = defaultdict(int)
         store_totals = defaultdict(lambda: defaultdict(float))
         if metric == 'unique_patients':
             totals['patients'] = len({row['patient_id'] for row in rows})
@@ -265,6 +300,7 @@ class YDentalReportingService(models.AbstractModel):
                 if metric in ('lab_pending', 'followups'):
                     key += '/state:%s/owner:%s/stage:%s' % (row['state'], row['facts']['owner_id'], row['facts'].get('lab_contact_stage', ''))
                 totals[key] += row['value']
+                event_counts[key] += 1
                 store_totals[row['store_id']][key] += row['value']
         if METRICS[metric][1] == 'settlement':
             for key in totals:
@@ -288,9 +324,12 @@ class YDentalReportingService(models.AbstractModel):
             'historical_asof_supported': False, 'store_timezones_and_utc_bounds': {
                 store.id: {'timezone': store.ydental_timezone, 'start_utc': str(bounds[store.id][0]),
                     'end_exclusive_utc': str(bounds[store.id][1])} for store in stores}}
+        if metric == 'executions':
+            filters['authorized_source_categories_by_store'] = {store.id: self._execution_categories(store) for store in stores}
         self.env['ydental.access.service']._audit('report.export' if export else 'report.view',
             'export', self.env.user, current_store, source='operating_report', after=dict(filters, source_row_count=len(rows)))
         return {'filters': filters, 'title': self.env._(METRICS[metric][0]), 'totals': dict(totals),
+            'event_counts_by_unit': dict(event_counts),
             'store_totals': {key: dict(value) for key, value in store_totals.items()},
             'source_row_count': len(rows), 'page': page, 'page_size': 100,
             'rows': rows if export or all_rows else rows[(page - 1) * 100:page * 100]}

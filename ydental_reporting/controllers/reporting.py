@@ -37,6 +37,10 @@ class YDentalReporting(http.Controller):
             rows = [row for row in result['rows'] if row['source_id'] == source_id]
             if not rows:
                 raise AccessError(request.env._('access_denied: This source is outside the current authorized report filters.'))
+            for row in rows:
+                service.env['ydental.access.service']._audit('report.drill', 'export',
+                    service.env[row['source_model']].browse(row['source_id']), row['store_id'],
+                    source='operating_report', after={'metric': metric, 'filters': result['filters']})
             return request.render('ydental_reporting.ydental_operating_report_source', {
                 'rows': rows, 'filters': result['filters'], 'title': result['title']}, headers=HEADERS)
         except (AccessError, UserError, ValidationError, ValueError, TypeError, KeyError) as error:
@@ -77,6 +81,7 @@ class YDentalReporting(http.Controller):
             writer.writerow(['YDental operating report; synthetic configuration subject to business review'])
             writer.writerow(['filters', json.dumps(result['filters'], ensure_ascii=False, sort_keys=True)])
             writer.writerow(['totals_by_unit', json.dumps(result['totals'], ensure_ascii=False, sort_keys=True)])
+            writer.writerow(['event_counts_by_unit', json.dumps(result['event_counts_by_unit'], ensure_ascii=False, sort_keys=True)])
             columns = ['source_model', 'source_id', 'store_id', 'company_id', 'value', 'unit', 'event_date', 'state', 'patient_id', 'facts', 'source_url']
             writer.writerow(columns)
             for row in result['rows']:
