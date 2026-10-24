@@ -1,12 +1,12 @@
 # S12 证据索引
 
-Plan ID：YD-S12-DOCUMENTS-REPORTS-V1 / 1.0。当前索引冻结到最终带数据升级之前；最终升级、升级后独立总验收及 GitHub 同步仍为 **PENDING**，不据此宣称 TECHNICALLY_COMPLETE。
+Plan ID：YD-S12-DOCUMENTS-REPORTS-V1 / 1.0。最终带数据限定六模块升级已完成并独立通过；最终十六行独立总验收及 GitHub 同步仍为 **PENDING**，不据此单独宣称 TECHNICALLY_COMPLETE。
 
 唯一实际目标：`ydental_s11_synth_20261023_01` / OID `2171423` / cluster `7694897083368259627`；锁定 core：`f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。业务从 S11 `e100e098dea5b919f3c9ca09454d239189e69ad1` 承接；未重建、改名或复制目标，未使用旧 scratch/attempt30/旧经济链补证。
 
 所有路径均为本机忽略目录中的证据定位符，**不是公共附件或可公开下载链接**。本索引只手工摘录状态、层级、合成对象 ID、候选和文件 SHA-256；不复制原始 JSON、日志、连接配置、会话、凭据或正文。未新增公开原件文件。复现只读查看已生成原件；下列已提交业务不可整链重跑。
 
-关键执行候选：首链 `333ef10`；首次 W2 `025e65e`；第一次普通修复 `b160587d96ab54cb70deb7e6ff11d72bc6556146`；真实财务/超时 `007900f3d4141a5e7a07f21aaf3e972a7126c68c`；QR 修复及当前 31 方法套件 `5cb1e46fbe1e4243c7a292f64ecfd375afb3dce2`。报告 HEAD 与产品候选分列，最终候选由最后升级回执绑定。
+关键执行候选：首链 `333ef10`；首次 W2 `025e65e`；第一次普通修复 `b160587d96ab54cb70deb7e6ff11d72bc6556146`；真实财务/超时 `007900f3d4141a5e7a07f21aaf3e972a7126c68c`；QR 修复及当前 31 方法套件 `5cb1e46fbe1e4243c7a292f64ecfd375afb3dce2`。报告 HEAD 与产品候选分列；最终升级执行候选为 `3127a575b1403ea072c950f1e1d4e79d8055141d`，其产品/工具字节与 `5cb1e46fbe1e4243c7a292f64ecfd375afb3dce2` 相同。
 
 ## 准入、环境与原生测试
 
@@ -127,12 +127,27 @@ T12 实际命令入口：`../.venv/bin/python .local/s12/verification/source_ver
 |T07|真实 ReadTimeout→独立确认提交→同key恢复；生成失败及模拟打印失败|设备失败仅受控模拟，物理故障 NOT_RUN|
 |T08|内部 bill 与显眼非税票原件入口/字节/授权/审计|实际票种/真实税票/开票 NOT_RUN|
 |T09|两区域一次 arrival、跨日实收/退与冲销、去重/源钻取|当前应收不冒历史截至余额|
-|T10|已完成限定安装/升级、注入及撤权；最后完整pre/post **PENDING**|最终带数据升级及其独立总签未完成|
+|T10|限定安装/升级、注入及撤权；最终完整pre→六模块升级→post及独立核验 PASS|最终十六行总验收及同步另列|
 |T11|270+200收300分摊270+30欠170；600历史与620目录|无税率/毛利/收入确认新政策|
 |T12|真实双PG交错、当前门店发布策略及查看/下载/打印请求审计|并发是 MODEL 真连接同步 harness，非浏览器并发|
 
-最终带数据升级计划限定六模块：`ydental_print,ydental_exam,ydental_settlement,ydental_lab,ydental_reporting,ydental_s12_test`；必须即时完整 pre 成功后才运行；保全全部现有业务、权限/配置/版本/约束及三原件族实际文件，post 逐项分类。**当前 PENDING**：最终执行候选、pre/命令/exit/post/差异分类/独立总验收、正常push及远端Issue读回。本索引冻结不等于上述已执行。
+最终带数据升级实际限定六模块：`ydental_print,ydental_exam,ydental_settlement,ydental_lab,ydental_reporting,ydental_s12_test`。即时完整 pre 成功后运行，原生命令参数 `--stop-after-init --without-demo=all --no-http -u ydental_exam,ydental_lab,ydental_print,ydental_reporting,ydental_s12_test,ydental_settlement`；实际 child exit0 / ERROR0 / 无 Native，未启动 HTTP、未重跑业务。执行候选 `3127a575b1403ea072c950f1e1d4e79d8055141d`，产品/工具固定字节同 `5cb1e46fbe1e4243c7a292f64ecfd375afb3dce2`。
+
+|最终升级证据|层级 / 结果|私有路径|SHA-256|
+|---|---|---|---|
+|冻结|限定六模块、完整候选绑定|`.local/s12/verification/freeze-final-s12.json`|`61bd48b5c55127b3697dd8a4f40a9d2a457e3d3da7a814328ddf2f17b672534c`|
+|即时完整 pre|145业务表 / 13技术metadata表 / 37受保护附件；成功后才升级|`.local/s12/verification/upgrade-final-s12-pre.json`|`0bd8b9c45a383b7b67e99691d4794face785d9e4cef0e85d3348ff6b51284499`|
+|实际升级执行结果|exit0 / ERROR0 / 无 Native；日志SHA另存result；非测试事务补证|`.local/s12/checks/final-s12-upgrade/result.json`|`5bdbd7ff8387a9f5e89432654335d20e37ef368ca7e96912c6b1e45e3801d9e1`|
+|完整 post|实际已提交源/三原件族文件/版本/权限/配置/索引核验|`.local/s12/verification/upgrade-final-s12-post.json`|`04a210ab368e3f2473607ff97a57e2a503f976ef972d8f73a0b000dac184d131`|
+|前后差异分类|业务及实际文件保持；仅原生技术时间与view备份刷新，见独立分类|`.local/s12/verification/final-s12-upgrade-diff.json`|`64d9bd1d1d48f4129b98648241acad095a01fa74cba0e20a44a0c32059272339`|
+|最终升级独立回执|真实独立 RO/RR + 实际文件及差异核验；PASS，不冒全库物理零diff|`.local/s12/acceptance/final-s12-upgrade-independent.json`|`21dccf1a26b927820aa60ab94a6b3ac551bb1e04b2b1ae3cbfc9a31274818fd4`|
+
+独立逐项分类：37附件及业务、PDF bytes、来源/模板/render事实、有效权限语义、配置及索引约束保留。25条 ACL 与1条 group 的差异仅 `write_date`；report/action/menu/module/paperformat 等为原生技术时间；view1591 的 `arch_prev` 是原生升级备份刷新，与有效 en_US arch 一致，有效 arch 未改变。没有把技术差异解释为全库物理零diff，也没有删除旧原件或未完责任任务。
+
+**当前 PENDING**：最终十六行独立总验收、正常 push 及远端 Issue/状态读回；本升级局部独立 PASS 不替代它们。
 
 历史原始 17表 whole-row 哈希曾把 `account_move` 的 portal `access_token` 列纳入摘要计算，未输出该值；因此旧材料不能再声称“零认证列被选择”。原工具及结果保留，后续独立分类及新工具从 schema 排除 password/secret/token/credential/session 等列再投影；未搜索旧被拒账号，未借此重放业务或冒称发生原值泄漏。新财务/库存/合并独立核验明确敏感排除和 rollback/close。
 
 所有独立局部 PASS 的边界保持；本索引不是最终独立总签。正式临床正文/发布政策、真实票种及税务原件、物理打印/设备、正式用户效果均单列 NOT_RUN/待审核，承接 #37；不 S13、不合并、不部署。S11 组合扫码需求差异继续待产品决定，标签未增加接收/入库副作用。
+
+最终16行独立软件总签：`.local/s12/acceptance/final-16-row-independent.json`，SHA `610053fb6bfb995dbf3db6d29580bc6269d79d260bd33b361c21bbccafa2fae8`。TECHNICALLY_COMPLETE；16行适用软件PASS、当前未处置软件缺口0；正式临床/签署/税票/设备/政策/用户效果不包含在该PASS中，仍归#37。GitHub同步当前尚待正常完成，不能从技术总签推导SYNCED。
