@@ -5,8 +5,35 @@
     <menuitem id="ydental_document_menu" name="Documents and saved originals" parent="ydental_base.ydental_base_menu_root" action="ydental_document_action" sequence="84" groups="ydental_base.ydental_base_group_user"/>
     <template id="ydental_document_page" name="Documents and saved originals">
         <t t-call="web.frontend_layout"><main class="container o_ydental_document">
-            <h1>Documents and saved originals</h1>
-            <nav><a href="/ydental/clinical">Clinical workbench</a> | <a href="/ydental/treatment">Treatment and pharmacy</a> | <a href="/ydental/exam">Examination</a> | <a href="/ydental/access">Current store and permissions</a><a href="/ydental/settlement">Patient settlement</a></nav>
+            <header class="o_ydental_print_header" data-dl-scope="documents-header" aria-labelledby="ydental-documents-page-title">
+                <h1 class="o_ydental_print_header_title" id="ydental-documents-page-title">Documents and originals</h1>
+                <p class="o_ydental_print_header_purpose">Find patient documents, select a source to preview, or read saved originals.</p>
+                <nav class="o_ydental_print_header_nav" aria-label="Related work areas">
+                    <ul class="o_ydental_print_header_links">
+                        <li><a class="o_ydental_print_header_link" href="/ydental/clinical">Clinical workbench</a></li>
+                        <li><a class="o_ydental_print_header_link" href="/ydental/treatment">Treatment and pharmacy</a></li>
+                        <li><a class="o_ydental_print_header_link" href="/ydental/exam">Examination</a></li>
+                    </ul>
+                    <ul class="o_ydental_print_header_links">
+                        <li><a class="o_ydental_print_header_link" href="/ydental/access">Current store and permissions</a></li>
+                        <li><a class="o_ydental_print_header_link" href="/ydental/settlement">Patient settlement</a></li>
+                    </ul>
+                </nav>
+                <section class="o_ydental_print_header_notes" aria-label="Document scope and limits">
+                    <div class="o_ydental_print_header_note">
+                        <h2 class="o_ydental_print_header_note_title">Source patient and history</h2>
+                        <p class="o_ydental_print_header_note_text">Patient labels identify the source patient record. Saved PDFs retain the identity and state at generation.</p>
+                    </div>
+                    <div class="o_ydental_print_header_note o_ydental_print_header_warning">
+                        <h2 class="o_ydental_print_header_note_title">Synthetic, signature and paper output</h2>
+                        <p class="o_ydental_print_header_note_text">Synthetic software demonstration documents carry an explicit test label. A generated or printed consent is awaiting signature. A print request has no verified physical paper output.</p>
+                    </div>
+                    <div class="o_ydental_print_header_note">
+                        <h2 class="o_ydental_print_header_note_title">Access and saved originals</h2>
+                        <p class="o_ydental_print_header_note_text">Single authorized copies require current source access. Bulk export additionally requires report export permission. Saved originals always return the stored file; current names, prices and templates cannot rewrite it.</p>
+                    </div>
+                </section>
+            </header>
             <section class="o_ydental_dl_v1" data-dl-scope="documents-query" aria-labelledby="ydental-documents-query-title">
                 <section class="o_ydental_access_search">
                     <h2 class="o_ydental_print_query_title" id="ydental-documents-query-title">Find patient documents</h2>
@@ -18,10 +45,7 @@
                         <button class="o_ydental_print_query_button" type="submit">Search documents</button>
                     </form>
                     <p class="o_ydental_print_query_status" data-ydental-query-busy="search" role="status" hidden="hidden">Searching patient documents...</p>
-                    <p class="o_ydental_print_query_note">Patient labels identify the source patient record. Saved PDFs retain the identity and state at generation.</p>
                 </section>
-                <p class="alert alert-warning o_ydental_print_query_warning">Synthetic software demonstration documents carry an explicit test label. A generated or printed consent is awaiting signature. A print request has no verified physical paper output.</p>
-                <p class="o_ydental_print_query_note">Single authorized copies require current source access. Bulk export additionally requires report export permission. Saved originals always return the stored file; current names, prices and templates cannot rewrite it.</p>
                 <form class="o_ydental_print_query_preview" data-ydental-query-form="preview" action="/ydental/documents/action" method="post">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="preview"/><input type="hidden" name="q" t-att-value="term"/><input type="hidden" name="page" t-att-value="pagination['page']"/>
                     <div class="o_ydental_print_query_field">

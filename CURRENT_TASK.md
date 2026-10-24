@@ -4,7 +4,8 @@
 
 - 用户2026-10-24明确启用[完整P2计划](docs/execution/S13_DL_P2_IMPLEMENTATION_PLAN.md)：仅文书页标题、用途、既有页内导航及指定三类静态说明。P2-W0—W4连续实施；P3—P6 NOT_AUTHORIZED，P2交付后停止，不合产品main、不部署。P1原交付TECHNICALLY_COMPLETE / SYNCED，用户亲手效果仍待确认。
 - 正常从实际合法HEAD `d421842c9b26de9988be3f7e4c46cd5626cb67ca`承接至`codex/s13-dl-p2-documents-header-r1`，开工工作树仅CURRENT_TASK两条未提交复核补记，已保存diff并原样保留于下方P1历史；本地补记尚未同步，不能与P1原交付SYNCED混同。core/P1选择器JS及业务契约冻结。
-- 主控/root唯一环境运行与集成写者；产品、测试与未实现者独立验收分别指派，不以共享OS冒隔离。当前为W0：核目标、来源、前态及保护；未发生新原件/PDF/打印/经济库存动作。所有保护/未验限制承接下方P1记录，再核合法增量。
+- 主控/root唯一环境运行与集成写者；/root/documents为4文件产品唯一写者，/root/tester验证工具与浏览器，/root/acceptance未实现产品/测试工具独立核验；不以共享OS冒隔离。W0—W2已完成，当前W3：固定产品候选并核限定加载/影响面。现场指定target/OID/cluster及角色五高权false；初始145业务/13技术/83实际文件与P1最终逐值同，另新物理RO独立核同。
+- 新P2合法scope独立建立，不修改旧scope/STOP；准备候选9b5325fe0c23bac9af96d6496cb23a8ca17f57d8的真实前态已采同条件5视口/只读预览/代表旁路，客户端实际0，owned run20261024T234358Z-f5ec36038cfa于2026-10-24T23:45:01UTC正常child0/signull/group stopped。仅4产品文件：XML、新header SCSS、manifest、zh_CN；三类原说明正文逐字迁至默认可见分组，P1 JS/SCSS/表单/帮助/ARIA和preview以下内容保持。实现者静态XML/PO/SCSS通过不冒动态PASS，待最终候选测试/保护/独立验收。未发生新原件/PDF/打印/经济库存动作。所有保护/未验限制承接下方P1记录。
 
 ---
 

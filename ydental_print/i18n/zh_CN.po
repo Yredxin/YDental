@@ -2452,3 +2452,38 @@ msgid ""
 "authorized patient or check the current store and permissions before "
 "previewing."
 msgstr "当前范围没有可选来源。请搜索其他有权查看的患者，或核对当前门店与权限后再预览。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Documents and originals"
+msgstr "文书与原件"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Find patient documents, select a source to preview, or read saved originals."
+msgstr "查找患者文书，选择来源预览，或查阅已保存原件。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Related work areas"
+msgstr "相关岗位入口"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Document scope and limits"
+msgstr "文书用途与范围限制"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Source patient and history"
+msgstr "来源患者与历史身份"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Synthetic, signature and paper output"
+msgstr "合成、签署与出纸"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Access and saved originals"
+msgstr "读取权限与原件"
