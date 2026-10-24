@@ -11,6 +11,7 @@ import json
 import os
 from pathlib import Path
 import stat
+import subprocess
 import time
 from urllib.parse import urlsplit
 
@@ -37,6 +38,28 @@ def private_json(path):
         return json.load(stream)
 
 
+def execution_dirty_paths():
+    """Preserve porcelain status bytes, including a leading unchanged index.
+
+    A rename/copy contributes both paths so moving an execution file into a
+    report directory cannot hide it behind the report-only allowance.
+    """
+    raw = subprocess.check_output(
+        ['git', 'status', '--porcelain=v1', '--untracked-files=all', '-z'], cwd=ROOT)
+    entries = iter(raw.split(b'\0')[:-1])
+    paths = []
+    for entry in entries:
+        if len(entry) < 4 or entry[2:3] != b' ':
+            raise RuntimeError('Unrecognized native worktree status; retain the frozen execution candidate.')
+        paths.append(os.fsdecode(entry[3:]))
+        if b'R' in entry[:2] or b'C' in entry[:2]:
+            try:
+                paths.append(os.fsdecode(next(entries)))
+            except StopIteration as error:
+                raise RuntimeError('Incomplete native rename status; retain the frozen execution candidate.') from error
+    return paths
+
+
 def owned_service(run_id):
     marker = private_json(PRIVATE / 'active.json')
     if (marker.get('plan_id') != PLAN or marker.get('run_id') != run_id or
@@ -50,8 +73,8 @@ def owned_service(run_id):
     if dt.datetime.now(dt.UTC) >= dt.datetime.fromisoformat(marker['scope_expires_at_utc'].replace('Z', '+00:00')):
         raise RuntimeError('The S12 project resource scope expired.')
     launcher.candidate_report_delta(marker['candidate_commit'], git('rev-parse', 'HEAD'))
-    dirty = git('status', '--porcelain', '--untracked-files=all').splitlines()
-    if any(line[3:] != 'CURRENT_TASK.md' and not line[3:].startswith('docs/reports/s12/') for line in dirty):
+    dirty = execution_dirty_paths()
+    if any(path != 'CURRENT_TASK.md' and not path.startswith('docs/reports/s12/') for path in dirty):
         raise RuntimeError('Execution code differs from the frozen running candidate.')
     return {key: marker[key] for key in ('plan_id', 'run_id', 'candidate_commit', 'core_commit',
                                         'database_name', 'database_oid', 'cluster_ref', 'scope_id')}

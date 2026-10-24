@@ -17,8 +17,10 @@
 - **新F2/T11正常HTTP链完成**：result a4956847…；newpatient521/522/523、bill72=740/pay7=500欠240、refund3批准100时actual0随后正常执行100；bill76=270+77=200/pay8=300按270+30分摊欠170；bill79确认600、目录price282当前620，oldoriginal63字节保持。真实original58—63共6 PDF；500昨日/退款今日及批准在途在四时点正常6财务报表实采，原生新物理连接逐项读回。新tax示例original5关联新bill72，normal14上传/下载/printrequest同bytes、none17拒、三行为audit unknownpaper，result50064e44…；不是真税票或设备。待独立逐页/对账结论。
 - 新medicine正常配置cap366/area799/station888/product848/catalog460/map820/price283/link1已真实提交；后置native product RPC因原库存guard正确拒，原工具STOPPED/exit1保留，不重建。纯续证将用正常库存summary+真实非敏感配置RO，不改ACL或冒普通rawRPC成功；尚未生成处方或新库存。
 - 浏览器四普通role首轮：settlement/none/reader页面、拒绝、导出边界及新源drill通过；doctor preview成功后download事件未捕获，整体PARTIAL保留。普通GET页面原件1单次真实browser下载SHA一致；preview后点击的普通DOM事件问题由tester继续诊断，不先冒产品/工具PASS。
-- 下一动作：正常新配置续证→同店两区域及RX/exam/标签新源集成→同意/完整与摘录/长中文80mm实际文件；只读账务指标对账、浏览器定位、全部PDF逐页检查；最终带数据限定升级和16行独立总验收。连续实施，不逐批返回GPT，不向Issue发过程进度。
-- 当前正常owned服务run20261024T012359Z-38940ba6e97b运行，loopback18411、cron0、外发off、测试延迟flag全off；旧服务均正常stop0，运行/停止与复现条件按最终实际收口。运行记录/凭据/原始文件只本机，不承诺永久在线。[summary](docs/reports/s12/summary.md)、[evidence-index](docs/reports/s12/evidence-index.md)、[指标字典](docs/reports/s12/metric-dictionary.md)。
+- **同店两区域新链已提交，标签有待修产品缺口**：V3 result61852457…：patient524唯一arrival517，care349/area7/event291/fee291=137.25，exam350/area8/event292/fee292=35.50，doc328v2，RX15 issued/未发药、task669 pending，lab214v2 draft/followup280 planned waiting/nojob/no库存。已保存clinical64/RX65/exam66真实PDF。正常label preview成功后generate409，无labeloriginal；已独立提交读回，不重跑来源。根因原生QR PNG同码重复绘制字节非确定，错误纳sourceSHA；最小修将稳定QR语义入source、实际PNG/hash入typed renderfacts，既有原件不覆盖。修后仅续既有label请求和剩余证据。
+- medicine经两次普通guard拒读后，v2纯续证normalprice/catalogUI+明确RO真配置已完成4ca60d00…/newconfig fac25fd4…；原b98/0ac失败保留，配置只建一次。integration原621/V2两轮均在新patient前objects空停止，V3只业务运行一次。
+- 下一动作：QR最小修/必要回归与既有label续证→同意/完整与摘录/长中文FDI跨页表及80mm实际文件→新库存耗用2与加工待交付/复诊待办逐指标对账→实际合并后旧件重印→最终带数据限定升级和16行独立总验收。连续实施，不逐批返回GPT，不向Issue发过程进度。
+- 当前owned服务均已正常STOPPED（20261024T012359Z-38940ba6e97b supervisor/child0），无active；为QR产品修与最终工具固定暂停本服务，不是计划停止。此前loopback18411/cron0/外发off/延迟flag全off。运行/停止与复现条件按最终实际收口。运行记录/凭据/原始文件只本机，不承诺永久在线。[summary](docs/reports/s12/summary.md)、[evidence-index](docs/reports/s12/evidence-index.md)、[指标字典](docs/reports/s12/metric-dictionary.md)。
 
 ## 不可重放与未验边界
 
