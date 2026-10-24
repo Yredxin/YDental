@@ -96,10 +96,16 @@ def collect(args):
  modules=set(args.modules.split(','))
  if not modules or not modules <= ALLOWED_MODULES:raise RuntimeError('Only the named S13 affected modules are allowed')
  baseline=args.phase=='baseline'
+ if args.initial_s12_baseline and not baseline:raise RuntimeError('The initial provider flag is only for a baseline, never an upgrade snapshot')
  freeze={} if baseline else private_json(args.freeze_receipt.resolve())
  if not baseline and not(freeze.get('writers_quiescent') is True and freeze.get('candidate_commit')==args.candidate and freeze.get('database')==TARGET and freeze.get('database_oid')==OID and set(freeze.get('modules',[]))==modules):raise RuntimeError('Actual final freeze receipt mismatch; do not use an interim state as the final baseline')
  import subprocess
- runtime_path=ROOT/'.local/s12/runtime.json' if baseline else PRIVATE/'runtime.json'
+ # The S12 provider is only for the initial, pre-S13 baseline. Once S13
+ # resources exist, a baseline must carry the actual current S13 scope too.
+ runtime_path=PRIVATE/'runtime.json'
+ if baseline and args.initial_s12_baseline:
+  if runtime_path.exists():raise RuntimeError('S13 resources already exist; use the current S13 baseline scope')
+  runtime_path=ROOT/'.local/s12/runtime.json'
  if baseline:
   info=runtime_path.lstat()
   if runtime_path.is_symlink() or info.st_uid!=os.geteuid() or info.st_mode&0o077:raise RuntimeError('Existing baseline provider is not private and owned')
@@ -235,7 +241,7 @@ def compare(args):
 
 def main():
  p=argparse.ArgumentParser(description=__doc__);sub=p.add_subparsers(dest='command',required=True)
- c=sub.add_parser('collect');c.add_argument('--phase',choices=['pre','post','baseline'],required=True);c.add_argument('--label',required=True);c.add_argument('--candidate',required=True);c.add_argument('--modules',required=True);c.add_argument('--freeze-receipt',type=pathlib.Path)
+ c=sub.add_parser('collect');c.add_argument('--phase',choices=['pre','post','baseline'],required=True);c.add_argument('--label',required=True);c.add_argument('--candidate',required=True);c.add_argument('--modules',required=True);c.add_argument('--freeze-receipt',type=pathlib.Path);c.add_argument('--initial-s12-baseline',action='store_true',help='Only before any S13 runtime exists; retain the explicit initial S12 scope')
  d=sub.add_parser('compare');d.add_argument('--pre',type=pathlib.Path,required=True);d.add_argument('--post',type=pathlib.Path,required=True);d.add_argument('--output',type=pathlib.Path,required=True)
  a=p.parse_args();return collect(a) if a.command=='collect' else compare(a)
 if __name__=='__main__':raise SystemExit(main())

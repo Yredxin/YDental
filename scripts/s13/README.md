@@ -25,6 +25,10 @@ and authentication hash columns are removed before SELECT; clinical text and
 business binary are represented by private hashes. The local snapshot is never
 published. `compare` runs offline and requires independent classification.
 
+Baselines use the current S13 runtime and its actual scope. The explicit
+`--initial-s12-baseline` option is only available before an S13 runtime exists;
+it records the initial S12 handover without changing that old resource scope.
+
 Typical sequence (replace COMMIT/LABEL with actual fixed values):
 
 ```sh
