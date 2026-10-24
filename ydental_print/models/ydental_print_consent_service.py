@@ -62,6 +62,7 @@ class YDentalPrintConsentService(models.AbstractModel):
         if prior:
             if prior.original_id != original:
                 raise UserError(self.env._('signature_reuse: This uploaded file is already associated with another consent original. Do not reuse a signature for a different document.'))
+            self._consent_file(prior)
             service._original_audit('consent_upload_repeat', source, 'medical', {'evidence_id': prior.id,
                 'state': prior.state, 'synthetic': prior.synthetic, 'sha256': prior.sha256})
             return {'evidence_id': prior.id, 'state': prior.state, 'sha256': prior.sha256,
@@ -93,17 +94,15 @@ class YDentalPrintConsentService(models.AbstractModel):
         if (evidence.store_id != original.store_id or evidence.patient_id != original.patient_id
                 or evidence.template_id != original.template_id or evidence.template_sha256 != original.template_sha256):
             raise AccessError(self.env._('access_denied: The uploaded evidence does not match its original scope and version.'))
+        self._consent_file(evidence)
         evidence._save({'state': conclusion, 'verified_by_id': self.env.uid, 'verified_at': fields.Datetime.now(),
             'verification_reason': reason.strip()})
         service._original_audit('consent_verify', source, 'medical', {'evidence_id': evidence.id,
             'state': evidence.state, 'synthetic': evidence.synthetic},)
         return {'evidence_id': evidence.id, 'state': evidence.state, 'synthetic': evidence.synthetic}
 
-    def _consent_evidence_bytes(self, evidence_id):
-        evidence = self.env['ydental.consent.evidence'].sudo().browse(self._id(evidence_id)).exists()
-        if not evidence:
-            raise AccessError(self.env._('access_denied: This consent evidence is unavailable.'))
-        original, service, source = self._consent_original(evidence.original_id.id)
+    def _consent_file(self, evidence):
+        original = evidence.original_id
         attachment = evidence.attachment_id
         if (not attachment or attachment.res_model != evidence._name or attachment.res_id != evidence.id
                 or attachment.public or attachment.access_token or attachment.company_id != original.company_id):
@@ -111,6 +110,14 @@ class YDentalPrintConsentService(models.AbstractModel):
         raw = attachment.raw.content
         if not raw or hashlib.sha256(raw).hexdigest() != evidence.sha256:
             raise UserError(self.env._('original_corrupt: The uploaded consent file failed its checksum.'))
+        return raw
+
+    def _consent_evidence_bytes(self, evidence_id):
+        evidence = self.env['ydental.consent.evidence'].sudo().browse(self._id(evidence_id)).exists()
+        if not evidence:
+            raise AccessError(self.env._('access_denied: This consent evidence is unavailable.'))
+        original, service, source = self._consent_original(evidence.original_id.id)
+        raw = self._consent_file(evidence)
         service._original_audit('consent_download', source, 'medical', {'evidence_id': evidence.id, 'sha256': evidence.sha256})
         return raw, evidence.sha256
 
