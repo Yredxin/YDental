@@ -4,6 +4,8 @@ import io
 from unittest.mock import patch
 import zipfile
 
+from lxml import etree
+
 from odoo.addons.base.tests.common import DISABLED_MAIL_CREATE_CONTEXT
 from odoo.exceptions import AccessError, UserError
 from odoo.tests import TransactionCase, tagged
@@ -160,6 +162,64 @@ class TestDocumentOriginals(TransactionCase):
             self.printing._original_operate('generate', arguments | {'expected_digest': '0' * 64})
         self.assertEqual(self.root['ydental.document.original'].search_count([]), count + 1)
         self.assertEqual(self.business_counts(), before)
+
+    def test_trace_child_change_rejects_stale_preview_and_preserves_original(self):
+        selection = self.source()
+        business_before = self.business_counts()
+        generated, old_bytes = self.generated(selection)
+        original = self.root['ydental.document.original'].browse(generated['original_id'])
+        frozen_source = copy.deepcopy(original.source_facts)
+        frozen_template = copy.deepcopy(original.template_facts)
+        frozen_template_sha = original.template_sha256
+        original_count = self.root['ydental.document.original'].search_count([])
+        stale = self.printing._original_operate('preview', selection)
+
+        trace_xmlid = 'ydental_print.ydental_document_trace'
+        trace = self.root.ref(trace_xmlid).with_context(lang='zh_CN')
+        old_arch = trace.arch_db
+        self.assertEqual(frozen_template['qweb'][trace_xmlid], old_arch)
+        marker = 'S13 synthetic nested trace revision ' + key()
+        architecture = etree.fromstring(old_arch.encode())
+        etree.SubElement(architecture, 'p').text = marker
+        trace.write({'arch_db': etree.tostring(architecture, encoding='unicode')})
+        changed_arch = trace.arch_db
+        self.assertNotEqual(changed_arch, old_arch)
+
+        with self.assertRaises(UserError):
+            self.printing._original_operate('generate', selection | {
+                'expected_digest': stale['source_digest'], 'key': key(),
+                'previous_id': original.id})
+        self.assertEqual(self.root['ydental.document.original'].search_count([]), original_count)
+        self.assertEqual(self.business_counts(), business_before)
+
+        fresh = self.printing._original_operate('preview', selection)
+        self.assertIn(marker, fresh['html'])
+        self.assertNotEqual(fresh['source_digest'], stale['source_digest'])
+        self.assertNotEqual(fresh['template_digest'], stale['template_digest'])
+        successor, new_bytes = self.generated(selection, previous_id=original.id)
+        new = self.root['ydental.document.original'].browse(successor['original_id'])
+        self.assertNotEqual(new, original)
+        self.assertEqual(new.previous_id, original)
+        self.assertEqual(new.version, original.version + 1)
+        self.assertEqual(new.source_sha256, fresh['source_digest'])
+        self.assertEqual(new.template_sha256, fresh['template_digest'])
+        self.assertNotEqual(new.template_sha256, frozen_template_sha)
+        self.assertEqual(new.template_facts['qweb'][trace_xmlid], changed_arch)
+        self.assertEqual(set(new.template_facts['qweb']), set(frozen_template['qweb']))
+        for xmlid, architecture in frozen_template['qweb'].items():
+            if xmlid != trace_xmlid:
+                self.assertEqual(new.template_facts['qweb'][xmlid], architecture)
+        self.assertNotEqual(new_bytes, old_bytes)
+        self.assertEqual(self.root['ydental.document.original'].search_count([]), original_count + 1)
+
+        reprinted, checksum = self.printing._original_operate('print_request', {'original_id': original.id})
+        self.assertEqual(reprinted, old_bytes)
+        self.assertEqual(checksum, generated['sha256'])
+        self.assertEqual(original.pdf_sha256, hashlib.sha256(old_bytes).hexdigest())
+        self.assertEqual(original.source_facts, frozen_source)
+        self.assertEqual(original.template_facts, frozen_template)
+        self.assertEqual(original.template_sha256, frozen_template_sha)
+        self.assertEqual(self.business_counts(), business_before)
 
     def test_stored_original_and_native_attachment_cannot_be_replaced(self):
         generated, _ = self.generated(self.source())
