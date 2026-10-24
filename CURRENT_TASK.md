@@ -2,6 +2,9 @@
 
 ## IN_PROGRESS｜仅岗位界面、中文报表与文书版式整理
 
+- 2026-10-24 06:55后：已确认并修正本项目浏览器依赖不满足官方Playwright1.64范围的问题；greenlet3.5.6固定wheel仅本期private，旧snapshot未动，同Python/Playwright/Chromium/API。独立审查e631123e…，唯一无DB/无登录data小验证父子真实0及独立fb6dfc59…；0d569正常readonly完整BROWSER子/外层均0、42页两视口114图/全部子断言0issues（d0f71f714…，外层93eb0d6…）。这不是139根因确诊或用户亲手验收。0d569文书影响38方法再次0/0/进程0，无Native（29eba80…）。
+- 新标签183正常从155续版，SHA/关联及真实1张100×70和QR软件解码已采；页眉三条代码翻译漏odoo-python标记，仍有英文，作为可读单页但未最终中文通过的迭代样张保留。root修正标记并以原生CodeTranslations实际运行过滤验证中文，准备布局4正常新版本，不改93/155/183。服务已正常stop供本次最后翻译/资源加载；临时export/前台结算授权及新经济尚未执行，当前旧余额/库存/责任不变。
+
 - 当前检查点（2026-10-24 06:21 UTC）：正常客户端只读财务截图工具在输出结果后进程139/kernel SIGSEGV（python3067608），首因UNKNOWN；已停止浏览器及后续经济动作，不用JSON完成冒exit0。Odoo本体随后精确正常stop，child_exit_code0/noNative/owned组停止；原Native回执`.local/s13/verification/browser-native-exit139.json` SHA18f1e081da9513444b5edb2f5a77e6a9fece5528ef85e9b38bf12703759e4b7c，服务器终态另列，不反签旧风险。SOURCE核实获准浏览器snapshot的Playwright1.64.0/greenlet3.0.3不满足该版官方greenlet>=3.1.1依赖，团队仅准备项目私有依赖与生命周期修复；未因此声称确诊139根因，修复后先独立审查及无DB/无登录小验证。
 - 正常新原件155已实际提交（lab214当前sent、source v3、前版93），文件SHA ddba24e87f4292388f7533ca88421d65aeaab8f52e91aa3a895f2607e26899ff；它是100×70mm却2页的真实版式FAIL，93与155均保护。新布局3仅源码修复中，后续只能从155正常续版，不覆盖或删失败样张。尚未执行新付款/退款/治疗/库存/接收/入库。
 - 已获分层证据：产品a711→63b890影响38唯一方法=29MODEL+7真实HttpCase+2显式授权/编码器seam，修复后0failed/0error/exit0（首次1fail2error保留）；独立回执e0e7d491…。e85dbd正常HTTP12指标/20拒绝通过；当前4角色export均非write，12CSV403非导出正例。42浏览器页面/视口及正常native214中文已采，首networkidle超时/metric等待竞态保留，不能总签通过。doctor9仅正常本人偏好改lang=zh_CN，组/ACL/身份未改。未授临时export、未新经济，旧业务保持待最终完整核验。

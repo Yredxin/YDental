@@ -115,7 +115,7 @@ class YDentalPrintOriginalService(models.AbstractModel):
         template = self.env['ydental.document.template'].sudo().browse(self._id(template_id)).exists() if template_id else self.env['ydental.document.template']
         if template and (template.kind != kind or template.store_id != store or template.state != 'published'):
             raise AccessError(self.env._('template_unpublished: Select a published template for this type and current store.'))
-        facts = {'code': 'YD-S13-SYNTHETIC-3', 'version': '3', 'state': 'synthetic_unreviewed',
+        facts = {'code': 'YD-S13-SYNTHETIC-4', 'version': '4', 'state': 'synthetic_unreviewed',
             'language': 'zh_CN',
             'synthetic': True, 'paper': 'label100x70' if kind == 'lab_label' else 'a4',
             'body': '', 'applicability': 'Synthetic software demonstration only',
@@ -128,7 +128,7 @@ class YDentalPrintOriginalService(models.AbstractModel):
                 'approval_reference': template.approval_reference, 'reviewer': template.reviewed_by_id.id,
                 'reviewed_at': str(template.reviewed_at), 'publisher': template.published_by_id.id,
                 'published_at': str(template.published_at)})
-        facts['layout_version'] = 'YD-S13-UX-LAYOUT-3'
+        facts['layout_version'] = 'YD-S13-UX-LAYOUT-4'
         facts['qweb'] = {xmlid: self.env.ref(xmlid).sudo().with_context(lang='zh_CN').arch_db for xmlid in (
             'ydental_print.ydental_document_pdf', 'ydental_print.ydental_pdf_layout')}
         paper_xmlid = {'80mm': 'ydental_print.ydental_pdf_80mm',
@@ -155,9 +155,6 @@ class YDentalPrintOriginalService(models.AbstractModel):
         }[template_facts['state']]
         payload['template_paragraphs'] = [template_facts['body'][i:i + 350]
             for i in range(0, len(template_facts['body']), 350)]
-        payload['template_state_label'] = {'published': self.env._('Published'),
-            'reviewed': self.env._('Reviewed'), 'draft': self.env._('Draft / unreviewed'),
-            'synthetic_unreviewed': self.env._('Synthetic / unreviewed')}.get(template_facts['state'], template_facts['state'])
         if not template:
             payload['applicability'] = self.env._('Synthetic software demonstration only')
         technical_identity = {self.env._('Canonical patient ID'), self.env._('Source patient ID'),

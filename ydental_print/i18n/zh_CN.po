@@ -2076,18 +2076,21 @@ msgid "Latest saved original"
 msgstr "此来源的最新原件"
 
 #. module: ydental_print
+#. odoo-python
 #: code:addons/ydental_print/models/ydental_print_original_service.py:0
 #, python-format
 msgid "Synthetic / unreviewed"
 msgstr "合成演示／未审核"
 
 #. module: ydental_print
+#. odoo-python
 #: code:addons/ydental_print/models/ydental_print_original_service.py:0
 #, python-format
 msgid "Reviewed"
 msgstr "已审核"
 
 #. module: ydental_print
+#. odoo-python
 #: code:addons/ydental_print/models/ydental_print_original_service.py:0
 #, python-format
 msgid "Published"

@@ -34,7 +34,7 @@
             <t t-set="financial" t-value="p.get('financial')"/>
             <t t-if="p['kind'] == 'lab_label'">
                 <article class="o_ydental_print_label">
-                    <h1><strong>Laboratory label</strong> <span t-if="p.get('synthetic')">Synthetic demonstration</span> <span t-out="p.get('template_state_label', '')"/></h1>
+                    <h1><strong>Laboratory label</strong> <span t-if="p.get('synthetic') and p.get('template_state') != 'synthetic_unreviewed'">Synthetic demonstration</span> <span t-out="p.get('template_state_label', '')"/></h1>
                     <div class="o_ydental_print_label_qr"><img t-att-src="'data:image/png;base64,' + p['barcode']['png']" alt="Internal package identification QR code"/></div>
                     <p class="o_ydental_print_label_identity"><span>Work order:</span> <t t-out="p['source_id']"/> / <span>Cycle:</span> <t t-out="p['versions']['cycle']"/></p>
                     <p><strong>Store:</strong> <t t-out="p['label_business']['store']"/></p>
@@ -45,7 +45,7 @@
                     <p style="clear: both"><strong>Processing:</strong> <t t-out="p['label_business']['instructions']"/></p>
                     <p style="clear: both"><strong>Identification code:</strong> <t t-out="p['barcode']['value']"/></p>
                     <p>Identify only; no receipt, put-away or notice. No shipment or receipt is implied.</p>
-                    <p><span>Generated UTC:</span> <t t-out="p['generated_at']"/> / <span>Source v</span><t t-out="p['version']"/> / UX3</p>
+                    <p><span>Generated UTC:</span> <t t-out="p['generated_at']"/> / <span>Source v</span><t t-out="p['version']"/> / UX4</p>
                     <p t-foreach="p.get('template_paragraphs', [])" t-as="paragraph" t-out="paragraph"/>
                     <p><span>Authorized trace:</span> /ydental/documents</p>
                 </article>
