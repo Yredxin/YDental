@@ -3,6 +3,7 @@ import re
 
 from odoo import fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
+from odoo.tools.misc import formatLang
 
 
 class YDentalSettlementTaxService(models.AbstractModel):
@@ -77,10 +78,77 @@ class YDentalSettlementTaxService(models.AbstractModel):
             'sha256': row.sha256, 'synthetic_non_tax_example': row.synthetic, 'paper_output': 'unknown'})
         return raw, row
 
-    def _tax_original_rows(self):
+    def _tax_original_rows(self, invoice_id=None):
         store = self._access()
-        rows = self.env['ydental.settlement.tax.original'].sudo().search([
-            ('store_id', '=', store.id), ('company_id', '=', store.company_id.id)], limit=100)
-        return [{'id': row.id, 'invoice_id': row.invoice_id.id, 'filename': row.filename,
-            'sha256': row.sha256, 'synthetic': row.synthetic, 'reference': row.material_reference,
-            'previous_id': row.previous_id.id} for row in rows]
+        domain = fields.Domain('store_id', '=', store.id) & fields.Domain('company_id', '=', store.company_id.id)
+        if invoice_id is not None:
+            invoice, _links, _patient, _store = self._original_invoice(invoice_id)
+            domain &= fields.Domain('invoice_id', '=', invoice.id)
+        rows = self.env['ydental.settlement.tax.original'].sudo().search(domain, order='recorded_at desc, id desc')
+        result = []
+        for row in rows:
+            try:
+                invoice, _links, patient, _store = self._original_invoice(row.invoice_id.id)
+            except (AccessError, UserError):
+                continue
+            if row.patient_id.id not in self._patient_family_ids(patient):
+                continue
+            result.append({'id': row.id, 'invoice_id': invoice.id, 'filename': row.filename,
+                'invoice_number': invoice.name, 'patient_label': '%s / %s' % (patient.name, patient.ydental_number),
+                'recorded_at': str(row.recorded_at), 'sha256': row.sha256, 'synthetic': row.synthetic,
+                'reference': row.material_reference, 'previous_id': row.previous_id.id,
+                'previous_filename': row.previous_id.filename or ''})
+            if len(result) > 5000:
+                if invoice_id is not None:
+                    raise UserError(self.env._('size_limit: This bill exceeds the 5000-original selector capacity.'))
+                raise UserError(self.env._('size_limit: Select a bill before listing this many external originals.'))
+        return result
+
+    def _tax_original_workbench(self, term='', bills_page=1, originals_page=1, invoice_id=None):
+        store = self._access()
+        if (not isinstance(term, str) or len(term) > 100 or type(bills_page) is not int or bills_page < 1
+                or type(originals_page) is not int or originals_page < 1):
+            raise ValidationError(self.env._('invalid_search: Use a patient name, business number or bill number and a valid page.'))
+        term = term.strip()
+
+        def summary(invoice, patient):
+            currency = invoice.currency_id
+            return {'id': invoice.id, 'number': invoice.name, 'date': str(invoice.invoice_date),
+                'patient_label': '%s / %s' % (patient.name, patient.ydental_number),
+                'amount': '%s %s' % (currency.name, formatLang(self.env, invoice.amount_total, digits=currency.decimal_places))}
+
+        selected = None
+        if invoice_id is not None:
+            invoice, _links, patient, _store = self._original_invoice(invoice_id)
+            selected = summary(invoice, patient)
+        sources = self._model('source').search([('ydental_store_id', '=', store.id)])
+        invoices = sources.ydental_invoice_id.sorted(lambda row: (row.invoice_date or fields.Date.today(), row.id), reverse=True)
+        choices = []
+        for invoice in invoices:
+            try:
+                invoice, _links, patient, _store = self._original_invoice(invoice.id)
+            except (AccessError, UserError):
+                continue
+            if term and not any(term.casefold() in (value or '').casefold()
+                    for value in (patient.name, patient.ydental_number, invoice.name)):
+                continue
+            choices.append(summary(invoice, patient))
+            if len(choices) > 5000:
+                raise UserError(self.env._('size_limit: Narrow the patient or bill search before selecting an internal bill.'))
+
+        def paginate(rows, page):
+            total = len(rows)
+            page_count = max(1, (total + 19) // 20)
+            page = min(page, page_count)
+            return rows[(page - 1) * 20:page * 20], {'page': page, 'pages': page_count, 'total': total,
+                'previous': page - 1 if page > 1 else None, 'next': page + 1 if page < page_count else None}
+
+        invoice_rows, invoice_pagination = paginate(choices, bills_page)
+        originals = self._tax_original_rows(invoice_id)
+        original_rows, original_pagination = paginate(originals, originals_page)
+        access = self.env['ydental.access.service']
+        member = access._membership(self.env.uid, store.id)
+        return {'store': store, 'invoices': invoice_rows, 'invoice_pagination': invoice_pagination,
+            'rows': original_rows, 'original_pagination': original_pagination,
+            'selected_invoice': selected, 'previous_options': originals if selected else [],
+            'can_write': access._levels(member)['settlement'] == 'write', 'search_term': term}

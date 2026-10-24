@@ -156,6 +156,7 @@ msgstr "附件"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Awaiting completion / explanation / signature / verification"
 msgstr "待补全／待解释／待签署／待核验"
 
@@ -175,6 +176,7 @@ msgstr "主诉"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Clinical field template"
 msgstr "临床字段模板"
 
@@ -183,6 +185,8 @@ msgstr "临床字段模板"
 #: code:addons/ydental_print/models/ydental_print_service.py:0
 #: model:ir.model.fields.selection,name:ydental_print.selection__ydental_print_job__ydental_kind__clinical
 #: model_terms:ir.ui.view,arch_db:ydental_print.ydental_print_page
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Clinical text"
 msgstr "病历文字"
 
@@ -194,6 +198,7 @@ msgstr "病历文字演示 PDF"
 
 #. module: ydental_print
 #: model_terms:ir.ui.view,arch_db:ydental_print.ydental_print_page
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
 msgid "Clinical workbench"
 msgstr "临床工作台"
 
@@ -241,6 +246,7 @@ msgstr "文书当前状态"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Current document version"
 msgstr "文书当前版本"
 
@@ -252,6 +258,7 @@ msgstr "当前门店来源"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Current reception segment"
 msgstr "当前接诊分段"
 
@@ -263,6 +270,7 @@ msgstr "当前责任人"
 
 #. module: ydental_print
 #: model_terms:ir.ui.view,arch_db:ydental_print.ydental_print_page
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
 msgid "Current store and permissions"
 msgstr "当前门店与权限"
 
@@ -352,6 +360,7 @@ msgstr "随访"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid ""
 "Formal prescription signing is not approved. This is not a receipt, invoice "
 "or payment proof."
@@ -401,6 +410,7 @@ msgstr "ID"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Independent document ID"
 msgstr "独立文书编号"
 
@@ -472,6 +482,7 @@ msgstr "仅包含明确选择的独立来源。本件不是完整正式病历。
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Order ID"
 msgstr "医嘱编号"
 
@@ -555,6 +566,8 @@ msgstr "患者签署栏"
 #: code:addons/ydental_print/models/ydental_print_service.py:0
 #: model:ir.model.fields.selection,name:ydental_print.selection__ydental_print_job__ydental_kind__prescription
 #: model_terms:ir.ui.view,arch_db:ydental_print.ydental_print_page
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Prescription"
 msgstr "处方"
 
@@ -650,6 +663,7 @@ msgstr "所选来源核对"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Selected text is a draft; awaiting completion or confirmation."
 msgstr "所选文字为草稿；待完善或待确认。"
 
@@ -674,6 +688,7 @@ msgstr "所选版本作者"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Selected version previous ID"
 msgstr "所选版本的前序编号"
 
@@ -697,6 +712,7 @@ msgstr "签署日期与核验栏"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Source document and version"
 msgstr "来源文书与版本"
 
@@ -710,6 +726,7 @@ msgstr "来源患者内部标识"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Source reception segment"
 msgstr "来源接诊分段"
 
@@ -723,6 +740,7 @@ msgstr "来源门店"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Source store ID"
 msgstr "来源门店编号"
 
@@ -740,6 +758,7 @@ msgstr "建议材料"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Text confirmed, not a formal medical signature"
 msgstr "文字已确认，非正式医学签署"
 
@@ -757,6 +776,7 @@ msgstr "待补全和审核；此栏保留空白。"
 
 #. module: ydental_print
 #: model_terms:ir.ui.view,arch_db:ydental_print.ydental_print_page
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
 msgid "Treatment and pharmacy"
 msgstr "治疗与药房"
 
@@ -818,6 +838,7 @@ msgstr "查看已生成 PDF"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Viewing store ID"
 msgstr "查看门店编号"
 
@@ -1263,6 +1284,7 @@ msgstr "内部原账单"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_original_service.py:0
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
 msgid "Consent awaiting signature"
 msgstr "知情同意材料（待签署）"
 
@@ -1370,6 +1392,7 @@ msgstr "未确认来源"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
 msgid "Explicit clinical source collection"
 msgstr "明确选择的临床来源集合"
 
@@ -1803,7 +1826,9 @@ msgid "Generate and preserve original PDF"
 msgstr "生成并保存新原件PDF"
 
 #. module: ydental_print
+#. odoo-python
 #: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Internal bill"
 msgstr "内部账单"
 
@@ -2185,3 +2210,198 @@ msgid ""
 "formal medical record unless the scope and confirmation checks explicitly "
 "identify a complete source set."
 msgstr "仅纳入明确选择的来源集合；只有范围和确认核查均明确完整时，才在该范围内视为完整。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "<span>Latest saved original</span> ·"
+msgstr "<span>最新已保存原件</span> ·"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid ""
+"List every intended source. Complete mode refuses any unconfirmed selected "
+"source. An excerpt requires a published policy for this store; unconfirmed "
+"selected sources remain explicitly listed as excluded."
+msgstr "请列出全部预期来源。完整模式拒绝纳入尚未确认的所选来源。摘录模式须有本店已发布政策，未确认来源仍明确列为未纳入。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Clinical document IDs, separated by commas"
+msgstr "临床文书内部标识（逗号分隔）"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Mode"
+msgstr "范围模式"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Complete within all listed sources"
+msgstr "所列全部来源范围内完整"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Incomplete source collection"
+msgstr "未完善来源集合"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Confirmed excerpt under published policy"
+msgstr "已发布政策允许的已确认摘录"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Published clinical_summary template / policy ID"
+msgstr "已发布临床汇总模板／政策内部标识"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Select source collection"
+msgstr "选择来源集合"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Controlled device failure demonstration"
+msgstr "受控设备故障演示"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid ""
+"This records a simulated failure linked to your earlier print request. It "
+"does not connect to a physical printer or verify paper output."
+msgstr "此处将模拟故障关联到您此前的打印请求；不连接真实打印机，也不验证实际出纸。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Request audit #"
+msgstr "请求审计记录号"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "/ original #"
+msgstr "／原件号"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "/ UTC"
+msgstr "／UTC"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Request audit ID"
+msgstr "请求审计内部标识"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Simulated failure reason"
+msgstr "模拟故障原因"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Record explicitly simulated device failure"
+msgstr "记录明确标识的模拟设备故障"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Consent upload and verification"
+msgstr "同意材料上传与核验"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid ""
+"A generated consent is awaiting signature. Uploading a file records pending "
+"evidence; it never marks a signature as verified. Synthetic verification is "
+"only a software test and does not establish a real clinical signature."
+msgstr "已生成的同意材料仍待签署。上传文件只记录待核验证据，不会自动认定签署已核验；合成核验仅为软件测试，不构成真实临床签署。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Consent original ID"
+msgstr "同意材料原件内部标识"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "PDF evidence"
+msgstr "PDF核验材料"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Upload as awaiting verification"
+msgstr "上传并标记待核验"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Evidence / original"
+msgstr "核验材料／关联原件"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "State / synthetic"
+msgstr "核验状态／合成标识"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Verifier / UTC"
+msgstr "核验人／UTC时间"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Stored upload"
+msgstr "已保存的上传原文件"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Download unchanged upload"
+msgstr "下载上传原文件"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Uploaded evidence ID"
+msgstr "上传核验材料内部标识"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Verification conclusion"
+msgstr "核验结论"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Accept verification"
+msgstr "核验通过"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Reject verification"
+msgstr "核验不通过"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Verification reason"
+msgstr "核验说明"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Record verification conclusion"
+msgstr "记录核验结论"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Patient ID"
+msgstr "患者内部标识"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_consent_page
+msgid "Check current store published consent policies"
+msgstr "查看本店已发布的同意材料政策"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Confirmed result text"
+msgstr "所选检查结果正文已确认"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Draft result text; incomplete"
+msgstr "所选检查结果正文为草稿，尚未完善"

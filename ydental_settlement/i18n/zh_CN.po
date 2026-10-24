@@ -2482,3 +2482,298 @@ msgstr "下一页患者"
 #: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
 msgid "Scrollable details"
 msgstr "可局部滚动的明细"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "External originals and non-tax examples"
+msgstr "外部原件与非税票示例"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid ""
+"Uploaded files are preserved unchanged. This entry does not issue tax "
+"invoices, edit third-party originals, verify a signature or confirm physical"
+" printing."
+msgstr "上传文件按原字节保存；此入口不开具税务发票，不编辑第三方原件，不核验签署，也不确认实际出纸。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "<strong>Current store:</strong>"
+msgstr "<strong>当前门店：</strong>"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Patient settlement and internal bills"
+msgstr "患者结算与内部账单"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Documents and saved internal originals"
+msgstr "文书与已保存内部原件"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Choose an authorized internal bill"
+msgstr "选择有权查看的本店内部账单"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Patient name, business number or bill number"
+msgstr "患者姓名、业务号或账单号"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Search bills"
+msgstr "查找账单"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Internal bill"
+msgstr "内部账单"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Select an authorized bill"
+msgstr "选择有权查看的账单"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "View linked originals"
+msgstr "查看关联原件"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "No authorized bills match this search."
+msgstr "未找到符合条件且有权查看的账单。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "<span>Authorized bills:</span>"
+msgstr "<span>授权账单数：</span>"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "· <span>Page:</span>"
+msgstr "· <span>页码：</span>"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Previous bills"
+msgstr "上一页账单"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Next bills"
+msgstr "下一页账单"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "<strong>Selected bill:</strong>"
+msgstr "<strong>已选账单：</strong>"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Upload and associate a new original"
+msgstr "上传并关联新原件"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid ""
+"Corrections preserve the earlier file. The predecessor selector includes all"
+" authorized originals for this bill, including other pages."
+msgstr "更正会保留旧文件。前版选择器包含本账单全部授权原件，包括其他页的原件。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Material source reference"
+msgstr "材料来源说明"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Material classification"
+msgstr "材料分类"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Clearly marked non-tax synthetic example"
+msgstr "有明确非税标识的合成示例"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Externally supplied original; not issued by this system"
+msgstr "外部提供的原件，非本系统签发"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Earlier original for a correction"
+msgstr "更正所关联的前版原件"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "New material without a predecessor"
+msgstr "新材料（无前版）"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "· UTC"
+msgstr "· UTC"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Original PDF, PNG or JPEG"
+msgstr "原始PDF、PNG或JPEG文件"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Preserve the uploaded original"
+msgstr "保全上传原文件"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid ""
+"Select an internal bill before uploading material or selecting a correction "
+"predecessor."
+msgstr "请先选择内部账单，再上传材料或选择更正前版。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Saved external originals"
+msgstr "已保存的外部原件"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Patient and internal bill"
+msgstr "患者与内部账单"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "File and purpose"
+msgstr "文件与用途"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Source and correction"
+msgstr "来源与更正关联"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Original file actions"
+msgstr "原始文件操作"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Non-tax synthetic example"
+msgstr "非税票合成示例"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Externally supplied material; invoice type not verified by this system"
+msgstr "外部提供材料，本系统未核验票种"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "<span>Previous file:</span>"
+msgstr "<span>前版文件：</span>"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "<span>Recorded UTC:</span>"
+msgstr "<span>录入时间（UTC）：</span>"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "File and version trace"
+msgstr "文件与版本追溯"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Original reference"
+msgstr "原件内部标识"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Bill reference"
+msgstr "账单内部标识"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Predecessor reference"
+msgstr "前版原件内部标识"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Download unchanged original"
+msgstr "下载原始文件"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Request original printing"
+msgstr "申请原样打印"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "A print request does not confirm physical paper output."
+msgstr "打印请求不代表已实际出纸。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Record an original print request"
+msgstr "记录原样打印请求"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "External original details"
+msgstr "外部原件明细"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "No authorized external originals are available in this selection."
+msgstr "当前选择范围内暂无有权查看的外部原件。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "<span>Authorized originals:</span>"
+msgstr "<span>授权原件数：</span>"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Previous originals"
+msgstr "上一页原件"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_external_original_page
+msgid "Next originals"
+msgstr "下一页原件"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_tax_service.py:0
+msgid ""
+"invalid_search: Use a patient name, business number or bill number and a "
+"valid page."
+msgstr "invalid_search: 请使用患者姓名、业务号或账单号，并选择有效页码。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_tax_service.py:0
+msgid "size_limit: Select a bill before listing this many external originals."
+msgstr "size_limit: 外部原件过多，请先选定账单再查看。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_tax_service.py:0
+msgid ""
+"size_limit: Narrow the patient or bill search before selecting an internal "
+"bill."
+msgstr "size_limit: 账单选项过多，请缩小患者或账单查询范围。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_tax_service.py:0
+msgid "size_limit: This bill exceeds the 5000-original selector capacity."
+msgstr "size_limit: 此账单原件超过5000份选择器容量，未截断返回结果。"

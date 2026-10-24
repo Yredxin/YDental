@@ -38,7 +38,7 @@ class YDentalDocuments(http.Controller):
                 order='version desc', limit=1)
             if latest:
                 authorized._original_reauthorize(latest)
-                result['previous_originals'] = [{'id': latest.id, 'title': latest.source_facts['title'],
+                result['previous_originals'] = [{'id': latest.id, 'title': service._original_kind_labels().get(latest.kind, latest.kind),
                     'patient_number': latest.patient_id.ydental_number, 'version': latest.version}]
         result['search_url'] = lambda number: '/ydental/documents?' + urlencode({'q': term, 'page': number})
         return request.render('ydental_print.ydental_document_page', result, headers=HEADERS)

@@ -373,7 +373,16 @@ class YDentalPrintOriginalService(models.AbstractModel):
                 'exception': self.env._('Laboratory exception closed')}.get(order[2] if len(order) > 2 else '', facts.get('status', ''))
         if kind in ('bill', 'receipt'):
             return self.env._('Frozen business snapshot; current balances may differ')
-        return facts.get('selected_state') or facts.get('status', '')
+        value = facts.get('selected_state') or facts.get('status', '')
+        labels = {
+            'Confirmed result text': self.env._('Confirmed result text'),
+            'Draft result text; incomplete': self.env._('Draft result text; incomplete'),
+            'Text confirmed, not a formal medical signature': self.env._('Text confirmed, not a formal medical signature'),
+            'Selected text is a draft; awaiting completion or confirmation.': self.env._('Selected text is a draft; awaiting completion or confirmation.'),
+            'Awaiting completion / explanation / signature / verification': self.env._('Awaiting completion / explanation / signature / verification'),
+            'Formal prescription signing is not approved. This is not a receipt, invoice or payment proof.': self.env._('Formal prescription signing is not approved. This is not a receipt, invoice or payment proof.'),
+        }
+        return labels.get(value, value)
 
     def _original_workbench(self, term='', page=1):
         if not isinstance(term, str) or len(term) > 100 or type(page) is not int or page < 1:

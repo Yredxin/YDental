@@ -91,6 +91,7 @@ class YDentalSettlement(http.Controller):
                         'now_utc': lambda: datetime.now(timezone.utc).isoformat(),
                         'money': lambda amount, currency: '%s %s' % (currency.name, formatLang(service.env, amount, digits=currency.decimal_places)),
                         'refund_labels': dict(service.env['ydental.settlement.refund']._fields['ydental_state']._description_selection(service.env)),
+                        'close_labels': dict(service.env['ydental.settlement.close']._fields['ydental_state']._description_selection(service.env)),
                         'channel_labels': dict(service.env['ydental.settlement.payment']._fields['ydental_channel']._description_selection(service.env)),
                         'feedback': message, 'patient_options': patient_options, 'search_term': search_term,
                         'patient_search_url': lambda page: '/ydental/settlement?' + urlencode({

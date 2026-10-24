@@ -1,4 +1,5 @@
 import uuid
+from urllib.parse import urlencode
 
 from odoo import http
 from odoo.exceptions import AccessError, UserError, ValidationError
@@ -10,14 +11,26 @@ from .settlement import HEADERS, YDentalSettlement
 class YDentalTaxOriginal(YDentalSettlement):
     @http.route('/ydental/settlement/external-originals', type='http', auth='user', methods=['GET'])
     def external_originals(self, **kwargs):
+        request.update_context(lang='zh_CN')
         try:
-            service = self._service()
-            rows = service._tax_original_rows()
-            return request.render('ydental_settlement.ydental_external_original_page', {
-                'rows': rows, 'revision': service.env['ydental.access.service']._scope().ydental_revision,
-                'key': str(uuid.uuid4())}, headers=HEADERS)
-        except (AccessError, UserError) as error:
-            return request.make_json_response({'error': str(error)}, status=403, headers=HEADERS)
+            service = self._service().with_context(lang='zh_CN')
+            invoice_id = int(kwargs['invoice_id']) if kwargs.get('invoice_id') else None
+            values = service._tax_original_workbench(term=kwargs.get('q', ''),
+                bills_page=int(kwargs.get('bills_page', '1')), originals_page=int(kwargs.get('originals_page', '1')),
+                invoice_id=invoice_id)
+            def page_url(kind, page):
+                query = {'q': values['search_term'], 'bills_page': values['invoice_pagination']['page'],
+                    'originals_page': values['original_pagination']['page']}
+                if invoice_id is not None:
+                    query['invoice_id'] = invoice_id
+                query[kind + '_page'] = page
+                return '/ydental/settlement/external-originals?' + urlencode(query)
+            values.update({'revision': service.env['ydental.access.service']._scope().ydental_revision,
+                'page_url': page_url, 'key': str(uuid.uuid4())})
+            return request.render('ydental_settlement.ydental_external_original_page', values, headers=HEADERS)
+        except (AccessError, UserError, ValidationError, ValueError, TypeError) as error:
+            return request.make_json_response({'error': str(error)},
+                status=403 if isinstance(error, AccessError) else 409, headers=HEADERS)
 
     @http.route('/ydental/settlement/external-originals/upload', type='http', auth='user',
                 methods=['POST'], max_content_length=11000000)
@@ -32,6 +45,12 @@ class YDentalTaxOriginal(YDentalSettlement):
                 result = service._tax_original_upload(int(invoice_id), file.filename, raw, key,
                     material_reference, synthetic=synthetic == 'true',
                     previous_id=int(previous_id) if previous_id else None)
+            if kwargs.get('output') == 'html' and request.httprequest.mimetype == 'multipart/form-data':
+                response = request.redirect('/ydental/settlement/external-originals?' + urlencode({
+                    'invoice_id': int(invoice_id)}), code=303)
+                for name, value in HEADERS:
+                    response.headers[name] = value
+                return response
             return request.make_json_response(result, headers=HEADERS)
         except (AccessError, UserError, ValidationError, ValueError, TypeError) as error:
             request.env['ydental.access.service']._denial('external_original.upload')

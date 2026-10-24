@@ -1,35 +1,76 @@
 <odoo>
     <template id="ydental_external_original_page" name="External originals, separate from internal bills">
-        <t t-call="web.layout">
-            <main class="container o_ydental_settlement_external_originals">
-                <h1>外部税务原件与非税票示例</h1>
-                <p>这里仅关联上传的原文件，不开具税票，不编辑原件。合成示例不表示真实开票。打印请求不证明实际出纸。</p>
-                <nav><a href="/ydental/settlement">结算及内部账单</a> | <a href="/ydental/documents">文书与内部凭据原件</a></nav>
-                <form action="/ydental/settlement/external-originals/upload" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                    <input type="hidden" name="revision" t-att-value="revision"/>
-                    <input type="hidden" name="key" t-att-value="key"/>
-                    <p><label>本店内部账单ID <input name="invoice_id" type="number" min="1" required="required"/></label></p>
-                    <p><label>材料来源说明 <input name="material_reference" maxlength="240" required="required"/></label></p>
-                    <p><label>分类 <select name="synthetic"><option value="true">醒目标识的非税票合成示例</option><option value="false">实际已提供的外部原件（非本系统签发）</option></select></label></p>
-                    <p><label>更正关联旧原件ID（可空） <input name="previous_id" type="number" min="1"/></label></p>
-                    <p><label>原始PDF/PNG/JPEG <input name="file" type="file" accept="application/pdf,image/png,image/jpeg" required="required"/></label></p>
-                    <button type="submit">保全上传原文件</button>
-                </form>
-                <table class="table"><thead><tr><th>原件 / 内部账单</th><th>文件 / 分类</th><th>来源 / 更正</th><th>SHA-256</th><th>原样操作</th></tr></thead><tbody>
+        <t t-call="web.frontend_layout">
+            <main class="container o_ydental_settlement o_ydental_settlement_external_originals">
+                <h1>External originals and non-tax examples</h1>
+                <p>Uploaded files are preserved unchanged. This entry does not issue tax invoices, edit third-party originals, verify a signature or confirm physical printing.</p>
+                <p><strong>Current store:</strong> <t t-out="store.name"/></p>
+                <nav><a href="/ydental/settlement">Patient settlement and internal bills</a> | <a href="/ydental/documents">Documents and saved internal originals</a></nav>
+                <section>
+                    <h2>Choose an authorized internal bill</h2>
+                    <form action="/ydental/settlement/external-originals" method="get">
+                        <label>Patient name, business number or bill number <input name="q" maxlength="100" t-att-value="search_term"/></label>
+                        <button type="submit">Search bills</button>
+                    </form>
+                    <form action="/ydental/settlement/external-originals" method="get">
+                        <input type="hidden" name="q" t-att-value="search_term"/>
+                        <input type="hidden" name="bills_page" t-att-value="invoice_pagination['page']"/>
+                        <label>Internal bill <select name="invoice_id" required="required">
+                            <option value="">Select an authorized bill</option>
+                            <option t-if="selected_invoice" t-att-value="selected_invoice['id']" selected="selected"><t t-out="selected_invoice['number']"/> · <t t-out="selected_invoice['patient_label']"/> · <t t-out="selected_invoice['amount']"/></option>
+                            <t t-foreach="invoices" t-as="invoice"><option t-if="not selected_invoice or invoice['id'] != selected_invoice['id']" t-att-value="invoice['id']"><t t-out="invoice['number']"/> · <t t-out="invoice['patient_label']"/> · <t t-out="invoice['date']"/> · <t t-out="invoice['amount']"/></option></t>
+                        </select></label><button type="submit">View linked originals</button>
+                    </form>
+                    <p t-if="not invoices">No authorized bills match this search.</p>
+                    <p><span>Authorized bills:</span> <t t-out="invoice_pagination['total']"/> · <span>Page:</span> <t t-out="invoice_pagination['page']"/> / <t t-out="invoice_pagination['pages']"/>
+                        <a t-if="invoice_pagination['previous']" t-att-href="page_url('bills', invoice_pagination['previous'])">Previous bills</a>
+                        <a t-if="invoice_pagination['next']" t-att-href="page_url('bills', invoice_pagination['next'])">Next bills</a>
+                    </p>
+                </section>
+                <p t-if="selected_invoice"><strong>Selected bill:</strong> <t t-out="selected_invoice['number']"/> · <t t-out="selected_invoice['patient_label']"/> · <t t-out="selected_invoice['amount']"/></p>
+                <details t-if="can_write and selected_invoice"><summary>Upload and associate a new original</summary>
+                    <p>Corrections preserve the earlier file. The predecessor selector includes all authorized originals for this bill, including other pages.</p>
+                    <form action="/ydental/settlement/external-originals/upload" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="revision" t-att-value="revision"/>
+                        <input type="hidden" name="key" t-att-value="key"/>
+                        <input type="hidden" name="invoice_id" t-att-value="selected_invoice['id']"/>
+                        <input type="hidden" name="output" value="html"/>
+                        <p><label>Material source reference <input name="material_reference" maxlength="240" required="required"/></label></p>
+                        <p><label>Material classification <select name="synthetic"><option value="true">Clearly marked non-tax synthetic example</option><option value="false">Externally supplied original; not issued by this system</option></select></label></p>
+                        <p><label>Earlier original for a correction <select name="previous_id">
+                            <option value="">New material without a predecessor</option>
+                            <option t-foreach="previous_options" t-as="previous" t-att-value="previous['id']"><t t-out="previous['filename']"/> · <t t-out="previous['reference']"/> · UTC <t t-out="previous['recorded_at']"/></option>
+                        </select></label></p>
+                        <p><label>Original PDF, PNG or JPEG <input name="file" type="file" accept="application/pdf,image/png,image/jpeg" required="required"/></label></p>
+                        <button type="submit">Preserve the uploaded original</button>
+                    </form>
+                </details>
+                <p t-if="can_write and not selected_invoice">Select an internal bill before uploading material or selecting a correction predecessor.</p>
+                <h2>Saved external originals</h2>
+                <div class="o_ydental_access_scroll" tabindex="0" aria-label="External original details"><table class="table"><thead><tr><th>Patient and internal bill</th><th>File and purpose</th><th>Source and correction</th><th>Original file actions</th></tr></thead><tbody>
                     <tr t-foreach="rows" t-as="row">
-                        <td><t t-out="row['id']"/> / <t t-out="row['invoice_id']"/></td>
-                        <td><t t-out="row['filename']"/><br/><t t-out="'非税票合成示例' if row['synthetic'] else '外部提供材料，未由本系统签发或核验票种'"/></td>
-                        <td><t t-out="row['reference']"/> / <t t-out="row['previous_id']"/></td><td t-out="row['sha256']"/>
-                        <td><a t-att-href="'/ydental/settlement/external-originals/%s' % row['id']">下载原文件</a>
-                            <form t-att-action="'/ydental/settlement/external-originals/%s/print-request' % row['id']" method="post">
-                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                                <input type="hidden" name="revision" t-att-value="revision"/>
-                                <button type="submit">原样打印请求（出纸未知）</button>
-                            </form>
+                        <td><t t-out="row['patient_label']"/><br/><t t-out="row['invoice_number']"/></td>
+                        <td><t t-out="row['filename']"/><br/><span t-if="row['synthetic']">Non-tax synthetic example</span><span t-else="">Externally supplied material; invoice type not verified by this system</span></td>
+                        <td><t t-out="row['reference']"/><p t-if="row['previous_filename']"><span>Previous file:</span> <t t-out="row['previous_filename']"/></p><p><span>Recorded UTC:</span> <t t-out="row['recorded_at']"/></p>
+                            <details><summary>File and version trace</summary><dl><dt>Original reference</dt><dd t-out="row['id']"/><dt>Bill reference</dt><dd t-out="row['invoice_id']"/><dt>Predecessor reference</dt><dd t-out="row['previous_id'] or '-'"/><dt>SHA-256</dt><dd t-out="row['sha256']"/></dl></details>
+                        </td>
+                        <td><a t-att-href="'/ydental/settlement/external-originals/%s' % row['id']">Download unchanged original</a>
+                            <details><summary>Request original printing</summary><p>A print request does not confirm physical paper output.</p>
+                                <form t-att-action="'/ydental/settlement/external-originals/%s/print-request' % row['id']" method="post">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <input type="hidden" name="revision" t-att-value="revision"/>
+                                    <button type="submit">Record an original print request</button>
+                                </form>
+                            </details>
                         </td>
                     </tr>
-                </tbody></table>
+                </tbody></table></div>
+                <p t-if="not rows">No authorized external originals are available in this selection.</p>
+                <p><span>Authorized originals:</span> <t t-out="original_pagination['total']"/> · <span>Page:</span> <t t-out="original_pagination['page']"/> / <t t-out="original_pagination['pages']"/>
+                    <a t-if="original_pagination['previous']" t-att-href="page_url('originals', original_pagination['previous'])">Previous originals</a>
+                    <a t-if="original_pagination['next']" t-att-href="page_url('originals', original_pagination['next'])">Next originals</a>
+                </p>
             </main>
         </t>
     </template>

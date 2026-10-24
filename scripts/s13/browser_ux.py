@@ -68,6 +68,9 @@ def search_interaction(page,directory,prefix,label):
         options=page.locator('select[name="selection"] option').all_text_contents()
         selected=next((value for value in options if ' / ' in value),'')
         term=selected.split(' / ')[0].strip()
+    elif label=='external-originals':
+        options=page.locator('select[name="invoice_id"] option[value]:not([value=""])').all_text_contents()
+        term=options[0].split(' · ')[1].split(' / ')[-1].strip() if options else ''
     elif label=='settlement':
         links=page.locator('.o_ydental_access_search li a').all_text_contents()
         term=links[0].split(' · ')[-1].strip() if links else ''
@@ -79,6 +82,18 @@ def search_interaction(page,directory,prefix,label):
     form.locator('button').click();page.wait_for_load_state('networkidle',timeout=40000)
     found={'business_text_search':term,'query_preserved':parse_qs(urlsplit(page.url).query).get('q')==[term],
            'screenshot':screenshot(page,directory,prefix+'-search'),'dimensions':measure(page)}
+    if label=='external-originals':
+        select=page.locator('select[name="invoice_id"]')
+        choices=select.locator('option[value]:not([value=""])').evaluate_all('(rows)=>rows.map(row=>({value:row.value,label:row.textContent}))')
+        if not choices:raise RuntimeError('Business search returned no authorized bill choices')
+        select.select_option(label=choices[0]['label'])
+        with page.expect_navigation(wait_until='domcontentloaded',timeout=40000):select.locator('xpath=..').locator('xpath=..').locator('button').click()
+        page.wait_for_load_state('networkidle',timeout=40000)
+        found['normal_bill_selected_by_business_label']=True
+        found['detail_screenshot']=screenshot(page,directory,prefix+'-selected-bill')
+        found['detail_dimensions']=measure(page)
+        if page.locator('input[name="invoice_id"]:not([type="hidden"]), input[name="previous_id"]:not([type="hidden"])').count():raise RuntimeError('External original workbench still requires internal keys')
+        found['internal_key_text_inputs_absent']=True
     if label=='settlement':
         links=page.locator('.o_ydental_access_search li a')
         if links.count():
@@ -153,13 +168,17 @@ def main():
                             item=visit(page,path,directory,prefix);item.update(alias=alias,viewport={'width':width,'height':height})
                             record['pages'].append(item)
                             item['visible_form_labels']=page.locator('label').all_text_contents()[:20]
+                            if label=='documents':
+                                nav=page.locator('main nav, main summary').all_text_contents()
+                                untranslated=('Clinical workbench','Treatment and pharmacy','Current store and permissions','Explicit clinical source collection','Controlled device failure demonstration','Consent upload and verification')
+                                if any(term in text for text in nav for term in untranslated):raise RuntimeError('Required document navigation remains untranslated')
                             if label=='closed-followup277':
                                 closed=page.locator('#followup-277')
                                 item['closed_row_present']=closed.count()==1
                                 item['closed_row_form_count']=closed.locator('form').count() if closed.count() else None
                                 item['closed_contact_form_count']=closed.locator('input[name="operation"][value="contact"]').count() if closed.count() else None
                             item['chinese_visible_heading']=any(re.search('[\u3400-\u9fff]',value) for value in item['headings'])
-                            if label in ('documents','settlement','inventory') and item['status']==200:
+                            if label in ('documents','settlement','inventory','external-originals') and item['status']==200:
                                 item['search_interaction']=search_interaction(page,directory,prefix,label)
                                 page.goto(BASE+path,wait_until='networkidle',timeout=40000)
                             if '/reports?' in path and item['status']==200:
