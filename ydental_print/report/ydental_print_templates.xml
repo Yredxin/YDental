@@ -51,7 +51,7 @@
                     <p style="clear: both"><strong>Processing:</strong> <t t-out="p['label_business']['instructions']"/></p>
                     <p style="clear: both"><strong>Identification code:</strong> <t t-out="p['barcode']['value']"/></p>
                     <p>Identify only; no receipt, put-away or notice. No shipment or receipt is implied.</p>
-                    <p><span>Generated UTC:</span> <t t-out="p['generated_at']"/> / <span>Source v</span><t t-out="p['version']"/> / UX5</p>
+                    <p><span>Generated UTC:</span> <t t-out="p['generated_at']"/> / <span>Source v</span><t t-out="p['version']"/> / UX6</p>
                     <p t-foreach="p.get('template_paragraphs', [])" t-as="paragraph" t-out="paragraph"/>
                     <p><span>Authorized trace:</span> /ydental/documents</p>
                 </article>
@@ -77,7 +77,7 @@
             <p t-if="not financial" class="o_ydental_print_flow o_ydental_print_business"><span t-foreach="p.get('business_identity', p['identity']) + p.get('business_details', p['details'])" t-as="row" class="o_ydental_print_field"><strong t-out="row[0]"/>: <t t-out="row[1]"/>;</span></p>
             <section t-if="not financial" t-foreach="p['sections']" t-as="section">
                 <t t-set="source_intro" t-value="p['kind'] == 'clinical_summary' and section['paragraphs'] and section['paragraphs'][0] == p['status']"/>
-                <t t-set="intro_count" t-value="len(section['paragraphs']) if source_intro else 2"/>
+                <t t-set="intro_count" t-value="len(section['paragraphs']) if source_intro else ([index + 1 for index, paragraph in enumerate(section['paragraphs']) if paragraph.strip()] or [len(section['paragraphs'])])[0]"/>
                 <table t-att-class="'o_ydental_print_section_intro o_ydental_print_source_intro' if source_intro else 'o_ydental_print_section_intro'"><tbody><tr><td>
                     <h2 t-out="section['label']"/>
                     <p t-if="source_intro" class="o_ydental_print_flow"><span t-foreach="section['paragraphs']" t-as="paragraph" class="o_ydental_print_field"><t t-out="paragraph"/>;</span></p>

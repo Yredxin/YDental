@@ -2,6 +2,8 @@
 
 ## IN_PROGRESS｜仅岗位界面、中文报表与文书版式整理
 
+- 2026-10-24 08:00前：9ad布局5限定加载/38方法再次0/0/exit0并独立通过，50旧/新前态文件保全；正常10份后续PDF和label5已另存。逐页已证短病历1页、检查主要中文修好，长同意因首2×350字段落强keep仍余孤立trace页；现仅呈现最小改为标题+首个非空段(layout6)，不删正文。服务run075221已正常stop；新1313/455仍无费用或款项，临时8结算权限待普通正例与正常回收；恢复helper已备自有私密句柄保全，不进证据包。
+
 - 2026-10-24 07:35：293e呈现候选限定print+settlement加载/38方法0/0/exit0均独立通过。211(label layout4)及10份正常新版本已实际提交；全旧SHA保全。逐页效果验收发现新215检查标题/字段英文、214病历纯trace第二页、220/221长同意及summary标题/trace分页缺口，准备layout5/检查原生PO修复，现有211—221均不覆写。服务run072415已正常stop供影响加载，尚未开始任何付款/退款。
 - 新S13工具v1拟slot与09:00未来排期重叠遭真实409，无slot operation/患者提交，原失败保留；v2实际正常slot1115/患者1313/task818/execution482/doc455draft v1已提交，execute因工具误用teeth=[11]遭真实invalid_tooth409；独立RO已核event/fee/payment全0。原lease482真实expires07:37:15，不改期、不清状态，待自然到期用正常合成恢复续同患者，旧455内容/作者/责任保留，不重跑新患者全链。临时frontdesk8/store1 settlementwrite为正常新增测试授权，结束正常恢复原语义；其余身份/权限未改。
 - QR211实际decode与冻结载荷一致；首次工具误将internalcode送外部package-only wizard，实际code_unavailable拒绝（非扫码副作用或系统故障），失败回执保留。root仅补现有native工单searchview按内部业务识别码查找，不改变外包扫码语义、权限或接收/入库动作；后续正常受控定位另验。
