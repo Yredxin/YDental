@@ -88,7 +88,7 @@ class TestDocumentOriginalsHTTP(TestClinicalHTTP):
         original = self.root['ydental.document.original'].browse(generated['original_id'])
         for path in (
                 '/web/content/' + str(original.attachment_id.id),
-                '/web/image/' + str(original.attachment_id.id),
+                '/web/image/' + str(original.attachment_id.id) + '?download=1',
                 '/web/content?model=ydental.document.original&id=%s&field=source_facts' % original.id,
                 '/report/pdf/ydental_print.ydental_document_pdf/' + str(selection['source_id']),
                 '/report/html/ydental_print.ydental_document_pdf/' + str(selection['source_id'])):
@@ -96,6 +96,15 @@ class TestDocumentOriginalsHTTP(TestClinicalHTTP):
             self.assertNotEqual(response.status_code, 200, path)
             self.assertNotEqual(response.status_code, 500, path)
             self.assertNotIn('Synthetic HTTP content', response.text)
+        image = self.url_open('/web/image/' + str(original.attachment_id.id))
+        self.assertEqual(image.status_code, 200)
+        # Native content_image returns its public placeholder after the source
+        # guard raises UserError. A 200 placeholder is not a source thumbnail.
+        placeholder = self.root.ref('web.image_placeholder').raw.content
+        self.assertEqual(image.content, placeholder)
+        self.assertTrue(image.headers['Content-Type'].startswith('image/'))
+        self.assertFalse(image.content.startswith(b'%PDF-'))
+        self.assertNotEqual(hashlib.sha256(image.content).hexdigest(), original.pdf_sha256)
         for model, method, arguments in (
                 ('ydental.print.service', '_original_operate', ['download', {'original_id': original.id}]),
                 ('ydental.document.original', 'read', [[original.id], ['source_facts']]),

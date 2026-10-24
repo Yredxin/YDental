@@ -1,20 +1,21 @@
 from datetime import timedelta
 from unittest.mock import patch
 
-from odoo.addons.base.tests.common import BaseCommon
+from odoo.addons.base.tests.common import DISABLED_MAIL_CREATE_CONTEXT
 from odoo.exceptions import AccessError, ValidationError
-from odoo.tests import tagged
+from odoo.tests import TransactionCase, tagged
 
 from odoo.addons.ydental_treatment_test.tests.common import bind, key, setup
 
 
 @tagged('post_install', '-at_install')
-class TestOperatingReports(BaseCommon):
+class TestOperatingReports(TransactionCase):
     """Read model totals from genuine synthetic source service events."""
 
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env['base'].with_context(**DISABLED_MAIL_CREATE_CONTEXT).env
         synthetic_supply = patch.object(type(cls.env['ydental.supply.service']), '_allow_demo_supply', return_value=True)
         synthetic_supply.start()
         cls.addClassCleanup(synthetic_supply.stop)

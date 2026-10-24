@@ -165,21 +165,28 @@ class YDentalReportingService(models.AbstractModel):
                 source_category=row.ydental_category, event_kind=row.ydental_kind,
                 price_snapshot_id=row.ydental_price_snapshot_id.id) for row in sources]
         if metric in ('original_billing', 'credits', 'receivables'):
-            links = self._bounded('ydental.settlement.source', scope)
-            invoices = links.ydental_invoice_id.filtered(lambda row: row.state == 'posted'
-                and row.company_id == store.company_id and row.move_type == 'out_invoice')
-            targets = invoices
+            move_type = 'out_refund' if metric == 'credits' else 'out_invoice'
+            invoice_scope = (fields.Domain('company_id', '=', store.company_id.id)
+                & fields.Domain('state', '=', 'posted') & fields.Domain('move_type', '=', move_type)
+                & dates('invoice_date'))
+            links = self._bounded('ydental.settlement.source', scope
+                & fields.Domain('ydental_invoice_id', 'any', invoice_scope))
+            targets = links.ydental_invoice_id
             credit_origins = defaultdict(set)
             if metric == 'credits':
                 # All candidates must be linked to an already store-authorized
                 # native bill by source, refund, or actual native reconciliation.
                 # Invoice-origin text alone is never a cross-store authorizer.
-                refunds = self._bounded('ydental.settlement.refund', fields.Domain('ydental_payment_id.ydental_store_id', '=', store.id))
-                direct = links.ydental_invoice_id | refunds.ydental_credit_note_ids | refunds.ydental_credit_note_id
+                refunds = self._bounded('ydental.settlement.refund',
+                    fields.Domain('ydental_payment_id.ydental_store_id', '=', store.id)
+                    & (fields.Domain('ydental_credit_note_ids', 'any', invoice_scope)
+                       | fields.Domain('ydental_credit_note_id', 'any', invoice_scope)))
                 partials = self._bounded('account.partial.reconcile',
-                    fields.Domain('debit_move_id', 'in', invoices.line_ids.ids)
-                    & fields.Domain('credit_move_id.move_id.move_type', '=', 'out_refund'))
-                direct |= partials.credit_move_id.move_id
+                    fields.Domain('debit_move_id.move_id.company_id', '=', store.company_id.id)
+                    & fields.Domain('debit_move_id.move_id.move_type', '=', 'out_invoice')
+                    & fields.Domain('debit_move_id.move_id.ydental_settlement_source_ids', 'any', scope)
+                    & fields.Domain('credit_move_id.move_id', 'any', invoice_scope))
+                direct = targets | refunds.ydental_credit_note_ids | refunds.ydental_credit_note_id | partials.credit_move_id.move_id
                 for part in partials:
                     credit_origins[part.credit_move_id.move_id.id].add(part.debit_move_id.move_id.id)
                 for refund in refunds:
@@ -187,15 +194,25 @@ class YDentalReportingService(models.AbstractModel):
                         credit_origins[credit.id].update(refund.ydental_payment_id.ydental_invoice_ids.filtered(
                             lambda row: row.company_id == credit.company_id and row.partner_id == credit.partner_id
                             and row.currency_id == credit.currency_id and row.name == credit.invoice_origin).ids)
-                candidates = self._bounded('account.move', fields.Domain('company_id', '=', store.company_id.id)
-                    & fields.Domain('move_type', '=', 'out_refund') & fields.Domain('state', '=', 'posted')
-                    & fields.Domain('id', 'in', direct.ids))
-                targets = candidates
+                parent_fees = links.ydental_fee_id.ydental_parent_id
+                parent_links = self._bounded('ydental.settlement.source', scope
+                    & fields.Domain('ydental_fee_id', 'in', parent_fees.ids)) if parent_fees else links.browse()
+                parent_by_fee = {row.ydental_fee_id.id: row.ydental_invoice_id.id for row in parent_links}
+                for link in links:
+                    parent_id = parent_by_fee.get(link.ydental_fee_id.ydental_parent_id.id)
+                    if parent_id:
+                        credit_origins[link.ydental_invoice_id.id].add(parent_id)
+                    adjustment = link.ydental_lab_charge_adjustment_id
+                    if adjustment:
+                        original = adjustment.ydental_charge_id.ydental_settlement_source_id.ydental_invoice_id
+                        if original:
+                            credit_origins[link.ydental_invoice_id.id].add(original.id)
+                targets = self._bounded('account.move', invoice_scope & fields.Domain('id', 'in', direct.ids))
             for invoice in targets:
                 if not invoice.invoice_date or not start <= invoice.invoice_date <= end:
                     continue
                 source_rows = links.filtered(lambda row: row.ydental_invoice_id == invoice)
-                original_ids = sorted(credit_origins[invoice.id])
+                original_ids = sorted(credit_origins[invoice.id]) if metric == 'credits' else [invoice.id]
                 rows.append(self._row(invoice, store,
                     invoice.amount_residual if metric == 'receivables' else invoice.amount_total,
                     'currency:%s' % invoice.currency_id.id, invoice.invoice_date, invoice.state,

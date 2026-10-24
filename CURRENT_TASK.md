@@ -1,30 +1,23 @@
 # S12 当前执行状态｜YD-S12-DOCUMENTS-REPORTS-V1 / 1.0
 
-## 当前：IMPLEMENTING；#36 OPEN
+## 当前：IMPLEMENTING；#36 OPEN；不启动S13、不合并、不部署
 
-### 2026-10-24 UTC：首条真实原件闭环已完成，连续实施W1—W5
+- [完整用户计划](docs/execution/S12_IMPLEMENTATION_PLAN.md)已纳入；用户明确启用S12替代旧范围限制。接管已完整读main三入口、活动状态、#23/有效评论、#36/6246235470、#35最终6368848927。origin Yredxin/YDental；从干净且本地/远端一致的S11最终e100e098dea5b919f3c9ca09454d239189e69ad1建立 `codex/s12-documents-reports-r1`，无回退。main仅三文档同步e809085498329d59259b7a6b88f6e9e52aeb890d已push/读回，未合产品。
+- 唯一目标 `ydental_s11_synth_20261023_01 / OID2171423 / cluster7694897083368259627`；core固定f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb。本阶段新scope/私有runtime与正常provider复用原filestore，不建库/复制/改名/97模块重装；scope真实到2026-10-24 08:00:24.457348 UTC，S11 scope原bytes保留。正常UID2原生激活zh_CN（不覆盖翻译），S12字体配置真实引用已跟踪Noto/哈希，不改OS/validator。
+- 主控 `/root` 统一共享目标、服务及文件写权，负责财务/报表；真实 `/root/developer` 实现临床原件/同意/合集/排版和浏览器工具，`/root/tester` 负责测试/工具/来源竞争，`/root/acceptance` 未实现者独立核验。共享OS不冒隔离；验收不自签实现。后续产品曾在独立worktree开发，主控串行集成。
+- **已完成首条可用闭环（限定）**：固定333ef10，普通6/8/9经正常HTTP新slot697/patient254/task603/execution293/doc273 confirmedv2/author9→original1→下载→正常更名patient254v2→重印。两份真实2页A4原bytes/SHA均 `ddb3962685c62ff531360c16edcf1e5ab9d9a829cd616ee81688e7b8a01ac8d1`。独立源/模板/renderSHA、文件、行为审计、新物理RO17经济库存表全字段不变和两页亲看回执3828129241eb8d68da59eaa278c28d340842f76dfb98e0f1a2bf544ec26a1976。不是browser/并发/正式正文/出纸或全S12通过。新continuation604仍真实pending，不删不假结。
+- 首preview因zh_CN inactive真实409、随后generate因Noto缺运行环境真实409，均核无原件后只续已提交doc273/原key，不重跑来源。正常管理/字体配置后成功；两失败及普通工具签名/依赖错误保留。[证据索引](docs/reports/s12/evidence-index.md)有原路径/SHA。原件1旧333版页1标题孤立/页2缺来源footer保留；新模板已源码修keep-together/footer和简洁可分页版本引用，须新PDF逐页复验，不能覆盖原件1。
+- 初始333四模块升级0/ERROR0、完整140/11/14即时pre与143/11/14post独立分类，旧事实/文件保持，非最终升级。后续025e65ebe419dedf555029c57f86319580725474限定四模块升级+只新安装reporting/s12_test实际0/ERROR0，现99installed；完整143/13/15pre→145/13/15post，独立3dca2c58…核旧业务仅原生26 access/group write_date、2新空表及模块元数据，原件/附件/权限语义/配置约束保持。非最终升级。
+- **首suite真实FAIL**：025e65e实际官方28 post-tests、1failed/20errors、child1/wrapper2、无Native，result da18d84602c7597c062cb5b0001ddb69df236491aa1cceffba62b77c7824a3c7。独立eebdbff7…确认MODEL首因BaseCommon改变夹具actor env；HTTP一项把原生web/image占位图200误作泄露。已改用上游TransactionCase/原角色，缩略图逐字比原生placeholder且download=1须拒；产品ACL/core不改。失败后完整pre/post独立4a7e2807…：145业务/15附件/配置索引保持，仅模块write_date。修复未冒PASS。
+- 当前已集成永久原件、同意上传/核验/显式旧版政策、完整拟纳集合/摘录与更正链、财务原件/外部非税票示例入口、指标字典与报表源授权/钻取/CSV。SOURCE独立无具体阻断；suite普通fix+一项真实merge回归（29定义，非PASS数）及报表日期下推/新版PDF待新冻结回归。
+- 下一动作：新固定候选完整pre→限定更新→重跑受影响原生suite；随后本阶段新F2/T11正常HTTP经济链、T12实际双连接临床v2→v3一致快照、浏览器及所有交付PDF逐页检查、最终带数据限定升级和16行独立总验收。首链后连续实施，不逐批返回GPT，不向Issue发过程进度。
+- 当前owned服务均正常STOPPED、child/前台0、无active。运行记录/凭据/原始文件只本机，默认效果入口下次须真实新准入启动，不承诺永久在线。[summary](docs/reports/s12/summary.md)、[evidence-index](docs/reports/s12/evidence-index.md)、[指标字典](docs/reports/s12/metric-dictionary.md)。
 
-- 初始产品/执行候选333ef107925a61d9f247640c7c0c0d6754f9e2e9。完整140业务/11技术/14附件即时pre成功后限定升级print/exam/settlement/lab，原生0/ERROR0；post143/11/14，独立932e7ad…逐值分类：3新空模型表、771原生write_date及本次模型/视图/80mm等新增，旧业务/权限语义/附件/配置保持。不是最终带数据升级。
-- 首链新slot697/patient254/task603/execution293/document273 confirmed v2/author9，经普通6/8/9正常HTTP形成；handover后continuation604 pending为真实待处理，不假完成/删除。首preview真实409因zh_CN inactive，后generate真实409因Noto缺环境。均先独立RO核无original/未更名/经济保持，再恢复；不重做前段。
-- 正常UID2原生res.lang.action_activate_langs启用zh_CN（未重装模块/未覆盖翻译）；S12私有fontconfig引用受版本管理Noto真实字体，fc-match核family/file/hash，未改字体validator/OS配置。scope真实延续，不倒填旧窗口。第一次owned run001116正常stop/child0；第二run001857Z-1429b87d5941同候选携真实FONTCONFIG_FILE，后已正常stop/child0/无active。
-- **首条闭环实际PASS（限定）**：原key生成original1→普通9下载2页A4→普通8正常更名patient254/v2→9重印，真实PDF前后字节一致，SHA `ddb3962685c62ff531360c16edcf1e5ab9d9a829cd616ee81688e7b8a01ac8d1`。首原件1保持，不改写。独立原始HTTP+新物理RO3899453核source/template/render哈希、actor/author/实际生成时间、附件原bytes、四种行为审计及17经济库存表全字段保持。独立总回执3828129241eb8d68da59eaa278c28d340842f76dfb98e0f1a2bf544ec26a1976。
-- 首两页亲看中文可读无裁切/重叠；旧333版页1病史标题孤立与页2缺来源footer均保留。W2新模板已修keep-together/footer，须新版本逐页复验，不能改原件1冒修复。不是浏览器/并发/正式正文/出纸或全S12通过。
-- 已继续集成W2同意书/核验/显式政策、全集合草稿/完整/摘录和跨selection更正链；报表只读投影、字典与源授权初稿已落。独立SOURCE限定通过，未动态冒PASS。下一动作：冻结新增产品/测试，完整pre→仅安装reporting+s12_test、限定升级四现有模块→运行适用原生测试；接真实新合成F2/T11经济链、双连接、浏览器与全部样张视觉、最终带数据升级。
+## 不可重放与未验边界
 
+承接S11全部已提交文书、费库款、工单、原件/附件、审计及未完成责任，不重放旧经济链。新增业务只本阶段新合成源经正常流程；原件1亦已保护。旧main/scratch OID2144130、attempt30、旧F2缺证、历史SIGSEGV/平台失败原结论保留，不进入旧禁读禁写目标、不反签历史完整性。当前真实平台限制仍遵守，不换入口规避。
 
-- 用户本会话明确启用S12，替代上一计划“不启动S12”；不启动S13、不合并、不部署。[完整计划](docs/execution/S12_IMPLEMENTATION_PLAN.md)已纳入。计划原文日期2026-10-24，现场系统日期2026-10-23，执行用实际UTC，不倒填。
-- 已完整读main/GPT_HANDOFF、AGENTS、CURRENT_TASK、活动状态、#23及有效评论、#36及6246235470、#35最终6368848927。origin=Yredxin/YDental；工作树干净，本地/远端S11均e100e098dea5b919f3c9ca09454d239189e69ad1，从此建 `codex/s12-documents-reports-r1`。main最小文档同步待做。
-- 主控 `/root` 统一写权/数据库/服务调度并实现财务文书及指标；真实 `/root/developer` 负责临床原件/同意/检查处方标签，`/root/tester` 负责测试/工具，`/root/acceptance` 未实现者独立验收。共享OS不冒隔离，不能自签实现。没有其他活跃团队。
-- 唯一目标 `ydental_s11_synth_20261023_01 / OID2171423 / cluster7694897083368259627`。获调度tester RO/RR实核受限同名LOGIN/无集群高权/只拥有目标、97installed无pending、SMTP0/通知off/local_sinkfalse/callback空/clock成员0，rollback/idle/close；回执 `.local/s12/admission/target-readonly-confirmed.json` SHA d35806698a60e9cfd65a967621fdf1ed05edf3c55bdd50305ea3891266466dbf。尚未启动S12服务或业务写；新scope/配置准备中，旧scope原bytes不动，复用原filestore不复制。
-- 当前临床PDF仅15分钟demo，不能当永久原件；S10 bill.original可复用，但快照/单份权限需扩展。正在真实实现，不是PLAN_ONLY；无S12产品动态PASS或独立总验收。
-- 下一步：完整保护pre、限定模块升级、普通角色新合成来源正常入口PDF→原件下载→改主档/模板→重印SHA不变，随后连续W1—W5。
-- [summary](docs/reports/s12/summary.md)、[evidence-index](docs/reports/s12/evidence-index.md)。
-
-## 保护与未验边界
-
-承接全部S11已提交文书/费库款/原件附件/审计及未完成责任，不重放旧经济链；新增仅S12合成对象正常业务流程。不建库/改名/复制、不重装97模块。旧main/scratch OID2144130、attempt30、旧F2缺证、历史SIGSEGV和原平台失败保留，不进入旧禁读禁写目标、不反签历史完整性。当前真实限制按实际提示停止相应动作，不换入口规避。
-
-S11组合扫码差异单列待产品决定；标签不加接收/入库副作用，closed复诊表单既存UI限制保留。正式正文/政策、真实税务原件/票种及物理设备未提供，对应真实分支NOT_RUN/待审核；合成软件机制继续，真实外发/支付/税务/电子签名/生产未批准。
+S11组合扫码差异待产品决定，标签不暗加收货/入库；closed复诊不可执行表单既存限制保留。正式临床正文/签发政策、真实税票/票种和物理设备没有输入，对应真实分支NOT_RUN/待审核；合成软件机制继续，不假签/开票/出纸，不启真实通知、支付、税务、电子签名或生产。
 
 ---
 

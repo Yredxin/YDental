@@ -3,21 +3,22 @@ import hashlib
 from unittest.mock import patch
 
 from odoo import Command
-from odoo.addons.base.tests.common import BaseCommon
+from odoo.addons.base.tests.common import DISABLED_MAIL_CREATE_CONTEXT
 from odoo.exceptions import AccessError, UserError, ValidationError
-from odoo.tests import tagged
+from odoo.tests import TransactionCase, tagged
 
 from odoo.addons.ydental_treatment_test.tests.common import bind, handover_args, key, save_args, serving
 from odoo.addons.ydental_treatment_test.tests.treatment_common import opened_actual, setup
 
 
 @tagged('post_install', '-at_install')
-class TestDocumentsW2(BaseCommon):
+class TestDocumentsW2(TransactionCase):
     """MODEL transactions with actual PDF bytes; no real signatures or printers."""
 
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env['base'].with_context(**DISABLED_MAIL_CREATE_CONTEXT).env
         demo_supply = patch.object(type(cls.env['ydental.supply.service']), '_allow_demo_supply', return_value=True)
         demo_supply.start()
         cls.addClassCleanup(demo_supply.stop)

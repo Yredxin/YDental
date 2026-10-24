@@ -4,9 +4,9 @@ import io
 from unittest.mock import patch
 import zipfile
 
-from odoo.addons.base.tests.common import BaseCommon
+from odoo.addons.base.tests.common import DISABLED_MAIL_CREATE_CONTEXT
 from odoo.exceptions import AccessError, UserError
-from odoo.tests import tagged
+from odoo.tests import TransactionCase, tagged
 from odoo.tools.pdf import PdfFileReader
 
 from odoo.addons.ydental_treatment_test.tests.common import bind, key, save_args, setup
@@ -14,12 +14,15 @@ from odoo.addons.ydental_treatment_test.tests.treatment_common import opened_act
 
 
 @tagged('post_install', '-at_install')
-class TestDocumentOriginals(BaseCommon):
+class TestDocumentOriginals(TransactionCase):
     """Rolled-back MODEL assertions; not committed patient/economic evidence."""
 
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        # Native TransactionCase preserves each explicitly bound ordinary actor.
+        # BaseCommon would rebind service recordsets to its default test user.
+        cls.env = cls.env['base'].with_context(**DISABLED_MAIL_CREATE_CONTEXT).env
         # A class-local synthetic supply seam, as in the accepted S11 tests.
         # Persistent normal-role business evidence uses the unpatched service.
         cls.demo_supply_patch = patch.object(type(cls.env['ydental.supply.service']),
@@ -96,6 +99,47 @@ class TestDocumentOriginals(BaseCommon):
                 else:
                     with self.assertRaises(AccessError):
                         self.printing._original_operate('export', {'original_ids': [generated['original_id']]})
+
+    def test_verified_patient_merge_preserves_old_original_and_live_source_authorization(self):
+        selection = self.source()
+        generated, expected_bytes = self.generated(selection)
+        original = self.root['ydental.document.original'].browse(generated['original_id'])
+        frozen_facts = copy.deepcopy(original.source_facts)
+        source = self.root['ydental.clinical.document'].browse(self.document['document_id'])
+        source_version, source_author = source.ydental_version, source.ydental_author_id.id
+        versions = self.root['ydental.clinical.version'].search([('ydental_document_id', '=', source.id)])
+        old_versions = [(row.id, row.ydental_number, row.ydental_author_id.id, copy.deepcopy(row.ydental_content))
+                        for row in versions]
+        handover = self.clinical._operate('handover', {
+            'document_id': source.id, 'editor_token': self.document['editor_token'],
+            'expected_version': source_version, 'content': self.document['content'], 'key': key(),
+            'lease_id': self.lease['lease_id'], 'lease_token': self.lease['token'],
+            'reason': 'S12 synthetic segment ended before group identity verification'})
+        self.queue._operate('exit', {'lease_id': self.lease['lease_id'], 'token': self.lease['token']})
+        continuation = self.root['ydental.intake.task'].browse(handover['continuation_task_id'])
+        continuation_state = continuation.state
+        patient_service = self.front.env['ydental.patient.service']
+        target = patient_service._operate('create', {'values': {
+            'name': 'S12 synthetic verified canonical identity'}}, key())['id']
+        request = patient_service._operate('request_merge', {'source_id': self.execution.ydental_patient_id.id,
+            'target_id': target, 'reason': 'Explicit synthetic duplicate identity for original-file preservation'}, key())
+        before = self.business_counts()
+        result = self.group.env['ydental.patient.service']._operate('confirm', {
+            'request_id': request['id'], 'version': request['version'],
+            'reason': 'Group verified these two new synthetic identities; preserve source history'}, key())
+        self.assertEqual(result['result'], 'accepted', result)
+        self.assertEqual(result['patient_id'], target)
+        self.assertEqual(self.printing._original_operate('download', {'original_id': original.id})[0], expected_bytes)
+        self.assertEqual(original.source_facts, frozen_facts)
+        self.assertEqual(hashlib.sha256(expected_bytes).hexdigest(), original.pdf_sha256)
+        self.assertEqual((source.ydental_version, source.ydental_author_id.id), (source_version, source_author))
+        self.assertEqual([(row.id, row.ydental_number, row.ydental_author_id.id, row.ydental_content) for row in versions], old_versions)
+        self.assertTrue(continuation.exists())
+        self.assertEqual(continuation.state, continuation_state)
+        self.assertEqual(self.business_counts(), before)
+        self.admin._grant(self.users['doctor'].id, self.stores[0].id, {'medical': 'none'})
+        with self.assertRaises(AccessError):
+            self.printing._original_operate('download', {'original_id': original.id})
 
     def test_generation_retry_and_renderer_failure_do_not_repeat_business(self):
         selection = self.source()
