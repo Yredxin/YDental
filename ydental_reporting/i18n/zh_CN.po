@@ -1,0 +1,822 @@
+# Translation of YDental operating reports.
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_scope
+msgid "<strong>Authorized report scope:</strong>"
+msgstr "<strong>已授权查询范围：</strong>"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_source
+msgid "<strong>Business date / source time:</strong>"
+msgstr "<strong>业务日期／来源时间：</strong>"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_scope
+msgid "<strong>Local source dates:</strong>"
+msgstr "<strong>当地来源日期：</strong>"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_scope
+msgid "<strong>Queried at (UTC):</strong>"
+msgstr "<strong>查询时点（UTC）：</strong>"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:181
+msgid "Actual arrival"
+msgstr "实际到店"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Actual events within the selected local business dates."
+msgstr "按所选门店当地业务日统计实际发生事件。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:20
+msgid "Actual offline collections, not revenue"
+msgstr "实收（线下确认，非收入）"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:21
+msgid "Actual offline refunds"
+msgstr "实退（已实际退款）"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:190
+msgid "Actual operator"
+msgstr "实际经办人"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:16
+msgid "Actual store arrivals"
+msgstr "实际到店人次"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:186
+msgid "Actually occurred at"
+msgstr "实际发生时间"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:49
+msgid "Actually refunded"
+msgstr "已实际退款"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:26
+msgid "Alipay offline"
+msgstr "支付宝线下确认"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:235
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "All applicable source states"
+msgstr "全部适用状态"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "All explicitly selected authorized entities"
+msgstr "已明确选择的全部授权法人"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Amount / quantity"
+msgstr "金额／数量"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:22
+msgid "Approved refunds awaiting actual execution now"
+msgstr "当前批准待退"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:21
+msgid "Approved; not actually refunded"
+msgstr "已批准待实退"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:191
+msgid "Approver"
+msgstr "批准人"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Authorized source details"
+msgstr "已授权来源明细"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Authorized stores (multiple selection)"
+msgstr "已授权门店（可多选）"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:16
+msgid "Awaiting follow-up contact"
+msgstr "复诊待联系"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:23
+msgid "Awaiting laboratory inventory"
+msgstr "待加工库存"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:26
+msgid "Bank card offline"
+msgstr "银行卡线下确认"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Business date / source time"
+msgstr "业务日期／来源时间"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Business document / patient"
+msgstr "业务单据／患者"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_navigation
+msgid "Business navigation"
+msgstr "业务导航"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Business state"
+msgstr "业务状态"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:25
+msgid "Cash"
+msgstr "现金"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:27
+msgid "Chairside medicine"
+msgstr "椅旁用药"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Changing the metric resets scope to the current store and clears entity, currency and state filters."
+msgstr "切换指标后回到当前门店，并清除法人、币种和状态条件；日期保留。"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_error
+msgid "Check the selected store, source permission and explicit filters. Unavailable stores are rejected instead of silently reducing the scope."
+msgstr "请核对门店、来源权限及明确的过滤条件。不可访问门店会被拒绝，不会静默缩小查询范围。"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_error
+msgid "Choose the current store"
+msgstr "选择当前门店"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:15
+msgid "Completed stock movement"
+msgstr "库存已完成"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:17
+msgid "Confirmed actual project / dispensing events in authorized source categories"
+msgstr "已授权项目执行与实际发药"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:14
+msgid "Confirmed execution"
+msgstr "已确认实际执行"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:28
+msgid "Correction event"
+msgstr "数量更正事件"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Currency"
+msgstr "币种"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:195
+msgid "Current corrected channel"
+msgstr "当前更正后的渠道"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:25
+msgid "Current laboratory delivery responsibility by state"
+msgstr "当前加工待交付责任"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:185
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_source
+msgid "Current receivable"
+msgstr "当前应收"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:23
+msgid "Current receivable for selected original bill dates"
+msgstr "当前应收（按所选账单日期范围）"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Current receivable for the selected original bill date range. Dates do not represent a historical balance cutoff."
+msgstr "这是所选账单日期范围内账单的当前应收；所选日期不是历史余额截止日。"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Current responsibility or pending amount at query time; dates select the source records."
+msgstr "展示查询时点的当前责任或待办金额；日期仅限定来源群。"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_navigation
+msgid "Current store and permissions"
+msgstr "当前门店与权限"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:26
+msgid "Current unfinished follow-up plans by responsible person"
+msgstr "当前未完成复诊责任"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_scope
+msgid "Dates select source records. Snapshot metrics show their current state at query time, without historical balance reconstruction."
+msgstr "日期限定来源记录；快照指标展示查询时点的当前状态，不重建历史截至日余额。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:17
+msgid "Dispatched to laboratory; receipt unconfirmed"
+msgstr "已发往加工；尚未确认接收"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_navigation
+msgid "Document originals"
+msgstr "文书原件"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:24
+msgid "Done treatment / medicine consumption by product, lot and unit"
+msgstr "实际耗用（按物料、批次和单位）"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:187
+msgid "Entered at"
+msgstr "录入时间"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:133
+msgid "Events"
+msgstr "次"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:29
+msgid "Examination source"
+msgstr "检查来源"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Export all matching sources (store export permission required)"
+msgstr "导出本次全部来源（另核逐店导出权）"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:16
+msgid "Follow-up contacted"
+msgstr "复诊已联系"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:15
+msgid "Follow-up planned"
+msgstr "复诊已计划"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:24
+msgid "Laboratory contact stopped"
+msgstr "加工联系已停止"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:198
+msgid "Laboratory follow-up stage"
+msgstr "加工复诊阶段"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:18
+msgid "Laboratory processing"
+msgstr "加工中"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Legal entity"
+msgstr "法人"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Local end date"
+msgstr "当地结束日"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Local start date"
+msgstr "当地开始日"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:29
+msgid "Medical source"
+msgstr "医疗来源"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Metric"
+msgstr "业务指标"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_source
+msgid "Native collection allocation"
+msgstr "原生收款分摊"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_source
+msgid "Native source document (permissions checked again)"
+msgstr "原生来源单据（重新核权）"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Next page"
+msgstr "下一页"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "No applicable sources match these authorized filters. Adjust the dates, stores or applicable state."
+msgstr "当前授权条件内无适用来源。可调整日期、门店或适用状态后查询。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:141
+msgid "No lot recorded"
+msgstr "无批次记录"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:145
+msgid "No responsible person recorded"
+msgstr "未记录责任人"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:204
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:47
+msgid "Not applicable"
+msgstr "不适用"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:86
+msgid "Not recorded"
+msgstr "未记录"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_error
+msgid "Open reports with the current store defaults"
+msgstr "按当前门店默认条件打开报表"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_source
+msgid "Open the source business page"
+msgstr "打开原业务页面"
+
+#. module: ydental_reporting
+#: model:ir.actions.act_url,name:ydental_reporting.ydental_operating_report_action
+#: model:ir.ui.menu,name:ydental_reporting.ydental_operating_report_menu
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Operating reports and source documents"
+msgstr "经营报表与原单钻取"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:184
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_source
+msgid "Original amount"
+msgstr "原账单金额"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:196
+msgid "Original collection channel"
+msgstr "原始收款渠道"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:18
+msgid "Original posted billing"
+msgstr "原出账金额"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:52
+msgid "Other recorded state"
+msgstr "其他已记录状态"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Page"
+msgstr "第"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:133
+msgid "People"
+msgstr "人"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:30
+msgid "Pharmacy source"
+msgstr "药房来源"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:18
+msgid "Physically received"
+msgstr "已实物接收"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:14
+msgid "Posted"
+msgstr "已记账"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:19
+msgid "Posted credit notes, not cash refunds"
+msgstr "已记账冲销（非现金退款）"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Previous page"
+msgstr "上一页"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:19
+msgid "Put away; awaiting fitting"
+msgstr "已入库待戴用"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Query authorized sources"
+msgstr "查询授权来源"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:23
+msgid "Ready for laboratory contact"
+msgstr "加工库存可用"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:197
+msgid "Refund channel"
+msgstr "退款渠道"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:22
+msgid "Refund execution failed"
+msgstr "退款执行失败"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:22
+msgid "Refund outcome unknown"
+msgstr "退款结果待核实"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:160
+msgid "Refund request"
+msgstr "退款申请"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_error
+msgid "Report request could not be completed"
+msgstr "报表请求未完成"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:192
+msgid "Responsible person"
+msgstr "责任人"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_source
+msgid "Return to the same report filters and page"
+msgstr "返回原过滤条件与页码"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:20
+msgid "Returned for rework"
+msgstr "已返厂重做"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_source
+msgid "Select this source store through the normal store selector before opening its business page. Report access does not grant cross-store handling permission."
+msgstr "打开原业务页面前，请通过正常选店入口切换至该来源门店。报表读取不授予跨店办理权。"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_source
+msgid "Selected bill"
+msgstr "所选账单"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_source
+msgid "Selected bills and current native allocations"
+msgstr "所选账单与当前原生分摊"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Separate totals per currency"
+msgstr "按各币种分别统计"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:239
+msgid "Separate totals per currency or unit"
+msgstr "按币种或单位分别统计"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_navigation
+msgid "Settlement workbench"
+msgstr "结算工作台"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:199
+msgid "Source category"
+msgstr "来源类别"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Source details"
+msgstr "来源明细"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Source pages"
+msgstr "来源分页"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:155
+msgid "Source record"
+msgstr "业务来源"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Source state"
+msgstr "来源状态"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Store / legal entity"
+msgstr "门店／法人"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_scope
+msgid "Store timezones and effective UTC boundaries"
+msgstr "各店时区与生效UTC边界"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Synthetic software definitions await business review. Collections are not revenue; credit notes are not cash refunds. Currencies and units are reported separately."
+msgstr "合成软件口径待业务审核。实收不是收入，冲销不是现金退款；币种和单位分别统计。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:28
+msgid "Take-home dispensing"
+msgstr "处方实际发药"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_source
+msgid "Technical trace and complete source facts"
+msgstr "技术追溯与完整来源事实"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "The combined patient total is deduplicated across the selected stores; store patient counts must not be added together."
+msgstr "所选门店的联合患者数已去重，不能将各店患者数直接相加。"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_source
+msgid "This is an authorized view of current source facts. Viewing does not collect, refund, receive or move stock."
+msgstr "此处展示已授权来源的当前事实。查看不产生收款、退款、接收或库存动作。"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Totals by authorized store"
+msgstr "各授权门店合计"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Totals by currency or unit"
+msgstr "按币种或单位合计"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:27
+msgid "Treatment consumption"
+msgstr "治疗耗用"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:51
+msgid "Treatment execution"
+msgstr "治疗实际执行"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:15
+msgid "Unique patients with actual arrival"
+msgstr "实际到店患者数（联合去重）"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "View source and allocations"
+msgstr "查看来源与分摊"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:25
+msgid "WeChat offline"
+msgstr "微信线下确认"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:90
+msgid "access_denied: A selected report store is unavailable."
+msgstr "无法查询：所选门店不存在、停用或不可访问。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:55
+msgid "access_denied: Every selected store requires the metric source reading permission."
+msgstr "无权查询：每家所选门店均须具有该指标的来源读取权。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/controllers/reporting.py:75
+msgid "access_denied: No operating report source permission is available."
+msgstr "无可用报表：当前门店尚未授予任何报表来源读取权。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:41
+msgid "access_denied: Select an active store in an allowed company."
+msgstr "无权查询：请选择所属已授权法人的启用门店。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:95
+msgid "access_denied: The selected stores do not match the explicit company filter."
+msgstr "法人和门店不匹配：请核对所选法人及全部门店，系统不会自动缩小范围。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/controllers/reporting.py:47
+msgid "access_denied: This source is outside the current authorized report filters."
+msgstr "无权钻取：该来源不属于当前授权范围和已生效过滤条件。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:130
+msgid "identity_inconsistent: A patient merge chain requires review."
+msgstr "患者身份链需核对：请由有权人员检查合并关联。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:100
+msgid "invalid_currency: Currency filtering applies only to money metrics."
+msgstr "币种筛选仅适用于金额指标；请清除该条件后查询非金额指标。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:98
+msgid "invalid_currency: Select an existing currency."
+msgstr "币种无效：请选择已有币种。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:82
+msgid "invalid_dates: Select an ordered range of at most ten years."
+msgstr "日期范围无效：开始日须不晚于结束日，且范围不超过十年。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:76
+msgid "invalid_dates: Supply explicit local start and end dates."
+msgstr "日期不完整：请明确选择当地开始日和结束日。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:80
+msgid "invalid_dates: Supply valid local dates."
+msgstr "日期无效：请选择真实有效的当地日期。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:57
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:37
+msgid "invalid_metric: Select a documented metric."
+msgstr "指标无效：请选择现有业务指标。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:307
+msgid "invalid_page: Select a positive page number."
+msgstr "页码无效：请选择正整数页码。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:87
+msgid "invalid_scope: Select distinct explicit store identifiers."
+msgstr "门店范围无效：请明确选择门店，勿重复选择。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:102
+msgid "invalid_state: Select a bounded source state."
+msgstr "来源状态无效：请选择适用的状态。"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "matching source records"
+msgstr "条匹配来源"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:312
+msgid "size_limit: More than 50000 combined source rows; narrow the scope."
+msgstr "合并来源超过五万条：请缩小查询范围，系统不会静默截断。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:113
+msgid "size_limit: More than 50000 source rows; narrow the dates or store selection. No truncated total was returned."
+msgstr "来源超过五万条：请缩短日期或减少门店；未返回截断合计。"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "source events"
+msgstr "笔来源事件"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_service.py:248
+msgid "source_dates_incomplete: A completed legacy refund has no verifiable event date. No complete period total can be reported."
+msgstr "来源日期不完整：既有已实退记录缺少可核实发生日，不能提供完整期间合计。"
+
+#. module: ydental_reporting
+#. odoo-python
+#: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:0
+msgid "invalid_state: The selected source state does not apply to this metric. Clear it or choose an applicable state."
+msgstr "状态不适用于当前指标：请清除旧状态条件或选择该指标的适用状态。"

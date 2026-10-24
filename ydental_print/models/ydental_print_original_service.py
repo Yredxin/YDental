@@ -91,16 +91,16 @@ class YDentalPrintOriginalService(models.AbstractModel):
         choices = []
         if levels['medical'] in ('read', 'write'):
             self.env['ydental.clinical.service']._access()
-            documents = self.env['ydental.clinical.document'].sudo().search([
-                ('ydental_store_id', '=', store.id)], order='id desc', limit=100)
+            documents = self.env['ydental.clinical.document'].sudo().search(self._original_search_domain([
+                ('ydental_store_id', '=', store.id)]), order='id desc', limit=100)
             for document in documents:
                 if self.env['ydental.patient.service']._current_relation(document.ydental_patient_id, store, required=False):
                     for kind in ('clinical', 'consent'):
                         choices.append({'kind': kind, 'id': document.id, 'version': document.ydental_version,
                             'state': document.state, 'kind_label': self.env._('Clinical text') if kind == 'clinical' else self.env._('Consent awaiting signature')})
         if levels['medical'] in ('read', 'write') or levels['pharmacy'] in ('read', 'write'):
-            orders = self.env['ydental.treatment.order'].sudo().search([
-                ('ydental_store_id', '=', store.id), ('ydental_kind', '=', 'prescription')], order='id desc', limit=100)
+            orders = self.env['ydental.treatment.order'].sudo().search(self._original_search_domain([
+                ('ydental_store_id', '=', store.id), ('ydental_kind', '=', 'prescription')]), order='id desc', limit=100)
             for order in orders:
                 try:
                     self._original_authorize('prescription', order.id, order.ydental_version)
@@ -115,9 +115,10 @@ class YDentalPrintOriginalService(models.AbstractModel):
         template = self.env['ydental.document.template'].sudo().browse(self._id(template_id)).exists() if template_id else self.env['ydental.document.template']
         if template and (template.kind != kind or template.store_id != store or template.state != 'published'):
             raise AccessError(self.env._('template_unpublished: Select a published template for this type and current store.'))
-        facts = {'code': 'YD-S12-SYNTHETIC-1', 'version': '1', 'state': 'synthetic_unreviewed',
+        facts = {'code': 'YD-S13-SYNTHETIC-2', 'version': '2', 'state': 'synthetic_unreviewed',
             'language': 'zh_CN',
-            'synthetic': True, 'paper': 'a4', 'body': '', 'applicability': 'Synthetic software demonstration only',
+            'synthetic': True, 'paper': 'label100x70' if kind == 'lab_label' else 'a4',
+            'body': '', 'applicability': 'Synthetic software demonstration only',
             'allow_excerpt': False, 'approval_reference': False, 'reviewer': False, 'reviewed_at': False,
             'publisher': False, 'published_at': False}
         if template:
@@ -127,9 +128,11 @@ class YDentalPrintOriginalService(models.AbstractModel):
                 'approval_reference': template.approval_reference, 'reviewer': template.reviewed_by_id.id,
                 'reviewed_at': str(template.reviewed_at), 'publisher': template.published_by_id.id,
                 'published_at': str(template.published_at)})
+        facts['layout_version'] = 'YD-S13-UX-LAYOUT-2'
         facts['qweb'] = {xmlid: self.env.ref(xmlid).sudo().with_context(lang='zh_CN').arch_db for xmlid in (
             'ydental_print.ydental_document_pdf', 'ydental_print.ydental_pdf_layout')}
-        paper_xmlid = 'ydental_print.ydental_pdf_80mm' if facts['paper'] == '80mm' else 'ydental_print.ydental_pdf_a4'
+        paper_xmlid = {'80mm': 'ydental_print.ydental_pdf_80mm',
+            'label100x70': 'ydental_print.ydental_pdf_label100x70'}.get(facts['paper'], 'ydental_print.ydental_pdf_a4')
         paper = self.env.ref(paper_xmlid).sudo()
         facts['paperformat'] = {name: paper[name] for name in ('format', 'page_height', 'page_width', 'orientation',
             'margin_top', 'margin_bottom', 'margin_left', 'margin_right', 'dpi', 'disable_shrinking')}
@@ -144,6 +147,23 @@ class YDentalPrintOriginalService(models.AbstractModel):
             content_template=template_facts['code'], content_template_version=template_facts['version'],
             template_state=template_facts['state'], applicability=template_facts['applicability'],
             template_digest=template_sha, template=payload['template'] + ' / ' + template_facts['code'])
+        payload['layout_version'] = template_facts['layout_version']
+        payload['template_state_label'] = {'published': self.env._('Published'),
+            'reviewed': self.env._('Reviewed'), 'draft': self.env._('Draft / unreviewed'),
+            'synthetic_unreviewed': self.env._('Synthetic / unreviewed')}.get(template_facts['state'], template_facts['state'])
+        if not template:
+            payload['applicability'] = self.env._('Synthetic software demonstration only')
+        technical_identity = {self.env._('Canonical patient ID'), self.env._('Source patient ID'),
+            self.env._('Source store ID'), self.env._('Viewing store ID')}
+        technical_details = {self.env._('Independent document ID'), self.env._('Current document version'),
+            self.env._('Selected version previous ID'), self.env._('Source reception segment'), self.env._('Current reception segment'),
+            self.env._('Clinical field template'), self.env._('Order ID'), self.env._('Source document and version'), self.env._('Frozen examination line'),
+            self.env._('Source template code / version'), self.env._('Explicit source collection ID'), self.env._('All selected document IDs'),
+            self.env._('Excerpt policy template ID')}
+        payload['business_identity'] = [row for row in payload['identity'] if row[0] not in technical_identity]
+        payload['business_details'] = [row for row in payload['details'] if row[0] not in technical_details]
+        payload['technical_details'] = [row for row in payload['identity'] if row[0] in technical_identity]
+        payload['technical_details'] += [row for row in payload['details'] if row[0] in technical_details]
         actors = []
         for field_name in ('ydental_author_id', 'ydental_actor_id', 'ydental_original_author_id'):
             if field_name in source._fields and source[field_name]:
@@ -309,18 +329,108 @@ class YDentalPrintOriginalService(models.AbstractModel):
         access._audit('document.' + operation, category, source, access._scope().ydental_store_id.id,
             source='document_original', after=dict(after, paper_output='unknown'))
 
-    def _original_workbench(self):
+    def _original_search_domain(self, domain, patient_field='ydental_patient_id'):
+        term = self.env.context.get('ydental_document_term', '')
+        if not term:
+            return domain
+        return fields.Domain.AND([fields.Domain(domain),
+            fields.Domain(patient_field + '.name', 'ilike', term)
+            | fields.Domain(patient_field + '.ydental_number', 'ilike', term)])
+
+    def _original_kind_labels(self):
+        return {'clinical': self.env._('Clinical text'), 'clinical_summary': self.env._('Clinical source collection'),
+            'consent': self.env._('Consent awaiting signature'), 'prescription': self.env._('Prescription'),
+            'exam': self.env._('Examination report'), 'bill': self.env._('Internal bill'),
+            'receipt': self.env._('Actual collection receipt'), 'refund': self.env._('Refund approval or execution voucher'),
+            'lab_label': self.env._('Laboratory identification label')}
+
+    def _original_snapshot_status(self, kind, facts):
+        if kind == 'refund':
+            state = facts.get('versions', {}).get('native_facts', {}).get('state')
+            return {'requested': self.env._('Refund requested; not approved'),
+                'approved': self.env._('Approved; awaiting actual refund'),
+                'failed': self.env._('Refund execution failed; pending verification'),
+                'unknown': self.env._('Refund execution result unknown; pending verification'),
+                'done': self.env._('Actually refunded'), 'rejected': self.env._('Refund rejected'),
+                'cancelled': self.env._('Refund cancelled')}.get(state, facts.get('status', ''))
+        if kind == 'clinical_summary':
+            selection = facts.get('versions', {}).get('selection', [])
+            return {'draft': self.env._('Incomplete selected source collection; not a complete medical record'),
+                'excerpt': self.env._('Policy-approved confirmed excerpt; not a complete medical record'),
+                'complete': self.env._('All explicitly selected clinical sources confirmed; complete within the listed scope')}.get(
+                    selection[2] if len(selection) > 2 else '', facts.get('status', ''))
+        if kind == 'lab_label':
+            order = facts.get('versions', {}).get('order', [])
+            return {'draft': self.env._('Laboratory draft'),
+                'sent': self.env._('Dispatched work order; supplier shipment not implied'),
+                'processing': self.env._('Laboratory processing'), 'received': self.env._('Physically received'),
+                'available': self.env._('Put away and awaiting fit'), 'rework_returned': self.env._('Returned for rework'),
+                'done': self.env._('Actually fitted'), 'cancelled': self.env._('Cancelled before put-away'),
+                'exception': self.env._('Laboratory exception closed')}.get(order[2] if len(order) > 2 else '', facts.get('status', ''))
+        if kind in ('bill', 'receipt'):
+            return self.env._('Frozen business snapshot; current balances may differ')
+        return facts.get('selected_state') or facts.get('status', '')
+
+    def _original_workbench(self, term='', page=1):
+        if not isinstance(term, str) or len(term) > 100 or type(page) is not int or page < 1:
+            raise ValidationError(self.env._('invalid_search: Use a patient name or business number and a valid page.'))
+        self = self.with_context(ydental_document_term=term.strip())
         store = self.env['ydental.access.service']._scope().ydental_store_id
+        kind_labels = self._original_kind_labels()
         rows = []
-        for original in self.env['ydental.document.original'].sudo().search([('store_id', '=', store.id)], limit=100):
+        candidates = self.env['ydental.document.original'].sudo().search(self._original_search_domain(
+            [('store_id', '=', store.id)], patient_field='patient_id'))
+        for original in candidates:
             try:
                 self._original_reauthorize(original)
             except (AccessError, UserError):
                 continue
+            if len(rows) >= 5000:
+                raise UserError(self.env._('size_limit: Narrow the patient search before listing more originals.'))
             rows.append({'id': original.id, 'kind': original.kind, 'source_id': original.source_id,
                 'version': original.version, 'sha256': original.pdf_sha256, 'previous_id': original.previous_id.id,
-                'generated_at': str(original.generated_at), 'synthetic': original.template_facts['synthetic']})
-        return {'choices': self._original_choices(), 'originals': rows,
+                'generated_at': str(original.generated_at), 'synthetic': original.template_facts['synthetic'],
+                'title': kind_labels.get(original.kind, original.kind),
+                'patient_name': original.patient_id.name, 'patient_number': original.patient_id.ydental_number,
+                'status': self._original_snapshot_status(original.kind, original.source_facts),
+                'trace': {'pdf_sha256': original.pdf_sha256, 'original_id': original.id,
+                    'previous_original_id': original.previous_id.id, 'source_model': original.source_model, 'source_id': original.source_id,
+                    'source_version': original.source_version, 'source_sha256': original.source_sha256,
+                    'template_sha256': original.template_sha256,
+                    'layout_version': original.template_facts.get('layout_version', 'S12 layout'),
+                    'template': original.template_facts['code'], 'template_version': original.template_facts['version'],
+                    'frozen_title': original.source_facts.get('title', ''),
+                    'details': original.source_facts.get('details', []),
+                    'versions': original.source_facts.get('version_summary', [])}})
+        choices = []
+        for choice in self._original_choices():
+            try:
+                _service, source, _selected, _category = self._original_authorize(
+                    choice['kind'], choice['id'], choice['version'])
+            except (AccessError, UserError):
+                continue
+            patient = self._original_patient(source, choice['kind'])
+            state_field = 'ydental_state' if 'ydental_state' in source._fields else 'state'
+            state = source[state_field] if state_field in source._fields else choice['state']
+            selection = source._fields.get(state_field)
+            state_label = dict(selection._description_selection(self.env)).get(state, state) if selection and selection.type == 'selection' else state
+            if choice['kind'] == 'lab_label' and state == 'sent':
+                state_label = self.env._('Dispatched work order; supplier shipment not implied')
+            number = source.name if 'name' in source._fields else ''
+            if choice['kind'] == 'receipt':
+                number = source.ydental_payment_id.name
+            choice = dict(choice, kind_label=kind_labels.get(choice['kind'], choice['kind']),
+                patient_label='%s / %s' % (patient.name, patient.ydental_number),
+                patient_name=patient.name, patient_number=patient.ydental_number,
+                state_label=state_label,
+                source_label='%s / %s / %s' % (patient.name, patient.ydental_number, number or str(source.create_date)))
+            choices.append(choice)
+        total = len(rows)
+        page_count = max(1, (total + 29) // 30)
+        page = min(page, page_count)
+        return {'choices': choices, 'choices_limit': 100, 'originals': rows[(page - 1) * 30:page * 30],
+            'term': term.strip(), 'pagination': {'page': page, 'page_count': page_count, 'total': total,
+                'previous': page - 1 if page > 1 else None, 'next': page + 1 if page < page_count else None},
             'templates': self.env['ydental.document.template'].sudo().search([('store_id', '=', store.id), ('state', '=', 'published')])}
 
     def _template_manager(self):
@@ -334,7 +444,8 @@ class YDentalPrintOriginalService(models.AbstractModel):
         store = self._template_manager()
         if (any(not isinstance(value, str) or not value.strip() or len(value) > maximum for value, maximum in (
                 (name, 120), (kind, 40), (version, 80), (body, 40000), (applicability, 240)))
-                or type(synthetic) is not bool or type(allow_excerpt) is not bool or paper not in ('a4', '80mm')
+                or type(synthetic) is not bool or type(allow_excerpt) is not bool or paper not in ('a4', '80mm', 'label100x70')
+                or paper == 'label100x70' and kind != 'lab_label'
                 or approval_reference is not None and (not isinstance(approval_reference, str) or len(approval_reference) > 240)):
             raise ValidationError(self.env._('invalid_template: Use bounded plain text, an explicit purpose and valid paper settings.'))
         template = self.env['ydental.document.template']._new({'name': name.strip(), 'kind': kind,

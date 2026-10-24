@@ -1323,19 +1323,25 @@ msgstr "恢复必须关联原待核对执行事件。"
 #. module: ydental_inventory
 #. odoo-python
 #: code:addons/ydental_inventory/models/ydental_inventory_service.py:0
-msgid "source_category_mismatch: The execution source does not match the inventory product category."
+msgid ""
+"source_category_mismatch: The execution source does not match the inventory "
+"product category."
 msgstr "source_category_mismatch: 执行来源与库存物资类别不匹配。"
 
 #. module: ydental_inventory
 #. odoo-python
 #: code:addons/ydental_inventory/models/ydental_inventory_service.py:0
-msgid "recovery_unconfirmed: Keep the original event pending for manual source and quantity verification."
+msgid ""
+"recovery_unconfirmed: Keep the original event pending for manual source and "
+"quantity verification."
 msgstr "recovery_unconfirmed: 保留原事件待核对，请人工核查来源真实性和数量。"
 
 #. module: ydental_inventory
 #. odoo-python
 #: code:addons/ydental_inventory/models/ydental_inventory_service.py:0
-msgid "recovery_evidence_required: Keep pending until an evidenced receipt or physical count corrects this lot."
+msgid ""
+"recovery_evidence_required: Keep pending until an evidenced receipt or "
+"physical count corrects this lot."
 msgstr "recovery_evidence_required: 保持待核对，须先凭证据实际入库或盘点纠正本批次。"
 
 #. module: ydental_inventory
@@ -1347,3 +1353,50 @@ msgstr "核对恢复库存证据"
 #: model:ir.model.fields,field_description:ydental_inventory.field_ydental_inventory_event__ydental_reconciled_at
 msgid "Historical stock recorded at"
 msgstr "历史库存补记时间"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "Find products, lots and consumption"
+msgstr "查询物料、批次与耗用"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "Product or lot name"
+msgstr "物料名称或批号"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "Search"
+msgstr "查询"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid ""
+"Search only reads the current authorized store. Open a source to see its "
+"movement and responsibility."
+msgstr "仅查询当前授权门店。打开来源可查看实际库存移动和责任。"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "Open this source"
+msgstr "查看本条来源"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "Enter stock action"
+msgstr "进入库存办理"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "Previous source page"
+msgstr "上一页来源"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "Next source page"
+msgstr "下一页来源"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "Scrollable details"
+msgstr "可局部滚动的明细"

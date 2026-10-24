@@ -1,5 +1,6 @@
 import json
 import secrets
+from urllib.parse import urlencode
 
 from odoo import http
 from odoo.exceptions import AccessError, UserError
@@ -15,16 +16,40 @@ class YDentalDocuments(http.Controller):
         return access._bind(session, revision).with_context(lang='zh_CN').env['ydental.print.service']
 
     def _page(self, service, **values):
-        result = service._original_workbench()
+        term = values.pop('term', '')
+        page = values.pop('page', 1)
+        result = service._original_workbench(term=term, page=page)
         result.update({'revision': service.env['ydental.access.service']._scope().ydental_revision,
             'preview': None, 'result': None, 'selection': None, 'key': secrets.token_hex(16), 'error': None})
         result.update(values)
+        result['previous_originals'] = []
+        if values.get('preview') and values.get('selection'):
+            selected = json.loads(values['selection'])
+            authorized, source, _selected, _category = service._original_authorize(
+                selected['kind'], selected['source_id'], selected['version'], selected.get('purpose'))
+            store = authorized.env['ydental.access.service']._scope().ydental_store_id
+            source_ids = source.ids
+            if selected['kind'] == 'clinical_summary':
+                source_ids = authorized.env['ydental.document.selection'].sudo().search([
+                    ('ydental_store_id', '=', store.id), ('scope_sha256', '=', source.scope_sha256)]).ids
+            latest = authorized.env['ydental.document.original'].sudo().search([
+                ('store_id', '=', store.id), ('kind', '=', selected['kind']),
+                ('source_model', '=', source._name), ('source_id', 'in', source_ids)],
+                order='version desc', limit=1)
+            if latest:
+                authorized._original_reauthorize(latest)
+                result['previous_originals'] = [{'id': latest.id, 'title': latest.source_facts['title'],
+                    'patient_number': latest.patient_id.ydental_number, 'version': latest.version}]
+        result['search_url'] = lambda number: '/ydental/documents?' + urlencode({'q': term, 'page': number})
         return request.render('ydental_print.ydental_document_page', result, headers=HEADERS)
 
     @http.route('/ydental/documents', type='http', auth='user', methods=['GET'])
     def workbench(self, **kwargs):
         request.update_context(lang='zh_CN')
-        return self._page(self._service())
+        try:
+            return self._page(self._service(), term=kwargs.get('q', ''), page=int(kwargs.get('page', '1')))
+        except (AccessError, UserError, ValueError, TypeError) as error:
+            return request.make_json_response({'error': str(error)}, status=403 if isinstance(error, AccessError) else 409, headers=HEADERS)
 
     @http.route('/ydental/documents/action', type='http', auth='user', methods=['POST'], max_content_length=8000000)
     def action(self, operation, revision, payload=None, **kwargs):
@@ -68,8 +93,9 @@ class YDentalDocuments(http.Controller):
             if payload is not None:
                 return request.make_json_response(result, headers=HEADERS)
             if operation == 'preview':
-                return self._page(service, preview=result, selection=json.dumps(arguments))
-            return self._page(service, result=result)
+                return self._page(service, preview=result, selection=json.dumps(arguments),
+                    term=kwargs.get('q', ''), page=int(kwargs.get('page', '1')))
+            return self._page(service, result=result, term=kwargs.get('q', ''), page=int(kwargs.get('page', '1')))
         except (AccessError, UserError, ValueError, TypeError, KeyError) as error:
             access = request.env['ydental.access.service']
             access._denial('document.action')

@@ -16,6 +16,7 @@
     ],
     'assets': {
         'web.assets_backend': ['ydental_access/static/src/store_status/*'],
+        'web.assets_frontend': ['ydental_access/static/src/workspace/workspace.scss'],
     },
     'installable': True,
     'application': False,

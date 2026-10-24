@@ -1,7 +1,7 @@
 <odoo>
     <template id="followup_list" name="Follow-up workbench">
         <t t-call="web.frontend_layout">
-            <main class="container py-4">
+            <main class="container py-4 o_ydental_access_followup">
                 <h1>Follow-up workbench</h1>
                 <p>Store: <strong t-out="store.name"/>. Appointment, actual arrival, treatment and contact status remain separate.</p>
                 <section class="card my-3">
@@ -37,25 +37,25 @@
                     </div>
                 </section>
                 <section class="table-responsive">
-                    <table class="table table-striped">
+                    <div class="o_ydental_access_scroll" tabindex="0" aria-label="Scrollable details"><table class="table table-striped">
                         <thead><tr><th>Patient</th><th>Type</th><th>Planned</th><th>Appointment</th><th>Appointment status</th><th>Follow-up state</th><th>Responsible</th><th>Actions</th></tr></thead>
                         <tbody>
                             <t t-foreach="rows" t-as="row">
                                 <tr t-att-id="'followup-%s' % row.id">
                                     <td t-out="row.ydental_patient_id.name"/>
                                     <td>
-                                        <t t-out="row.ydental_followup_type"/>
+                                        <t t-out="type_labels[row.ydental_followup_type]"/>
                                         <p t-if="row.ydental_lab_contact_stage == 'waiting'" class="text-muted mb-0">Waiting for laboratory stock. Only a real linked reservation may be reminded.</p>
                                         <p t-if="row.ydental_lab_contact_stage == 'ready'" class="text-muted mb-0">Laboratory stock is available.</p>
                                         <p t-if="row.ydental_lab_contact_stage == 'stopped'" class="text-muted mb-0">Laboratory contact stopped. Existing history and internal review remain.</p>
                                     </td>
                                     <td t-out="row.ydental_planned_at"/>
                                     <td t-out="row.ydental_appointment_at or ''"/>
-                                    <td t-out="row.ydental_appointment_status"/>
-                                    <td t-out="row.state"/>
+                                    <td t-out="appointment_labels[row.ydental_appointment_status]"/>
+                                    <td t-out="state_labels[row.state]"/>
                                     <td t-out="row.ydental_responsible_id.name"/>
                                     <td>
-                                        <details t-if="lab_contact_allowed[row.id]"><summary>Record contact</summary>
+                                        <p t-if="row.state in ('closed', 'done')"><strong>Read-only terminal history</strong><br/><span t-out="row.ydental_closed_reason or ''"/></p><details t-if="row.state not in ('closed', 'done') and (lab_contact_allowed[row.id])"><summary>Record contact</summary>
                                             <form action="/ydental/followups/action" method="post">
                                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                                 <input type="hidden" name="revision" t-att-value="revision"/>
@@ -78,7 +78,7 @@
                                                 <button class="btn btn-secondary" type="submit">Save preference</button>
                                             </form>
                                         </details>
-                                        <details><summary>Reschedule contact</summary>
+                                        <details t-if="row.state not in ('closed', 'done')"><summary>Reschedule contact</summary>
                                             <form action="/ydental/followups/action" method="post">
                                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                                 <input type="hidden" name="revision" t-att-value="revision"/>
@@ -89,7 +89,7 @@
                                                 <button class="btn btn-secondary" type="submit">Reschedule</button>
                                             </form>
                                         </details>
-                                        <details><summary>Link a reservation</summary>
+                                        <details t-if="row.state not in ('closed', 'done')"><summary>Link a reservation</summary>
                                             <form action="/ydental/followups/action" method="post">
                                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                                 <input type="hidden" name="revision" t-att-value="revision"/>
@@ -106,7 +106,7 @@
                                                 <button class="btn btn-secondary" type="submit">Link reservation</button>
                                             </form>
                                         </details>
-                                        <details><summary>Clear intake-cancelled reservation</summary>
+                                        <details t-if="row.state not in ('closed', 'done')"><summary>Clear intake-cancelled reservation</summary>
                                             <form action="/ydental/followups/action" method="post">
                                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                                 <input type="hidden" name="revision" t-att-value="revision"/>
@@ -116,7 +116,7 @@
                                                 <button class="btn btn-secondary" type="submit">Clear cancelled link</button>
                                             </form>
                                         </details>
-                                        <details><summary>Record actual arrival</summary>
+                                        <details t-if="row.state not in ('closed', 'done')"><summary>Record actual arrival</summary>
                                             <form action="/ydental/followups/action" method="post">
                                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                                 <input type="hidden" name="revision" t-att-value="revision"/>
@@ -133,7 +133,7 @@
                                                 <button class="btn btn-secondary" type="submit">Link actual arrival</button>
                                             </form>
                                         </details>
-                                        <details t-if="row.ydental_lab_contact_stage not in ('waiting', 'stopped')"><summary>Complete from actual treatment</summary>
+                                        <details t-if="row.state not in ('closed', 'done') and (row.ydental_lab_contact_stage not in ('waiting', 'stopped'))"><summary>Complete from actual treatment</summary>
                                             <form action="/ydental/followups/action" method="post">
                                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                                 <input type="hidden" name="revision" t-att-value="revision"/>
@@ -166,7 +166,7 @@
                                                 <li t-if="not contacts_by_followup.get(row.id, [])" class="list-group-item text-muted">No contact attempts are available in this view.</li>
                                             </ul>
                                         </details>
-                                        <details><summary>Close with reason</summary>
+                                        <details t-if="row.state not in ('closed', 'done')"><summary>Close with reason</summary>
                                             <form action="/ydental/followups/action" method="post">
                                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                                 <input type="hidden" name="revision" t-att-value="revision"/>
@@ -193,12 +193,12 @@
                             </t>
                         </tbody>
                     </table>
-                </section>
+                </div></section>
                 <section class="card my-3">
                     <div class="card-body">
                         <h2>Notification failures and unknown outcomes</h2>
                         <p>Unknown outcomes must be reconciled before another send. A controlled test sink never proves patient delivery.</p>
-                        <table class="table table-sm">
+                        <div class="o_ydental_access_scroll" tabindex="0" aria-label="Scrollable details"><table class="table table-sm">
                             <thead><tr><th>Event</th><th>Due</th><th>State</th><th>Request identifier</th><th>Detail</th><th>Reconcile</th></tr></thead>
                             <tbody>
                                 <t t-foreach="jobs" t-as="job">
@@ -222,7 +222,7 @@
                                 </t>
                             </tbody>
                         </table>
-                    </div>
+                    </div></div>
                 </section>
             </main>
         </t>

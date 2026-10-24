@@ -148,31 +148,45 @@ class YDentalPrintSummaryService(models.AbstractModel):
             'complete': self.env._('All explicitly selected clinical sources confirmed; complete within the listed scope'),
             'excerpt': self.env._('Policy-approved confirmed excerpt; not a complete medical record')}[selection.mode]
         sections = []
+        source_traces = []
+        author_labels = {self.env._('Original author'), self.env._('Current responsible person'),
+            self.env._('Selected version contributor'), self.env._('Selected version recorded at (UTC)'),
+            self.env._('Text correction reason')}
         for row in all_payloads:
             included = selection.mode != 'excerpt' or row['confirmed']
             payload = row['payload']
             sections.append({'label': self.env._('Source document %s / selected version %s', row['document_id'], row['selected_version']),
                 'paragraphs': [status, self.env._('Included') if included else self.env._('Not included: selected source is awaiting confirmation')]
-                    + ['%s: %s' % (label, value) for label, value in payload['details']]})
+                    + ['%s: %s' % (label, value) for label, value in payload['details'] if label in author_labels]})
+            source_traces.append({'label': self.env._('Source document %s: version trace', row['document_id']),
+                'paragraphs': ['%s: %s' % (label, value) for label, value in payload['details'] if label not in author_labels]})
             if included:
                 for section in payload['sections']:
                     sections.append({'label': self.env._('Source %s / %s', row['document_id'], section['label']),
                         'paragraphs': section['paragraphs']})
         included_ids = confirmed if selection.mode == 'excerpt' else [row['id'] for row in selection.documents]
         execution_facts = self._summary_execution_facts(included_ids)
+        order_model = self.env['ydental.treatment.order']
+        order_kinds = dict(order_model._fields['ydental_kind']._description_selection(self.env))
+        order_states = dict(order_model._fields['state']._description_selection(self.env))
+        line_states = dict(self.env['ydental.treatment.line']._fields['state']._description_selection(self.env))
+        event_model = self.env['ydental.treatment.event']
+        event_kinds = dict(event_model._fields['ydental_kind']._description_selection(self.env))
+        event_states = dict(event_model._fields['state']._description_selection(self.env))
         for order in execution_facts['orders']:
             order_lines = [row for row in execution_facts['lines'] if row['order_id'] == order['id']]
             sections.append({'label': self.env._('Order %s / source document %s', order['id'], order['document_id']),
                 'paragraphs': [self.env._('Order type: %(kind)s; state: %(state)s; author: %(author)s; source text version: %(version)s',
-                    kind=order['kind'], state=order['state'], author=order['author'], version=order['document_version'])]
+                    kind=order_kinds[order['kind']], state=order_states[order['state']], author=order['author'], version=order['document_version'])]
                     + [self.env._('Line %(line)s / %(service)s / state %(state)s / approved quantity %(quantity)s %(unit)s',
-                        line=row['id'], service=row['service'], state=row['state'], quantity=row['quantity'], unit=row['unit'])
+                        line=row['id'], service=row['service'], state=line_states[row['state']], quantity=row['quantity'], unit=row['unit'])
                         for row in order_lines]})
         sections.append({'label': self.env._('Actual execution and dispensing facts, separate from order issuance'),
             'paragraphs': [self.env._('Event %(event)s / %(kind)s / operator %(actor)s / UTC %(time)s / actual quantity %(quantity)s %(unit)s / reconciliation %(state)s',
-                event=row['id'], kind=row['kind'], actor=row['actor'], time=row['actual_at'], quantity=row['quantity'],
-                unit=row['unit'], state=row['state']) for row in execution_facts['events']]
+                event=row['id'], kind=event_kinds[row['kind']], actor=row['actor'], time=row['actual_at'], quantity=row['quantity'],
+                unit=row['unit'], state=event_states[row['state']]) for row in execution_facts['events']]
                 or [self.env._('No actual execution or dispensing is recorded for these selected sources.')]})
+        sections += source_traces
         payload = {'kind': kind, 'title': self.env._('Clinical source collection PDF'), 'template': 'YD-S12-CLINICAL-SUMMARY-1',
             'source_id': selection.id, 'version': 1, 'status': status, 'selected_state': status,
             'identity': [self._pair(self.env._('Patient'), patient.name), self._pair(self.env._('Patient number'), patient.ydental_number),
@@ -199,7 +213,8 @@ class YDentalPrintSummaryService(models.AbstractModel):
             store = access._check('medical', 'read').ydental_store_id
         except AccessError:
             return choices
-        for selection in self.env['ydental.document.selection'].sudo().search([('ydental_store_id', '=', store.id)], limit=100):
+        for selection in self.env['ydental.document.selection'].sudo().search(self._original_search_domain([
+                ('ydental_store_id', '=', store.id)]), limit=100):
             try:
                 self._original_authorize('clinical_summary', selection.id, 1)
             except (AccessError, UserError):

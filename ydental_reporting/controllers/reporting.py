@@ -13,10 +13,18 @@ HEADERS = [('Cache-Control', 'no-store, private, max-age=0'), ('Pragma', 'no-cac
 
 
 class YDentalReporting(http.Controller):
+    def _request_values(self, values):
+        values = dict(values)
+        selected = request.httprequest.args.getlist('store_ids')
+        if selected:
+            values['store_ids'] = ','.join(selected)
+        return values
+
     def _service(self, revision=None):
+        request.update_context(lang='zh_CN')
         access = request.env['ydental.access.service']
         session = access._session_for_key(request.session.sid[:42])
-        return access._bind(session, revision).env['ydental.reporting.service']
+        return access._bind(session, revision).with_context(lang='zh_CN').env['ydental.reporting.service']
 
     def _arguments(self, values):
         arguments = {name: values[name] for name in ('metric', 'date_from', 'date_to')}
@@ -33,7 +41,8 @@ class YDentalReporting(http.Controller):
     def source(self, metric, source_id, **kwargs):
         try:
             service = self._service()
-            result = service._query(**dict(self._arguments(dict(kwargs, metric=metric)), all_rows=True))
+            values = self._request_values(dict(kwargs, metric=metric))
+            result = service._query(**dict(self._arguments(values), all_rows=True))
             rows = [row for row in result['rows'] if row['source_id'] == source_id]
             if not rows:
                 raise AccessError(request.env._('access_denied: This source is outside the current authorized report filters.'))
@@ -41,19 +50,32 @@ class YDentalReporting(http.Controller):
                 service.env['ydental.access.service']._audit('report.drill', 'export',
                     service.env[row['source_model']].browse(row['source_id']), row['store_id'],
                     source='operating_report', after={'metric': metric, 'filters': result['filters']})
+            result['rows'] = rows
             return request.render('ydental_reporting.ydental_operating_report_source', {
-                'rows': rows, 'filters': result['filters'], 'title': result['title']}, headers=HEADERS)
+                'display': service._presentation(result, detail=True),
+                'report': result, 'title': result['title'],
+                'return_url': '/ydental/reports?' + urlencode(values)}, headers=HEADERS)
         except (AccessError, UserError, ValidationError, ValueError, TypeError, KeyError) as error:
             request.env['ydental.access.service']._denial('operating_report.source')
-            return request.make_json_response({'error': str(error)}, status=403 if isinstance(error, AccessError) else 409, headers=HEADERS)
+            return self._failure(error, kwargs)
+
+    def _failure(self, error, values):
+        status = 403 if isinstance(error, AccessError) else 409
+        if values.get('output') == 'json':
+            return request.make_json_response({'error': str(error)}, status=status, headers=HEADERS)
+        return request.render('ydental_reporting.ydental_operating_report_error',
+            {'message': str(error), 'status': status}, status=status, headers=HEADERS)
 
     @http.route('/ydental/reports', type='http', auth='user', methods=['GET'])
     def workbench(self, **kwargs):
         try:
+            kwargs = self._request_values(kwargs)
             service = self._service(int(kwargs['revision']) if kwargs.get('revision') else None)
             store, choices = service._options()
             if not choices:
                 raise AccessError(request.env._('access_denied: No operating report source permission is available.'))
+            priority = {'collections': 0, 'refunds': 1, 'receivables': 2}
+            choices.sort(key=lambda choice: priority.get(choice['key'], 3))
             today = str(fields.Date.context_today(service.with_context(tz=store.ydental_timezone)))
             values = dict(metric=choices[0]['key'], date_from=today, date_to=today, store_ids=str(store.id))
             values.update({key: value for key, value in kwargs.items() if key in (
@@ -63,13 +85,19 @@ class YDentalReporting(http.Controller):
                 return request.make_json_response(result, headers=HEADERS)
             revision = service.env['ydental.access.service']._scope().ydental_revision
             links = dict(values, revision=revision)
+            display = service._presentation(result)
+            for row in display['rows']:
+                row['source_url'] += '&page=%s' % result['page']
             return request.render('ydental_reporting.ydental_operating_report_page', {
                 'report': result, 'choices': choices, 'values': values, 'revision': revision,
+                'display': display, 'options': service._selection_options(values['metric'],
+                    result['filters']['currency_id'], result['filters']['state']),
+                'selected_stores': result['filters']['store_ids'],
                 'previous_url': '/ydental/reports?' + urlencode(dict(links, page=max(1, result['page'] - 1))),
                 'next_url': '/ydental/reports?' + urlencode(dict(links, page=result['page'] + 1))}, headers=HEADERS)
         except (AccessError, UserError, ValidationError, ValueError, TypeError, KeyError) as error:
             request.env['ydental.access.service']._denial('operating_report.view')
-            return request.make_json_response({'error': str(error)}, status=403 if isinstance(error, AccessError) else 409, headers=HEADERS)
+            return self._failure(error, kwargs)
 
     @http.route('/ydental/reports/export', type='http', auth='user', methods=['POST'])
     def export(self, revision, **kwargs):

@@ -4,34 +4,68 @@
     </template>
     <template id="ydental_document_pdf" name="Controlled demonstration PDF">
         <html><head><meta charset="utf-8"/></head><body><main><style>
-            body {margin: 0; font-family: 'Noto Sans CJK SC', sans-serif; font-size: 9.5pt; line-height: 1.5; color: #18252e;}
-            h1 {font-size: 19pt; margin: 0 0 8px;} h2 {font-size: 12pt; margin: 14px 0 4px; page-break-after: avoid;}
-            p {margin: 4px 0; white-space: pre-wrap; word-wrap: break-word; word-break: break-all;}
-            .warning {border: 2px solid #9a3b27; padding: 8px; font-weight: bold; color: #8b2e18;}
+            body {margin: 0; font-family: 'Noto Sans CJK SC', sans-serif; font-size: 9.5pt; line-height: 1.35; color: #18252e;}
+            h1 {font-size: 17pt; margin: 0 0 5px; page-break-after: avoid;} h2 {font-size: 11pt; margin: 10px 0 4px; page-break-after: avoid;}
+            p {margin: 3px 0; white-space: pre-wrap; word-wrap: break-word; word-break: break-all; orphans: 3; widows: 3;}
+            .warning {border-left: 3px solid #9a3b27; padding: 4px 7px; font-weight: bold; color: #8b2e18; margin-bottom: 6px;}
             table {width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 9pt;}
-            td, th {padding: 5px; border: 1px solid #bdc5cb; vertical-align: top; word-wrap: break-word; word-break: break-all;}
+            td, th {padding: 4px; border: 1px solid #bdc5cb; vertical-align: top; word-wrap: break-word; word-break: break-all;}
             th {background: #e8edf0;} tr {page-break-inside: avoid;} thead {display: table-header-group;}
-            p:last-child {margin-bottom: 0;} .provenance {page-break-inside: avoid;} p {page-break-inside: avoid;} .label {width: 30%;} .meta {font-size: 8pt; color: #394e60;} .blank {min-height: 35px; border-bottom: 1px solid #c6cbd0;}
-            .o_ydental_print_rx_line {border-bottom: 1px solid #bdc5cb; padding-bottom: 8px; page-break-inside: auto;}
+            .label {width: 34%;} .meta {font-size: 8pt; color: #394e60;} .blank {height: 22px; border-bottom: 1px solid #c6cbd0;}
+            .o_ydental_print_trace {border-top: 1px solid #bdc5cb; padding-top: 4px; margin-top: 8px;}
+            .o_ydental_print_trace p {margin: 1px 0;}
+            .o_ydental_print_rx_line {border-bottom: 1px solid #bdc5cb; padding-bottom: 6px; page-break-inside: auto;}
             .o_ydental_print_rx_intro {page-break-inside: avoid;}
             .o_ydental_print_rx_intro h2 {page-break-after: auto;}
-            .o_ydental_print_rx_field {margin: 5px 0; page-break-inside: auto;}
+            .o_ydental_print_rx_field {margin: 4px 0; page-break-inside: auto;}
             .o_ydental_print_rx_field strong {display: block; background: #e8edf0; padding: 3px 5px; page-break-after: avoid;}
             .o_ydental_print_rx_field p {margin: 2px 5px; page-break-inside: auto;}
             .o_ydental_print_section_intro {page-break-inside: avoid;}
+            .o_ydental_print_label {font-size: 9pt; line-height: 1.25;}
+            .o_ydental_print_label h1 {font-size: 12pt; margin-bottom: 3px;}
+            .o_ydental_print_label p {margin: 2px 0;}
+            .o_ydental_print_label_qr {float: right; width: 28mm; margin: 0 0 2mm 2mm;}
+            .o_ydental_print_label_qr img {width: 28mm; height: 28mm;}
+            .o_ydental_print_label_identity {font-weight: bold;}
+            .o_ydental_print_finance_identity {margin-bottom: 5px;}
+            .o_ydental_print_finance_identity span {display: inline-block; margin-right: 10px;}
         </style>
+            <t t-set="financial" t-value="p.get('financial')"/>
+            <t t-if="p['kind'] == 'lab_label'">
+                <article class="o_ydental_print_label">
+                    <h1>Laboratory identification label</h1>
+                    <div class="o_ydental_print_label_qr"><img t-att-src="'data:image/png;base64,' + p['barcode']['png']" alt="Internal package identification QR code"/></div>
+                    <p class="o_ydental_print_label_identity"><span>Work order:</span> <t t-out="p['source_id']"/> / <span>Cycle:</span> <t t-out="p['versions']['cycle']"/></p>
+                    <p t-foreach="p.get('label_identity', p['identity'])" t-as="row"><strong t-out="row[0]"/>: <t t-out="row[1]"/></p>
+                    <p><strong>Source state at generation:</strong> <t t-out="p['status']"/></p>
+                    <p t-foreach="p.get('label_details', p['details'])" t-as="row"><strong t-out="row[0]"/>: <t t-out="row[1]"/></p>
+                    <p style="clear: both"><strong>Identification code:</strong> <t t-out="p['barcode']['value']"/></p>
+                    <p t-if="p.get('synthetic')">SYNTHETIC TEST / 100 x 70 mm demonstration</p>
+                    <p>Identification only; no receipt, put-away or notification.</p>
+                    <p><span>Generated UTC:</span> <t t-out="p['generated_at']"/> / v<t t-out="p['version']"/></p>
+                    <p><span>Layout:</span> <t t-out="p.get('layout_version', p['template'])"/></p>
+                    <p>Authorized source and full version trace: /ydental/documents</p>
+                </article>
+            </t>
+            <t t-else="">
             <h1 t-out="p['title']"/>
-            <div class="warning"><span t-if="not p.get('original')">DEMONSTRATION / UNREVIEWED / NO FORMAL SIGNATURE</span><span t-if="p.get('original') and p.get('synthetic')">SYNTHETIC TEST / NOT A FORMAL CLINICAL DOCUMENT / 合成测试，非正式临床文件</span><span t-if="p.get('original') and not p.get('synthetic')">PUBLISHED CONTENT / SIGNATURE AND PHYSICAL OUTPUT ARE SEPARATE FACTS</span><br/><t t-out="p['status']"/></div>
-            <p>Only the explicitly selected source set is included. This is not a complete formal medical record unless the scope and confirmation checks explicitly identify a complete source set.</p>
-            <p t-if="p.get('original')"><span>Content template / version / review state:</span> <t t-out="p['content_template']"/> / <t t-out="p['content_template_version']"/> / <t t-out="p['template_state']"/><br/><span>Applicable scope:</span> <t t-out="p['applicability']"/></p>
+            <div class="warning"><span t-if="not p.get('original')">DEMONSTRATION / UNREVIEWED / NO FORMAL SIGNATURE</span><span t-if="p.get('original') and p.get('synthetic') and not financial">SYNTHETIC TEST / NOT A FORMAL CLINICAL DOCUMENT / 合成测试，非正式临床文件</span><span t-if="p.get('original') and p.get('synthetic') and financial">SYNTHETIC OFFLINE BUSINESS DOCUMENT / NOT A TAX INVOICE</span><span t-if="p.get('original') and not p.get('synthetic')">PUBLISHED CONTENT / SIGNATURE AND PHYSICAL OUTPUT ARE SEPARATE FACTS</span><br/><t t-out="financial['state'] if financial else p['status']"/></div>
+            <p t-if="not financial">Only the explicitly selected source set is included. This is not a complete formal medical record unless the scope and confirmation checks explicitly identify a complete source set.</p>
             <p t-out="p['selected_state']"/>
-            <div t-if="p['kind'] == 'lab_label'" class="o_ydental_print_section_intro">
-                <img t-att-src="'data:image/png;base64,' + p['barcode']['png']" width="180" height="180" alt="Internal package identification QR code"/>
-                <p t-out="p['barcode']['value']"/>
-                <p>Identification only. Scanning this code does not authorize patient access, receive goods or put away stock.</p>
+            <div t-if="financial">
+                <p class="o_ydental_print_finance_identity"><span t-foreach="p.get('business_identity', p['identity'])" t-as="row"><strong t-out="row[0]"/>: <t t-out="row[1]"/></span></p>
+                <p><strong>Document number:</strong> <t t-out="financial['number']"/></p>
+                <table><tbody><tr t-foreach="financial['totals']" t-as="row"><th class="label" t-out="row[0]"/><td t-out="row[1]"/></tr></tbody></table>
+                <h2 t-if="financial['rows']">Confirmed sources and allocations</h2>
+                <table t-if="financial['rows']"><thead><tr><th>Bill or confirmed item</th><th t-if="p['kind'] == 'bill'">Frozen price version</th><th t-if="p['kind'] == 'bill'">Confirmed amount</th><th t-if="p['kind'] != 'bill'">Bill total / allocated / receivable</th></tr></thead><tbody>
+                    <tr t-foreach="financial['rows']" t-as="row"><td t-out="row['number']"/><td t-if="p['kind'] == 'bill'" t-out="row['price_version']"/><td t-if="p['kind'] == 'bill'" t-out="row['amount']"/><td t-if="p['kind'] != 'bill'"><t t-out="row['bill_total']"/> / <t t-out="row['allocated']"/> / <t t-out="row['residual']"/></td></tr>
+                </tbody></table>
+                <p t-foreach="financial['times']" t-as="row"><strong t-out="row[0]"/>: <t t-out="row[1]"/></p>
+                <p t-if="financial.get('channel')"><strong>Recorded channel:</strong> <t t-out="financial['channel']"/></p>
+                <p t-if="financial.get('reason')"><strong>Refund reason:</strong> <t t-out="financial['reason']"/></p>
             </div>
-            <table><tbody><tr t-foreach="p['identity'] + p['details']" t-as="row"><td class="label" t-out="row[0]"/><td t-out="row[1]"/></tr></tbody></table>
-            <section t-foreach="p['sections']" t-as="section">
+            <table t-if="not financial"><tbody><tr t-foreach="p.get('business_identity', p['identity']) + p.get('business_details', p['details'])" t-as="row"><td class="label" t-out="row[0]"/><td t-out="row[1]"/></tr></tbody></table>
+            <section t-if="not financial" t-foreach="p['sections']" t-as="section">
                 <div class="o_ydental_print_section_intro"><h2 t-out="section['label']"/><p t-if="section['paragraphs']" t-out="section['paragraphs'][0]"/></div>
                 <p t-foreach="section['paragraphs'][1:]" t-as="paragraph" t-out="paragraph"/>
                 <div t-if="p['kind'] == 'consent'" class="blank"/>
@@ -58,19 +92,18 @@
                     <tr t-foreach="p['events']" t-as="event"><td><t t-out="event['id']"/> / <t t-out="event['line_id']"/> / <t t-out="event['product_id']"/></td><td><t t-out="event['quantity']"/> / <t t-out="event['actor']"/></td><td><t t-out="event['time']"/><br/><t t-out="event['business_date']"/></td><td><t t-out="event['state']"/> / <t t-out="event['price_source']"/> / <t t-out="event['medicine_link']"/></td></tr>
                 </tbody></table><p t-if="not p['events']">No actual dispensing has been recorded.</p>
             </t>
-            <t t-if="p.get('original')"><div class="o_ydental_print_section_intro"><h2>Source and selected version references</h2>
-                <p class="meta">The full source, accounting and template snapshots are retained with this immutable original for authorized review.</p></div>
-                <table><thead><tr><th>Source</th><th>Selected version / frozen reference</th></tr></thead><tbody>
-                    <tr t-foreach="p['version_summary']" t-as="reference"><td t-out="reference['label']"/><td t-out="reference['value']"/></tr>
-                </tbody></table>
+            <div class="o_ydental_print_trace meta">
+                <p t-if="p.get('original')"><strong>Content template / version / review state:</strong> <t t-out="p['content_template']"/> / <t t-out="p['content_template_version']"/> / <t t-out="p.get('template_state_label', p['template_state'])"/>; <span>Applicable scope:</span> <t t-out="p['applicability']"/></p>
+                <p><strong>Source ID / selected version:</strong> <t t-out="p['source_id']"/> / <t t-out="p['version']"/>; <span>Layout:</span> <t t-out="p.get('layout_version', p['template'])"/></p>
+                <p><span>Generated by:</span> <t t-out="p['generated_by']"/>; <span>Generation and extraction time (UTC):</span> <t t-out="p['generated_at']"/></p>
+                <p><span>Normalized source SHA256:</span> <t t-out="p['source_digest']"/></p>
+                <p t-foreach="p.get('version_summary', [])" t-as="reference"><strong t-out="reference['label']"/>: <t t-out="reference['value']"/></p>
+                <p t-if="not financial" t-foreach="p.get('technical_details', [])" t-as="row"><strong t-out="row[0]"/>: <t t-out="row[1]"/></p>
+                <p t-if="not p.get('original')"><span>Source version set:</span> <t t-out="p['versions']"/></p>
+                <p t-if="not p.get('original')">No signature or physical paper output is verified. Temporary demonstration copy; formal archival and original reprinting are not provided.</p>
+                <p t-if="p.get('original')">Immutable original; reprinting reads stored bytes. Generation and print requests do not prove signature or physical paper output.</p>
+            </div>
             </t>
-            <div class="provenance"><h2>Document provenance</h2>
-            <p class="meta"><span>Template:</span> <t t-out="p['template']"/> / <span>Source ID / selected version:</span> <t t-out="p['source_id']"/> / <t t-out="p['version']"/></p>
-            <p class="meta"><span>Generated by:</span> <t t-out="p['generated_by']"/> / <span>Generation and extraction time (UTC):</span> <t t-out="p['generated_at']"/></p>
-            <p class="meta"><span>Normalized source SHA256:</span> <t t-out="p['source_digest']"/></p>
-            <p t-if="not p.get('original')" class="meta"><span>Source version set:</span> <t t-out="p['versions']"/></p>
-            <p t-if="not p.get('original')">No signature or physical paper output is verified. Temporary demonstration copy; formal archival and original reprinting are not provided.</p>
-            <p t-if="p.get('original')">This file is preserved as an immutable original. Reprinting reads its stored bytes. No signature or physical paper output is inferred from generation or a print request.</p></div>
         </main></body></html>
     </template>
 </odoo>

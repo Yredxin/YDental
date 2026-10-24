@@ -49,7 +49,9 @@ msgid "Actual offline refund of invoice %s"
 msgstr "账单 %s 的实际线下退款"
 
 #. module: ydental_settlement
+#. odoo-python
 #: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_refund__ydental_state__done
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
 msgid "Actually refunded"
 msgstr "已实际退款"
 
@@ -121,9 +123,11 @@ msgid "Cashier daily close and unlock history"
 msgstr "收费员日结与解锁历史"
 
 #. module: ydental_settlement
+#. odoo-python
 #: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_config__company_id
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
 msgid "Company"
-msgstr "公司"
+msgstr "法人"
 
 #. module: ydental_settlement
 #: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_close__ydental_state__confirmed
@@ -2126,3 +2130,355 @@ msgstr "；仅记录人工确认实际发生的线下资金。本页为演示，
 #: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
 msgid "；无支付接口自动到账。"
 msgstr "；无支付接口自动到账。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Posted internal bill; not a tax invoice"
+msgstr "已过账内部账单，非税务发票"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Native document number"
+msgstr "原业务单号"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Original bill or collection business date"
+msgstr "原账单或原收款业务日"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Actual occurrence (UTC)"
+msgstr "实际发生时间（UTC）"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Entry time (UTC)"
+msgstr "录入时间（UTC）"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Bill total"
+msgstr "账单总额"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Actual collection"
+msgstr "实际收款"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Receivable at generation"
+msgstr "生成时当前应收"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Net actual collection"
+msgstr "净实际收款"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Refund state"
+msgstr "退款状态"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Requested refund amount"
+msgstr "退款申请金额"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Actual refund business date"
+msgstr "实际退款业务日"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Actual refund channel"
+msgstr "实际退款渠道"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Native refund payment number"
+msgstr "实际退款原生付款单号"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Refund reason"
+msgstr "退款原因"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Synthetic offline business document; not a tax invoice"
+msgstr "合成线下业务凭据，非税务发票"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid ""
+"Amounts and allocations are frozen at generation. Current balances are shown"
+" separately in the business page."
+msgstr "金额和分摊按此次生成时点保存；当前余额请另查业务页面。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "invalid_source: Financial files use their native source facts."
+msgstr "invalid_source: 财务文件须使用原业务来源事实。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Internal bill - not a tax invoice"
+msgstr "内部账单（非税务发票）"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Offline collection receipt - not revenue or a tax invoice"
+msgstr "线下实际收款凭据（非收入、非税务发票）"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Offline refund voucher - approval is not execution"
+msgstr "线下退款凭据（批准不等于实际退款）"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Recorded offline collection; not revenue"
+msgstr "已记录线下实际收款，非收入"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Explicit discount"
+msgstr "明确折扣"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Actual collection allocated"
+msgstr "实际收款已核销"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Approved refund awaiting actual execution"
+msgstr "批准待实际退款"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Requested refund, not approved"
+msgstr "已申请未批准退款"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Original collection operator"
+msgstr "原实际收款经办人"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Native payment ID"
+msgstr "原生付款内部标识"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Refund requested; not approved"
+msgstr "退款已申请，未批准"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Approved; awaiting actual refund"
+msgstr "已批准，待实际退款"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Refund execution failed; pending verification"
+msgstr "退款执行失败，待核查"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Refund execution result unknown; pending verification"
+msgstr "退款执行结果未知，待核查"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Refund rejected"
+msgstr "退款申请已驳回"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Refund cancelled"
+msgstr "退款申请已取消"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Not recorded"
+msgstr "未记录"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Patient"
+msgstr "患者"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Patient number"
+msgstr "患者业务号"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Source patient ID"
+msgstr "来源患者内部标识"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Canonical patient ID"
+msgstr "当前归并患者内部标识"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Store"
+msgstr "门店"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Currency"
+msgstr "币种"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Confirmed source %s"
+msgstr "已确认费用来源 %s"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Selected bill %s"
+msgstr "所选账单 %s"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Selected bills receivable at generation"
+msgstr "所选账单生成时当前应收"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Collection actually occurred at (UTC)"
+msgstr "实际收款发生时间（UTC）"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Collection entered at (UTC)"
+msgstr "收款录入时间（UTC）"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Refund request entered at (UTC)"
+msgstr "退款申请录入时间（UTC）"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Refund actually occurred at (UTC)"
+msgstr "实际退款发生时间（UTC）"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Native confirmed source"
+msgstr "已确认的原业务来源"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid "Frozen amount: %(amount)s %(currency)s; price source: %(version)s"
+msgstr "确认金额：%(amount)s %(currency)s；冻结价格版本：%(version)s"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_print_service.py:0
+msgid ""
+"Allocation: %(amount)s %(currency)s; current balance at generation: "
+"%(balance)s"
+msgstr "本单分摊：%(amount)s %(currency)s；生成时本单应收：%(balance)s"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Patient lookup"
+msgstr "患者查询"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Patient name or number"
+msgstr "患者姓名或业务患者号"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Search patients"
+msgstr "查询患者"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid ""
+"Only patients related to the current authorized store are listed. Names and "
+"patient numbers distinguish matching names."
+msgstr "仅列出当前授权门店已有关系的患者。同名患者请按业务患者号区分。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "No matching patients in this store."
+msgstr "本店没有符合条件的患者。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Previous search page"
+msgstr "上一页患者"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Next search page"
+msgstr "下一页患者"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Scrollable details"
+msgstr "可局部滚动的明细"

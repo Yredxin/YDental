@@ -4,6 +4,11 @@
             <main><div class="article page" style="font-family:'YDental Settlement CJK',sans-serif;font-size:12px;line-height:1.6">
                 <!-- Keep the font rule inside article: native report preparation extracts this node. -->
                 <style type="text/css">
+                    h1 {font-size: 20px; margin: 0 0 6px; page-break-after: avoid;}
+                    p {margin: 4px 0; word-wrap: break-word;}
+                    table {border-collapse: collapse; table-layout: fixed; width: 100%;}
+                    td, th {padding: 4px; border: 1px solid #bdc5cb; word-wrap: break-word;}
+                    thead {display: table-header-group;} tr {page-break-inside: avoid;}
                     @font-face {
                         font-family: 'YDental Settlement CJK';
                         src: url('/ydental_settlement/static/fonts/NotoSansCJKsc-Regular.otf') format('opentype');
@@ -13,7 +18,7 @@
                 </style>
                 <h1 t-if="p['kind'] == 'bill'">内部结算账单</h1>
                 <h1 t-if="p['kind'] == 'receipt'">实际线下收款小票</h1>
-                <h1 t-if="p['kind'] == 'refund'">退款申请与实际退款凭据</h1>
+                <h1 t-if="p['kind'] == 'refund'">退款申请及执行状态凭据</h1>
                 <p style="color:#a00;font-weight:bold" t-out="p['demo']"/>
                 <p>法人：<span t-out="p['company']"/>　门店：<span t-out="p['store']"/></p>
                 <p>患者编号：<span t-out="p['patient']"/>　经办人：<span t-out="p['operator']"/></p>
@@ -42,13 +47,14 @@
                     <p>净实际收款：<span t-out="p['net']"/>　已选账单目前应收：<span t-out="p['residual']"/></p>
                 </div>
                 <div t-if="p['kind'] == 'refund'">
-                    <p>状态：<span t-out="p['state']"/>　原申请额：<span t-out="p['requested']"/> <span t-out="p['currency']"/></p>
+                    <p>状态：<span t-out="p['state_label']"/>　原申请额：<span t-out="p['requested']"/> <span t-out="p['currency']"/></p>
                     <p>批准／核查在途：<span t-out="p['pending']"/>　已实际退款：<span t-out="p['refunded']"/></p>
                     <p>实际退款 UTC：<span t-out="p['actual_utc']"/>　原生付款号：<span t-out="p['native_payment']"/></p>
                     <p t-if="p['state'] == 'done'">实际退款业务日：<span t-out="p['refund_business_date']"/>　原生日记账渠道：<span t-out="p['refund_channel']"/></p>
                     <p>原因：<span t-out="p['reason']"/></p>
                 </div>
                 <p>此为隔离合成数据库中的演示初版，不代表正式税务开票或纸张出纸。</p>
+                <p>实际生成时间（UTC）：<span t-out="p['generated_at']"/>　布局版本：<span t-out="p['layout_version']"/></p>
             </div></main>
         </body></html>
     </template>

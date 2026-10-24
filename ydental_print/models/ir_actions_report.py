@@ -17,7 +17,8 @@ class IrActionsReport(models.Model):
         scope = self.env.context.get('ydental_print_scope')
         if len(self) == 1 and self.report_name == REPORT and isinstance(scope, RenderScope) and scope.original:
             payload = self.env['ydental.print.service']._validate_render_scope()
-            xmlid = 'ydental_print.ydental_pdf_80mm' if payload.get('paper') == '80mm' else 'ydental_print.ydental_pdf_a4'
+            xmlid = {'80mm': 'ydental_print.ydental_pdf_80mm',
+                'label100x70': 'ydental_print.ydental_pdf_label100x70'}.get(payload.get('paper'), 'ydental_print.ydental_pdf_a4')
             return self.env.ref(xmlid)
         return super().get_paperformat()
 
@@ -35,14 +36,17 @@ class IrActionsReport(models.Model):
     def _build_wkhtmltopdf_args(self, paperformat_id, landscape, specific_paperformat_args=None, set_viewport_size=False):
         result = super()._build_wkhtmltopdf_args(paperformat_id, landscape, specific_paperformat_args, set_viewport_size)
         if isinstance(self.env.context.get('ydental_print_scope'), RenderScope):
-            result += ['--encoding', 'UTF-8', '--disable-javascript', '--footer-right', 'YDental | [page]/[topage]', '--footer-font-size', '8']
+            result += ['--encoding', 'UTF-8', '--disable-javascript']
             scope = self.env.context['ydental_print_scope']
             if scope.original:
                 payload = json.loads(scope.payload)
+                if payload.get('paper') == 'label100x70':
+                    return result
                 footer = payload['footer_provenance']
                 if payload.get('paper') == '80mm':
                     footer = '#%s / v%s' % (payload['source_id'], payload['version'])
                 result += ['--footer-left', footer, '--footer-font-name', 'Noto Sans CJK SC']
+            result += ['--footer-right', 'YDental | [page]/[topage]', '--footer-font-size', '8']
         return result
 
     def _run_wkhtmltopdf(self, args):

@@ -1,0 +1,45 @@
+.o_ydental_access_page,
+.o_ydental_settlement,
+.o_ydental_document,
+.o_ydental_access_inventory,
+.o_ydental_access_followup {
+    width: 100%;
+    max-width: 1320px;
+    min-width: 0;
+    margin-inline: auto;
+    padding: 24px;
+    overflow-wrap: anywhere;
+
+    h1 { font-size: 1.8rem; }
+    h2 { margin-block: 20px 12px; font-size: 1.3rem; }
+    h3 { font-size: 1.1rem; }
+    nav { display: flex; flex-wrap: wrap; gap: 12px; margin-block: 12px; }
+    form { display: flex; max-width: 100%; flex-wrap: wrap; gap: 12px; align-items: end; }
+    label { display: inline-flex; max-width: 100%; flex-direction: column; gap: 4px; }
+    input, select, textarea { max-width: 100%; min-width: 0; padding: 6px; }
+    select { white-space: normal; }
+    button { max-width: 100%; padding: 6px 12px; }
+    iframe { max-width: 100%; }
+    summary { cursor: pointer; padding: 8px 0; font-weight: 600; }
+    details { margin-block: 8px; }
+    pre { max-width: 100%; white-space: pre-wrap; overflow-wrap: anywhere; }
+    td, th { overflow-wrap: anywhere; vertical-align: top; }
+    td form { min-width: 240px; }
+}
+
+.o_ydental_access_scroll {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    margin-block: 12px;
+
+    table { width: 100%; min-width: 760px; }
+}
+
+.o_ydental_access_operation {
+    padding: 8px 12px;
+    border: 1px solid #cbd5df;
+    border-radius: 6px;
+    background: #f8fafc;
+}

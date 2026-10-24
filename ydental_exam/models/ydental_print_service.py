@@ -62,8 +62,8 @@ class YDentalPrintService(models.AbstractModel):
             store = self.env['ydental.exam.service']._store()
         except AccessError:
             return choices
-        for result in self.env['ydental.exam.result'].sudo().search([
-                ('ydental_store_id', '=', store.id), ('ydental_version', '>', 0)], order='id desc', limit=100):
+        for result in self.env['ydental.exam.result'].sudo().search(self._original_search_domain([
+                ('ydental_store_id', '=', store.id), ('ydental_version', '>', 0)]), order='id desc', limit=100):
             try:
                 self._original_authorize('exam', result.id, result.ydental_version)
             except (AccessError, UserError):

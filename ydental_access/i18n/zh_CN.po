@@ -1178,3 +1178,43 @@ msgstr "version_conflict: 权限或模板已变更，请重新预览。"
 #: code:addons/ydental_access/models/ydental_access_service.py:0
 msgid "version_conflict: The store changed. Refresh this page."
 msgstr "version_conflict: 门店已变更，请刷新页面。"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Common workspaces"
+msgstr "常用岗位入口"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Documents and patient lookup"
+msgstr "文书与患者查询"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Patient settlement"
+msgstr "患者结算"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Operating reports"
+msgstr "经营报表"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Products, lots and consumption"
+msgstr "物料、批次与耗用"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Follow-up history"
+msgstr "复诊与联系历史"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Laboratory orders"
+msgstr "加工工单"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Scrollable details"
+msgstr "可局部滚动的明细"

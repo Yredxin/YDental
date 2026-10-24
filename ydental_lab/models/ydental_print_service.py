@@ -28,11 +28,18 @@ class YDentalPrintService(models.AbstractModel):
         if kind != 'lab_label':
             return super()._original_source(kind, source_id, version, purpose)
         service, order, _selected, category = self._original_authorize(kind, source_id, version, purpose)
+        patient = self.env['ydental.patient.service']._patient(order.ydental_patient_id.id)
+        state_labels = {'draft': self.env._('Laboratory draft'),
+            'sent': self.env._('Dispatched work order; supplier shipment not implied'),
+            'processing': self.env._('Laboratory processing'), 'received': self.env._('Physically received'),
+            'available': self.env._('Put away and awaiting fit'), 'rework_returned': self.env._('Returned for rework'),
+            'done': self.env._('Actually fitted'), 'cancelled': self.env._('Cancelled before put-away'),
+            'exception': self.env._('Laboratory exception closed')}
         payload = {'kind': kind, 'title': self.env._('Internal laboratory package identification label'),
-            'template': 'YD-S12-LAB-LABEL-1', 'source_id': order.id, 'version': version,
+            'template': 'YD-S13-LAB-LABEL-2', 'source_id': order.id, 'version': version,
             'identity': [self._pair(self.env._('Source store'), order.ydental_store_id.name),
                 self._pair(self.env._('Work order ID'), order.id)],
-            'status': dict(order._fields['state']._description_selection(self.env))[order.state],
+            'status': state_labels[order.state],
             'selected_state': self.env._('Identification only. This code is not an access credential and does not receive or put away goods.'),
             'details': [self._pair(self.env._('Internal identification code'), order.ydental_internal_code),
                 self._pair(self.env._('External package code'), order.ydental_package_code),
@@ -43,6 +50,12 @@ class YDentalPrintService(models.AbstractModel):
                 self._pair(self.env._('Responsible person'), order.ydental_responsible_id.name),
                 self._pair(self.env._('Planned UTC'), str(order.ydental_planned_at))],
             'sections': [], 'teeth': [], 'lines': [], 'events': [],
+            'label_identity': [self._pair(self.env._('Source store'), order.ydental_store_id.name),
+                self._pair(self.env._('Patient number'), patient.ydental_number)],
+            'label_details': [self._pair(self.env._('Teeth'), ', '.join(str(value) for value in order.ydental_teeth)),
+                self._pair(self.env._('Material / shade'), '%s / %s' % (order.ydental_material, order.ydental_shade or '-')),
+                self._pair(self.env._('Quantity'), order.ydental_quantity),
+                self._pair(self.env._('Processing instructions'), order.ydental_instructions)],
             'barcode': {'format': 'QR', 'value': order.ydental_internal_code, 'width': 180, 'height': 180},
             'versions': {'order': [order.id, order.ydental_version, order.state],
                 'source_patient': order.ydental_patient_id.id, 'source_event': order.ydental_source_event_id.id,
@@ -67,7 +80,8 @@ class YDentalPrintService(models.AbstractModel):
             store = self.env['ydental.lab.service']._access()
         except AccessError:
             return choices
-        for order in self.env['ydental.lab.order'].sudo().search([('ydental_store_id', '=', store.id)], order='id desc', limit=100):
+        for order in self.env['ydental.lab.order'].sudo().search(self._original_search_domain([
+                ('ydental_store_id', '=', store.id)]), order='id desc', limit=100):
             try:
                 self._original_authorize('lab_label', order.id, order.ydental_version)
             except (AccessError, UserError):

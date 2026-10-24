@@ -1,0 +1,154 @@
+.o_ydental_reporting {
+    min-width: 0;
+    max-width: 1200px;
+    padding: 24px;
+    overflow-wrap: anywhere;
+
+    h1 {
+        margin: 20px 0;
+        font-size: 1.7rem;
+    }
+
+    h2 {
+        margin-top: 24px;
+        font-size: 1.35rem;
+    }
+
+    small {
+        display: block;
+        margin-top: 4px;
+        color: #526274;
+    }
+
+    pre {
+        max-width: 100%;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+    }
+
+    details {
+        margin: 12px 0;
+    }
+
+    summary {
+        cursor: pointer;
+        color: #235d86;
+    }
+}
+
+.o_ydental_reporting_navigation {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    margin: 12px 0;
+}
+
+.o_ydental_reporting_filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 16px;
+    padding: 20px;
+    border: 1px solid #d5dee6;
+    border-radius: 8px;
+    background: #f5f8fa;
+
+    label {
+        min-width: 0;
+        font-weight: 600;
+    }
+
+    input, select {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        margin-top: 6px;
+        padding: 7px;
+        border: 1px solid #a7b5c2;
+        border-radius: 4px;
+        background: white;
+        font-weight: normal;
+    }
+}
+
+.o_ydental_reporting_filter_actions {
+    grid-column: 1 / -1;
+
+    p {
+        margin: 8px 0 0;
+        color: #526274;
+        font-size: 0.9rem;
+    }
+}
+
+.o_ydental_reporting_scope, .o_ydental_reporting_notice {
+    padding: 12px 16px;
+    border-left: 3px solid #7195ad;
+    background: #f2f6fa;
+}
+
+.o_ydental_reporting_scope p {
+    margin-bottom: 8px;
+}
+
+.o_ydental_reporting_totals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 18px 0;
+
+    article {
+        min-width: 180px;
+        max-width: 100%;
+        padding: 16px;
+        border: 1px solid #d5dee6;
+        border-radius: 6px;
+    }
+
+    strong, span {
+        display: block;
+    }
+
+    strong {
+        margin-bottom: 6px;
+        font-size: 1.5rem;
+    }
+}
+
+.o_ydental_reporting_table_wrap {
+    max-width: 100%;
+    margin: 16px 0;
+    overflow-x: auto;
+
+    table {
+        width: 100%;
+        min-width: 760px;
+        table-layout: fixed;
+    }
+
+    th, td {
+        padding: 10px;
+        vertical-align: top;
+        overflow-wrap: anywhere;
+    }
+}
+
+.o_ydental_reporting_facts {
+    display: grid;
+    grid-template-columns: minmax(140px, 1fr) minmax(0, 3fr);
+    gap: 8px 16px;
+
+    dd {
+        margin: 0;
+    }
+}
+
+.o_ydental_reporting_source_card {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #d5dee6;
+    border-radius: 6px;
+}
+
+.o_ydental_reporting_export {
+    margin-top: 16px;
+}

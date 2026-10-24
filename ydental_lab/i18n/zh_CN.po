@@ -1,0 +1,168 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: YDental 20.0\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Laboratory draft"
+msgstr "加工单草稿"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Dispatched work order; supplier shipment not implied"
+msgstr "已发出加工委托（不表示供应商已发货）"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Laboratory processing"
+msgstr "加工中"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Physically received"
+msgstr "已实际接收"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Put away and awaiting fit"
+msgstr "已入库，待戴用"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Returned for rework"
+msgstr "已退回返工"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Actually fitted"
+msgstr "已实际戴用"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Cancelled before put-away"
+msgstr "入库前已取消"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Laboratory exception closed"
+msgstr "加工异常终止"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Internal laboratory package identification label"
+msgstr "内部加工包裹识别标签"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid ""
+"Identification only. This code is not an access credential and does not "
+"receive or put away goods."
+msgstr "仅用于识别定位，不是访问凭据，不执行接收或入库。"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid ""
+"source_required: Select a current laboratory label source in this store."
+msgstr "source_required: 请选择本店当前加工工单作为标签来源。"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "version_conflict: Review the current laboratory order version."
+msgstr "version_conflict: 请重新查看当前加工工单版本。"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Source store"
+msgstr "来源门店"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Work order ID"
+msgstr "加工工单号"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Internal identification code"
+msgstr "内部识别码"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "External package code"
+msgstr "外部包裹码"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Cycle / original order"
+msgstr "周期／原始工单"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Teeth"
+msgstr "牙位"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Material / shade"
+msgstr "材料／色号"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Quantity"
+msgstr "数量"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Responsible person"
+msgstr "负责人"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Planned UTC"
+msgstr "计划时间（UTC）"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Patient number"
+msgstr "患者业务号"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Processing instructions"
+msgstr "加工内容"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Internal laboratory label"
+msgstr "内部加工标签"

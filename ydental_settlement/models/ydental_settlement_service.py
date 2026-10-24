@@ -1028,6 +1028,26 @@ class YDentalSettlementService(models.AbstractModel):
         count = model.search_count(domain)
         return model.search(domain, order=order, offset=(page - 1) * 50, limit=50), count
 
+    def _patient_options(self, term='', page=1):
+        """Minimal current-store settlement lookup; never grants patient administration."""
+        store = self._access()
+        if not isinstance(term, str) or len(term) > 100 or type(page) is not int or not 1 <= page <= 10000:
+            raise ValidationError(self.env._('Enter a patient name or number and a valid search page.'))
+        domain = fields.Domain('ydental_store_id', '=', store.id) & fields.Domain(
+            'ydental_superseded_by_id', '=', False)
+        if term.strip():
+            domain &= fields.Domain.OR([
+                fields.Domain('ydental_patient_id.name', 'ilike', term.strip()),
+                fields.Domain('ydental_patient_id.ydental_number', 'ilike', term.strip()),
+            ])
+        # The settlement workspace already requires this live relation. Only
+        # the name/number projection is returned; phone and clinical data stay out.
+        relations = self.env['ydental.patient.relation'].sudo().search(
+            domain, order='ydental_patient_id, id', offset=(page - 1) * 30, limit=31)
+        return {'rows': [{'id': row.ydental_patient_id.id, 'name': row.ydental_patient_id.name,
+                         'number': row.ydental_patient_id.ydental_number} for row in relations[:30]],
+                'has_more': len(relations) > 30, 'page': page}
+
     def _workbench(self, patient_id=None, pages=None):
         store = self._access()
         patient = self._patient(patient_id) if patient_id else False

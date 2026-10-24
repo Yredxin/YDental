@@ -154,8 +154,8 @@ class YDentalPrintConsentService(models.AbstractModel):
             'consent_verify': self._consent_verify, 'consent_download': self._consent_evidence_bytes,
             'consent_status': self._consent_status}
 
-    def _original_workbench(self):
-        values = super()._original_workbench()
+    def _original_workbench(self, term='', page=1):
+        values = super()._original_workbench(term=term, page=page)
         original_ids = [row['id'] for row in values['originals'] if row['kind'] == 'consent']
         values['consent_evidence'] = self.env['ydental.consent.evidence'].sudo().search([
             ('original_id', 'in', original_ids)], order='id desc', limit=100)

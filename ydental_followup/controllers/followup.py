@@ -1,6 +1,6 @@
 import json
 
-from odoo import http
+from odoo import fields, http
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.http import request
 
@@ -17,12 +17,17 @@ class YDentalFollowup(http.Controller):
 
     @http.route('/ydental/followups', type='http', auth='user', methods=['GET'])
     def followups(self, **kwargs):
-        service = self._service()
+        request.update_context(lang='zh_CN')
+        service = self._service().with_context(lang='zh_CN')
         session, _member = service._scope()
         model = service.env['ydental.followup']
-        rows = model.search_fetch([
-            ('ydental_store_id', '=', session.ydental_store_id.id), ('state', '!=', 'done'),
-        ], ['name', 'ydental_patient_id', 'ydental_followup_type', 'ydental_planned_at',
+        domain = fields.Domain('ydental_store_id', '=', session.ydental_store_id.id) & fields.Domain('state', '!=', 'done')
+        try:
+            if kwargs.get('followup_id'):
+                domain &= fields.Domain('id', '=', int(kwargs['followup_id']))
+        except (ValueError, TypeError):
+            return request.make_json_response({'error': 'Invalid follow-up selection.'}, status=400)
+        rows = model.search_fetch(domain, ['name', 'ydental_patient_id', 'ydental_followup_type', 'ydental_planned_at',
             'ydental_appointment_at', 'ydental_appointment_status', 'ydental_responsible_id', 'state'],
             limit=100, order='ydental_planned_at, id')
         events = service.env['ydental.treatment.event'].search_fetch([
@@ -92,7 +97,10 @@ class YDentalFollowup(http.Controller):
             'ydental_last_error', 'ydental_request_id'], limit=100, order='id desc')
         return self._render('ydental_followup.followup_list', {
             'rows': rows, 'store': session.ydental_store_id,
-            'lab_contact_allowed': {row.id: row.ydental_lab_contact_stage != 'stopped' and (
+            'state_labels': dict(model._fields['state']._description_selection(service.env)),
+            'type_labels': dict(model._fields['ydental_followup_type']._description_selection(service.env)),
+            'appointment_labels': dict(model._fields['ydental_appointment_status']._description_selection(service.env)),
+            'lab_contact_allowed': {row.id: row.state not in ('done', 'closed') and row.ydental_lab_contact_stage != 'stopped' and (
                 row.ydental_lab_contact_stage != 'waiting' or service._lab_reservation_is_current(row)) for row in rows},
             'jobs': jobs, 'revision': session.ydental_revision, 'current_user': service.env.user,
             'patients': event_patients, 'source_events': events,

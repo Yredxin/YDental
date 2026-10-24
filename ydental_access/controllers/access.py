@@ -19,7 +19,8 @@ class YDentalAccess(http.Controller):
 
     @http.route('/ydental/access', type='http', auth='user', methods=['GET'])
     def dashboard(self, **kwargs):
-        service = self._service()
+        request.update_context(lang='zh_CN')
+        service = self._service().with_context(lang='zh_CN')
         values = service._dashboard()
         response = request.render('ydental_access.ydental_access_page', values)
         response.headers['Cache-Control'] = 'no-store'

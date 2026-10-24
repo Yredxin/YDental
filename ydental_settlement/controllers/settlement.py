@@ -6,6 +6,7 @@ from urllib.parse import urlencode
 from odoo import http
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.http import request
+from odoo.tools.misc import formatLang
 from odoo.addons.ydental_access.controllers.diagnostics import observed_http
 from odoo.addons.ydental_access.diagnostics import record_exception, update_context
 
@@ -47,7 +48,14 @@ class YDentalSettlement(http.Controller):
             return request.make_json_response({'error': 'Invalid workbench page or patient.'},
                                               status=400, headers=HEADERS)
         pages = {name: int(value) for name, value in raw_pages.items()}
-        service = self._service()
+        request.update_context(lang='zh_CN')
+        service = self._service().with_context(lang='zh_CN')
+        search_term = kwargs.get('q', '')
+        try:
+            search_page = int(kwargs.get('search_page', '1'))
+            patient_options = service._patient_options(search_term, search_page)
+        except (ValidationError, ValueError, TypeError) as error:
+            return request.make_json_response({'error': str(error)}, status=400, headers=HEADERS)
         number = int(patient_id) if patient_id else None
         context = service._workbench(number, pages)
         feedback = request.session.get('ydental_settlement_feedback')
@@ -65,6 +73,7 @@ class YDentalSettlement(http.Controller):
             selected = dict(pages)
             selected[category] = page
             query = {name + '_page': number for name, number in selected.items() if number != 1}
+            query.update(q=search_term, search_page=search_page)
             if patient_id:
                 query['patient_id'] = patient_id
             return '/ydental/settlement' + ('?' + urlencode(query) if query else '')
@@ -80,7 +89,12 @@ class YDentalSettlement(http.Controller):
                         'new_key': lambda: uuid.uuid4().hex,
                         'page_url': page_url,
                         'now_utc': lambda: datetime.now(timezone.utc).isoformat(),
-                        'feedback': message})
+                        'money': lambda amount, currency: '%s %s' % (currency.name, formatLang(service.env, amount, digits=currency.decimal_places)),
+                        'refund_labels': dict(service.env['ydental.settlement.refund']._fields['ydental_state']._description_selection(service.env)),
+                        'channel_labels': dict(service.env['ydental.settlement.payment']._fields['ydental_channel']._description_selection(service.env)),
+                        'feedback': message, 'patient_options': patient_options, 'search_term': search_term,
+                        'patient_search_url': lambda page: '/ydental/settlement?' + urlencode({
+                            'q': search_term, 'search_page': page, 'patient_id': patient_id or ''})})
         return request.render('ydental_settlement.ydental_settlement_page', context, headers=HEADERS)
 
     @http.route('/ydental/settlement/action', type='http', auth='user', methods=['POST'], max_content_length=100000)

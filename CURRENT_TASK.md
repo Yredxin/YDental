@@ -1,3 +1,19 @@
+# S13 首批当前状态｜YD-S13-UX-DOCUMENTS-V1 / 1.0
+
+## IN_PROGRESS｜仅岗位界面、中文报表与文书版式整理
+
+- 2026-10-24 用户在当前对话交付完整计划并明确启用限定子范围，UX-01—08/P1/P2 全部必做；完整 S13/负载/备份恢复/实机/生产未启用。计划载体 `docs/execution/S13_UX_IMPLEMENTATION_PLAN.md`。无需逐批 GPT 签字；实施中不向 Issue 发布过程信息。
+- 起点 `a437464351220605bf14b8f50181132266272d65`，现场 origin/HEAD 一致、工作树干净；正常创建 `codex/s13-ux-documents-r1`，未 reset/clean/强推、未从 main 重建。main 仍为文档路由；S12 产品 `5cb1e46fbe1e4243c7a292f64ecfd375afb3dce2`、回执 #36/6379065844 承接，#36 CLOSED、#37 OPEN 已实时读回。
+- 单一主控 /root；reports 独占 ydental_reporting，documents 独占 print模型/报告/翻译及 settlement PDF，root 负责岗位页面/运行/集成，acceptance 不实现产品或测试工具，负责独立验收。同 OS 共享工作树，不冒隔离；旧 worktree 保留，无其他本团队活动线程。进程名称本身不构成独立主控证明，不终止旧 Codex 客户端。
+- W0 已读 main GPT_HANDOFF/AGENTS/CURRENT_TASK、活动状态、S12 summary/matrix/evidence/contracts/metric dictionary 及 #23/#36/#37 和有效增量。优先 W1 三财务指标/授权选择与钻取，并行 W2 新版票据/标签，随后 W3 岗位查看/办理。现阶段仅源码准备，尚未声明 UX PASS。
+- 唯一运行目标仍 `ydental_s11_synth_20261023_01 / OID2171423 / cluster7694897083368259627` 及原 filestore；运行前核真实身份/权限/owned服务，使用本阶段资源记录，旧 scope 不改期、不清 STOP，不新增/复制/重建数据库。凭据只在既有正常获准 provider，不进 Git/Issue/聊天/截图。
+- 全部旧原件字节/SHA、财务、库存、审计和未完成责任保全；旧58—63、标签93 draft 与 lab214 sent 各自时点不改，bill72/pay7/refund3、76/77/pay8、79旧600及现价620、lot253余8及604/669/700/701/280等按旧事实保护。当前应收旧集合1073=63+1010，新测试贡献另账。不重放旧付款/退款/治疗/出库/接收入库补证。新验证用独立合成来源及正常模板/原件新版本机制。
+- 结束只向 #37 提交一次最终子计划结果并保持 OPEN，#36不动，不产品合main/部署/启动下一计划；私有只读效果包不入 Public。最终候选、真实测试层级、独立视觉/保护/正常角色路径及同步读回按计划记录。当前用户亲手验收仍待确认。
+
+---
+
+以下保留接管时 S12/S11 历史与不可重放事实；其中旧“等待客户端/设备”不再阻断本次已授权软件整理。
+
 # S12 当前状态｜YD-S12-DOCUMENTS-REPORTS-V1 / 1.0
 
 ## TECHNICALLY_COMPLETE（适用合成软件范围）/ SYNCED；#36已技术关闭

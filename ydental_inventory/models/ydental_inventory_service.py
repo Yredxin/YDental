@@ -503,8 +503,10 @@ class YDentalInventoryService(models.AbstractModel):
         self._text(code)
         return {'result': 'unsupported_source', 'received': False}
 
-    def _dashboard(self, catalog=False):
+    def _dashboard(self, catalog=False, term='', page=1, event_id=None):
         store = self._access(catalog=catalog)
+        if not isinstance(term, str) or len(term) > 100 or type(page) is not int or not 1 <= page <= 10000:
+            raise ValidationError(self.env._('Enter a product or lot name and a valid page.'))
         config = self._model('config').search([('ydental_store_id', '=', store.id)], limit=1) if not catalog else self._model('config')
         products = self._native('product.product').with_context(active_test=False).search([('ydental_inventory_kind', '!=', False)])
         batches = self._model('batch').search([('ydental_store_id', '=', store.id)])
@@ -539,7 +541,20 @@ class YDentalInventoryService(models.AbstractModel):
                     'quantity': qty, 'on_hand': on_hand, 'quarantine': self._quantity(lot, config.ydental_quarantine_id),
                     'expiration': lot.expiration_date, 'received_at': batch.ydental_received_at,
                     'enabled': batch.ydental_enabled, 'flags': flags})
-        events = self._model('event').search(fields.Domain('ydental_store_id', '=', store.id) | (fields.Domain('ydental_target_store_id', '=', store.id) & fields.Domain('ydental_kind', '=', 'transfer')), order='id desc', limit=100) if not catalog else self._model('event')
+        event_domain = fields.Domain('ydental_store_id', '=', store.id) | (
+            fields.Domain('ydental_target_store_id', '=', store.id) & fields.Domain('ydental_kind', '=', 'transfer'))
+        if term.strip():
+            event_domain &= fields.Domain.OR([
+                fields.Domain('ydental_product_id.name', 'ilike', term.strip()),
+                fields.Domain('ydental_product_id.default_code', 'ilike', term.strip()),
+                fields.Domain('ydental_lot_id.name', 'ilike', term.strip()),
+            ])
+        if event_id is not None:
+            event_domain &= fields.Domain('id', '=', event_id)
+        events = self._model('event').search(event_domain, order='id desc',
+            offset=(page - 1) * 30, limit=31) if not catalog else self._model('event')
+        has_more = len(events) > 30
+        events = events[:30]
         # Project only necessary execution summary, never patient IDs/attachments.
         projected = [{'id': e.id, 'kind': e.ydental_kind, 'state': e.state, 'quantity': e.ydental_quantity,
             'product': e.ydental_product_id.name, 'lot': e.ydental_lot_id.name, 'uom_id': e.ydental_uom_id.id,
@@ -549,6 +564,8 @@ class YDentalInventoryService(models.AbstractModel):
         self.env['ydental.access.service']._audit('inventory.view', 'warehouse', config or self._model('config'),
             store.id, source='inventory_workbench')
         return {'store': store, 'config': config, 'lots': rows, 'events': projected,
+            'visible_lots': [row for row in rows if not term.strip() or term.strip().casefold() in (row['product'] + ' ' + row['name']).casefold()],
+            'search_term': term, 'search_page': page, 'has_more_events': has_more,
             'products': [{'id': p.id, 'name': p.name, 'kind': p.ydental_inventory_kind, 'code': p.default_code,
                 'specification': p.ydental_specification, 'uom_id': p.uom_id.id, 'issue_uom_id': p.ydental_issue_uom_id.id,
                 'suggested': p.ydental_suggested_quantity, 'active': p.active} for p in products]}

@@ -1,5 +1,6 @@
 import json
 import secrets
+from urllib.parse import urlencode
 
 from odoo import http
 from odoo.exceptions import AccessError, UserError, ValidationError
@@ -26,9 +27,16 @@ class YDentalInventory(http.Controller):
 
     @http.route('/ydental/inventory', type='http', auth='user', methods=['GET'])
     def dashboard(self, **kwargs):
-        service = self._service()
-        values = service._dashboard()
+        request.update_context(lang='zh_CN')
+        service = self._service().with_context(lang='zh_CN')
+        try:
+            page = int(kwargs.get('page', '1'))
+            event_id = int(kwargs['event_id']) if kwargs.get('event_id') else None
+            values = service._dashboard(term=kwargs.get('q', ''), page=page, event_id=event_id)
+        except (ValidationError, TypeError, ValueError) as error:
+            return request.make_json_response({'error': str(error)}, status=400, headers=[('Cache-Control', 'no-store')])
         values.update(self._labels(service.env))
+        values['search_url'] = lambda number: '/ydental/inventory?' + urlencode({'q': kwargs.get('q', ''), 'page': number})
         access = service.env['ydental.access.service']
         values.update(revision=access._scope().ydental_revision, key=lambda: secrets.token_hex(16),
             can_write=access._levels(access._membership(service.env.uid, values['store'].id))['warehouse'] == 'write',

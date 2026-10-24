@@ -162,8 +162,9 @@ msgstr "待补全／待解释／待签署／待核验"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Canonical patient ID"
-msgstr "归并患者编号"
+msgstr "当前归并患者内部标识"
 
 #. module: ydental_print
 #. odoo-python
@@ -450,6 +451,7 @@ msgstr "不适用"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Not recorded"
 msgstr "未记录"
 
@@ -524,6 +526,7 @@ msgstr "PDF 类型"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
 msgid "Patient"
 msgstr "患者"
 
@@ -536,8 +539,9 @@ msgstr "患者决定栏"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
 msgid "Patient number"
-msgstr "患者编号"
+msgstr "患者业务号"
 
 #. module: ydental_print
 #. odoo-python
@@ -698,8 +702,9 @@ msgstr "来源文书与版本"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Source patient ID"
-msgstr "来源患者编号"
+msgstr "来源患者内部标识"
 
 #. module: ydental_print
 #. odoo-python
@@ -710,6 +715,7 @@ msgstr "来源接诊分段"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_service.py:0
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
 msgid "Source store"
 msgstr "来源门店"
 
@@ -1061,3 +1067,993 @@ msgstr "version_conflict: 来源已变化。生成 PDF 前请重新核对。"
 #: code:addons/ydental_print/models/ydental_print_service.py:0
 msgid "version_conflict: This generation key belongs to another source."
 msgstr "version_conflict: 此生成键属于另一来源。"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Frozen examination line"
+msgstr "冻结检查项目来源"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Source template code / version"
+msgstr "来源模板编号／版本"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid "Explicit source collection ID"
+msgstr "来源集合内部标识"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid "All selected document IDs"
+msgstr "全部所选文书内部标识"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid "Excerpt policy template ID"
+msgstr "摘录政策模板内部标识"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Explicit source collection"
+msgstr "明确选择的来源集合"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Confirmed clinical text PDF"
+msgstr "已确认病历正文"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Issued prescription PDF"
+msgstr "已开立处方"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Consent content awaiting signature"
+msgstr "知情同意材料正文（待签署）"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Confirmed examination report PDF"
+msgstr "已确认检查报告"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Explicitly scoped clinical source collection PDF"
+msgstr "范围明确的临床来源汇总"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid ""
+"invalid_search: Use a patient name or business number and a valid page."
+msgstr "invalid_search: 请使用患者姓名或业务号，并选择有效页码。"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Dispatched work order; supplier shipment not implied"
+msgstr "已发出加工委托（不表示供应商已发货）"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Clinical document %s"
+msgstr "临床文书 %s"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Selected version %(version)s / %(state)s"
+msgstr "所选版本 %(version)s／%(state)s"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Clinical document"
+msgstr "临床文书"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Saved text version record"
+msgstr "已保存正文版本"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Reception segment"
+msgstr "接诊段"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "size_limit: Narrow the patient search before listing more originals."
+msgstr "size_limit: 原件结果过多，请缩小患者搜索范围后查看。"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Prescription order"
+msgstr "处方医嘱"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Reviewed template content"
+msgstr "已审阅模板正文"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Prescription line %s"
+msgstr "处方项目 %s"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Examination result"
+msgstr "检查结果"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Saved result version record"
+msgstr "已保存检查结果版本"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Actual examination event"
+msgstr "实际检查执行事件"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Confirmed"
+msgstr "已确认"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Awaiting confirmation"
+msgstr "待确认"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Laboratory order"
+msgstr "加工工单"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Source actual event"
+msgstr "实际来源事件"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Cycle / original order"
+msgstr "周期／原始工单"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Original internal bill"
+msgstr "内部原账单"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Consent awaiting signature"
+msgstr "知情同意材料（待签署）"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Bill source %s"
+msgstr "账单来源 %s"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Bill %(bill)s / fee %(fee)s / frozen price version %(version)s"
+msgstr "账单 %(bill)s／费用 %(fee)s／冻结价格版本 %(version)s"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Source record / selected version"
+msgstr "来源记录／所选版本"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Collection record"
+msgstr "实际收款记录"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Refund record"
+msgstr "退款记录"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Original bill %s"
+msgstr "原账单 %s"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Refund source %s"
+msgstr "退款来源 %s"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid "Clinical source collection PDF"
+msgstr "临床文书来源汇总"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Incomplete selected source collection; not a complete medical record"
+msgstr "所选来源集合为草稿或尚未完善；不是完整病历"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid ""
+"All explicitly selected clinical sources confirmed; complete within the "
+"listed scope"
+msgstr "所有明确选择的临床来源均已确认；仅在列明范围内完整"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Policy-approved confirmed excerpt; not a complete medical record"
+msgstr "政策允许的已确认部分摘录；不是完整病历"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid "Actual execution and dispensing facts, separate from order issuance"
+msgstr "实际执行与发药事实（与医嘱开立分开）"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid "Source document %s / selected version %s"
+msgstr "来源文书 %s／所选版本 %s"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid "Order %s / source document %s"
+msgstr "医嘱 %s／来源文书 %s"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid "Confirmed selected sources"
+msgstr "已确认来源"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid "Unconfirmed selected sources"
+msgstr "未确认来源"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid "Explicit clinical source collection"
+msgstr "明确选择的临床来源集合"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid ""
+"Event %(event)s / %(kind)s / operator %(actor)s / UTC %(time)s / actual "
+"quantity %(quantity)s %(unit)s / reconciliation %(state)s"
+msgstr ""
+"事件 %(event)s／%(kind)s／实际经办人 %(actor)s／UTC %(time)s／实际数量 %(quantity)s "
+"%(unit)s／核对状态 %(state)s"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid ""
+"No actual execution or dispensing is recorded for these selected sources."
+msgstr "所选来源尚无实际执行或发药记录。"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid "Source %s / %s"
+msgstr "来源 %s／%s"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid ""
+"Order type: %(kind)s; state: %(state)s; author: %(author)s; source text "
+"version: %(version)s"
+msgstr "医嘱类型：%(kind)s；状态：%(state)s；实际作者：%(author)s；来源正文版本：%(version)s"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid ""
+"Line %(line)s / %(service)s / state %(state)s / approved quantity "
+"%(quantity)s %(unit)s"
+msgstr "项目 %(line)s／%(service)s／状态 %(state)s／开立数量 %(quantity)s %(unit)s"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid "Included"
+msgstr "已纳入"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid "Not included: selected source is awaiting confirmation"
+msgstr "未纳入：该所选来源仍待确认"
+
+#. module: ydental_print
+#. odoo-python
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Laboratory identification label"
+msgstr "加工识别标签"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<span>Work order:</span>"
+msgstr "<span>工单：</span>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "/ <span>Cycle:</span>"
+msgstr "／<span>周期：</span>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<strong>Source state at generation:</strong>"
+msgstr "<strong>生成时来源状态：</strong>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<strong>Identification code:</strong>"
+msgstr "<strong>识别码：</strong>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "SYNTHETIC TEST / 100 x 70 mm demonstration"
+msgstr "合成测试／100×70毫米演示纸型"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "Identification only; no receipt, put-away or notification."
+msgstr "仅识别定位；不接收、不入库、不发送通知。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<span>Generated UTC:</span>"
+msgstr "<span>实际生成时间（UTC）：</span>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<span>Layout:</span>"
+msgstr "<span>布局版本：</span>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "Authorized source and full version trace: /ydental/documents"
+msgstr "来源及完整版本追溯（须当前源权限）：/ydental/documents"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "SYNTHETIC OFFLINE BUSINESS DOCUMENT / NOT A TAX INVOICE"
+msgstr "合成线下业务凭据／非税务发票"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<strong>Document number:</strong>"
+msgstr "<strong>单据号：</strong>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "Confirmed sources and allocations"
+msgstr "已确认费用与收款分摊"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "Bill or confirmed item"
+msgstr "账单或已确认项目"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "Frozen price version"
+msgstr "冻结价格版本"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "Confirmed amount"
+msgstr "确认金额"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "Bill total / allocated / receivable"
+msgstr "账单金额／本次分摊／当前应收"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<strong>Recorded channel:</strong>"
+msgstr "<strong>登记渠道：</strong>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<strong>Refund reason:</strong>"
+msgstr "<strong>退款原因：</strong>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<strong>Content template / version / review state:</strong>"
+msgstr "<strong>正文模板／版本／审核状态：</strong>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "; <span>Applicable scope:</span>"
+msgstr "；<span>适用范围：</span>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<strong>Source ID / selected version:</strong>"
+msgstr "<strong>来源内部标识／所选版本：</strong>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "; <span>Layout:</span>"
+msgstr "；<span>布局版本：</span>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "; <span>Generation and extraction time (UTC):</span>"
+msgstr "；<span>实际生成与提取时间（UTC）：</span>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid ""
+"Immutable original; reprinting reads stored bytes. Generation and print "
+"requests do not prove signature or physical paper output."
+msgstr "原件已固定保存，重印读取存储字节；生成或打印请求不代表已签署或实际出纸。"
+
+#. module: ydental_print
+#: model:ir.model.fields.selection,name:ydental_print.selection__ydental_document_template__paper__label100x70
+msgid "100 x 70 mm demonstration label"
+msgstr "100×70毫米演示标签"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Refund requested; not approved"
+msgstr "退款已申请，未批准"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Approved; awaiting actual refund"
+msgstr "已批准，待实际退款"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Refund execution failed; pending verification"
+msgstr "退款执行失败，待核查"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Refund execution result unknown; pending verification"
+msgstr "退款执行结果未知，待核查"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Actually refunded"
+msgstr "已实际退款"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Refund rejected"
+msgstr "退款申请已驳回"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Refund cancelled"
+msgstr "退款申请已取消"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Laboratory draft"
+msgstr "加工单草稿"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Laboratory processing"
+msgstr "加工中"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Physically received"
+msgstr "已实际接收"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Put away and awaiting fit"
+msgstr "已入库，待戴用"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Returned for rework"
+msgstr "已退回返工"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Actually fitted"
+msgstr "已实际戴用"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Cancelled before put-away"
+msgstr "入库前已取消"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Laboratory exception closed"
+msgstr "加工异常终止"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "100 × 70 mm laboratory demonstration / no device approval"
+msgstr "100×70毫米加工演示标签／未经设备验收"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "80 mm demonstration / no device approval"
+msgstr "80毫米演示纸型／未经设备验收"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "A request is not verified physical paper output."
+msgstr "打印请求不代表已实际出纸。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Action"
+msgstr "操作"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Actual generation time (UTC)"
+msgstr "实际生成时间（UTC）"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Actual refund receipt"
+msgstr "实际退款凭据"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Allow clearly scoped confirmed excerpts"
+msgstr "允许明确限定范围的已确认摘录"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Applicable scope"
+msgstr "适用范围"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Clinical collection"
+msgstr "临床来源集合"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid "Clinical source collection"
+msgstr "临床来源集合"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Collection receipt"
+msgstr "收款凭据"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid "Actual collection receipt"
+msgstr "实际收款凭据"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid "Refund approval or execution voucher"
+msgstr "退款审批或执行状态凭据"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid "Examination report"
+msgstr "检查报告"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Content template"
+msgstr "正文模板"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Create unreviewed version"
+msgstr "创建未审核版本"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Document source preview"
+msgstr "文书来源预览"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+#: model:ir.actions.act_url,name:ydental_print.ydental_document_action
+#: model:ir.ui.menu,name:ydental_print.ydental_document_menu
+msgid "Documents and saved originals"
+msgstr "文书与已保存原件"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Download original"
+msgstr "下载原件"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Examination"
+msgstr "检查"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid ""
+"Explicit accepted earlier same-store consent template IDs, separated by "
+"commas"
+msgstr "明确接受的本店旧版同意模板内部标识（逗号分隔）"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Explicit synthetic test sample / unreviewed"
+msgstr "明确合成测试样例／未经审核"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Export authorized originals as ZIP"
+msgstr "导出授权原件ZIP"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid ""
+"Export permission and every selected source read permission are both "
+"required."
+msgstr "须同时具备导出权限与每份所选原件的源读取权限。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Export saved originals"
+msgstr "导出已保存原件"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Find patient documents"
+msgstr "查找患者文书"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Formal approval reference"
+msgstr "正式审批依据"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Generate and preserve original PDF"
+msgstr "生成并保存新原件PDF"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Internal bill"
+msgstr "内部账单"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Laboratory label"
+msgstr "加工标签"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Name"
+msgstr "名称"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "New original without a previous version"
+msgstr "新建原件（无前版）"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Next originals page"
+msgstr "下一页原件"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "No saved originals are available in this scope."
+msgstr "本授权范围内暂无已保存原件。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid ""
+"Only group document policy administrators can perform these actions. Content"
+" is plain text and is never executed as a QWeb template. Review and "
+"publication apply to this store and this explicit version."
+msgstr "仅集团文书政策管理员可办理以下操作。正文仅为纯文本，不执行为QWeb模板。审核与发布仅适用于本店这一明确版本。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Operation result:"
+msgstr "操作结果："
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Original IDs separated by commas"
+msgstr "原件内部标识（逗号分隔）"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Paper"
+msgstr "纸型"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Patient and purpose"
+msgstr "患者与用途"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid ""
+"Patient labels show the current identity. Saved PDFs retain the identity and"
+" state at generation."
+msgstr "列表显示当前患者身份；已保存PDF保留生成时的身份和状态。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Patient name or number"
+msgstr "患者姓名或业务号"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Patient settlement"
+msgstr "患者结算"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Plain text body"
+msgstr "纯文本正文"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Preview selected source"
+msgstr "预览所选来源"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Previous original for a new version"
+msgstr "新版所接续的前版原件"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Previous originals page"
+msgstr "上一页原件"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Publish reviewed version"
+msgstr "发布已审核版本"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Record review action"
+msgstr "记录审核操作"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Request printing"
+msgstr "申请打印"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Request printing original"
+msgstr "申请打印原件"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Review draft"
+msgstr "审核草稿"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Reviewed source"
+msgstr "已核对来源"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Saved document details"
+msgstr "已保存文书明细"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Saved original"
+msgstr "已保存原件"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Saved originals in the current authorized scope"
+msgstr "当前授权范围内的已保存原件"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Search documents"
+msgstr "搜索文书"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Select a source"
+msgstr "选择来源"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid ""
+"Single authorized copies require current source access. Bulk export "
+"additionally requires report export permission. Saved originals always "
+"return the stored file; current names, prices and templates cannot rewrite "
+"it."
+msgstr "单份查阅须具备当前源读取权；批量导出另需报表导出权。已保存原件始终返回存储文件，当前姓名、价格与模板不会重写旧文件。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Source"
+msgstr "来源"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Source SHA256:"
+msgstr "来源SHA256："
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Source and template trace"
+msgstr "来源与模板追溯"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Source, template and file trace"
+msgstr "来源、模板与文件追溯"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid ""
+"Synthetic software demonstration documents carry an explicit test label. A "
+"generated or printed consent is awaiting signature. A print request has no "
+"verified physical paper output."
+msgstr "软件合成演示文书均有明确测试标识。已生成或打印的同意材料仍待签署；打印请求不代表已核实实际出纸。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Synthetic software test only"
+msgstr "仅合成软件测试"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Synthetic test; awaiting applicable review or signature"
+msgstr "合成测试，仍待适用审核或签署"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Template ID"
+msgstr "模板内部标识"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Template SHA256:"
+msgstr "模板SHA256："
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Template review and publication"
+msgstr "模板审核与发布"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Type"
+msgstr "文书类型"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Version"
+msgstr "版本"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Version and state at generation"
+msgstr "版本与生成时状态"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "View original"
+msgstr "查看原件"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "saved originals; page"
+msgstr "份已保存原件；页码"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid "Frozen business snapshot; current balances may differ"
+msgstr "生成时业务快照，当前余额可能已有变化"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+#: code:addons/ydental_print/models/ydental_print_summary_service.py:0
+msgid "Source document %s: version trace"
+msgstr "来源文书 %s：版本追溯"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid ""
+"Patient labels identify the source patient record. Saved PDFs retain the "
+"identity and state at generation."
+msgstr "患者标签用于识别来源患者主档；已保存PDF保留生成时的身份和状态。"

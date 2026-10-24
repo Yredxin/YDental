@@ -5,3 +5,5 @@ from . import test_reporting
 from . import test_financial_originals
 from . import test_reporting_http
 from . import test_lab_originals
+
+from . import test_s13_ux

@@ -1,0 +1,16 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_CN\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Read-only terminal history"
+msgstr "终态历史（只读）"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Scrollable details"
+msgstr "可局部滚动的明细"

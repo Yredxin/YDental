@@ -1,55 +1,126 @@
 <odoo>
     <record id="ydental_operating_report_action" model="ir.actions.act_url">
-        <field name="name">经营报表与回源</field><field name="url">/ydental/reports</field><field name="target">self</field>
+        <field name="name">Operating reports and source documents</field>
+        <field name="url">/ydental/reports</field><field name="target">self</field>
     </record>
-    <menuitem id="ydental_operating_report_menu" name="经营报表与回源" action="ydental_operating_report_action" groups="ydental_base.ydental_base_group_user"/>
+    <menuitem id="ydental_operating_report_menu" name="Operating reports and source documents" action="ydental_operating_report_action" groups="ydental_base.ydental_base_group_user"/>
+    <template id="ydental_operating_report_navigation" name="Operating report navigation">
+        <nav class="o_ydental_reporting_navigation" aria-label="Business navigation">
+            <a href="/ydental/access">Current store and permissions</a>
+            <a href="/ydental/documents">Document originals</a>
+            <a href="/ydental/settlement">Settlement workbench</a>
+        </nav>
+    </template>
+    <template id="ydental_operating_report_scope" name="Effective report scope">
+        <div class="o_ydental_reporting_scope">
+            <p><strong>Authorized report scope:</strong> <t t-out="display['scope']"/> · <t t-out="display['companies']"/></p>
+            <p><strong>Local source dates:</strong> <t t-out="report['filters']['date_from']"/> — <t t-out="report['filters']['date_to']"/> · <t t-out="display['currency']"/> · <t t-out="display['state_label']"/></p>
+            <p><strong>Queried at (UTC):</strong> <t t-out="report['filters']['query_at_utc']"/></p>
+            <details><summary>Store timezones and effective UTC boundaries</summary>
+                <ul><li t-foreach="display['bounds']" t-as="bound"><t t-out="bound['label']"/> · <t t-out="bound['timezone']"/>:
+                    <t t-out="bound['start_utc']"/> ≤ UTC &lt; <t t-out="bound['end_exclusive_utc']"/>
+                </li></ul>
+                <p>Dates select source records. Snapshot metrics show their current state at query time, without historical balance reconstruction.</p>
+            </details>
+        </div>
+    </template>
     <template id="ydental_operating_report_source" name="Reauthorized operating report source detail">
-        <t t-call="web.layout"><main class="container py-4 o_ydental_reporting_source">
-            <h1 t-out="title"/><p>本次原业务事实及过滤（重新核源权）：</p><pre t-out="filters"/>
-            <article t-foreach="rows" t-as="row"><h2><t t-out="row['source_model']"/> / <t t-out="row['source_id']"/></h2>
-                <p>门店<t t-out="row['store_id']"/>；法人<t t-out="row['company_id']"/>；事件日期<t t-out="row['event_date']"/>；状态<t t-out="row['state']"/></p>
-                <p>数值<t t-out="row['value']"/> / <t t-out="row['unit']"/></p><pre t-out="row['facts']"/>
-                <p t-if="row['requires_store_switch']">原业务页面需先选择此来源门店；报表链接不代替原单权限。</p>
-                <p><a t-att-href="row['native_url']">原生来源（另核模型权限）</a> | <a href="/ydental/settlement">结算原单、收款分摊及退款</a> | <a href="/ydental/queue">正常临床入口</a> | <a href="/ydental/followups">复诊来源</a> | <a href="/ydental/access">选择门店</a></p>
-            </article><a href="/ydental/reports">经营报表</a>
-        </main></t>
+        <t t-call="web.frontend_layout">
+            <t t-set="no_header" t-value="True"/><t t-set="no_footer" t-value="True"/>
+            <main class="container o_ydental_reporting o_ydental_reporting_source">
+                <t t-call="ydental_reporting.ydental_operating_report_navigation"/>
+                <p><a t-att-href="return_url">Return to the same report filters and page</a></p>
+                <h1 t-out="title"/>
+                <p class="o_ydental_reporting_notice">This is an authorized view of current source facts. Viewing does not collect, refund, receive or move stock.</p>
+                <t t-call="ydental_reporting.ydental_operating_report_scope"/>
+                <article t-foreach="display['rows']" t-as="row" class="o_ydental_reporting_source_card">
+                    <h2 t-out="row['source_label']"/>
+                    <p t-out="row['patient_label']"/>
+                    <p><strong t-out="row['quantity']['value']"/> · <t t-out="row['quantity']['label']"/> · <t t-out="row['state_label']"/></p>
+                    <p><strong>Business date / source time:</strong> <t t-out="row['event_label']"/></p>
+                    <dl class="o_ydental_reporting_facts"><t t-foreach="row['facts_display']" t-as="fact"><dt t-out="fact[0]"/><dd t-out="fact[1]"/></t></dl>
+                    <div t-if="row['allocations']" class="o_ydental_reporting_table_wrap" tabindex="0" role="region" aria-label="Selected bills and current native allocations">
+                        <table class="table"><thead><tr><th>Selected bill</th><th>Original amount</th><th>Native collection allocation</th><th>Current receivable</th></tr></thead>
+                            <tbody><tr t-foreach="row['allocations']" t-as="allocation"><td><a t-att-href="allocation['url']" t-out="allocation['number']"/></td><td t-out="allocation['total']"/><td t-out="allocation['allocated']"/><td t-out="allocation['balance']"/></tr></tbody>
+                        </table>
+                    </div>
+                    <p t-if="row['requires_store_switch']" class="o_ydental_reporting_notice">Select this source store through the normal store selector before opening its business page. Report access does not grant cross-store handling permission.</p>
+                    <p><a t-att-href="row['business_url']">Open the source business page</a> · <a t-att-href="row['native_url']">Native source document (permissions checked again)</a></p>
+                    <details><summary>Technical trace and complete source facts</summary>
+                        <p><t t-out="row['source_model']"/> / <t t-out="row['source_id']"/></p>
+                        <pre t-out="row['trace']"/>
+                    </details>
+                </article>
+                <p><a t-att-href="return_url">Return to the same report filters and page</a></p>
+            </main>
+        </t>
     </template>
     <template id="ydental_operating_report_page" name="Source-backed operating reports">
-        <t t-call="web.layout">
-            <main class="container py-4 o_ydental_reporting">
-                <h1>经营报表与原业务回源</h1>
-                <p>合成软件口径待业务负责人审核。实收不是收入、贷项不是实退。币种、项目及单位分组，不提供完整毛利或历史截至日余额。</p>
-                <nav><a href="/ydental/access">当前门店与权限</a> | <a href="/ydental/documents">文书原件</a> | <a href="/ydental/settlement">线下结算</a></nav>
-                <form action="/ydental/reports" method="get">
+        <t t-call="web.frontend_layout">
+            <t t-set="no_header" t-value="True"/><t t-set="no_footer" t-value="True"/>
+            <main class="container o_ydental_reporting">
+                <t t-call="ydental_reporting.ydental_operating_report_navigation"/>
+                <h1>Operating reports and source documents</h1>
+                <p class="o_ydental_reporting_notice">Synthetic software definitions await business review. Collections are not revenue; credit notes are not cash refunds. Currencies and units are reported separately.</p>
+                <form action="/ydental/reports" method="get" class="o_ydental_reporting_filters">
                     <input type="hidden" name="revision" t-att-value="revision"/>
-                    <p><label>指标 <select name="metric"><option t-foreach="choices" t-as="choice" t-att-value="choice['key']" t-att-selected="choice['key'] == values['metric']" t-out="choice['label']"/></select></label></p>
-                    <p><label>当地开始日 <input name="date_from" type="date" t-att-value="values['date_from']" required="required"/></label> <label>当地结束日 <input name="date_to" type="date" t-att-value="values['date_to']" required="required"/></label></p>
-                    <p><label>门店ID（逗号分隔，逐店鉴权） <input name="store_ids" t-att-value="values.get('store_ids','')"/></label> <label>法人ID <input name="company_id" type="number" t-att-value="values.get('company_id','')"/></label> <label>币种ID <input name="currency_id" type="number" t-att-value="values.get('currency_id','')"/></label> <label>来源状态 <input name="state" maxlength="50" t-att-value="values.get('state','')"/></label></p>
-                    <button type="submit">按源权限查询</button>
+                    <label>Metric
+                        <select name="metric"><option t-foreach="choices" t-as="choice" t-att-value="choice['key']" t-att-selected="choice['key'] == values['metric']" t-out="choice['label']"/></select>
+                    </label>
+                    <label>Local start date <input name="date_from" type="date" t-att-value="values['date_from']" required="required"/></label>
+                    <label>Local end date <input name="date_to" type="date" t-att-value="values['date_to']" required="required"/></label>
+                    <label>Authorized stores (multiple selection)
+                        <select name="store_ids" multiple="multiple" size="3" required="required"><option t-foreach="options['stores']" t-as="store" t-att-value="store['id']" t-att-selected="store['id'] in selected_stores"><t t-out="store['label']"/> · <t t-out="store['timezone']"/></option></select>
+                    </label>
+                    <label>Legal entity
+                        <select name="company_id"><option value="">All explicitly selected authorized entities</option><option t-foreach="options['companies']" t-as="company" t-att-value="company['id']" t-att-selected="str(company['id']) == str(values.get('company_id',''))" t-out="company['label']"/></select>
+                    </label>
+                    <label t-if="options['money']">Currency
+                        <select name="currency_id"><option value="">Separate totals per currency</option><option t-foreach="options['currencies']" t-as="currency" t-att-value="currency['id']" t-att-selected="str(currency['id']) == str(values.get('currency_id',''))" t-out="currency['label']"/></select>
+                    </label>
+                    <label t-if="options['states']">Source state
+                        <select name="state"><option value="">All applicable source states</option><option t-foreach="options['states']" t-as="state" t-att-value="state['value']" t-att-selected="state['value'] == values.get('state')" t-out="state['label']"/></select>
+                    </label>
+                    <div class="o_ydental_reporting_filter_actions"><button type="submit" class="btn btn-primary">Query authorized sources</button><p>Changing the metric resets scope to the current store and clears entity, currency and state filters.</p></div>
                 </form>
-                <h2 t-out="report['title']"/>
-                <p><strong t-out="'期间发生额' if report['filters']['period_or_snapshot']=='period' else '查询时点快照；日期只限定来源群，非历史截至日余额'"/></p>
-                <p>查询UTC：<t t-out="report['filters']['query_at_utc']"/>；源记录：<t t-out="report['source_row_count']"/>。</p>
-                <p>联合范围合计（唯一患者为联合去重，不相加门店人数）：<span t-out="report['totals']"/></p>
-                <p>分门店：<span t-out="report['store_totals']"/></p>
-                <p>分单位/状态的来源事件数：<span t-out="report['event_counts_by_unit']"/></p>
-                <details><summary>本次过滤及各店当地日/UTC边界</summary><pre t-out="report['filters']"/></details>
-                <form action="/ydental/reports/export" method="post">
+                <h2 t-out="display['title']"/>
+                <p t-if="report['filters']['metric'] == 'receivables'" class="o_ydental_reporting_notice">Current receivable for the selected original bill date range. Dates do not represent a historical balance cutoff.</p>
+                <p t-elif="report['filters']['period_or_snapshot'] == 'snapshot'" class="o_ydental_reporting_notice">Current responsibility or pending amount at query time; dates select the source records.</p>
+                <p t-else="" class="o_ydental_reporting_notice">Actual events within the selected local business dates.</p>
+                <t t-call="ydental_reporting.ydental_operating_report_scope"/>
+                <div class="o_ydental_reporting_totals" aria-label="Totals by currency or unit">
+                    <article t-foreach="display['totals']" t-as="total"><strong t-out="total['value']"/><span t-out="total['label']"/><small t-if="total['events'] is not None"><t t-out="total['events']"/> source events</small></article>
+                </div>
+                <p t-if="not display['rows']" class="o_ydental_reporting_notice">No applicable sources match these authorized filters. Adjust the dates, stores or applicable state.</p>
+                <p t-if="report['filters']['metric'] == 'unique_patients'">The combined patient total is deduplicated across the selected stores; store patient counts must not be added together.</p>
+                <details t-if="display['store_totals']"><summary>Totals by authorized store</summary><ul><li t-foreach="display['store_totals']" t-as="store"><strong t-out="store['label']"/><ul><li t-foreach="store['totals']" t-as="total"><t t-out="total['label']"/>: <t t-out="total['value']"/></li></ul></li></ul></details>
+                <form action="/ydental/reports/export" method="post" class="o_ydental_reporting_export">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                     <input type="hidden" name="revision" t-att-value="revision"/>
                     <input t-foreach="['metric','date_from','date_to','store_ids','company_id','currency_id','state']" t-as="field_name" type="hidden" t-att-name="field_name" t-att-value="values.get(field_name,'')"/>
-                    <button type="submit">导出本次全部来源（另核逐店导出权）</button>
+                    <button type="submit" class="btn btn-outline-secondary">Export all matching sources (store export permission required)</button>
                 </form>
-                <table class="table"><thead><tr><th>门店 / 法人</th><th>来源 / 实际日期</th><th>状态</th><th>数值 / 单位</th><th>必要回源事实</th><th>钻取原单</th></tr></thead><tbody>
-                    <tr t-foreach="report['rows']" t-as="row">
-                        <td><t t-out="row['store_id']"/> / <t t-out="row['company_id']"/></td>
-                        <td><t t-out="row['source_model']"/> / <t t-out="row['source_id']"/><br/><t t-out="row['event_date']"/></td>
-                        <td t-out="row['state']"/><td><t t-out="row['value']"/> <t t-out="row['unit']"/></td>
-                        <td t-out="row['facts']"/>
-                        <td><p t-if="row['requires_store_switch']">先在正常入口选择该来源门店，再打开原单。</p><a t-att-href="row['source_url']">原业务单据（重新鉴权）</a></td>
-                    </tr>
-                </tbody></table>
-                <nav><a t-if="report['page'] > 1" t-att-href="previous_url">上一页</a> 第<t t-out="report['page']"/>页 <a t-if="report['page'] * report['page_size'] &lt; report['source_row_count']" t-att-href="next_url">下一页</a></nav>
+                <div class="o_ydental_reporting_table_wrap" tabindex="0" role="region" aria-label="Authorized source details">
+                    <table class="table"><thead><tr><th>Store / legal entity</th><th>Business document / patient</th><th>Business date / source time</th><th>Business state</th><th>Amount / quantity</th><th>Source details</th></tr></thead><tbody>
+                        <tr t-foreach="display['rows']" t-as="row">
+                            <td><t t-out="row['store_label']"/><small t-out="row['company_label']"/></td>
+                            <td><strong t-out="row['source_label']"/><small t-out="row['patient_label']"/></td>
+                            <td t-out="row['event_label']"/><td t-out="row['state_label']"/>
+                            <td><strong t-out="row['quantity']['value']"/><small t-out="row['quantity']['label']"/></td>
+                            <td><a t-att-href="row['source_url']">View source and allocations</a></td>
+                        </tr>
+                    </tbody></table>
+                </div>
+                <nav class="o_ydental_reporting_navigation" aria-label="Source pages"><a t-if="report['page'] > 1" t-att-href="previous_url">Previous page</a><span>Page <t t-out="report['page']"/> · <t t-out="report['source_row_count']"/> matching source records</span><a t-if="report['page'] * report['page_size'] &lt; report['source_row_count']" t-att-href="next_url">Next page</a></nav>
+            </main>
+        </t>
+    </template>
+    <template id="ydental_operating_report_error" name="Operating report access and filter feedback">
+        <t t-call="web.frontend_layout"><t t-set="no_header" t-value="True"/><t t-set="no_footer" t-value="True"/>
+            <main class="container o_ydental_reporting"><h1>Report request could not be completed</h1>
+                <p>Check the selected store, source permission and explicit filters. Unavailable stores are rejected instead of silently reducing the scope.</p>
+                <p t-out="message" class="o_ydental_reporting_notice"/>
+                <p><a href="/ydental/reports">Open reports with the current store defaults</a> · <a href="/ydental/access">Choose the current store</a></p>
             </main>
         </t>
     </template>

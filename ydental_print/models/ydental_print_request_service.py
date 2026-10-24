@@ -29,8 +29,8 @@ class YDentalPrintRequestService(models.AbstractModel):
     def _original_handlers(self):
         return super()._original_handlers() | {'print_failure': self._record_print_request_failure}
 
-    def _original_workbench(self):
-        values = super()._original_workbench()
+    def _original_workbench(self, term='', page=1):
+        values = super()._original_workbench(term=term, page=page)
         access = self.env['ydental.access.service']
         store = access._scope().ydental_store_id
         available_ids = {row['id'] for row in values['originals']}

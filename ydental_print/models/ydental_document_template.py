@@ -17,7 +17,8 @@ class YDentalDocumentTemplate(models.Model):
     body = fields.Text(required=True)
     applicability = fields.Char(required=True)
     synthetic = fields.Boolean(required=True, default=True)
-    paper = fields.Selection([('a4', 'A4'), ('80mm', '80 mm demonstration')], required=True, default='a4')
+    paper = fields.Selection([('a4', 'A4'), ('80mm', '80 mm demonstration'),
+        ('label100x70', '100 x 70 mm demonstration label')], required=True, default='a4')
     allow_excerpt = fields.Boolean(default=False)
     approval_reference = fields.Char()
     reviewed_by_id = fields.Many2one('res.users', ondelete='restrict')
