@@ -3,10 +3,14 @@
         <html><head><meta charset="utf-8"/></head><body><t t-out="body"/></body></html>
     </template>
     <template id="ydental_document_pdf" name="Controlled demonstration PDF">
-        <html><head><meta charset="utf-8"/></head><body><main><style>
+        <html><head><meta charset="utf-8"/></head><body><main t-att-class="'o_ydental_print_consent' if p['kind'] == 'consent' else ''"><style>
             body {margin: 0; font-family: 'Noto Sans CJK SC', sans-serif; font-size: 9.5pt; line-height: 1.35; color: #18252e;}
             h1 {font-size: 17pt; margin: 0 0 5px; page-break-after: avoid;} h2 {font-size: 11pt; margin: 10px 0 4px; page-break-after: avoid;}
             p {margin: 3px 0; white-space: pre-wrap; word-wrap: break-word; word-break: break-all; orphans: 3; widows: 3;}
+            .o_ydental_print_consent p {margin-top: 2px; margin-bottom: 2px;}
+            .o_ydental_print_consent h2 {margin-top: 8px;}
+            table.o_ydental_print_consent_tail {font-size: 9.5pt; border: 0; margin: 0; page-break-inside: avoid;}
+            .o_ydental_print_consent_tail td {font-size: 9.5pt; border: 0; padding: 0; page-break-inside: avoid;}
             .warning {border-left: 3px solid #9a3b27; padding: 4px 7px; font-weight: bold; color: #8b2e18; margin-bottom: 6px;}
             table {width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 9pt;}
             td, th {padding: 4px; border: 1px solid #bdc5cb; vertical-align: top; word-wrap: break-word; word-break: break-all;}
@@ -51,7 +55,7 @@
                     <p style="clear: both"><strong>Processing:</strong> <t t-out="p['label_business']['instructions']"/></p>
                     <p style="clear: both"><strong>Identification code:</strong> <t t-out="p['barcode']['value']"/></p>
                     <p>Identify only; no receipt, put-away or notice. No shipment or receipt is implied.</p>
-                    <p><span>Generated UTC:</span> <t t-out="p['generated_at']"/> / <span>Source v</span><t t-out="p['version']"/> / UX6</p>
+                    <p><span>Generated UTC:</span> <t t-out="p['generated_at']"/> / <span>Source v</span><t t-out="p['version']"/> / UX7</p>
                     <p t-foreach="p.get('template_paragraphs', [])" t-as="paragraph" t-out="paragraph"/>
                     <p><span>Authorized trace:</span> /ydental/documents</p>
                 </article>
@@ -78,14 +82,28 @@
             <section t-if="not financial" t-foreach="p['sections']" t-as="section">
                 <t t-set="source_intro" t-value="p['kind'] == 'clinical_summary' and section['paragraphs'] and section['paragraphs'][0] == p['status']"/>
                 <t t-set="intro_count" t-value="len(section['paragraphs']) if source_intro else ([index + 1 for index, paragraph in enumerate(section['paragraphs']) if paragraph.strip()] or [len(section['paragraphs'])])[0]"/>
-                <table t-att-class="'o_ydental_print_section_intro o_ydental_print_source_intro' if source_intro else 'o_ydental_print_section_intro'"><tbody><tr><td>
+                <t t-set="consent_tail" t-value="p['kind'] == 'consent' and section_last"/>
+                <t t-set="tail_index" t-value="([index for index, paragraph in enumerate(section['paragraphs']) if paragraph.strip()] or [0])[-1]"/>
+                <t t-set="short_tail" t-value="consent_tail and (not section['paragraphs'] or tail_index &lt; intro_count)"/>
+                <table t-if="not short_tail" t-att-class="'o_ydental_print_section_intro o_ydental_print_source_intro' if source_intro else 'o_ydental_print_section_intro'"><tbody><tr><td>
                     <h2 t-out="section['label']"/>
                     <p t-if="source_intro" class="o_ydental_print_flow"><span t-foreach="section['paragraphs']" t-as="paragraph" class="o_ydental_print_field"><t t-out="paragraph"/>;</span></p>
                     <t t-else=""><p t-foreach="section['paragraphs'][:intro_count]" t-as="paragraph" t-out="paragraph"/></t>
                     <div t-if="p['kind'] == 'consent' and len(section['paragraphs']) &lt;= intro_count" class="blank"/>
                 </td></tr></tbody></table>
-                <p t-foreach="section['paragraphs'][intro_count:]" t-as="paragraph" t-out="paragraph"/>
-                <div t-if="p['kind'] == 'consent' and len(section['paragraphs']) &gt; intro_count" class="blank"/>
+                <t t-if="consent_tail">
+                    <p t-if="not short_tail" t-foreach="section['paragraphs'][intro_count:tail_index]" t-as="paragraph" t-out="paragraph"/>
+                    <table class="o_ydental_print_consent_tail"><tbody><tr><td>
+                        <h2 t-if="short_tail" t-out="section['label']"/>
+                        <p t-foreach="section['paragraphs'] if short_tail else section['paragraphs'][tail_index:]" t-as="paragraph" t-out="paragraph"/>
+                        <div class="blank"/>
+                        <t t-call="ydental_print.ydental_document_trace"/>
+                    </td></tr></tbody></table>
+                </t>
+                <t t-else="">
+                    <p t-foreach="section['paragraphs'][intro_count:]" t-as="paragraph" t-out="paragraph"/>
+                    <div t-if="p['kind'] == 'consent' and len(section['paragraphs']) &gt; intro_count" class="blank"/>
+                </t>
             </section>
             <t t-if="p['kind'] == 'clinical'">
                 <h2>Recorded FDI teeth and surfaces</h2>
@@ -109,6 +127,11 @@
                     <tr t-foreach="p['events']" t-as="event"><td><t t-out="event['id']"/> / <t t-out="event['line_id']"/> / <t t-out="event['product_id']"/></td><td><t t-out="event['quantity']"/> / <t t-out="event['actor']"/></td><td><t t-out="event['time']"/><br/><t t-out="event['business_date']"/></td><td><t t-out="event['state']"/> / <t t-out="event['price_source']"/> / <t t-out="event['medicine_link']"/></td></tr>
                 </tbody></table><p t-if="not p['events']">No actual dispensing has been recorded.</p>
             </t>
+            <t t-if="p['kind'] != 'consent' or not p['sections']" t-call="ydental_print.ydental_document_trace"/>
+            </t>
+        </main></body></html>
+    </template>
+    <template id="ydental_document_trace" name="Document source and version trace">
             <div class="o_ydental_print_trace meta">
                 <p class="o_ydental_print_flow">
                     <span t-if="p.get('original')" class="o_ydental_print_field"><strong>Content template / version / review state:</strong> <t t-out="p['content_template']"/> / <t t-out="p['content_template_version']"/> / <t t-out="p.get('template_state_label', p['template_state'])"/>; <span>Applicable scope:</span> <t t-out="p['applicability']"/>;</span>
@@ -122,7 +145,5 @@
                 <p t-if="not p.get('original')">No signature or physical paper output is verified. Temporary demonstration copy; formal archival and original reprinting are not provided.</p>
                 <p t-if="p.get('original')">Immutable original; reprinting reads stored bytes. Generation and print requests do not prove signature or physical paper output.</p>
             </div>
-            </t>
-        </main></body></html>
     </template>
 </odoo>

@@ -38,7 +38,7 @@ class YDentalPrintService(models.AbstractModel):
         label_states = dict(state_labels, sent=self.env._('Work order sent'),
             draft=self.env._('Draft'), processing=self.env._('Processing'))
         payload = {'kind': kind, 'title': self.env._('Internal laboratory package identification label'),
-            'template': 'YD-S13-LAB-LABEL-6', 'source_id': order.id, 'version': version,
+            'template': 'YD-S13-LAB-LABEL-7', 'source_id': order.id, 'version': version,
             'identity': [self._pair(self.env._('Source store'), order.ydental_store_id.name),
                 self._pair(self.env._('Work order ID'), order.id)],
             'status': state_labels[order.state],
