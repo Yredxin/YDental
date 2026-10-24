@@ -1,0 +1,307 @@
+.o_ydental_dl_v1[data-dl-scope="documents-query"] {
+    --ydental-dl__surface-color: #fffbf6;
+    --ydental-dl__paper-color: #fffefa;
+    --ydental-dl__field-color: #fff;
+    --ydental-dl__text-color: #382f28;
+    --ydental-dl__muted-color: #716359;
+    --ydental-dl__accent-color: #94513a;
+    --ydental-dl__accent-color--hover: #7e432f;
+    --ydental-dl__tint-color: #f6e6dc;
+    --ydental-dl__divider-color: #e5cdbd;
+    --ydental-dl__border-color: #9c8776;
+    --ydental-dl__focus-color: #6c513f;
+    --ydental-dl__warning-color: #76551f;
+    --ydental-dl__warning-background: #fbf3df;
+    --ydental-dl__error-color: #9b3d32;
+    --ydental-dl__error-background: #fbebe8;
+
+    min-inline-size: 0;
+    color: var(--ydental-dl__text-color);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "Noto Sans CJK SC", "Noto Sans SC", "PingFang SC", "Microsoft YaHei",
+        sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+
+    &:not([data-dl-portal]) {
+        margin-block: 1rem;
+        padding: 1.5rem;
+        border: 1px solid var(--ydental-dl__divider-color);
+        border-radius: 0.625rem;
+        background: var(--ydental-dl__surface-color);
+    }
+
+    .o_ydental_print_query_title {
+        margin-block: 0 1rem;
+        color: var(--ydental-dl__text-color);
+        font-size: 1.125rem;
+        font-weight: 600;
+        line-height: 1.6;
+    }
+
+    .o_ydental_print_query_search,
+    .o_ydental_print_query_preview {
+        display: grid;
+        gap: 1rem;
+        align-items: end;
+        max-inline-size: 100%;
+        margin: 0;
+    }
+
+    .o_ydental_print_query_search {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .o_ydental_print_query_preview {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .o_ydental_print_query_field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.375rem;
+        min-inline-size: 0;
+        margin: 0;
+    }
+
+    .o_ydental_print_query_label {
+        display: block;
+        margin: 0;
+        color: var(--ydental-dl__text-color);
+        font-size: 0.875rem;
+        font-weight: 600;
+    }
+
+    .o_ydental_print_query_control,
+    .o_ydental_print_query_trigger,
+    .o_ydental_print_query_button {
+        box-sizing: border-box;
+        min-inline-size: 0;
+        min-block-size: 2.75em;
+        max-inline-size: 100%;
+        padding: 0.6em 0.75em;
+        border: 1px solid var(--ydental-dl__border-color);
+        border-radius: 0.375rem;
+        color: var(--ydental-dl__text-color);
+        background: var(--ydental-dl__field-color);
+        font: inherit;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .o_ydental_print_query_control,
+    .o_ydental_print_query_trigger {
+        inline-size: 100%;
+    }
+
+    .o_ydental_print_query_control:focus-visible,
+    .o_ydental_print_query_trigger:focus-visible,
+    .o_ydental_print_query_button:focus-visible {
+        outline: 0.125rem solid var(--ydental-dl__focus-color);
+        outline-offset: 0.1875rem;
+    }
+
+    .o_ydental_print_query_trigger {
+        display: flex;
+        gap: 1em;
+        align-items: center;
+        justify-content: space-between;
+        text-align: start;
+
+        > span:first-child {
+            min-inline-size: 0;
+        }
+
+        &:not(:disabled):hover,
+        &[aria-expanded="true"] {
+            border-color: var(--ydental-dl__accent-color);
+            background: var(--ydental-dl__paper-color);
+        }
+
+        &[aria-invalid="true"] {
+            border-color: var(--ydental-dl__error-color);
+            background: var(--ydental-dl__error-background);
+        }
+    }
+
+    .o_ydental_print_query_chevron {
+        flex: 0 0 auto;
+        font-size: 1.125em;
+    }
+
+    .o_ydental_print_query_trigger[aria-expanded="true"]
+        .o_ydental_print_query_chevron {
+        transform: rotate(180deg);
+    }
+
+    .o_ydental_print_query_button {
+        cursor: pointer;
+
+        &:not(:disabled):hover {
+            border-color: var(--ydental-dl__accent-color);
+            background: var(--ydental-dl__tint-color);
+        }
+    }
+
+    .o_ydental_print_query_button:disabled,
+    .o_ydental_print_query_trigger:disabled,
+    .o_ydental_print_query_control:disabled {
+        border-color: var(--ydental-dl__border-color);
+        color: var(--ydental-dl__muted-color);
+        background: var(--ydental-dl__surface-color);
+        cursor: not-allowed;
+        opacity: 1;
+    }
+
+    .o_ydental_print_query_button.o_btn_loading {
+        opacity: 1;
+
+        .o_btn_loading_spinner {
+            position: static;
+            display: inline-flex;
+            margin-inline-end: 0.5em;
+            background: transparent;
+        }
+    }
+
+    .o_ydental_print_query_primary {
+        justify-self: start;
+        grid-column: 1 / -1;
+        border-color: var(--ydental-dl__accent-color);
+        color: var(--ydental-dl__field-color);
+        background: var(--ydental-dl__accent-color);
+        font-weight: 600;
+
+        &:not(:disabled):hover {
+            border-color: var(--ydental-dl__accent-color--hover);
+            background: var(--ydental-dl__accent-color--hover);
+        }
+    }
+
+    .o_ydental_print_query_note,
+    .o_ydental_print_query_help,
+    .o_ydental_print_query_status {
+        margin-block: 0.75rem;
+        color: var(--ydental-dl__muted-color);
+        font-size: 0.875rem;
+        line-height: 1.6;
+    }
+
+    .o_ydental_print_query_warning {
+        margin-block: 1rem;
+        padding: 0.75rem;
+        border: 1px solid var(--ydental-dl__divider-color);
+        border-radius: 0.375rem;
+        color: var(--ydental-dl__warning-color);
+        background: var(--ydental-dl__warning-background);
+        font-size: 0.875rem;
+        line-height: 1.6;
+    }
+
+    .o_ydental_print_query_error {
+        margin: 0;
+        color: var(--ydental-dl__error-color);
+        font-size: 0.875rem;
+    }
+
+    &.o_ydental_print_query_boundary {
+        position: fixed;
+        inset: 0.75rem;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    &.o_ydental_print_query_popup {
+        position: fixed;
+        z-index: 1055;
+        box-sizing: border-box;
+        max-inline-size: calc(100vw - 1.5rem);
+        max-block-size: 20rem;
+        padding: 0.375rem;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        border: 1px solid var(--ydental-dl__border-color);
+        border-radius: 0.625rem;
+        background: var(--ydental-dl__paper-color);
+        box-shadow: 0 0.65rem 1.5rem #3d2a1c18;
+
+        &[hidden] {
+            display: none;
+        }
+    }
+
+    .o_ydental_print_query_option {
+        display: flex;
+        gap: 0.75em;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+        min-block-size: 2.75em;
+        padding: 0.6em 0.65em;
+        border: 1px solid transparent;
+        border-radius: 0.375rem;
+        cursor: pointer;
+        line-height: 1.6;
+        white-space: normal;
+        overflow-wrap: anywhere;
+
+        > span:first-child {
+            min-inline-size: 0;
+        }
+
+        .o_ydental_print_query_marker {
+            flex: 0 0 auto;
+            visibility: hidden;
+        }
+
+        &[aria-selected="true"] .o_ydental_print_query_marker {
+            visibility: visible;
+        }
+
+        &[aria-selected="true"] {
+            color: var(--ydental-dl__accent-color);
+            font-weight: 600;
+        }
+
+        &.o_ydental_print_query_active {
+            border-color: var(--ydental-dl__border-color);
+            background: var(--ydental-dl__tint-color);
+        }
+
+        &[aria-disabled="true"] {
+            color: var(--ydental-dl__muted-color);
+            cursor: default;
+        }
+    }
+}
+
+@media (max-width: 45rem) {
+    .o_ydental_dl_v1[data-dl-scope="documents-query"]:not([data-dl-portal]) {
+        padding: 1rem;
+
+        .o_ydental_print_query_search,
+        .o_ydental_print_query_preview {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .o_ydental_print_query_button {
+            justify-self: start;
+        }
+    }
+}
+
+@media (forced-colors: active) {
+    .o_ydental_dl_v1[data-dl-scope="documents-query"] {
+        .o_ydental_print_query_trigger,
+        .o_ydental_print_query_control,
+        .o_ydental_print_query_button {
+            border-color: ButtonText;
+        }
+
+        .o_ydental_print_query_option.o_ydental_print_query_active {
+            outline: 2px solid Highlight;
+            outline-offset: -2px;
+        }
+    }
+}

@@ -2421,3 +2421,34 @@ msgstr "所选检查结果正文为草稿，尚未完善"
 #: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Synthetic software demonstration only"
 msgstr "仅用于合成软件演示"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid ""
+"Choose a candidate with arrow keys or typing. Enter or Space confirms; "
+"Escape cancels; Tab confirms and moves to the next field. Preview requires a"
+" separate action."
+msgstr "使用方向键或键入文字定位候选；Enter 或空格确认，Esc 取消，Tab 确认并移到下一控件。预览需另行点击按钮。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Select a source before previewing."
+msgstr "请先选择来源，再预览。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Searching patient documents..."
+msgstr "正在查询患者文书，请稍候……"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Preparing the selected source preview..."
+msgstr "正在准备所选来源的预览，请稍候……"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid ""
+"No selectable sources are available in the current scope. Search another "
+"authorized patient or check the current store and permissions before "
+"previewing."
+msgstr "当前范围没有可选来源。请搜索其他有权查看的患者，或核对当前门店与权限后再预览。"
