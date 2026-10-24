@@ -8,6 +8,15 @@ Plan ID：YD-S12-DOCUMENTS-REPORTS-V1 / 1.0。最终带数据限定六模块升�
 
 关键执行候选：首链 `333ef10`；首次 W2 `025e65e`；第一次普通修复 `b160587d96ab54cb70deb7e6ff11d72bc6556146`；真实财务/超时 `007900f3d4141a5e7a07f21aaf3e972a7126c68c`；QR 修复及当前 31 方法套件 `5cb1e46fbe1e4243c7a292f64ecfd375afb3dce2`。报告 HEAD 与产品候选分列；最终升级执行候选为 `3127a575b1403ea072c950f1e1d4e79d8055141d`，其产品/工具字节与 `5cb1e46fbe1e4243c7a292f64ecfd375afb3dce2` 相同。
 
+## 交付后的运行事实更正
+
+2026-10-24用户“继续”后，实际巡检发现最终效果窗supervisor已不在、原child成为精确可核的孤儿；此前“最多04:54UTC”的上限不能证明当前持续在线。主控及未实现者分别dry核通过，主控于03:34:03—04UTC复用已有pidfd单SIGTERM与全套精确检查完成回收，原active原字节归档，当前STOPPED/18411无监听。原supervisor/child退出码未知、不补0；无DB/HTTP业务请求、无重放、未自动复开。不改变已完成软件、实际文件与独立技术验收结论。
+
+|证据|层级与限制|私有路径|SHA-256|
+|---|---|---|---|
+|精确孤儿单次回收结果|真实OS/pidfd；确认exit与释放端口；原exitcode保留null，不冒正常进程退出0|`.local/s12/runs/20261024T025453Z-f8f22a02427f/orphan-recovery-outcome.json`|`fd7acbaff92d2dc071a7215c7490564cb41f8932b66868369a34e4ea60b3e63f`|
+|未实现者独立运行终态核验|SOURCE/OS/私有原始材料；亲跑信号前dry，信号后核child不存在、无listener、原字节归档；无DB/HTTP或reviewer发信号|`.local/s12/acceptance/effect-window-orphan-recovery-independent.json`|`efe07bf0cef6be892c40a0225d3e33d4dbde485342fdc373bf61eb6400b684ae`|
+
 ## 准入、环境与原生测试
 
 `SOURCE/PURE` 表示源码或无业务运行校验；`MODEL` 表示原生模型测试（套件事务回滚）；`HTTP` 表示正常角色请求；`BROWSER` 表示真实浏览器交互；`RO/RR` 表示另一真实物理连接、只读可重复读事务及 rollback/close。角色分工不构成 OS 隔离证明。下列独立回执由未实现对应内容的 acceptance agent 审核；tester 的结果不能替代独立签署。
