@@ -1,13 +1,17 @@
 # DL-P4当前状态｜YD-S13-DL-P4 / 1.0
 
-## IN_PROGRESS / SYNC_PENDING
+## TECHNICALLY_COMPLETE（限定P4软件）/ SYNC_PENDING
 
-- 用户2026-10-25完整计划明确启用P4，仅`/ydental/reports`现有查询过滤form；连续W0—W4及T01—14，完成后停止。P1—P3原TECHNICALLY_COMPLETE/SYNCED不重开，用户亲手效果仍待确认；P5—P6未启用。
-- 从现场合法P3报告`aa04988be1d39d6dbcc20f24e023542b57a66ee7`、产品`b72bcd6d125aad45bf8e62fb7596d5bb5725ac13`正常承接至`codex/s13-dl-p4-report-filters-r1`。初始工作树clean、incoming.diff0字节、远端P3同锚点；main仅文档路由`cd5d0327eb5dff3ec1e5cf74be0cedfedb16fbfa`。未reset/clean/强推或覆盖未知增量。
-- root统一环境/运行/集成/报告，report_filters唯一产品与计划作者，p4_tester私有测试工具/浏览器，acceptance未实现者独立源码/实际原文件/新物理RO/证据及同步验收。同OS共享，不冒隔离。
-- 冻结报表页头/导航/结果/汇总/明细/分页/导出/钻取/错误页、后台controller/model/ACL/统计字典及文书P1—P3/其他岗位/全局品牌。原metric change仅metric/date_from/date_to导航，普通GET/revision/getlist保持；草拟条件不修改已生效结果参数。
-- 唯一既有合成目标ydental_s11_synth_20261023_01/OID2171423/cluster7694897083368259627及原filestore；保护全部当前原件/83文件基线、金额库存/作者身份价源/旧审计和未完责任。经济库存/原件/PDF/打印新增贡献0，不重放旧业务；正常审计和技术元数据按事实分类。
-- W0完成：完整计划/工具准备fb9ccaa，fresh准入及未实现者physical RO/RR backend104731逐值145业务/13技术/83文件，九区段与P3最终同；正常before run20261025T024324Z-014aedfb8cc9已经stop，client/driver0/browser关闭。reader16真实12指标全200且均一页，真实合法门店1/2；五视口/冻结参数/文书P1P3/结算库存前态完整保存。W1/W2已实现6产品文件；首772e仅SOURCE预审（outside隐式确认/2hidden inline翻译提取已修，未加载），当前固定产品/执行f0f2898db80276114b7c24d96e490631502db475。独立源码/真实core提取7新词及fresh准入通过；唯一必要reporting-u0/ERROR0/noNative，完整pre/post145业务/83文件同，5技术metadata另分类。W3首after12指标仅精确query_at变化、5视口/冻结区/文书及旁路同，core-v2真实通过；edge-v1实际发现Tab确认metric后紧接Enter双只读GET，原FAIL/ERR_ABORTED留存。025538 owned服务已正常stop、浏览器关闭，fa269已修per-form pending guard，edge/core/JSoff/initfallback/fixtures/CSV/P1定向及actualbundle已通过，原失败分列。独立发现窄屏padding24因media specificity未覆盖，最终仅SCSS1selector修为409e9aa1f6177c84a9c70e852b2aa5a9547b1fe5；fresh准入后不重复-u，ownedrun20261025T031611Z-b017561f0ec9。409最终5视口/padding16/窄屏long及Chrome双zoom已通过，root实际11定向HTTP后台用例通过；首WebKit仅登录前minimalJS404，native0/Node2无authPOST，原因UNKNOWN。当前同publicasset正常HTTP200/39819B已核，owned031611已正常stop，正正常同候选复开一次有限第二引擎复测；未受影响项按原候选精确复用。b586仅CURRENT文档checkpoint满足原clean-start，不改产品/旧scope/安全检查。WebKitv2实际17但原生boot翻译错误总client2原因UNKNOWN，probe捕到旧文档导航取消，私有helper原正常导航等待修后v3功能17/client0/native0。独立原图发现WebKit未选框1.591对比FAIL，最终61d044d5a986c0f9f10263424c995eb92f8c5494仅加原生checkbox边界/焦点轮廓，fresh准入后ownedrun20261025T033357Z-1de71d88cf0b，正在最终两engine边界/焦点/布局补验。未开始P5、尚无P4最终全PASS声明。#37 OPEN/5旧评论，#36 CLOSED/2；本阶段只在最终新增一份P4回执，不动旧内容。完整S13/负载/恢复/实机/正式政策/S11组合扫码/真实患者资金外部通道/合并部署生产仍未启用。
+- 用户2026-10-25明确启用[完整P4计划](docs/execution/S13_DL_P4_IMPLEMENTATION_PLAN.md)，仅经营报表原查询过滤form，W0—W4连续完成软件分项及未实现者保护/包验；[结果](docs/reports/s13-dl-p4/summary.md) · [14项矩阵](docs/reports/s13-dl-p4/acceptance-matrix.md) · [索引](docs/reports/s13-dl-p4/evidence-index.md)。本地未实现者总签已实际完成SHA15c3770c2736735518f9e1878a9df9b3185d2ceb3ebca0dc5182643b371df62c，当前仅真实远端同步待，不预签未来。
+- 当前分支`codex/s13-dl-p4-report-filters-r1`，起点实际P3报告aa04988、初始worktree clean/incoming0B；正常承接，不reset/clean/强推/从main重建。最终产品/运行绑定 **85b62b43cf7cda889e20663662ae86484a55f032**；工具/before fb9ccaa，唯一必要reporting-u f0f2898，后续只asset实际bundle/computed；core f0c5a9b未改。报告提交非新产品。
+- P1—P3原TECHNICALLY_COMPLETE/SYNCED及旧回执6384111913/6391318665/6392314778保持，不重开不全套重跑；用户亲手效果仍待确认。P5—P6未启，完整S13、负载/恢复/实机/正式政策/S11组合扫码/真实患者资金外部通道/产品合并部署生产未启。
+- 6addon产品文件，只有form/XML、两asset、7PO和原metric监听最小幂等/pending导航保护。native select唯一具名值、multiple repeated GET、0店required可见焦点、草拟不改旧结果/export/drill；P1—3/页头导航/结果分页/后台/ACL/指标/PDF/品牌冻结。root统一运行集成/报告，report_filters产品，p4_tester真实浏览器，acceptance未实现者独立源码/图/请求/新physicalRO；同OS不冒隔离。
+- 实际Chrome156.0.8078.4/WebKit27.2、5视口/nativezoom2与独立root32/键盘/长值/JSoff/初始化失败/两店真GET已齐。12完整JSON仅typed query_at差、11HTTP后台例、两CSV全11列与源值同、文书及结算库存旁路保持；未变项按f0/fa269/409原候选精确SOURCE复用，85b补最终checkbox三态/布局/浮层真展开，非所有业务重跑。
+- 真实双GET/旧翻译提取/窄屏padding/原UA1.591/hover2.812均已限定修并保留失败；最终两engine像素default5.950/hover4.938/focus7.209。WebKit404与旧boot translation首因UNKNOWN持续，正常同入口/owned生命周期后实际恢复及私有正常导航等待修复不倒签旧根因。Chrome旧zoom focusonly图只作布局，实际展开补图已独立核。Firefox字体/Native139/历史UNKNOWN/实机/屏读/Safari不冒通过。
+- 唯一原目标ydental_s11_synth_20261023_01/OID2171423/cluster7694897083368259627及原filestore。末停机root全145业务/13技术/83实际文件，新physical122676独立9段完全同，保护签e326304d2f9a211cf9b12ea5cbdeebd17e29d501ca8a51f36c0893f24140ea5b。65内部+2外部原件/身份作者价源/金额库存/旧审计/责任保持，新原件/PDF/打印/签署/发布/经济库存0；225正常accepted新audit与5tech字段另分类，非全库物理零diff，无临时grant。
+- 私有0400包`.local/dl-p4/viewing/S13-DL-P4-view-only-20261025.zip` 3563718B/SHA c13f03f417b9ea39476c9064714175dd7e60ca67c9405c4192e862050b948a72，44成员/39PNG/37不同SHA/0PDF，manifest43非self，独立包118acc84a9396b8ac868132ef5cb1db831cec4bb39dc1592274b6ae0b8eaa579。无凭据/profile/raw请求/CSV/原文件/完整DB证据；五对视口非同scrollY或逐像素，8步复现见报告。
+- 末owned run034737于2026-10-25T03:50:49.493448UTC正常child0/signull/groupstopped，所有browser关闭/P4profile空/active无/18411与12离线/其他target连接[]，另独立122886核。未操作共享主服务。P4scope到14:40:45UTC不承诺在线；复开需当前目标/权限/owned/固定候选/fresh准入，不改旧scope/STOP、不复制会话。
+- 下一步只正常commit/push及实际ref/正文/状态读回；#37仅新增一份P4最终结果保持OPEN，旧回执/#36 CLOSED不动；main只两路由文档不合产品/不部署。交付即停止，不自动P5—P6。
 
 ---
 
