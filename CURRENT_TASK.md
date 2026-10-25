@@ -1,3 +1,19 @@
+# DL-P5定向续办｜2026-10-25
+
+## IN_PROGRESS / 本次续办SYNC_PENDING（原PARTIAL交付SYNCED保持）
+
+- 用户本轮只续原P5的A第二引擎与两种放大、B三段非空/长值浏览器夹具、C全阶段最终独立保护、D新包与独立技术总验收。原完整计划/边界有效，P1—P4不重开，P6未启用。
+- 实际HEAD13bdf549dcb43cfe4d8b44b72de6eba55115cd31，开工工作树clean，原产品beea6d3未变；不另建业务分支、不重放旧全链或重复settlement-u。
+- 原PARTIAL末态snapshot SHA134612cb6e0d1ccba91f3381ef92eac3d861efdd955359e75b1d82b8b07a3d07和旧包SHA421fd23fe5b0878fffd665596722a95be099674a6625db584f752e9409f38c83已重读核同；保留原字节，不倒签旧时点独立结论。
+- 2026-10-25用户已提供当前CLI实际额度证据：`Weekly limit: 99% left (resets 7:45 AM on 1 Nov)`。来源用户，周剩余99%；重置原样“7:45 AM on 1 Nov”，时区未注明不推测，不作为阻断。此前主控读取UNKNOWN仅历史，不否定本用户证据；Context window18%是会话上下文，非额度。停止调查接口/重复询问，未更改账户/模型或平台配置。
+- 正常资源下已启动`p5_resume_tester`和未实现者`p5_resume_acceptance`，两线程均已实际响应。root统一运行；测试者只补私有浏览器工具/执行，验收者不实现产品/测试工具。任务完成与否按实际结果，新限额若实际返回则停止受影响动作。当前工具和验收离线准备中，尚未启动owned服务；新准入须真实独立核，不伪改旧时间。
+- 本轮主控fresh只读probe188805/RO-RR/五高权false；完整续办前态SHA b9526abeb1c4d0861f26d268872443f2e8a27603bd187311bfe2bd798837c913，145业务/13技术/现场83文件及九区段与原PARTIAL末态逐值完全同，原949新增审计未删除/清零；这不是新的独立保护或准入。WebKit Node/Python客户端静态语法检查通过，五源hash与11类复用依据已私有固定；A/B真实补验未执行。
+- 现有独立SOURCE/字段/Chrome/HTTP/contrast/Chrome放大与无JS/QWeb/唯一加载保护按未变候选复用；末态独立保护/包/总签仍待实际完成，不由root换角色自签。最终只追加既有P5评论6395137158，#37 OPEN/#36 CLOSED，用户亲手效果待确认。
+
+---
+
+以下为13bdf549已同步PARTIAL历史，保持原事实；本次续办状态以上方新增事实为准。
+
 # DL-P5当前状态｜YD-S13-DL-P5 / 1.0
 
 ## PARTIAL / SYNCED
