@@ -1,3 +1,18 @@
+# DL-P6当前状态｜YD-S13-DL-P6 / 1.0
+
+## 实施中 / 本轮SYNC_PENDING / 用户亲手效果待确认
+
+- 用户已完整启用P6并明确Implement the plan；从真实业务HEAD ede6205976f28f6367bcd2a33aa785d96f6aff21正常建立codex/s13-dl-p6-inventory-lookup-r1。开工工作树clean，无reset/clean/强推，从P5产品正常承接，不从文档main重建。
+- [完整用户原计划](docs/execution/S13_DL_P6_IMPLEMENTATION_PLAN.md)。范围仅库存查询、九列批次表、来源只读前缀、末尾来源分页四分离片段；库存全部办理/扫码/目录/后台/P1—P5冻结。P6启用不改变用户效果待确认及完整S13未完成。
+- root为唯一主控/运行/状态/工具适配和同步写者；p6_product唯一addon写者；复用p5_resume_tester准备P6私有工具/真实浏览器，p5_resume_acceptance未实现者独立审源/新物理RO/准入/保护/包/总项。共享OS不冒隔离，不自签产品或测试工具。
+- 同一原合成目标ydental_s11_synth_20261023_01/OID2171423/cluster7694897083368259627及filestore；core f0c5a9b固定。全部当前原件、金额、库存、审计与责任保护，P5原949＋320=1269历史审计不删清。本轮不新增原件/PDF/打印/签署/发布/收退款/治疗/经济库存业务，不提交scan/action。
+- 先准备工具/验收者、新有效准入及完整前态后再开必要owned服务；不调查旧额度、不索要相同status/凭据、不改旧准入时间/STOP/guard。当前调用若有真实新拒绝按实际保存并停止受影响动作，不换入口规避。
+- 本轮技术仍未验收，不预签完成或同步。最终维护指定P6三报告、私有包、5—8步路径；#37只一份新P6最终结果且OPEN，P1—P5回执不改，#36 CLOSED；main只路由。P6交付后停止，不自行整站补齐/下一计划，不合并部署生产。
+
+---
+
+以下为P5及更早完整状态历史，原事实和失败/UNKNOWN保留；本次启用只替代P6未启用，不反签用户效果。
+
 # DL-P5定向续办当前状态｜2026-10-25
 
 ## TECHNICALLY_COMPLETE（限定P5软件）/ 本轮SYNCED
