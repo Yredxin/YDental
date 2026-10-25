@@ -1,0 +1,346 @@
+.o_ydental_reporting_filter_scope[data-dl-scope="report-filters"] {
+    --ydental-report__surface-color: #fffbf6;
+    --ydental-report__paper-color: #fffefa;
+    --ydental-report__text-color: #382f28;
+    --ydental-report__muted-color: #716359;
+    --ydental-report__accent-color: #94513a;
+    --ydental-report__hover-color: #7e432f;
+    --ydental-report__border-color: #9c8776;
+    --ydental-report__focus-color: #6c513f;
+    --ydental-report__tint-color: #f6e6dc;
+    --ydental-report__error-color: #9b3d32;
+
+    min-inline-size: 0;
+    color: var(--ydental-report__text-color);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "Noto Sans CJK SC", "Noto Sans SC", "PingFang SC", "Microsoft YaHei",
+        sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+
+    &:not([data-dl-portal]) {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.5rem;
+        padding: 1.5rem;
+        border: 1px solid var(--ydental-report__border-color);
+        border-radius: 0.625rem;
+        background: var(--ydental-report__surface-color);
+    }
+
+    [hidden] {
+        display: none;
+    }
+
+    .o_ydental_reporting_filter_dates,
+    .o_ydental_reporting_filter_range,
+    .o_ydental_reporting_filter_conditions {
+        display: grid;
+        gap: 1rem;
+        align-items: start;
+        min-inline-size: 0;
+    }
+
+    .o_ydental_reporting_filter_dates {
+        grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr));
+    }
+
+    .o_ydental_reporting_filter_range {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .o_ydental_reporting_filter_conditions {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .o_ydental_reporting_filter_field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.375rem;
+        min-inline-size: 0;
+    }
+
+    .o_ydental_reporting_filter_field > label,
+    .o_ydental_reporting_filter_stores > legend {
+        float: none;
+        inline-size: auto;
+        margin: 0;
+        padding: 0;
+        color: var(--ydental-report__text-color);
+        font-size: 1rem;
+        font-weight: 600;
+        line-height: 1.6;
+    }
+
+    input[type="date"],
+    select,
+    .o_ydental_reporting_filter_trigger,
+    .o_ydental_reporting_filter_button {
+        box-sizing: border-box;
+        min-inline-size: 0;
+        min-block-size: 2.75em;
+        max-inline-size: 100%;
+        margin: 0;
+        padding: 0.6em 0.75em;
+        border: 1px solid var(--ydental-report__border-color);
+        border-radius: 0.375rem;
+        color: var(--ydental-report__text-color);
+        background: var(--ydental-report__paper-color);
+        font: inherit;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    input[type="date"], select, .o_ydental_reporting_filter_trigger {
+        inline-size: 100%;
+    }
+
+    input:focus-visible,
+    select:focus-visible,
+    .o_ydental_reporting_filter_trigger:focus-visible,
+    .o_ydental_reporting_filter_button:focus-visible {
+        outline: 0.125rem solid var(--ydental-report__focus-color);
+        outline-offset: 0.1875rem;
+    }
+
+    .o_ydental_reporting_filter_trigger {
+        display: flex;
+        gap: 1em;
+        align-items: center;
+        justify-content: space-between;
+        text-align: start;
+
+        > span:first-child {
+            min-inline-size: 0;
+        }
+
+        &:not(:disabled):hover,
+        &[aria-expanded="true"] {
+            border-color: var(--ydental-report__accent-color);
+            background: #fff;
+        }
+    }
+
+    .o_ydental_reporting_filter_chevron {
+        flex: 0 0 auto;
+        font-size: 1.125em;
+    }
+
+    .o_ydental_reporting_filter_trigger[aria-expanded="true"]
+        .o_ydental_reporting_filter_chevron {
+        transform: rotate(180deg);
+    }
+
+    .o_ydental_reporting_filter_stores {
+        min-inline-size: 0;
+        margin: 0;
+        padding: 0;
+        border: 0;
+
+        > legend {
+            margin-block-end: 0.375rem;
+        }
+    }
+
+    .o_ydental_reporting_filter_store_list {
+        max-block-size: 18em;
+        padding: 0.375rem;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        border: 1px solid var(--ydental-report__border-color);
+        border-radius: 0.375rem;
+        background: var(--ydental-report__paper-color);
+    }
+
+    .o_ydental_reporting_filter_store_option {
+        display: flex;
+        gap: 0.75em;
+        align-items: start;
+        min-inline-size: 0;
+        min-block-size: 2.75em;
+        margin: 0;
+        padding: 0.6em;
+        font-weight: normal;
+        cursor: pointer;
+
+        > input[type="checkbox"] {
+            flex: 0 0 auto;
+            display: inline-block;
+            inline-size: 1.25em;
+            block-size: 1.25em;
+            max-inline-size: none;
+            margin: 0.175em 0 0;
+            padding: 0;
+            border: 1px solid var(--ydental-report__border-color);
+            border-radius: 0.2em;
+            background: var(--ydental-report__paper-color);
+            accent-color: var(--ydental-report__accent-color);
+        }
+
+        > span {
+            min-inline-size: 0;
+        }
+
+        &:hover {
+            background: var(--ydental-report__tint-color);
+        }
+    }
+
+    .o_ydental_reporting_filter_actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: start;
+        min-inline-size: 0;
+    }
+
+    .o_ydental_reporting_filter_button {
+        border-color: var(--ydental-report__accent-color);
+        color: #fff;
+        background: var(--ydental-report__accent-color);
+        cursor: pointer;
+
+        &:not(:disabled):hover {
+            border-color: var(--ydental-report__hover-color);
+            background: var(--ydental-report__hover-color);
+        }
+    }
+
+    .o_ydental_reporting_filter_help,
+    .o_ydental_reporting_filter_status {
+        margin: 0;
+        color: var(--ydental-report__muted-color);
+        font-size: 0.875rem;
+        line-height: 1.6;
+    }
+
+    .o_ydental_reporting_filter_stores .o_ydental_reporting_filter_help {
+        margin-block-start: 0.5rem;
+    }
+
+    .o_ydental_reporting_filter_error {
+        margin: 0;
+        color: var(--ydental-report__error-color);
+        font-size: 0.875rem;
+    }
+
+    [aria-invalid="true"].o_ydental_reporting_filter_trigger,
+    .o_ydental_reporting_filter_stores[aria-invalid="true"]
+        .o_ydental_reporting_filter_store_list {
+        border-color: var(--ydental-report__error-color);
+        background: #fbebe8;
+    }
+
+    .o_ydental_reporting_filter_button:disabled,
+    .o_ydental_reporting_filter_trigger:disabled {
+        border-color: var(--ydental-report__border-color);
+        color: var(--ydental-report__muted-color);
+        background: var(--ydental-report__surface-color);
+        cursor: not-allowed;
+        opacity: 1;
+    }
+
+    .o_ydental_reporting_filter_button.o_btn_loading {
+        opacity: 1;
+
+        .o_btn_loading_spinner {
+            position: static;
+            display: inline-flex;
+            margin-inline-end: 0.5em;
+            background: transparent;
+        }
+    }
+
+    &.o_ydental_reporting_filter_boundary {
+        position: fixed;
+        inset: 0.75rem;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    &.o_ydental_reporting_filter_popup {
+        position: fixed;
+        z-index: 1055;
+        box-sizing: border-box;
+        max-inline-size: calc(100vw - 1.5rem);
+        max-block-size: 20rem;
+        padding: 0.375rem;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        border: 1px solid var(--ydental-report__border-color);
+        border-radius: 0.625rem;
+        background: var(--ydental-report__paper-color);
+        box-shadow: 0 0.65rem 1.5rem #3d2a1c18;
+    }
+
+    .o_ydental_reporting_filter_option {
+        display: flex;
+        gap: 0.75em;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+        min-block-size: 2.75em;
+        padding: 0.6em 0.65em;
+        border: 1px solid transparent;
+        border-radius: 0.375rem;
+        cursor: pointer;
+        line-height: 1.6;
+        white-space: normal;
+        overflow-wrap: anywhere;
+
+        > span:first-child {
+            min-inline-size: 0;
+        }
+
+        .o_ydental_reporting_filter_marker {
+            flex: 0 0 auto;
+            visibility: hidden;
+        }
+
+        &[aria-selected="true"] {
+            color: var(--ydental-report__accent-color);
+            font-weight: 600;
+
+            .o_ydental_reporting_filter_marker {
+                visibility: visible;
+            }
+        }
+
+        &.o_ydental_reporting_filter_active {
+            border-color: var(--ydental-report__border-color);
+            background: var(--ydental-report__tint-color);
+        }
+
+        &[aria-disabled="true"] {
+            color: var(--ydental-report__muted-color);
+            cursor: default;
+        }
+    }
+}
+
+@media (max-width: 45rem) {
+    .o_ydental_reporting_filters[data-dl-scope="report-filters"] {
+        padding: 1rem;
+
+        .o_ydental_reporting_filter_dates,
+        .o_ydental_reporting_filter_range {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+}
+
+@media (forced-colors: active) {
+    .o_ydental_reporting_filter_scope[data-dl-scope="report-filters"] {
+        .o_ydental_reporting_filter_trigger,
+        .o_ydental_reporting_filter_button,
+        .o_ydental_reporting_filter_store_list {
+            border-color: ButtonText;
+        }
+
+        .o_ydental_reporting_filter_option.o_ydental_reporting_filter_active {
+            outline: 2px solid Highlight;
+            outline-offset: -2px;
+        }
+    }
+}

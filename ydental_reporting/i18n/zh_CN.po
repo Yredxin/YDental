@@ -820,3 +820,38 @@ msgstr "来源日期不完整：既有已实退记录缺少可核实发生日，
 #: code:addons/ydental_reporting/models/ydental_reporting_presentation.py:0
 msgid "invalid_state: The selected source state does not apply to this metric. Clear it or choose an applicable state."
 msgstr "状态不适用于当前指标：请清除旧状态条件或选择该指标的适用状态。"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Select at least one authorized store. This does not change your current working store."
+msgstr "至少选择一家已授权门店；勾选不会切换当前工作门店。"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Select at least one authorized store."
+msgstr "至少选择一家已授权门店"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "No stores are available in this authorized metric scope."
+msgstr "当前指标的授权范围内没有可选门店。"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Changing the metric queries again, keeps the dates, restores the current store and clears entity, currency and state filters."
+msgstr "更换指标后将立即重新查询，保留日期，恢复当前门店并清除法人、币种和状态条件。"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "After changing other filters, select Query. Results, exports and source links use the last applied filters."
+msgstr "更改其他条件后请点击查询；下方结果、导出和钻取按上次已生效条件。"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Querying authorized sources..."
+msgstr "正在查询已授权来源……"
+
+#. module: ydental_reporting
+#: model_terms:ir.ui.view,arch_db:ydental_reporting.ydental_operating_report_page
+msgid "Select an available option."
+msgstr "请选择一个可用选项。"

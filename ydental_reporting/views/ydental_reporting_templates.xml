@@ -62,26 +62,52 @@
                 <t t-call="ydental_reporting.ydental_operating_report_navigation"/>
                 <h1>Operating reports and source documents</h1>
                 <p class="o_ydental_reporting_notice">Synthetic software definitions await business review. Collections are not revenue; credit notes are not cash refunds. Currencies and units are reported separately.</p>
-                <form action="/ydental/reports" method="get" class="o_ydental_reporting_filters">
+                <form action="/ydental/reports" method="get" class="o_ydental_reporting_filters o_ydental_reporting_filter_scope" data-dl-scope="report-filters">
                     <input type="hidden" name="revision" t-att-value="revision"/>
-                    <label>Metric
-                        <select name="metric"><option t-foreach="choices" t-as="choice" t-att-value="choice['key']" t-att-selected="choice['key'] == values['metric']" t-out="choice['label']"/></select>
-                    </label>
-                    <label>Local start date <input name="date_from" type="date" t-att-value="values['date_from']" required="required"/></label>
-                    <label>Local end date <input name="date_to" type="date" t-att-value="values['date_to']" required="required"/></label>
-                    <label>Authorized stores (multiple selection)
-                        <select name="store_ids" multiple="multiple" size="3" required="required"><option t-foreach="options['stores']" t-as="store" t-att-value="store['id']" t-att-selected="store['id'] in selected_stores"><t t-out="store['label']"/> · <t t-out="store['timezone']"/></option></select>
-                    </label>
-                    <label>Legal entity
-                        <select name="company_id"><option value="">All explicitly selected authorized entities</option><option t-foreach="options['companies']" t-as="company" t-att-value="company['id']" t-att-selected="str(company['id']) == str(values.get('company_id',''))" t-out="company['label']"/></select>
-                    </label>
-                    <label t-if="options['money']">Currency
-                        <select name="currency_id"><option value="">Separate totals per currency</option><option t-foreach="options['currencies']" t-as="currency" t-att-value="currency['id']" t-att-selected="str(currency['id']) == str(values.get('currency_id',''))" t-out="currency['label']"/></select>
-                    </label>
-                    <label t-if="options['states']">Source state
-                        <select name="state"><option value="">All applicable source states</option><option t-foreach="options['states']" t-as="state" t-att-value="state['value']" t-att-selected="state['value'] == values.get('state')" t-out="state['label']"/></select>
-                    </label>
-                    <div class="o_ydental_reporting_filter_actions"><button type="submit" class="btn btn-primary">Query authorized sources</button><p>Changing the metric resets scope to the current store and clears entity, currency and state filters.</p></div>
+                    <div class="o_ydental_reporting_filter_dates">
+                        <div class="o_ydental_reporting_filter_field">
+                            <label id="ydental-report-metric-label" for="ydental-report-metric">Metric</label>
+                            <select id="ydental-report-metric" name="metric" data-report-filter-select="true" aria-describedby="ydental-report-metric-help"><option t-foreach="choices" t-as="choice" t-att-value="choice['key']" t-att-selected="choice['key'] == values['metric']" t-out="choice['label']"/></select>
+                        </div>
+                        <div class="o_ydental_reporting_filter_field">
+                            <label for="ydental-report-date-from">Local start date</label>
+                            <input id="ydental-report-date-from" name="date_from" type="date" t-att-value="values['date_from']" required="required"/>
+                        </div>
+                        <div class="o_ydental_reporting_filter_field">
+                            <label for="ydental-report-date-to">Local end date</label>
+                            <input id="ydental-report-date-to" name="date_to" type="date" t-att-value="values['date_to']" required="required"/>
+                        </div>
+                    </div>
+                    <div class="o_ydental_reporting_filter_range">
+                        <fieldset class="o_ydental_reporting_filter_stores" aria-describedby="ydental-report-stores-help ydental-report-stores-error">
+                            <legend id="ydental-report-stores-label">Authorized stores (multiple selection)</legend>
+                            <select id="ydental-report-stores" name="store_ids" multiple="multiple" size="3" required="required" aria-labelledby="ydental-report-stores-label" aria-describedby="ydental-report-stores-help ydental-report-stores-error"><option t-foreach="options['stores']" t-as="store" t-att-value="store['id']" t-att-selected="store['id'] in selected_stores"><t t-out="store['label']"/> · <t t-out="store['timezone']"/></option></select>
+                            <p id="ydental-report-stores-help" class="o_ydental_reporting_filter_help">Select at least one authorized store. This does not change your current working store.</p>
+                            <p id="ydental-report-stores-error" class="o_ydental_reporting_filter_error" data-report-filter-error="stores" role="alert" hidden="hidden">Select at least one authorized store.</p>
+                            <span data-report-filter-message="unavailable" hidden="hidden">No stores are available in this authorized metric scope.</span>
+                        </fieldset>
+                        <div class="o_ydental_reporting_filter_conditions">
+                            <div class="o_ydental_reporting_filter_field">
+                                <label id="ydental-report-company-label" for="ydental-report-company">Legal entity</label>
+                                <select id="ydental-report-company" name="company_id" data-report-filter-select="true"><option value="">All explicitly selected authorized entities</option><option t-foreach="options['companies']" t-as="company" t-att-value="company['id']" t-att-selected="str(company['id']) == str(values.get('company_id',''))" t-out="company['label']"/></select>
+                            </div>
+                            <div t-if="options['money']" class="o_ydental_reporting_filter_field">
+                                <label id="ydental-report-currency-label" for="ydental-report-currency">Currency</label>
+                                <select id="ydental-report-currency" name="currency_id" data-report-filter-select="true"><option value="">Separate totals per currency</option><option t-foreach="options['currencies']" t-as="currency" t-att-value="currency['id']" t-att-selected="str(currency['id']) == str(values.get('currency_id',''))" t-out="currency['label']"/></select>
+                            </div>
+                            <div t-if="options['states']" class="o_ydental_reporting_filter_field">
+                                <label id="ydental-report-state-label" for="ydental-report-state">Source state</label>
+                                <select id="ydental-report-state" name="state" data-report-filter-select="true"><option value="">All applicable source states</option><option t-foreach="options['states']" t-as="state" t-att-value="state['value']" t-att-selected="state['value'] == values.get('state')" t-out="state['label']"/></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="o_ydental_reporting_filter_actions">
+                        <button type="submit" class="o_ydental_reporting_filter_button">Query authorized sources</button>
+                        <p id="ydental-report-metric-help" class="o_ydental_reporting_filter_help">Changing the metric queries again, keeps the dates, restores the current store and clears entity, currency and state filters.</p>
+                        <p class="o_ydental_reporting_filter_help">After changing other filters, select Query. Results, exports and source links use the last applied filters.</p>
+                        <p class="o_ydental_reporting_filter_status" data-report-filter-busy="true" role="status" hidden="hidden">Querying authorized sources...</p>
+                    </div>
+                    <span data-report-filter-message="required" hidden="hidden">Select an available option.</span>
                 </form>
                 <h2 t-out="display['title']"/>
                 <p t-if="report['filters']['metric'] == 'receivables'" class="o_ydental_reporting_notice">Current receivable for the selected original bill date range. Dates do not represent a historical balance cutoff.</p>

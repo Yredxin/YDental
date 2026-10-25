@@ -8,6 +8,8 @@
     'assets': {'web.assets_frontend': [
         'ydental_reporting/static/src/reporting/reporting.scss',
         'ydental_reporting/static/src/reporting/reporting.js',
+        'ydental_reporting/static/src/report_filters/report_filters.scss',
+        'ydental_reporting/static/src/report_filters/report_filters.js',
     ]},
     'installable': True,
 }
