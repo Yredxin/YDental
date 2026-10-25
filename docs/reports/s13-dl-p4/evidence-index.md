@@ -57,7 +57,10 @@
 
 原目录775、before/after比较落盘metadata/索引schema错误、真实metric双GET、JSoff登录显示等待、WebKit首及后minimal404/空body/正常技术文件并存、旧boot翻译非零、最小probe、原生UA1.591/hover2.812、原Chromezoom浮层误取景以及未dispatch工具UNKNOWN均保留原source/phase/command/actualexit。最终仅有限影响补验，不反签旧失败。SOURCE/PURE/DOM组件/HTTP/BROWSER/nativeAX/独立已提交RO分开；export-only与完整撤复矩阵SOURCE+固定S12 T06复用，不冒P4全重跑。
 
-本地总签与之后正常GitHub远端读回另列，当前remote NOT_RUN；不预签未来，纯报告提交不重执业务。用户亲手效果仍待确认，P5—P6及完整S13/生产未启。
+本地总签时remote NOT_RUN的历史保留，之后首正常GitHub远端完整同步已实际完成；本次仅4文档同步元事实，最终ref/同评论/独立远端另核，不预签未来，纯报告提交不重执业务。用户亲手效果仍待确认，P5—P6及完整S13/生产未启。
 
 |独立真实客户端归档|`acceptance/client-archive-independent.json`|`5c898d50b61524894f73fe3e7955d3bc4cc5c5f8d0bba5bad6bb1434593f7d55`|29真实命令/执行源/退出全核，历史非零不反签|
 |独立本地技术总签|`acceptance/final-acceptance-independent.json`|`15c3770c2736735518f9e1878a9df9b3185d2ceb3ebca0dc5182643b371df62c`|T01—14适用本地PASS，remote当时NOT_RUN，未来另读回|
+
+|首两ref/13完整正文|`verification/code-main-first-readback.json`|`e84dabab7a7c56769041f603afb8fa918f130c2a7c97854f75ba91f1380a8f23`|实际UTF8 bytes/Gitblob与本地逐文件同|
+|首完整同步/唯一评论|`verification/first-final-sync-readback.json`|`e6f22cdea753f8641e13c3c6d9b80980a0a638d9aeac1ace0748571313cecb0b`|99e/d093、6393235980全文/旧内容、#37 OPEN6/#36 CLOSED2实际读回|

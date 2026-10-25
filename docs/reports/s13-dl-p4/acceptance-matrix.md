@@ -17,6 +17,6 @@
 |T11 权限降级|11真实后端1×200/7×403/3×409，普通源/无源/跨域/既有店142越界/invalid组合/oldrevision/只读无exportWRITE等；无源HTML无候选。export-only与完整旧撤复矩阵明确SOURCE+固定S12 T06复用。JSoff同context正常认证后native查询；init插入fault回native真实查询|HTTP后台拒绝非预拦截；http-boundaries-independent、fallback-independent；夹具不冒真权限。无JS登录UI旧显示限制另列|PASS，复用范围明确|
 |T12 旁路/零业务|文书P1—3 fields/regions、结算/库存computed/代表PNG保持；doctor双控件取消确认/显式preview200。report结果/drill/error源与样式作用域冻结；真实无源HTTP403无P4form。0新原件/PDF/打印/签署/发布/经济库存，225正常audit另分类|before/after、remaining、final145/13/83独立RO；本轮无before preview全文，不冒归一化全文同|PASS|
 |T13 加载保护|唯一必要reporting-u f0即时fullpre→真实0/ERROR0/noNative→post；后续assetonly新bundle/actualcomputed、最终85b。未实现者newphysical122676 RO/RR完整145/13/83与root9段exact，旧业务/文件/责任保持；5tech字段与225新accepted audit分类|final-protection-independent e326304…；rootfinal762475…、baseline-to-final a05875…；83是现场数量不是永久硬编码|PASS|
-|T14 独立交付停止|真实Chrome156/WebKit27.2关键路径/原图/退出齐；39PNG私有包44成员/0PDF/8步复现、独立包核齐；末owned03:50:49UTC child0/signull/groupstop/ports off/contexts及profiles清。源与保护/包分项PASS；本地总签已实际PASS，远端尚未执行|tester29 finite结果含真实失败；包118acc…/最终保护e326…；本地总签与以后真实remote分列|LOCAL_PASS / SYNC_PENDING|
+|T14 独立交付停止|真实Chrome156/WebKit27.2关键路径/原图/退出齐；39PNG私有包44成员/0PDF/8步复现、独立包核齐；末owned03:50:49UTC child0/signull/groupstop/ports off/contexts及profiles清。源与保护/包分项PASS；本地总签已实际PASS，首两ref/13全文/唯一P4评论6393235980及旧内容状态已读；末元事实与独立远端另核|tester29 finite结果含真实失败；包118acc…/最终保护e326…；本地总签与以后真实remote分列|PASS / SYNCED|
 
 用户亲手效果、Safari/iOS/实机/屏读/正式政策未验；P5—P6及完整S13/生产未启，不以本矩阵代批准。原WebKit404/旧translation/Native139/Firefox字体等UNKNOWN继续保留。所有PASS只适用此限定软件及明确复用的冻结契约。
