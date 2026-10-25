@@ -175,7 +175,14 @@
             border: 1px solid var(--ydental-report__border-color);
             border-radius: 0.2em;
             background: var(--ydental-report__paper-color);
+            outline: 2px solid var(--ydental-report__border-color);
+            outline-offset: 0;
             accent-color: var(--ydental-report__accent-color);
+
+            &:focus-visible {
+                outline: 0.125rem solid var(--ydental-report__focus-color);
+                outline-offset: 0.1875rem;
+            }
         }
 
         > span {
@@ -341,6 +348,14 @@
         .o_ydental_reporting_filter_option.o_ydental_reporting_filter_active {
             outline: 2px solid Highlight;
             outline-offset: -2px;
+        }
+
+        .o_ydental_reporting_filter_store_option > input[type="checkbox"] {
+            outline-color: ButtonText;
+
+            &:focus-visible {
+                outline-color: Highlight;
+            }
         }
     }
 }
