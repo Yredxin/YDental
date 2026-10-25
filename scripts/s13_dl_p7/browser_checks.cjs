@@ -112,7 +112,7 @@ function contrast(value, boundary=false, focus=false) {
     async function snap(name) {const value=await page.evaluate(projection);save(name+'-projection.json',value);return value;}
     async function navigate(action) {await Promise.all([page.waitForNavigation({waitUntil:'domcontentloaded',timeout:40000}),action()]);await page.locator(search).waitFor({state:'visible'});await settle();}
     async function openInventory() {await page.goto(base+'/ydental/inventory',{waitUntil:'networkidle',timeout:40000});await page.locator(search).waitFor({state:'visible'});await settle();}
-    async function normalLogin(alias) {
+    async function normalLogin(alias, inventoryMenu=true) {
         const provider=path.join(root,'.local/s11/new-target-tests/roles.json'),info=fs.lstatSync(provider);
         assert(info.isFile()&&!info.isSymbolicLink()&&info.uid===process.getuid()&&(info.mode&0o777)===0o600);
         const account=JSON.parse(fs.readFileSync(provider)).users[alias];assert(account);
@@ -140,7 +140,7 @@ function contrast(value, boundary=false, focus=false) {
         const switcher=page.locator('form').filter({has:page.locator('[name=operation][value=switch]')});
         await switcher.locator('[name=store_id]').selectOption(String(samples.store_id||1));
         await Promise.all([page.waitForNavigation({waitUntil:'domcontentloaded'}),switcher.locator('button[type=submit]').click()]);
-        await navigate(()=>page.locator('nav a[href="/ydental/inventory"]').click());
+        if(inventoryMenu)await navigate(()=>page.locator('nav a[href="/ydental/inventory"]').click());
         return account.id;
     }
     async function controls(condition,pictures=true) {
@@ -168,7 +168,7 @@ function contrast(value, boundary=false, focus=false) {
         }
         assert.equal(gets(),start);assert.deepEqual((await page.evaluate(projection)).forms,baseline.forms);
         const query=page.locator(search+' button'), scan=page.locator('form[action="/ydental/inventory/scan"] button');
-        const source=page.locator('article[data-event] a[href*="event_id="]').first;
+        const source=page.locator('article[data-event] a[href*="event_id="]').first();
         const controls=[['query',query],['scan',scan],['source',source]];
         const samplesOut=[];
         for(const [name,target] of controls) {
@@ -197,9 +197,9 @@ function contrast(value, boundary=false, focus=false) {
         save(condition+'-controls.json',data);
         check('visible-families-native-open-focus-close-no-submit-'+condition,{families:families.length,all_form_fields_preserved:true,no_GET_or_POST:true});
         if(pictures&&await details.count()) {
-            const d=details.first,s=d.locator('summary');await s.focus();await s.press('Enter');
+            const d=details.first(),s=d.locator('summary');await s.focus();await s.press('Enter');
             await shot(condition+'-expanded-summary');
-            const button=d.locator('button').first;await button.focus();await shot(condition+'-confirm-focus');
+            const button=d.locator('button').first();await button.focus();await shot(condition+'-confirm-focus');
             await s.focus();await s.press('Space');
         }
         if(pictures){await query.scrollIntoViewIfNeeded();await shot(condition+'-search');}
@@ -257,16 +257,16 @@ function contrast(value, boundary=false, focus=false) {
             for(const [name,target] of [['icon','svg'],['text','span'],['Enter',null]]) {
                 const q=page.locator(search+' [name=q]'), before=gets();await q.fill(samples.product_name);await q.press('Tab');await page.waitForTimeout(100);assert.equal(gets(),before);
                 const button=page.locator(search+' button');
-                const click=target&&await button.locator(target).count()?button.locator(target).first:button;
+                const click=target&&await button.locator(target).count()?button.locator(target).first():button;
                 await navigate(()=>name==='Enter'?q.press('Enter'):click.click());
                 assert.deepEqual([...new URL(page.url()).searchParams],[['q',samples.product_name]]);
                 assert.equal(gets(),before+1);check('query-'+name+'-single-original-GET',{actual_icon_target:target==='svg'&&await button.locator('svg').count()>0});
             }
             await openInventory();
             for(const target of ['span','svg']) {
-                const before=await snap('before-source-'+target), link=page.locator('article[data-event] a[href*="event_id="]').first;
+                const before=await snap('before-source-'+target), link=page.locator('article[data-event] a[href*="event_id="]').first();
                 const href=await link.getAttribute('href'), parsed=new URL(href,base);
-                const click=await link.locator(target).count()?link.locator(target).first:link;
+                const click=await link.locator(target).count()?link.locator(target).first():link;
                 const count=gets();await navigate(()=>click.click());
                 const located=await snap('located-source-'+target);
                 assert.deepEqual(located.query,[['event_id',before.events[0].id]]);assert.equal(located.fragment,parsed.hash);
@@ -275,21 +275,21 @@ function contrast(value, boundary=false, focus=false) {
                 await navigate(()=>page.goBack({waitUntil:'domcontentloaded'}));
             }
             await openInventory();
-            let next=page.locator('nav a').filter({hasText:/下一|Next/}).first;
+            let next=page.locator('nav a').filter({hasText:/下一|Next/}).first();
             if(await next.count()) {
                 const first=await snap('before-page2'), before=gets();await navigate(()=>next.click());
                 const second=await snap('page2');assert.deepEqual(second.events.map(e=>Number(e.id)),samples.real_source_second_ids);
                 assert.deepEqual(second.lots,first.lots);assert.equal(gets(),before+1);
-                const prev=page.locator('nav a').filter({hasText:/上一|Previous/}).first;await navigate(()=>prev.click());
+                const prev=page.locator('nav a').filter({hasText:/上一|Previous/}).first();await navigate(()=>prev.click());
                 assert.deepEqual((await page.evaluate(projection)).events,first.events);check('actual-source-forward-back-GET-pages',{first:first.events.length,second:second.events.length});
             }
             for(const [width,height] of views) {
                 await page.setViewportSize({width,height});await controls(width+'x'+height,true);
             }
-            const d=page.locator('details[name="inventory-operation"]').first;
+            const d=page.locator('details[name="inventory-operation"]').first();
             if(await d.count()) {
                 await d.locator('summary').focus();await d.locator('summary').press('Enter');
-                const cancel=d.locator('a[href]').first;
+                const cancel=d.locator('a[href]').first();
                 if(await cancel.count()) {
                     const href=await cancel.getAttribute('href'), before=gets();await navigate(()=>cancel.click());
                     assert.equal(new URL(page.url()).pathname,new URL(href,base).pathname);assert.equal(gets(),before+1);check('actual-cancel-original-navigation-no-business-POST',{href});
@@ -400,9 +400,7 @@ function contrast(value, boundary=false, focus=false) {
                 await context.route('**/*',routeGuard);page=await context.newPage();logged=false;
                 // Normal login helper's menu opens inventory, so use a direct existing
                 // ordinary login/store flow and permit an expected no-source rejection.
-                if(name==='inventory-none') {
-                    await normalLogin(selected).catch(error=>{r.no_permission_menu_observation=error.message;});
-                } else await normalLogin(selected);
+                await normalLogin(selected,false);
                 const response=await page.goto(base+url,{waitUntil:'networkidle',timeout:40000});
                 const snapshot=await page.evaluate(()=>{
                     const main=document.querySelector('main');
