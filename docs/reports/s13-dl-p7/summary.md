@@ -2,7 +2,7 @@
 
 统一按钮语言与轻量SVG——仓库页面试点。
 
-技术：**TECHNICALLY_COMPLETE（限定P7软件）**。同步：**SYNC_PENDING**。用户亲手效果：**待确认**。完成范围：库存页按钮/图标，非全站。后续页面/完整S13/合并部署生产：未启用。
+技术：**TECHNICALLY_COMPLETE（限定P7软件）**。同步：**SYNCED**。用户亲手效果：**待确认**。完成范围：库存页按钮/图标，非全站。后续页面/完整S13/合并部署生产：未启用。
 
 ## 固定候选与真实分工
 
@@ -107,3 +107,13 @@ Lucide固定 **0.468.0 / f12b0de177fbc2a6795e99be065887e72b237123**。七个原S
 ## 实际本地总签
 
 2026-10-25T15:10:42.517232+00:00，未实现者完成12项本地独立技术总验收，`acceptance/technical-total-local.json` SHA **204b21aaa02b40cda64d0dab8384313990ed12e7899a63c39fed74f3411dde6b**，LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING。T01—11及T12本地交付/保护/包/正常收尾PASS，无本地技术缺口；T12远端ref/完整正文/唯一P7评论及旧8评论保持/37OPEN36CLOSED尚PENDING，因此此时**TECHNICALLY_COMPLETE / SYNC_PENDING**，用户亲手效果待确认。原签时间不改，最后元数据及远端实际读回后续记录，不复开服务或重测业务。
+
+## 实际同步与停止
+
+首份交付 **1982a53947bb7aa61587a819ba0e702ad6a862fb**、main仅两路由 **994a9e419d01f6b3825f45fcaf6f884832298b54** 已正常push。主控通过正常GitHub插件实际读取全部35份完整UTF8正文（业务33/main2），逐字节及Gitblob与local exact，回执 **1f3fba2f1232eddc21b4e67508a6228aa6dc3ad64a94dffbe7055aa5d9f849d4**。
+
+#37只新增P7唯一评论[6399387525](https://github.com/Yredxin/YDental/issues/37#issuecomment-6399387525)，随后GET全文exact、共9条/旧8逐id与body全保；#37 OPEN/#36 CLOSED及原title/body保持，主控回执 **49109383734f0258458c959d6d5982203ee3f856a2c2b808599353d2f29e916d**。
+
+未实现者经独立正常GitHub connector完成35全文/base64/bytes/Gitblob、两ref、唯一新P7全文、旧8及Issue状态正文，实际远端总签 **34054a811758038b52ad6e35c8f1ab71a3f3198d8811a9395270cea7c0ff643c**（前置35文件回执d5530270…）。T12远端实际PASS，结合204b21aa…本地总签，**TECHNICALLY_COMPLETE / SYNCED**；用户亲手效果仍待确认，完整S13未完成。
+
+本次最后四文档只记录上述已经发生事实；其最终metadata ref/四正文和同一评论增量再正常实际读回，私有回执另存，不预签未知SHA、不修改旧签时间、不复开服务/DB或重采业务。P7交付后停止，main不合产品、不部署。

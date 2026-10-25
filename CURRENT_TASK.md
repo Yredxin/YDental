@@ -1,9 +1,9 @@
 # DL-P7 当前状态｜YD-S13-DL-P7 / 1.0
 
-## TECHNICALLY_COMPLETE（限定P7软件）/ SYNC_PENDING / 用户亲手效果待确认
+## TECHNICALLY_COMPLETE（限定P7软件）/ SYNCED / 用户亲手效果待确认
 
 - 用户2026-10-25直接启用[完整P7计划](docs/execution/S13_DL_P7_IMPLEMENTATION_PLAN.md)，W0—W4连续实施，范围仅 `/ydental/inventory` 按钮/动作链接/原生summary/七种静态SVG；非全站、非库存业务开发。完成P7后停止。用户亲手效果待确认，完整S13/后续页面/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/合并部署生产均未启用。
-- [结果与7步复现](docs/reports/s13-dl-p7/summary.md) · [12项矩阵](docs/reports/s13-dl-p7/acceptance-matrix.md) · [完整脱敏索引](docs/reports/s13-dl-p7/evidence-index.md)。实际未实现者12项本地总签 **204b21aaa02b40cda64d0dab8384313990ed12e7899a63c39fed74f3411dde6b** 已完成（LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING），无本地技术缺口，T12远端同步子项待实际发生，不预签；本阶段Issue只在结束新增一份P7结果，#37 OPEN/#36 CLOSED、P1—P6旧评论不改。
+- [结果与7步复现](docs/reports/s13-dl-p7/summary.md) · [12项矩阵](docs/reports/s13-dl-p7/acceptance-matrix.md) · [完整脱敏索引](docs/reports/s13-dl-p7/evidence-index.md)。实际未实现者12项本地总签 **204b21aaa02b40cda64d0dab8384313990ed12e7899a63c39fed74f3411dde6b** 已完成（LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING），无本地技术缺口；T12首份远端同步已实际独立PASS **34054a811758038b52ad6e35c8f1ab71a3f3198d8811a9395270cea7c0ff643c**（35完整正文/两ref/唯一新P7全文/旧8保持/37OPEN36CLOSED），原本地总签REMOTE_PENDING时间不改；本阶段Issue只在结束新增一份P7结果，#37 OPEN/#36 CLOSED、P1—P6旧评论不改。
 - 活动分支 `codex/s13-dl-p7-inventory-actions-icons-r1`；从真实P6报告e31ea56d1ff903461eda86c08088c5f7e32aef7e开工clean正常承接，无reset/clean/强推/从main重建。P6产品aec20359、工具539d147、唯一回执6397824653及P1—P6原技术交付保持，用户效果不反签。
 - 最终产品/实际运行 **52d5422fa0083bf88cec4442ffcd45d35d27e9f7**；首产品f3f8e61/运行工具d61200b保留，最终只补43span原生translation-on边界恢复原中文。before实际29bccc4（产品P6）。22浏览器client各真正executed源/依赖/command/exit另固定，13×0/7×2/2×130，旧失败不改。core f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb及原目标/OID2171423/cluster7694897083368259627、原filestore保持，无新库/复制/改名。
 - root唯一产品/状态/报告写者和运行调度；testing实际浏览器/测试工具，runtime运行/QWeb/包工具，acceptance未实现产品或对应工具独立SOURCE/新physical/原图/包/总签。同OS不是隔离证明。旧scope/STOP/guard/时间/UNKNOWN不改，不重查旧/status，不等逐包GPT审批。
@@ -14,6 +14,8 @@
 - 最后owned run20261025T135854Z-3a6a00c1da8f于 **2026-10-25T14:48:28.068882Z** 正常stop/child0/signull/groupstopped；独立OS/其它targetconn/ports18411和12/browser/node/profile/active空，回执c96d82a0…，未动共享主服务，不为报告复开。
 - 新私有0400包 `.local/dl-p7/viewing/S13-DL-P7-view-only-20261025-r1.zip`：2396745B / **6ddf2df5e54df61e898ea21fa553d125059c7a0366e43e30cdc1daa6cb356df6**，37成员/34原PNG/33不同SHA（catalog前后同字节）/36非self manifest；独立逐37成员/manifest/sourcebytes/34PNG/privacy已PASS，回执aaa9e114…；最后旁路/22退出独立4c481db2…已成。只本机/授权会话查看，不上传Public，无凭据/session/profile/raw请求/配置/完整DB/原件PDF/程序字体。前态50索引45图/3旧hash不可核保；包只选可核末次原图，不声称像素对齐或逐图未知身份。
 - 首产品新增span术语导致英文、过渡即时contrast3.1249、WebKit404/快速Tab假设、JSoff异步等待130、SVG缩进空白比较及原生QWeb工具失败均保留原源/退出/原件。最终真实原中文/稳定状态/自然Tab/NOJS及故障分层补验成立，不降门槛、不改产品CSS凑截图。没有live确认/scan POST或旧经济动作重放。
+
+- 首份技术报告1982a53947bb7aa61587a819ba0e702ad6a862fb及main仅两路由994a9e419d01f6b3825f45fcaf6f884832298b54已正常push/35完整UTF8与Gitblob真实exact；#37唯一新P7回执 [6399387525](https://github.com/Yredxin/YDental/issues/37#issuecomment-6399387525) 全文及旧8/Issue正文状态实际独立GET同。最后四报告元数据只记录已发生SYNCED，其最终ref/正文/同评论增量另实际读回，不预签未知SHA，不重跑软件/DB/包。P7交付后停止，用户效果待确认，不启后续页面/合并/部署。
 
 ---
 

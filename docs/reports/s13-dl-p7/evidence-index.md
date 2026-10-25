@@ -44,6 +44,10 @@
 |最后旁路及22client退出独立|acceptance/bypass-and-client-exits-independent.json|4c481db235dcd6b7ad7da3766bb7773415de8dd517e460e13956513052cacd9b|
 |包独立全部成员/源字节/隐私|acceptance/package-independent.json|aaa9e1141fb9ac09b4c326e5a8ca2ba42734d57247137f5e6229e23fd9d0f7eb|
 |12项实际本地独立总签|acceptance/technical-total-local.json|204b21aaa02b40cda64d0dab8384313990ed12e7899a63c39fed74f3411dde6b|
+|35全文/UTF8/Gitblob主控实际比较|verification/first-remote-full-comparison.json|1f3fba2f1232eddc21b4e67508a6228aa6dc3ad64a94dffbe7055aa5d9f849d4|
+|唯一新P7全文/旧8/Issue状态读回|verification/first-final-sync-readback.json|49109383734f0258458c959d6d5982203ee3f856a2c2b808599353d2f29e916d|
+|35远端完整文件独立|acceptance/remote-files-independent.json|d553027085375cd9199978c87de1a88d5c5bde739a439491cf44159d2e96293e|
+|初次完整同步独立总签|acceptance/remote-total-initial-independent.json|34054a811758038b52ad6e35c8f1ab71a3f3198d8811a9395270cea7c0ff643c|
 
 ## 全部实际浏览器client
 
@@ -85,3 +89,5 @@
 保护计数按现场：83受保护附件store_fname引用、80唯一路径/80不同SHA，全部引用和真实文件逐字节保持；不是丢3文件，不改旧P6回执/raw。旧17431audit全保，新200accepted普通认证和读取另列；其它业务/原件/金额库存/责任不变。
 
 独立包已实际全核PASS；最终本地总签204b21aa…已实际完成；远端ref/正文/唯一P7评论读回在实际完成后追加，不预签、不为补报告复开服务或重放业务。用户效果/真实OS输入法/屏读/实机/正式政策/完整S13未验。
+
+最终TECHNICALLY_COMPLETE / SYNCED；首份1982a539/main994a9e4/唯一新P7评论6399387525已真实独立读回，用户亲手效果待确认。最后仅四文档同步元数据和同评论增量，其实际最终ref/fullbody回执只在发生后保留于私有verification/acceptance，不另复开服务，不循环自嵌自身hash。
