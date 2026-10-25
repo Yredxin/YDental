@@ -1,21 +1,21 @@
 # DL-P2当前状态｜YD-S13-DL-P2 / 1.0
 
-## IN_PROGRESS / SYNC_PENDING
+## TECHNICALLY_COMPLETE（限定P2软件）/ SYNC_PENDING
 
-- 用户2026-10-24明确启用[完整P2计划](docs/execution/S13_DL_P2_IMPLEMENTATION_PLAN.md)：仅文书页标题、用途、既有页内导航及指定三类静态说明。P2-W0—W4连续实施；P3—P6 NOT_AUTHORIZED，P2交付后停止，不合产品main、不部署。P1原交付TECHNICALLY_COMPLETE / SYNCED，用户亲手效果仍待确认。
-- 正常从实际合法HEAD `d421842c9b26de9988be3f7e4c46cd5626cb67ca`承接至`codex/s13-dl-p2-documents-header-r1`，开工工作树仅CURRENT_TASK两条未提交复核补记，已保存diff并原样保留于下方P1历史；本地补记尚未同步，不能与P1原交付SYNCED混同。core/P1选择器JS及业务契约冻结。
-- 主控/root唯一环境运行与集成写者；/root/documents为4文件产品唯一写者，/root/tester验证工具与浏览器，/root/acceptance未实现产品/测试工具独立核验；不以共享OS冒隔离。W0—W2已完成，当前W3：固定产品候选并核限定加载/影响面。现场指定target/OID/cluster及角色五高权false；初始145业务/13技术/83实际文件与P1最终逐值同，另新物理RO独立核同。
-- 新P2合法scope独立建立，不修改旧scope/STOP；准备候选9b5325fe0c23bac9af96d6496cb23a8ca17f57d8的真实前态已采同条件5视口/只读预览/代表旁路，客户端实际0，owned run20261024T234358Z-f5ec36038cfa于2026-10-24T23:45:01UTC正常child0/signull/group stopped。仅4产品文件：XML、新header SCSS、manifest、zh_CN；三类原说明正文逐字迁至默认可见分组，P1 JS/SCSS/表单/帮助/ARIA和preview以下内容保持。实现者静态XML/PO/SCSS通过不冒动态PASS，待最终候选测试/保护/独立验收。未发生新原件/PDF/打印/经济库存动作。所有保护/未验限制承接下方P1记录。
-
-- W3首产品93ad3846183dac1e705b83bcffa12bea4b6b79f0已限定print-u实际0/ERROR0/无Native；即时pre/post和新物理RO独立核，25原生access/group69仅write_date，技术8表769行时间及本页view1618 arch变化，全部83文件/业务事实保持。真实after首轮退出2：320选择helper被自动滚动触发既有P1取消；最小正常诊断确认显式滚动稳定后同键盘可用，仅修工具。另真实发现旧inline portal !important压新导航色，仅新header SCSS局部default/hover加同权声明修复。原失败和独立记录保留，不反签；不改P1选择器JS、不重复-u，待新最终候选资产/动态/保护复验。末首产品run20261024T234852Z-5239bd9b01cd已正常child0/signull/group stopped。
-
-- 最终产品/执行固定`a0b33c14c121f2a489fdcf7abc529999fd15c1dd`；最终真实11对前后/P1字段及内部样式/3旁路同PNG、Chromium core/JSoff/none已获实际0和未实现者独立核。14文字对比度最低5.613、5焦点最低7.061。iframe全文SHA因原有本次提取时间不可比，明确只签源/模板摘要/字段与实际可见正文，不伪称归一化全文相同。WebKit首轮normal-login超时、同入口GET-only诊断minimal JS404均原样保留，未发认证POST/native主进程0；同URL普通HTTP200/asset222文件存在，首因UNKNOWN。只正常owned stop/start同候选/目标/scope，新run20261025T000214Z-433665af424a，未改asset记录、全局控制或引擎，待同入口只读验证后补WebKit。Chrome不重复，P2仍IN_PROGRESS，最终保护/包/同步待完成。
-
-- WebKit旧404经同候选正常服务重启后同入口GET-only恢复minimal/lazyJS200和原生form ready；最终core-v2真实27.2/15项关键流程客户端及主进程0，无修改控制/引擎。主控已于2026-10-25T00:04:04UTC正常stop，other target connections=[]；首final RO为145业务/13技术/83文件不变，61正常新增审计、原生时间/本页arch另分类。未实现者亲看发现WebKit原生zoom的header locator截图clip错误（popup普通viewport图正常），该图不签视觉；正在安排最小正常登录/搜索后zoom viewport补图，不重放旧业务/全流程，P2仍IN_PROGRESS。
+- 用户2026-10-24明确启用[完整P2计划](docs/execution/S13_DL_P2_IMPLEMENTATION_PLAN.md)，W0—W4本地适用软件已完成并获未实现者独立总签`4e4b6b2cdf70dccd35c3dd278920a69657902278052bf14926ee9bf2a6b0db9a`；包/正常服务收尾已核，远端同步尚待实做，不冒SYNCED。[结果](docs/reports/s13-dl-p2/summary.md)、[12项矩阵](docs/reports/s13-dl-p2/acceptance-matrix.md)、[证据索引](docs/reports/s13-dl-p2/evidence-index.md)。
+- 分支`codex/s13-dl-p2-documents-header-r1`从P1报告d421842c9b26de9988be3f7e4c46cd5626cb67ca正常承接；原CURRENT两条未提交GPT复核补记已原样保留并纳入本地准备文档，尚待本阶段同步。P1原交付TECHNICALLY_COMPLETE / SYNCED，不重开/重做，P1和P2用户亲手效果均待确认。P1产品8dea2647760f6d6738abfc9db132cfa9d7feaee3及6384111913旧回执保持。
+- 准备/公共工具9b5325fe0c23bac9af96d6496cb23a8ca17f57d8，最终产品/执行`a0b33c14c121f2a489fdcf7abc529999fd15c1dd`，实际RO文档checkpoint5d3a25686472ef32239242bc19ff44b9bf1aa044；之后仅状态/报告。core f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb不改，无reset/clean/强推/从main重建。主控/root运行/集成/报告，documents唯一4产品写者，tester工具/浏览器，acceptance未实现产品/测试工具独立核；同OS不冒隔离。
+- 仅页头标题/用途、5原导航3+2分组及指定3条静态说明默认可见；三正文逐字保留，7新PO翻译。P1 JS/SCSS/表单/字段/帮助/ARIA、preview以下完整XML、backend/ACL/PDF/其他岗位/全局页头品牌冻结。首93ad旧紫已局部修，原失败不反签；不重复-u，首限定print-u实际0/ERROR0/noNative。
+- 最终真实Chromium156.0.8078.4和WebKit27.2/5视口/原生200%zoom及单独root32/选择取消确认/显式preview/JSoff/none按层级独立通过；14文字对比最低5.613、5焦点最低7.061。11对未改字段和内部样式同，3旁路PNG同SHA；320整页345限制保持。预览全文SHA不同且含原生动态时间，before未存全文，不能证明仅时间差/归一化全文同；源/模板摘要与实际可见正文独立核保持。
+- 唯一target ydental_s11_synth_20261023_01/OID2171423/cluster7694897083368259627及原filestore。最终未实现者新物理RO/RR backend65787核145业务/13技术/83实际文件逐值同root九区段，保护SHA13919577641929e042b7f6c94ac96eb1b7ce0cf463a9d695ea2a0e5b4f7adcf0；65内部+2外部原件、金额库存/身份/作者价源/审计旧行/责任/schema配置保持。P2新原件/PDF/打印/经济库存0；64正常audit新增、25access+group69日期、8技术表769行日期+本页arch分类，不称全库物理零diff。固定旧来源1073+前批230=1303、本阶段贡献0，lot253仍10/2/8，历史责任不重演不假完成。
+- 私有0400包`.local/dl-p2/viewing/S13-DL-P2-view-only-20261025.zip`，9156502bytes/SHAa2aeab3c365d1ba60f92157587371d05cac4bc3e529511d3771de365df5217f8，60成员/55PNG/0PDF；全部成员字节/manifest/55PNG解析及秘密缺席独立核0d609dbbdba653c01247669706866b8b2235b17cc481d7e343136a0537f334ab。原图/日志/原文件/provider不上传Public，包只PNG+5派生文档。
+- 末owned run20261025T000521Z-bb3b2337d358于2026-10-25T00:07:21UTC正常child0/signull/group stopped，无active/其他目标连接；所有本人browser正常close。scope09:42:38UTC不是在线保证；正常复开核真实目标/权限/owned/固定候选/fresh准入/有效scope，不改旧期/STOP/复制会话。127仅本机，不冒用户接手窗口。
+- WebKit两次minimal404/初始化等待非零、同URL正常HTTP200/记录文件存在之首因UNKNOWN保留；正常同候选owned重启后同原厂入口恢复并完成实测，未改driver/context/prefs/automation/安全/认证/入口，原厂warning保持。旧WebKit locator zoom错clip经独立亲看拒绝，正确2张viewport重叠覆盖214/214字符后通过，旧图排除PASS不反签；原scroll helper/比较/静态/普通命令错误均保留。Firefox中文tofu、历史Native139 UNKNOWN/真实OS IME/屏幕阅读器/Safari/iOS/设备/用户亲手限制保持。
+- P2交付后停止。#37保持OPEN/#36保持CLOSED，最终仅新增一份P2结果，不改旧回执/评论，不发Issue中间审查，不启Projects硬门槛。P3—P6、完整S13/负载/备份恢复/实机/正式政策/S11组合扫码/真实患者资金外部通道/生产未启，不合产品main、不部署。
 
 ---
 
-以下为P1已结束交付及用户回传复核历史；历史P2未授权已被上述本轮明确启用替代，其余范围和保护事实保持。
+以下保留P1已结束交付和原用户GPT限定复核补记；历史“P2未授权”仅被本轮明确P2启用替代，其余事实/保全保持。
 
 # DL-P1当前状态｜YD-S13-DL-P1 / 1.0
 
