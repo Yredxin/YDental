@@ -1,14 +1,19 @@
-# DL-P5定向续办｜2026-10-25
+# DL-P5定向续办当前状态｜2026-10-25
 
-## IN_PROGRESS / 本次续办SYNC_PENDING（原PARTIAL交付SYNCED保持）
+## TECHNICALLY_COMPLETE（限定P5软件）/ 本轮SYNC_PENDING
 
-- 用户本轮只续原P5的A第二引擎与两种放大、B三段非空/长值浏览器夹具、C全阶段最终独立保护、D新包与独立技术总验收。原完整计划/边界有效，P1—P4不重开，P6未启用。
-- 实际HEAD13bdf549dcb43cfe4d8b44b72de6eba55115cd31，开工工作树clean，原产品beea6d3未变；不另建业务分支、不重放旧全链或重复settlement-u。
-- 原PARTIAL末态snapshot SHA134612cb6e0d1ccba91f3381ef92eac3d861efdd955359e75b1d82b8b07a3d07和旧包SHA421fd23fe5b0878fffd665596722a95be099674a6625db584f752e9409f38c83已重读核同；保留原字节，不倒签旧时点独立结论。
-- 2026-10-25用户已提供当前CLI实际额度证据：`Weekly limit: 99% left (resets 7:45 AM on 1 Nov)`。来源用户，周剩余99%；重置原样“7:45 AM on 1 Nov”，时区未注明不推测，不作为阻断。此前主控读取UNKNOWN仅历史，不否定本用户证据；Context window18%是会话上下文，非额度。停止调查接口/重复询问，未更改账户/模型或平台配置。
-- 正常资源下已启动`p5_resume_tester`和未实现者`p5_resume_acceptance`，两线程均已实际响应。root统一运行；测试者只补私有浏览器工具/执行，验收者不实现产品/测试工具。任务完成与否按实际结果，新限额若实际返回则停止受影响动作。当前工具和验收离线准备中，尚未启动owned服务；新准入须真实独立核，不伪改旧时间。
-- 本轮主控fresh只读probe188805/RO-RR/五高权false；完整续办前态SHA b9526abeb1c4d0861f26d268872443f2e8a27603bd187311bfe2bd798837c913，145业务/13技术/现场83文件及九区段与原PARTIAL末态逐值完全同，原949新增审计未删除/清零；这不是新的独立保护或准入。WebKit Node/Python客户端静态语法检查通过，五源hash与11类复用依据已私有固定；A/B真实补验未执行。
-- 现有独立SOURCE/字段/Chrome/HTTP/contrast/Chrome放大与无JS/QWeb/唯一加载保护按未变候选复用；末态独立保护/包/总签仍待实际完成，不由root换角色自签。最终只追加既有P5评论6395137158，#37 OPEN/#36 CLOSED，用户亲手效果待确认。
+- 原P5范围A—D缺口已实际补齐，未实现者本地技术总签SHA c747a2c29c3af0dce09166e298401e4234cbfd17df3c1388476eb5b6c2314f3d，LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING；14项适用软件/全阶段保护/新包/正常收尾PASS，无剩余软件缺口。同步尚待本轮实际push/ref/全文/同评论读回；原13bdf549 PARTIAL交付的SYNCED历史保持，用户亲手效果仍待确认。
+- [原P5完整计划](docs/execution/S13_DL_P5_IMPLEMENTATION_PLAN.md) · [续办结果/7步复现](docs/reports/s13-dl-p5/summary.md) · [原14项更新矩阵](docs/reports/s13-dl-p5/acceptance-matrix.md) · [脱敏证据索引](docs/reports/s13-dl-p5/evidence-index.md)。只P5，不重开P1—P4、不启P6。
+- 产品beea6d3dc9223fa06d298984b80cb463f2fcafea原四文件SHA完全不变，tracked运行适配工具9f4cfa46be547ce014436fa064ef9f789aa2ed35部分无变；续办真实运行绑定bad6f7f071daac997a2af53f7958fcc7429a18d6仅CURRENT，私有新测试工具逐次实际source/exit归档。core f0c5a9b、同一合成目标/OID2171423/cluster7694897083368259627及filestore保持，无产品修复/重复-u/新库/合并部署。
+- 用户当前CLI证据原样：Weekly limit: 99% left (resets 7:45 AM on 1 Nov)，来源用户，不冒API独立取得，时区未注明不推测；context18%是会话上下文非账户额度。正常新p5_resume_tester及未实现者p5_resume_acceptance均实际执行，无新额度错误；旧用量及主控接口UNKNOWN仅历史，不再调查/索要相同信息。
+- root统一调度；tester只私有补验工具/实际浏览器与包；acceptance未实现产品或相应工具，独立新physicalRO/原图/请求/退出/包/报告总签。共享OS不冒隔离。11类旧证据独立逐件SHA及未变代码核后复用，不重跑旧全链。
+- 新准入实际review4d6c676c.../physical212237/RO-RR完整145/13/83，九段同续办pre及原PARTIAL末态，原949audit不清零。原binder精确绑定当前HEAD/probe/runtime/checkpoint；旧admission原字节归档，旧时间/STOP/guard不改，原scope16:30:53UTC到期未延长。工具READY后才启动窗口。
+- A WebKit27.2 v3 actual child0/native4091782 0/signull，18checks/五视口/姓名及号/655与编号范围/back/trace/键盘两横端/native200 root16/DPR2及独立root32/DPR1；独立SHA e144505a...。B Chrome真实三段非空长值组件176checks/7条件/210首末Range端点/42横端/trace/全部值；child0/driver0/profile清，独立SHA03010722...。明确COMPONENT/BROWSER_FIXTURE，无修饰CSS/ORM创建/隐藏参数变更，不冒真实today/pending非空或多页/真实币种格式。
+- C最终独立newphysical215272 RO-RR/rollback/closed，完整145业务/13技术/现场83文件bytes-size-SHA，9段exact rootfinal a19f22c007687de5a3ec932e75adda5dec592170bd2489fca3c3d6bde1df52f1；独立snapshot067ef204c338731503971f9cd0e1c036a4f755bc4b44e310d0d35b7465d11162，独立保护SHA3cf43ee11b48457800cab9a7b2a7ac01521839f6babc8d1dfe8f24c247ebe9f6。原开工/loadpost/PARTIAL/pre/final全分类核；原949audit保持，续办仅320accepted读审计，全P5共1269，除原load日期/7技术类外业务/文件/schema/config不变。原件/金额库存/身份作者价源/责任保持；原件/PDF/打印/签署/发布/经济库存新增0。不补造旧时点独立连接。
+- D新0400包S13-DL-P5-view-only-20261025-continuation-r1.zip：2263458B/SHA01eb5b6fceb68a259b04b54f32c5105f64618a5ac8e23e17d880974921fe569d，35members/30PNG（13旧必要图＋17新）/0PDF；全manifest34/sourcebytes/SHA/decode/privacy独立核SHA97c08a78dc27b7835bcc8bf0ce05b8567fe4b1bb28d0d82d59e5715bd6531cea。旧421fd...包原字节保持，不上传Public，无秘密/profile/配置/raw请求/程序字体/完整DB。
+- 原WebKit-v1 preauth404保持UNKNOWN；续办v2认证成功后Node函数未调用TypeError/client2/native0保留，最小IIFE工具修后v3通过不倒签旧失败。全部12client=9×0/1×1/2×2，旧Native139/Firefox/其他UNKNOWN不追溯诊断。真实OS IME/屏读/Safari/iOS/实机/正式政策未验。
+- owned续办run20261025T095230Z-5d77f24f9b3a于09:58:48.758607UTC正常stop_requested/child4090021 exit0/signull/groupstopped；browser/profile/active/18411与12/其他目标连接空，无临时grant，未动共享服务；独立已核真实收尾。不为写报告复开服务。
+- 末收口仅正常commit/push、main必要两路由、同一P5评论6395137158追加带实际时间/锚点续办结果并读回，原PARTIAL正文/旧P1—P4评论保留，#37 OPEN/#36 CLOSED。完整S13未完成，用户亲手效果待确认；P6/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/合并部署生产未启，P5交付后停止。
 
 ---
 

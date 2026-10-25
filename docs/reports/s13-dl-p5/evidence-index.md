@@ -1,3 +1,44 @@
+# DL-P5脱敏证据索引（定向续办）
+
+当前限定P5软件本地独立总签已实际完成，本轮同步SYNC_PENDING；原13bdf549的PARTIAL/SYNCED历史保持。产品beea6d3不变，续办运行bad6f7f（仅CURRENT），tracked适配工具9f4保留；私有A/B实际源按每次执行归档，不混同不同版本。Public不上传原图/原请求/程序/配置/DB/保护原件或任何凭据。
+
+## 续办实际材料
+
+|层级|私有相对路径（.local/dl-p5下）|实际SHA256|范围及限制|
+|---|---|---|---|
+|当前用户额度证据|`continuation/user-current-cli-quota-confirmed.json`|`798fa9cf993e9e4c6aebde35e61153e0b048d6c13e0e954dc3e8675cf75097f6`|来源用户CLI；不冒主控API独立读取，时区不推测|
+|真实续办前态|`verification/upgrade-continuation-pre-baseline.json`|`b9526abeb1c4d0861f26d268872443f2e8a27603bd187311bfe2bd798837c913`|原134612末态九段同；根ROOT pre不冒独立|
+|11类复用独立|`acceptance/continuation/evidence-reuse-independent.json`|`e7d40d13738ac929a47b0224eafc6effcb79baf74ac0de7f09472d0c91178c1b`|原candidate/assertion/当前无产品影响/复用边界|
+|新真实独立准入|`acceptance/continuation/runtime-review.json`|`4d6c676c57faaa6b155219f3792716ff7dd150e2a3ea4623e639dc3bc9e1471a`|newphysical212237/五时点分类/bad6+probe+runtime精确绑定|
+|新独立pre snapshot|`acceptance/continuation/pre-physical-snapshot.json`|`72819f81ebd204db0afa316eb58a1d06558f97fde4fe4103033e2be819159c5c`|145/13/现场83 bytes/size/SHA|
+|旧准入归档/新绑定|`continuation/admission-archive-binding.json`|`21a8f21bcecb446268c37f59788c22e1f9abaab3cfb34f1abfa29869d48bfd2a`|旧字节与旧时间不改，scope不延期|
+|工具独立离线审|`acceptance/continuation/test-tool-offline-independent.json`|`2769060545eed2ea86ee2f125400fc7b27d3eb15520020eb25ad30140ea7e625`|原始READY_NOT_TEST_PASS，后真实A/B另验|
+|A续办原失败|`evidence/webkit-resume-v2/result.json`|`4ee5cf39c88faa88e4945e41478b8e48aa98e1571378e7377c0de16d3d350ef7`|auth成功后Node提取未调用TypeError，child2/native0，不倒签|
+|A新真实WebKit|`evidence/webkit-resume-v3/result.json`|`f321ec55e13e4b6583d234d49e2e7feb775b02a56e8d7fe140a112c16cce2abe`|27.2/18check/5views/姓名号/back/native2及root32/child0-native0|
+|A实际进程退出|`evidence/process-webkit-resume-v3/result.json`|`63e601b129129a7da2961fe345e980db3f57807a300385910894ad325abd857e`|真实执行源/命令/native log/退出|
+|A独立|`acceptance/continuation/webkit-independent.json`|`e144505a0684724544cdd64f10b1fba58e31cb490d0520123a5cb52e5475be60`|31PNG全decode/hash、代表原图/完整原投影/请求/退出|
+|B新真实长值|`evidence/fixture-resume-v1/result.json`|`0e59816f7f49325471da9ad33842d40d7885fd1cc026bbbb84f41987e254fa56`|176check/7条件/首末字符正尺寸/横端/三段COMPONENT|
+|B实际进程退出|`evidence/process-fixture-resume-v1/result.json`|`e4e1977d77550c8ed9ac177e7d8123090d6dab17ca4b2384a8246725b606db4f`|真实主/依赖源/命令/退出0，profile移除|
+|B独立|`acceptance/continuation/browser-fixture-independent.json`|`0301072203d930e49a3291946786d11b35e85fa30ccdef3aedf5c9474ba4a58f`|210Range端点/42横端及24PNG实际核，不冒真实业务样本|
+|主控完整续办末态|`verification/upgrade-continuation-final-baseline.json`|`a19f22c007687de5a3ec932e75adda5dec592170bd2489fca3c3d6bde1df52f1`|a19f22...完整145/13/83，无重复-u|
+|主控全阶段分类|`continuation/final-protection-root-classification.json`|`a47bdf1c0a12e88adf5e442758ec003f148a29f03b685c5a8830ba693f6f1926`|原949保留＋续办320；全1269正常accepted读取审计|
+|C新物理final snapshot|`acceptance/continuation/final-physical-snapshot.json`|`067ef204c338731503971f9cd0e1c036a4f755bc4b44e310d0d35b7465d11162`|newphysical215272 RO/RR，九段exact rootfinal|
+|C全阶段独立|`acceptance/continuation/final-protection-independent.json`|`3cf43ee11b48457800cab9a7b2a7ac01521839f6babc8d1dfe8f24c247ebe9f6`|原开工/loadpost/PARTIAL/pre/final全分类/原件bytes，不补造旧时点|
+|实际正常停机|`runs/20261025T095230Z-5d77f24f9b3a/exit.json`|`9d680497eda004e7b87e3045e40932f4ec21d7c4913b56d77e46f42cd2a59bd0`|09:58:48.758607UTC/stop_requested/child0/signull/groupstopped|
+|最终静止实核|`continuation/final-quiescence.json`|`c84ec32f9dbc8be1036a97414dc7f1ef61f141408909ca4e8512b21cf903924b`|ports/profile/active/其他目标连接空/无临时grant|
+|新包来源索引|`evidence/fixture-resume-v1-package-screenshot-index.json`|`d8f8bfd41886160442f201ef33d2c732e18d9135f6b89c5d2a8d48fdd89fe33f`|13旧必要原图＋17新/7条件/候选视口scrollY与fixture|
+|新包构造者核|`viewing/S13-DL-P5-view-only-20261025-continuation-r1-constructor-result.json`|`12e616cb0492f09b1ac2478c387fc2ba4e4987fb84b39c54c5a6d062f9b082ca`|01eb5/2263458B/35members/30PNG，原421fd包不覆盖|
+|D新包独立|`acceptance/continuation/package-independent.json`|`97c08a78dc27b7835bcc8bf0ce05b8567fe4b1bb28d0d82d59e5715bd6531cea`|全部manifest34/bytes/sourceSHA/decode/privacy独立核|
+|全部实际client归档索引|`continuation/all-p5-client-execution-index.json`|`0b9e96c4dcef7459e3f2a0b423948398b115e7ecfeb47e2d570009a1171ac8af`|12client：9×0/1×1/2×2；不冒全部尝试通过|
+
+新包01eb5b6fceb68a259b04b54f32c5105f64618a5ac8e23e17d880974921fe569d，2263458B/0400，35members/30PNG。旧包421fd23fe5b0878fffd665596722a95be099674a6625db584f752e9409f38c83原字节保持，未重采全部旧图。A/B分项/C/新包已分别独立实际核，技术总签实际回执见下，远端同步仍另在发生后记录，不预签。
+
+## 原13bdf549 PARTIAL索引历史
+
+以下为此前已同步PARTIAL索引原文，仅用于证据承接。其中当时的“尚缺”由上方新证据关闭；旧失败、当时未运行事实和UNKNOWN保持，不改写旧时点。
+
+---
+
 # DL-P5脱敏证据索引（PARTIAL）
 
 产品/运行beea6d3dc9223fa06d298984b80cb463f2fcafea；运行适配工具/before9f4cfa46be547ce014436fa064ef9f789aa2ed35。所有原始材料在本机忽略的`.local/dl-p5/`，Public只代码/原文计划/脱敏报告，不上传截图、凭据、profile、连接配置、原请求、完整DB投影或原文件字节。
@@ -52,3 +93,10 @@ GitHub只在本PARTIAL最终交付同步；#37仅一份P5结果保持OPEN，旧P
 |首唯一P5最终记录/状态|`verification/first-final-sync-readback.json`|`b6721033d223acb8c9b86e4d7649c8b364739fc9a3a0456b7d9a5004e6d949ca`|6395137158全文/原六评论/两Issue正文状态实读，#37 OPEN7/#36 CLOSED|
 
 本次只4文档同步元事实，最终HEAD/ref/同评论随后实际读回并另存私有记录；不预签未来，不称独立远端验收已补齐。原技术PARTIAL、剩余动态及独立保护/包/总签缺口保持。
+
+
+## 续办本地技术总签（实际已发生）
+
+|层级|私有相对路径|实际SHA256|范围及边界|
+|---|---|---|---|
+|未实现者本地技术总签|`acceptance/continuation/technical-total-local.json`|`c747a2c29c3af0dce09166e298401e4234cbfd17df3c1388476eb5b6c2314f3d`|14项本地软件/保护/包/收尾全PASS；SYNC_PENDING，不预签远端或用户效果|
