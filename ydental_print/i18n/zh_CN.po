@@ -2515,7 +2515,7 @@ msgstr "PDF文件校验值（SHA256）"
 
 #. module: ydental_print
 #: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
-msgid "Saved original ID"
+msgid "Original internal number"
 msgstr "原件内部编号"
 
 #. module: ydental_print
@@ -2580,7 +2580,7 @@ msgstr "版本摘要"
 
 #. module: ydental_print
 #: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
-msgid "Saved originals pages"
+msgid "Pagination for authorized originals"
 msgstr "已保存原件分页"
 
 #. module: ydental_print
