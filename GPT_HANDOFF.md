@@ -1,17 +1,19 @@
-# YDental / odoo-sd｜当前DL-P2交接
+# YDental / odoo-sd｜当前DL-P3交接
 
-YD-COLLAB-V2.0 / WORKFLOW-V3。当前交付 **YD-S13-DL-P2 / 1.0限定软件技术完成**：仅文书页标题/用途、既有页内导航和指定静态范围说明。P2交付后停止，P3—P6 NOT_AUTHORIZED；用户亲手效果仍待确认，P1没有因此获亲手验收。完整S13未完成，#37 OPEN/#36 CLOSED，不合产品main、不部署。
+YD-COLLAB-V2.0 / WORKFLOW-V3。当前交付 **YD-S13-DL-P3 / 1.0限定软件技术完成**：仅文书页已保存原件列表、状态、原生只读追溯、查看/下载呈现与原有分页/空态。用户已在2026-10-25完整计划明确启用P3；P4—P6仍NOT_AUTHORIZED。P1/P2保持原技术完成/交付同步，不重开，不因此冒用户亲手效果。完整S13未完成，#37 OPEN/#36 CLOSED，不合产品main、不部署；交付后停止。
 
-先读main AGENTS/CURRENT路由，再读`codex/s13-dl-p2-documents-header-r1`同一CURRENT、`docs/execution/S13_DL_P2_IMPLEMENTATION_PLAN.md`、沿用设计规范和`docs/reports/s13-dl-p2/{summary,acceptance-matrix,evidence-index}.md`、#23/#37现行正文/有效增量及唯一P2最终评论。最终同步状态/报告HEAD以实际ref/正文/回执读回为准，main仅文档，不从main重建产品。
+先读main AGENTS/CURRENT路由，再读`codex/s13-dl-p3-documents-originals-r1`同一CURRENT、`docs/execution/S13_DL_P3_IMPLEMENTATION_PLAN.md`、设计语言和`docs/reports/s13-dl-p3/{summary,acceptance-matrix,evidence-index}.md`、#23/#37当前正文/有效增量及唯一P3最终评论。实际同步状态/报告HEAD以活动状态和最终ref/正文/回执读回为准，不以main当产品基线。
 
-合法P1报告起点d421842c9b26de9988be3f7e4c46cd5626cb67ca，准备工具9b5325fe0c23bac9af96d6496cb23a8ca17f57d8，最终产品/执行a0b33c14c121f2a489fdcf7abc529999fd15c1dd；core f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb未改。原CURRENT未提交GPT复核补记已保留随本阶段交付，不混同P1原交付SYNCED。P1产品8dea264/报告d421842与旧6384111913保持，不重开、不重做，不改旧失败/限制。
+开工实际P2报告1d3fe088c029e0d9562325b2895a64ac31945b71，工作树clean，旧P1复核补记已随P2同步；准备工具2cfd141/3a30457，before执行d4a94d0的addon仍P2。首产品2873a3b；最终产品/执行 **b72bcd6d125aad45bf8e62fb7596d5bb5725ac13**，末次仅2局部英文源/新PO键改正旧译文复用。随后只CURRENT与3报告，不当新产品。core f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb未改。
 
-P2仅4 addon产品文件：XML、新header SCSS、manifest资产、7新PO项。三条关键说明原文逐字迁至默认可见分组；原5导航href/语义保持。P1 JS/SCSS/表单/帮助/ARIA、preview以下完整XML及backend/ACL/PDF/其他岗位/共用网站页头品牌冻结。真实Chrome156.0.8078.4+WebKit27.2、5视口、原生zoom2与独立rootfont32、JSoff/none、实际颜色和对比度分层；11对字段/内部样式同，3旁路PNG同SHA。用户亲手/实机/屏幕阅读器/真实OS IME/Safari未验。
+P3全阶段仅4addon产品文件：列表XML、新originals SCSS、manifest资产、25PO。原行/授权/ID降序/30每页/q-page/14trace原序值/POST submitter保持；190B打印子树、P1/P2、preview/生成/管理/导出/后端/PDF/其他岗位/共用网站品牌冻结。患者标签是当前主档，状态/版本/UTC是原件历史；不把95草稿/96摘录/99完整或93draft与当前214sent混写。局部横读不冒整页迁移。
 
-独立新物理RO145业务/13技术/83文件与root逐值同，65内部+2外部原件、资金库存/作者价源/责任及配置schema保持；本P2新原件/PDF/打印/经济库存业务0。64正常访问审计、25access/group69日期及8技术表日期/本页arch分类，不伪称全库物理零diff。固定旧来源1073+前批230=1303、本阶段贡献0，lot25310/2/8、原历史draft/current sent与全部未完责任不重演不假完成。
+真实Chrome156.0.8078.4/WebKit27.2、五视口、原生zoom2/独立root32、JSoff、真实旧文件与定向权限分层，独立SOURCE/实际图/原字节/nativeAX/新physical RO。47行真实2页、14值和未改区严格对照；本次完整preview已保存并证明唯一渲染时间差，不回签P2。原before取证/Chrome body601B shell/Observer误分、JSoff rAF受控中断和Tab只中心可见、WebKit首hang/nativeUNKNOWN及后metadata/身份探测失败保留；普通私有appsink补件不改原引擎/认证/安全，最终真实主进程0，不倒签旧根因。
 
-原紫色已局部修复，原320滚动helper非零及WebKit locator错clip不反签；正确两张真实原生zoom viewport覆盖214/214字符。旧WebKit初始化minimal404首因UNKNOWN，同候选正常owned重启后同入口恢复并完成真实流程，未改任何driver/context/prefs/automation/安全/认证/入口，原厂warning保留。预览全文不同且含原生动态提取时间，但before未存全文，不证明仅时间差、不称归一化全文同。Firefox中文tofu、历史Native139 UNKNOWN和原失败继续保留，不派发历史根因排障作为后续前置。
+同一目标ydental_s11_synth_20261023_01/OID2171423/cluster7694897083368259627和原filestore；最终独立新physical RO145业务/13技术/83文件与root9区段同，65内部+2外部原件/身份作者价源/金额库存/旧审计/未完责任保护。P3新原件/PDF/打印/签署/模板发布/经济库存0；108正常审计/必要元数据日期/2授权恢复fence另分类，不称全库物理零diff。固定旧来源1073+前批230=1303/P3贡献0、lot253仍10/2/8，不重放旧业务。
 
-只读包9156502bytes/0400/SHA a2aeab3c365d1ba60f92157587371d05cac4bc3e529511d3771de365df5217f8，60成员/55PNG/0PDF，全部成员/manifest/原图匹配，未上传Public；原图/日志/原文件/provider只在本机。末owned服务2026-10-25T00:07:21UTC正常停止，无active/其他目标连接。复开核真实目标/filestore/权限/owned/候选/fresh准入/有效scope，不复制会话或改旧期/STOP；127只本机，不承诺在线或可见窗口接手。
+末owned服务2026-10-25T01:54:50.645926UTC正常child0/signull/group stopped、全browser关闭、active无/端口离线/目标其他连接空；未动共享主服务。复开核真实目标/权限/候选/所有权/fresh准入和有效scope，不改旧scope/STOP、不复制会话，不承诺永久在线或可接手窗口。
 
-本阶段仅一份P2最终记录，#37 OPEN/#36 CLOSED，旧回执/评论不改，无Issue中间审查，无Projects硬依赖。P3—P6、完整S13、负载、恢复、实机、正式政策、组合扫码、真实患者资金/外部通道及生产仍未启。由用户带最终结果回GPT复核并决定下一明确范围，不自动继续。
+私有0400查看包3330880B/SHA885317dfb014a5542eecbdb5aed0d2226694fdcb567b622e41701a2d36934c60，36成员/31原PNG/0PDF，manifest35全bytes/hash/源图/解析及独立包核通过；包不是完整数据库/83原文件字节证据，不上传Public。具体7步角色复现见报告。
+
+用户亲手效果/实机/Safari/屏读/正式政策仍未验，Firefox字体/Native139/历史WebKit404 UNKNOWN保持。P4—P6、完整S13、50人/备份恢复/实机/正式政策/S11组合扫码/真实患者资金外部通道/生产仍未启用，不自动接续。
