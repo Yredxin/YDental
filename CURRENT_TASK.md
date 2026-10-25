@@ -1,16 +1,19 @@
 # DL-P3当前状态｜YD-S13-DL-P3 / 1.0
 
-## IN_PROGRESS / NOT_YET_SYNCED
+## TECHNICALLY_COMPLETE（限定P3软件）/ SYNC_PENDING
 
-用户2026-10-25明确启用[完整P3计划](docs/execution/S13_DL_P3_IMPLEMENTATION_PLAN.md)，连续W0—W4；仅已保存原件列表、状态、只读追溯、查看/下载呈现、现有分页/空态。P1/P2原交付TECHNICALLY_COMPLETE/SYNCED保留，用户亲手效果仍待确认；P4—P6未启用，不合产品main、不部署。
-
-- 正常从实际合法P2报告HEAD `1d3fe088c029e0d9562325b2895a64ac31945b71`承接分支`codex/s13-dl-p3-documents-originals-r1`；开工工作树干净，incoming diff已私有保存；P2已同步旧GPT补记，未误称其仍未提交。远端main仅文档af0541bc，无未知新增量。
-- /root唯一主控：环境/运行/集成/报告；documents唯一4产品文件写者；tester私有工具/浏览器；acceptance未实现者独立验收。同OS共享，不冒隔离。实现写入等待前态采完。
-- 同一既有目标/filestore；运行前完整现态保护及fresh准入待核，83为承接数量而非硬编码结论。旧原件/金额/库存/审计/责任保护，不生成、不打印、不做经济库存动作。
-- W0：完整计划已保存；准备工具2cfd141与路径guard前向修复3a30457，仅文档/阶段适配，addon仍P2。7项PURE通过；当前完整RO145业务表/13技术表/83文件与P2最终9区段同，独立准入进行中。新P3自有scope至2026-10-25T12:51:43UTC，不代表服务在线。
-- W0前态已完成：独立backend77211全9区段同；正常owned run20261025T005530Z-2978a1ab6c4f已采真实47原件/2页(30+17)、5视口/trace/单页/特殊字符空态/完整preview文本/3旁路，正常stop与supervisor退出0。before首table选择器错误保留，工具定向补采成功；旧False追溯dd缺失抽取问题单列纠正，未改数据。
-- W1/W2已实现并交回写权：恰XML/manifest/新增originals SCSS/25新PO项；SOURCE/PURE原生XML翻译/PO/libsass/QWeb False与完整hash转义通过。P1/P2及preview/生成/管理导出前后字节、打印details字节保持；此非动态或独立通过。
-- W3首产品/执行固定`2873a3b6d9ac77b7d55fb0da6311c65534df8a11`；原生SOURCE及未实现者独立核通过。已唯一限定print-u：即时完整pre→实际exit0/ERROR0/noNative→完整post，独立新物理backend80347与root九区段同，145/13/83；仅原生日期和本页1618arch变化。首同条件after已完成：47行/14trace/10页未改区同，3旁路PNG同SHA，完整preview唯一渲染时间差已实际全文核。root10项真实单份HTTP及原95bytes/头SHA/保护同，none17临时exportwrite验证拒绝后新RO恢复原授权。独立发现2actual译文复用，正局部修复；Chrome首inline body断言未存原body首因UNKNOWN，已过片段保留、缺字节/zoom待定向补。run20261025T010707Z-d65d69666669所有browser正常关，root已正常stop/supervisor0。下一动作：2词局部修复/必要加载后补两引擎及缺口，不重跑已过无关整链；完整保护/独立验收/包/同步后停止。before原47行raw trace已与后取只读14源事实逐字核一致，10空前版错误单列纠正派生、原result不改；不重跑P1/P2历史全套。#37保持OPEN/#36 CLOSED，过程不发布Issue。
+- 用户2026-10-25明确启用[完整P3计划](docs/execution/S13_DL_P3_IMPLEMENTATION_PLAN.md)，W0—W4限定软件验证、未实现者分项/完整保护/私有包均已完成；未实现者本地技术总签已实际完成SHA188c0db20a8a9e8cb70933f391f916e7282f615fa34cd4aece9a82e374a94dfc；真实GitHub收口待执行，不预签未来同步。[结果](docs/reports/s13-dl-p3/summary.md) · [14项矩阵](docs/reports/s13-dl-p3/acceptance-matrix.md) · [证据索引](docs/reports/s13-dl-p3/evidence-index.md)。
+- 分支`codex/s13-dl-p3-documents-originals-r1`从现场合法P2报告1d3fe088c029e0d9562325b2895a64ac31945b71正常承接，开工工作树clean/incoming diff0；P2已同步当时P1复核补记。P1/P2原交付TECHNICALLY_COMPLETE/SYNCED，不重开、不重跑历史全套；三阶段用户亲手效果均待确认。
+- 准备2cfd141/guard前向修复3a30457、before执行d4a94d0（addon仍P2）、首产品2873a3b；最终产品/执行 **b72bcd6d125aad45bf8e62fb7596d5bb5725ac13**，core f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb未改。报告提交不当新产品。原P2 a0b33c14及6391318665/P1 8dea264及6384111913保持。
+- 恰4addon文件：列表XML、新documents-originals SCSS、manifest一资产、25新PO。单份语义表格/原排序授权数据/分页q与page/14追溯原序值/原POST submitter契约保持；打印190B子树、P1P2/preview/生成/管理导出及后台/PDF/其他页/全局品牌冻结。
+- root统一环境/运行/集成/报告，documents唯一产品实现，tester真实浏览器/工具，acceptance未实现者独立源码/原图/原文件/新物理RO/包；同OS不冒隔离。Chrome156.0.8078.4、真WebKit27.2、五视口、原生zoom2/独立root32、JSoff/键盘横读/旧95真bytes与权限分层已齐。严格47行×14值/10未改区/3旁路/完整preview仅一次渲染时间差；b72两静态词增量复用项明确。
+- 唯一目标ydental_s11_synth_20261023_01/OID2171423/cluster7694897083368259627及原filestore。两次必要print加载均即时全pre/post/exit0/ERROR0/noNative；最终新物理独立backend93247核145业务/13技术/83实际文件九区段与root同，独立保护SHAaab6206b9c349a6221c1c278ede07bc7181b67135062b231cf57a54ecaa6ad77。65内部+2外部原件、身份/作者价源/金额库存/责任/原审计保护；新原件/PDF/打印/签署/发布/经济库存0。
+- 正常108访问/拒绝/授权审计及元数据另分类，旧审计无改删；none17仅本店临时exportwrite测试后已RO恢复，2授权审计/4native mutex各+2是技术fence，ACL/group/grant日期及本页arch另列，不称物理零diff。固定旧来源1073+前批230=1303，P3贡献0；lot253仍10/2/8，不重放旧业务或假结责任。
+- 末owned服务20261025T011527Z-3f1616e009ac于2026-10-25T01:54:50.645926UTC正常child0/signull/group stopped，全部browser contexts关闭、active无/18411与12无监听/目标其他连接空；未动共享主服务。P3新scope到12:51:43UTC，不承诺在线；复开核当前目标/权限/owned/fresh准入/有效scope，不改旧期/STOP或复制会话。
+- 原before selector/10空previous误采、旧2译文、Chrome首body未存及后601B内建shell/Observer误分本地资源、JSoff rAF受控SIGINT/额外Tab强假设、WebKit首controlled Node1/nativeUNKNOWN/后metadata和身份探测错误保留。仅普通P3私有appsink插件补件，经官方签名索引SHA与独立native工厂核，原引擎/driver/认证/安全不改，旧hang原因UNKNOWN。最终WebKit client/main0；不反签旧失败。
+- 320整页345/client320限制保持；Tab可聚焦下载但非自动全显，实际ArrowRight局部横读后完整可达/旧下载真bytes同。Firefox字体/历史Native139/WebKit404 UNKNOWN、实机/屏读/Safari及正式政策未验不冒PASS。
+- 私有0400效果包`.local/dl-p3/viewing/S13-DL-P3-view-only-20261025.zip`：3330880B/SHA885317dfb014a5542eecbdb5aed0d2226694fdcb567b622e41701a2d36934c60，36成员/31原PNG/0PDF，manifest35全部bytes/hash/源图核；独立包SHA d13ce496ccc5670fb3084ae9b40283fdc46ec95839587fc76deddde295a51db0。不含秘密/profile/raw请求/原DB或83文件bytes，不上传Public。
+- 下一动作：本地总签已完成→正常commit/push与真实ref/正文/#37唯一新P3评论/旧内容状态读回，main仅必要两路由文档；成功后更新SYNCED并交付停止。#37保持OPEN/#36保持CLOSED，不合产品main、不部署。P4—P6、完整S13、负载/备份恢复/实机/正式政策/组合扫码/真实患者资金外部通道及生产仍未启用。
 
 ---
 
