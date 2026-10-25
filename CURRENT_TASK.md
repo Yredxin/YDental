@@ -1,9 +1,9 @@
 # DL-P2当前状态｜YD-S13-DL-P2 / 1.0
 
-## TECHNICALLY_COMPLETE（限定P2软件）/ SYNC_PENDING
+## TECHNICALLY_COMPLETE（限定P2软件）/ SYNCED
 
-- 用户2026-10-24明确启用[完整P2计划](docs/execution/S13_DL_P2_IMPLEMENTATION_PLAN.md)，W0—W4本地适用软件已完成并获未实现者独立总签`4e4b6b2cdf70dccd35c3dd278920a69657902278052bf14926ee9bf2a6b0db9a`；包/正常服务收尾已核，远端同步尚待实做，不冒SYNCED。[结果](docs/reports/s13-dl-p2/summary.md)、[12项矩阵](docs/reports/s13-dl-p2/acceptance-matrix.md)、[证据索引](docs/reports/s13-dl-p2/evidence-index.md)。
-- 分支`codex/s13-dl-p2-documents-header-r1`从P1报告d421842c9b26de9988be3f7e4c46cd5626cb67ca正常承接；原CURRENT两条未提交GPT复核补记已原样保留并纳入本地准备文档，尚待本阶段同步。P1原交付TECHNICALLY_COMPLETE / SYNCED，不重开/重做，P1和P2用户亲手效果均待确认。P1产品8dea2647760f6d6738abfc9db132cfa9d7feaee3及6384111913旧回执保持。
+- 用户2026-10-24明确启用[完整P2计划](docs/execution/S13_DL_P2_IMPLEMENTATION_PLAN.md)，W0—W4本地适用软件已完成并获未实现者独立总签`4e4b6b2cdf70dccd35c3dd278920a69657902278052bf14926ee9bf2a6b0db9a`；包/正常服务收尾已核；首业务/main ref、11正文、唯一#37新P2评论及状态均已实际读回，首同步SHA64d20d0bad2e7160b330b132f6787917a27058c6cb2ae08419e633edf53ad7b6。本提交仅同步元事实，不重跑业务。[结果](docs/reports/s13-dl-p2/summary.md)、[12项矩阵](docs/reports/s13-dl-p2/acceptance-matrix.md)、[证据索引](docs/reports/s13-dl-p2/evidence-index.md)。
+- 分支`codex/s13-dl-p2-documents-header-r1`从P1报告d421842c9b26de9988be3f7e4c46cd5626cb67ca正常承接；原CURRENT两条未提交GPT复核补记已原样保留并随本阶段文档正常同步，开工时未同步与P1原交付SYNCED明确分开。P1原交付TECHNICALLY_COMPLETE / SYNCED，不重开/重做，P1和P2用户亲手效果均待确认。P1产品8dea2647760f6d6738abfc9db132cfa9d7feaee3及6384111913旧回执保持。
 - 准备/公共工具9b5325fe0c23bac9af96d6496cb23a8ca17f57d8，最终产品/执行`a0b33c14c121f2a489fdcf7abc529999fd15c1dd`，实际RO文档checkpoint5d3a25686472ef32239242bc19ff44b9bf1aa044；之后仅状态/报告。core f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb不改，无reset/clean/强推/从main重建。主控/root运行/集成/报告，documents唯一4产品写者，tester工具/浏览器，acceptance未实现产品/测试工具独立核；同OS不冒隔离。
 - 仅页头标题/用途、5原导航3+2分组及指定3条静态说明默认可见；三正文逐字保留，7新PO翻译。P1 JS/SCSS/表单/字段/帮助/ARIA、preview以下完整XML、backend/ACL/PDF/其他岗位/全局页头品牌冻结。首93ad旧紫已局部修，原失败不反签；不重复-u，首限定print-u实际0/ERROR0/noNative。
 - 最终真实Chromium156.0.8078.4和WebKit27.2/5视口/原生200%zoom及单独root32/选择取消确认/显式preview/JSoff/none按层级独立通过；14文字对比最低5.613、5焦点最低7.061。11对未改字段和内部样式同，3旁路PNG同SHA；320整页345限制保持。预览全文SHA不同且含原生动态时间，before未存全文，不能证明仅时间差/归一化全文同；源/模板摘要与实际可见正文独立核保持。
@@ -11,6 +11,7 @@
 - 私有0400包`.local/dl-p2/viewing/S13-DL-P2-view-only-20261025.zip`，9156502bytes/SHAa2aeab3c365d1ba60f92157587371d05cac4bc3e529511d3771de365df5217f8，60成员/55PNG/0PDF；全部成员字节/manifest/55PNG解析及秘密缺席独立核0d609dbbdba653c01247669706866b8b2235b17cc481d7e343136a0537f334ab。原图/日志/原文件/provider不上传Public，包只PNG+5派生文档。
 - 末owned run20261025T000521Z-bb3b2337d358于2026-10-25T00:07:21UTC正常child0/signull/group stopped，无active/其他目标连接；所有本人browser正常close。scope09:42:38UTC不是在线保证；正常复开核真实目标/权限/owned/固定候选/fresh准入/有效scope，不改旧期/STOP/复制会话。127仅本机，不冒用户接手窗口。
 - WebKit两次minimal404/初始化等待非零、同URL正常HTTP200/记录文件存在之首因UNKNOWN保留；正常同候选owned重启后同原厂入口恢复并完成实测，未改driver/context/prefs/automation/安全/认证/入口，原厂warning保持。旧WebKit locator zoom错clip经独立亲看拒绝，正确2张viewport重叠覆盖214/214字符后通过，旧图排除PASS不反签；原scroll helper/比较/静态/普通命令错误均保留。Firefox中文tofu、历史Native139 UNKNOWN/真实OS IME/屏幕阅读器/Safari/iOS/设备/用户亲手限制保持。
+- 正常首push业务ba794d4d0b4b296ebd38e992fced73ce2e912f30/main两文档af0541bc0be9771cf29ab711ad576072c9404d80，实际11正文bytes/Gitblob同；仅新增[#37 P2最终回执6391318665](https://github.com/Yredxin/YDental/issues/37#issuecomment-6391318665)并全文读回，旧3评论/两Issue正文不变，#37 OPEN/4comments、#36 CLOSED/2。之后仅同步元事实/同新评论最终HEAD，实际独立同步另存final-sync-independent，不新增评论。
 - P2交付后停止。#37保持OPEN/#36保持CLOSED，最终仅新增一份P2结果，不改旧回执/评论，不发Issue中间审查，不启Projects硬门槛。P3—P6、完整S13/负载/备份恢复/实机/正式政策/S11组合扫码/真实患者资金外部通道/生产未启，不合产品main、不部署。
 
 ---

@@ -36,6 +36,8 @@
 
 |独立本地技术总签|`acceptance/final-acceptance-independent.json`|`4e4b6b2cdf70dccd35c3dd278920a69657902278052bf14926ee9bf2a6b0db9a`|T01—11及T12本地部分，真实remote尚NOT_RUN|
 
+|首真实远端同步|`verification/first-final-sync-readback.json`|`64d20d0bad2e7160b330b132f6787917a27058c6cb2ae08419e633edf53ad7b6`|首业务/main ref+11正文实际字节/Gitblob+唯一新评论/旧内容/Issue状态核|
+
 旧after-v1/原比较FAIL、WebKit core-v1/GET诊断v1非零、93ad旧紫、旧zoom locator clip及工具修复原件均保留；最终不能反签旧失败。原WebKit 404与历史Native139/Firefox字体首因UNKNOWN保持。字段/源码、实际普通HTTP、自动化浏览器、组件/字号压力、原生AX、独立物理RO、用户亲手/实机各层级不互冒。
 
-本地独立技术总签与包已实际完成；远端同步实际receipt待执行后补入，不引用未来结果作PASS。
+本地独立技术总签与包已实际完成；首远端同步已实际完成并列出回执；之后仅报告元事实的最终ref和未实现者独立同步另存`acceptance/final-sync-independent.json`，最终SHA见同一#37 P2回执，不重执行业务。

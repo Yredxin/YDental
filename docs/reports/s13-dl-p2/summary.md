@@ -3,7 +3,7 @@
 `[CODEX-FINAL] YD-S13-DL-P2 / 1.0`
 
 - 技术：TECHNICALLY_COMPLETE（仅P2限定软件，已获未实现者本地技术总签）。
-- 同步：SYNC_PENDING；尚未将本P2最终结果发布至GitHub，不以本地报告代远端读回。
+- 同步：SYNCED；首完整业务报告/main两路由ref、11份实际正文及唯一新P2最终评论全文与状态已实际读回；本提交只补同步元事实。
 - 用户亲手效果：待确认；P2启用不等于P1已获用户亲手验收。
 - P1保持TECHNICALLY_COMPLETE，其原交付SYNCED，不重开；P2交付后停止，P3—P6 NOT_AUTHORIZED。完整S13未完成，#37保持OPEN、#36保持CLOSED，不合产品main、不部署。
 
@@ -78,7 +78,7 @@ addon产品恰4文件：文书页XML、新`documents_header.scss`、manifest的�
 
 私有0400包[下载](../../../.local/dl-p2/viewing/S13-DL-P2-view-only-20261025.zip)：9,156,502字节/SHA `a2aeab3c365d1ba60f92157587371d05cac4bc3e529511d3771de365df5217f8`，60成员=55真实PNG+README/copy-map/screenshots.csv/preservation/manifest，0PDF。全部成员原始字节重读，manifest不自引用；无凭据、Cookie/session/profile、连接配置、原始请求日志、备份、独立字体/程序或83原文件字节，未上传Public。图片数量不是完成门槛；旧93ad图标明已修，错clip图不作最终视觉。包内SHA证明材料一致，不单独证明业务正确。
 
-真实团队：/root主控/环境/集成/报告；/root/documents唯一4产品文件写者；/root/tester测试工具与浏览器；/root/acceptance未实现产品或测试工具，独立源码、实际图/色值、原始退出、新物理RO与最终包核验。同OS共享，不冒权限隔离或实现者自签。独立总签与同步另见索引；远端尚未发生的部分不预签。
+真实团队：/root主控/环境/集成/报告；/root/documents唯一4产品文件写者；/root/tester测试工具与浏览器；/root/acceptance未实现产品或测试工具，独立源码、实际图/色值、原始退出、新物理RO与最终包核验。同OS共享，不冒权限隔离或实现者自签。独立总签与同步另见索引；本地总签不替代后来实际远端读回。
 
 普通医生7步：
 
@@ -92,6 +92,6 @@ addon产品恰4文件：文书页XML、新`documents_header.scss`、manifest的�
 
 ## 同步与停止
 
-本地技术总签实际完成，SHA `4e4b6b2cdf70dccd35c3dd278920a69657902278052bf14926ee9bf2a6b0db9a`；独立包核验SHA `0d609dbbdba653c01247669706866b8b2235b17cc481d7e343136a0537f334ab`。技术总签不预签未来同步；接着正常push业务分支和必要main两文档路由，逐ref/正文/唯一P2最终评论读回。#37只新增本P2一份最终记录并保持OPEN；旧6384111913及全部旧评论不改，#36保持CLOSED。网络失败单列SYNC_PENDING；不因本地报告产生就冒同步成功。
+本地技术总签实际完成，SHA `4e4b6b2cdf70dccd35c3dd278920a69657902278052bf14926ee9bf2a6b0db9a`；独立包核验SHA `0d609dbbdba653c01247669706866b8b2235b17cc481d7e343136a0537f334ab`。技术总签原先不预签未来同步；现已正常push首完整报告HEAD `ba794d4d0b4b296ebd38e992fced73ce2e912f30`及main仅两文档 `af0541bc0be9771cf29ab711ad576072c9404d80`，11份实际正文逐bytes/Gitblob同。仅新增[#37 P2最终记录6391318665](https://github.com/Yredxin/YDental/issues/37#issuecomment-6391318665)，全文读回一致；#37 OPEN/4评论、#36 CLOSED/2评论，全部旧评论及两Issue正文同。首实际同步回执SHA `64d20d0bad2e7160b330b132f6787917a27058c6cb2ae08419e633edf53ad7b6`。此后只补同报告/CURRENT的同步元事实及同一新评论最终报告HEAD，不新增评论、不重复业务；最终ref与独立同步结果以该评论实际读回及私有final-sync-independent记录为准。#37只新增本P2一份最终记录并保持OPEN；旧6384111913及全部旧评论不改，#36保持CLOSED。网络失败单列SYNC_PENDING；不因本地报告产生就冒同步成功。
 
 P2交付后停止，不自动P3—P6。完整S13、负载、备份恢复、实机、正式政策、S11组合扫码、真实外部通道/患者资金及生产仍未启用，不合产品main、不部署。用户带最终结果回GPT审查。
