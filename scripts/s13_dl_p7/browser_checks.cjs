@@ -5,7 +5,7 @@ const crypto = require('node:crypto');
 const assert = require('node:assert/strict');
 const {execFileSync} = require('node:child_process');
 const root = process.cwd(), args = process.argv.slice(2);
-const arg = name => args[args.indexOf('--' + name) + 1];
+const arg = name => {const i=args.indexOf('--'+name);return i<0?undefined:args[i+1];};
 const label = arg('label'), run = arg('run-id'), engine = arg('engine');
 const stage = arg('stage'), mode = arg('mode'), nojs = mode === 'nojs';
 assert(/^[A-Za-z0-9_-]{1,60}$/.test(label));
@@ -86,6 +86,7 @@ function contrast(value, boundary=false, focus=false) {
         value.boundaryAgainstInside=ratio(value.border,value.background);
         // A filled primary is identified by its fill, secondary/disclosure by border.
         value.fillAgainstOutside=ratio(value.background,value.outside);
+        if(/_secondary|_disclosure/.test(value.class))assert(Math.min(value.boundaryAgainstInside,value.boundaryAgainstOutside)>=3,'Secondary/disclosure boundary on both actual backgrounds '+value.text);
         assert(Math.max(value.fillAgainstOutside,value.boundaryAgainstOutside)>=3,'Necessary control boundary '+value.text);
     }
     if(focus) {
@@ -120,7 +121,7 @@ function contrast(value, boundary=false, focus=false) {
             const login=await context.request.get(base+'/web/login?db=ydental_s11_synth_20261023_01');
             const csrf=await page.evaluate(html=>new DOMParser().parseFromString(html,'text/html').querySelector('form.oe_login_form [name=csrf_token]').value,await login.text());
             const response=await context.request.post(base+'/web/login',{form:{login:account.login,password:account.password,csrf_token:csrf,db:'ydental_s11_synth_20261023_01',redirect:'/ydental/access'},maxRedirects:0});
-            assert.equal(response.status(),303);
+            assert.equal(response.status(),303);logged=true;
             r.login={uid:account.id,layer:'NORMAL_CSRF_PASSWORD_HTTP_SAME_NOJS_CONTEXT',session_copied:false,login_UI_noJS:'EXISTING_LIMITATION'};
         } else {
             await page.goto(base+'/web/login?db=ydental_s11_synth_20261023_01',{waitUntil:'networkidle',timeout:40000});
@@ -128,10 +129,10 @@ function contrast(value, boundary=false, focus=false) {
             const form=page.locator('form.oe_login_form');
             await form.locator('[name=login]').fill(account.login);await form.locator('[name=password]').fill(account.password);
             const [,response]=await Promise.all([page.waitForNavigation({waitUntil:'domcontentloaded',timeout:40000}),page.waitForResponse(x=>new URL(x.url()).pathname==='/web/login'&&x.request().method()==='POST'),form.locator('button[type=submit]').click()]);
-            assert.equal(response.status(),303);
+            assert.equal(response.status(),303);logged=true;
             await page.locator('.o_web_client').waitFor({state:'visible',timeout:30000});
             await page.waitForFunction(()=>window.odoo?.isReady===true,undefined,{timeout:30000});
-            await page.waitForLoadState('networkidle',{timeout:40000});
+            // Backend messaging can keep network connections open after UI ready.
             r.login={uid:account.id,layer:'NORMAL_BROWSER_CSRF_PASSWORD_LOGIN',session_copied:false};
         }
         const identity=await context.request.post(base+'/web/session/get_session_info',{data:{jsonrpc:'2.0',method:'call',params:{},id:1}});
@@ -169,19 +170,28 @@ function contrast(value, boundary=false, focus=false) {
         assert.equal(gets(),start);assert.deepEqual((await page.evaluate(projection)).forms,baseline.forms);
         const query=page.locator(search+' button'), scan=page.locator('form[action="/ydental/inventory/scan"] button');
         const source=page.locator('article[data-event] a[href*="event_id="]').first();
-        const controls=[['query',query],['scan',scan],['source',source]];
+        const firstDetail=details.first();
+        if(await firstDetail.count()) {
+            await firstDetail.locator('summary').focus();
+            await firstDetail.locator('summary').press('Enter');
+        }
+        const controls=[['query',query],['scan',scan],['source',source],
+            ['page',page.locator('[data-dl-region="pagination"] a').first()],
+            ['summary',firstDetail.locator('summary')],
+            ['cancel',firstDetail.locator('a[href]').first()],
+            ['confirm',firstDetail.locator('button').first()]];
         const samplesOut=[];
         for(const [name,target] of controls) {
             if(!await target.count())continue;
-            await target.scrollIntoViewIfNeeded();await page.mouse.move(0,0);await target.evaluate(e=>e.blur());
+            await target.scrollIntoViewIfNeeded();await page.mouse.move(0,0);await target.evaluate(e=>e.blur());await page.waitForTimeout(180);
             const states={normal:await target.evaluate(computed)};
-            await target.hover();states.hover=await target.evaluate(computed);
-            const rect=await target.boundingBox();await page.mouse.move(rect.x+rect.width/2,rect.y+rect.height/2);await page.mouse.down();
+            await target.hover();await page.waitForTimeout(180);states.hover=await target.evaluate(computed);
+            const rect=await target.boundingBox();await page.mouse.move(rect.x+rect.width/2,rect.y+rect.height/2);await page.mouse.down();await page.waitForTimeout(180);
             states.active=await target.evaluate(computed);await page.mouse.move(0,0);await page.mouse.up();
-            await target.focus();await page.keyboard.press('Tab');await page.keyboard.press('Shift+Tab');
+            await target.focus();await page.keyboard.press('Tab');await page.keyboard.press('Shift+Tab');await page.waitForTimeout(180);
             states.focus=await target.evaluate(computed);
             if(stage==='after')for(const [state,value] of Object.entries(states)) {
-                contrast(value,name!=='source',state==='focus');
+                contrast(value,!['source','cancel'].includes(name),state==='focus');
                 for(const icon of value.svg) {
                     assert.equal(icon.ariaHidden,'true');assert.equal(icon.focusable,'false');assert.equal(icon.tabindex,null);
                     assert.equal(icon.viewBox,'0 0 24 24');assert.equal(icon.forbidden.length,0);assert.equal(icon.eventAttributes.length,0);
@@ -190,6 +200,10 @@ function contrast(value, boundary=false, focus=false) {
             }
             if(pictures)await shot(condition+'-'+name+'-focus');
             samplesOut.push({name,states});
+        }
+        if(await firstDetail.count()) {
+            await firstDetail.locator('summary').focus();
+            await firstDetail.locator('summary').press('Space');
         }
         const data={condition,visible_families:families.length,families,controls:samplesOut,
             viewport:await page.evaluate(()=>({innerWidth,innerHeight,dpr:devicePixelRatio,rootFont:getComputedStyle(document.documentElement).fontSize,rootScroll:document.documentElement.scrollWidth,rootClient:document.documentElement.clientWidth}))};
@@ -330,18 +344,18 @@ function contrast(value, boundary=false, focus=false) {
                     const holder=document.createElement(name==='disclosure'?'details':'div');holder.dataset.fixture=name;
                     holder.innerHTML=html;const target=holder.firstElementChild;
                     if(target.tagName==='BUTTON')target.type='button';
-                    if(target.tagName==='A')target.removeAttribute('href');
+                    if(target.tagName==='A')target.setAttribute('href','#component-link');
                     const label=target.querySelector('.o_ydental_inventory_action_label')||target;
                     label.textContent='【组件长文字】'+('查询来源、取消返回与原办理确认完整中文'.repeat(5))+'末端';
                     parent.append(holder);
                 }
                 const original=parent.querySelector('button');
-                for(const [state,variant] of [['disabled',null],['busy',null],['danger','o_ydental_inventory_action_danger']]) {
+                for(const [state,variant] of [['default',null],['disabled',null],['busy',null],['danger','o_ydental_inventory_action_danger']]) {
                     const b=original.cloneNode(true);b.dataset.fixtureState=state;
                     if(state==='disabled')b.disabled=true;
                     if(state==='busy')b.setAttribute('aria-busy','true');
                     if(variant){b.classList.remove('o_ydental_inventory_action_primary');b.classList.add(variant);}
-                    b.querySelector('.o_ydental_inventory_action_label').textContent='【仅组件】'+({disabled:'真实 disabled 属性',busy:'aria-busy 状态',danger:'危险变体定义'})[state];
+                    b.querySelector('.o_ydental_inventory_action_label').textContent='【仅组件】状态矩阵同文案';
                     parent.append(b);
                 }
             },markup);
@@ -359,6 +373,76 @@ function contrast(value, boundary=false, focus=false) {
                 await fixture.locator('[data-fixture=query]').scrollIntoViewIfNeeded();await shot('fixture-long-'+width,fixture);
                 await fixture.locator('[data-fixture-state=danger]').scrollIntoViewIfNeeded();await shot('fixture-states-'+width,fixture);
                 check('explicit-component-long-disabled-busy-danger-'+width,{layer:'COMPONENT_BROWSER',no_product_state_claim:true});
+            }
+            await fixture.setViewportSize({width:1366,height:768});
+            const stateSamples=[];
+            for(const name of ['default','disabled','busy','danger']) {
+                const control=fixture.locator('[data-fixture-state='+name+']');
+                const states={normal:await control.evaluate(computed)};
+                await control.hover();await fixture.waitForTimeout(180);states.hover=await control.evaluate(computed);
+                if(name!=='disabled') {
+                    const rect=await control.boundingBox();await fixture.mouse.move(rect.x+rect.width/2,rect.y+rect.height/2);await fixture.mouse.down();await fixture.waitForTimeout(180);
+                    states.active=await control.evaluate(computed);await fixture.mouse.move(0,0);await fixture.mouse.up();
+                    await control.focus();await fixture.keyboard.press('Tab');await fixture.keyboard.press('Shift+Tab');await fixture.waitForTimeout(180);
+                    states.focus=await control.evaluate(computed);
+                }
+                for(const [state,value] of Object.entries(states))contrast(value,true,state==='focus');
+                const geometries=Object.values(states).map(x=>x.rect);
+                assert(geometries.every(x=>Math.abs(x.width-geometries[0].width)<.5&&Math.abs(x.height-geometries[0].height)<.5));
+                stateSamples.push({name,states});
+            }
+            const baseGeometry=stateSamples[0].states.normal.rect;
+            assert(stateSamples.every(x=>Math.abs(x.states.normal.rect.width-baseGeometry.width)<.5&&Math.abs(x.states.normal.rect.height-baseGeometry.height)<.5));
+            save('component-states-computed-and-contrast.json',stateSamples);
+            check('component-default-disabled-busy-danger-four-states-no-size-jump',{layer:'COMPONENT_BROWSER',disabled_focus_native_omitted:true});
+            if(arg('fixture-file')) {
+                const filename=path.join(root,arg('fixture-file'));
+                const loaded=JSON.parse(fs.readFileSync(filename));
+                assert.equal(loaded.status,'P7_LOADED_QWEB_CONTROLS_MEMORY_PASS');
+                assert.equal(loaded.business_creations,0);assert.equal(loaded.details.length,13);
+                const qwebPage=await context.newPage();
+                await qwebPage.setContent('<!doctype html><html lang="zh-CN"><head>'+markup.styles+'</head><body><main class="o_ydental_inventory"><h1>全部13族原生QWeb内存组件</h1><section data-component="controls"></section></main></body></html>');
+                await qwebPage.evaluate(items=>{
+                    const region=document.querySelector('[data-component=controls]');
+                    region.replaceChildren();
+                    for(const [i,item] of items.entries()) {
+                        const wrapper=document.createElement('section');wrapper.dataset.qwebFamily=String(i);
+                        const h=document.createElement('h2');h.textContent='【原生QWeb内存组件】'+item.name;wrapper.append(h);
+                        const fragment=new DOMParser().parseFromString(item.html,'text/html');
+                        const details=fragment.querySelector('details');if(!details)throw Error('Missing QWeb family details');
+                        if([...details.querySelectorAll('input')].some(e=>['csrf_token','key','revision'].includes(e.name)&&e.value))throw Error('Fixture retained a private binding');
+                        wrapper.append(details);region.append(wrapper);
+                    }
+                },loaded.details);
+                const outcomes=[];
+                for(let i=0;i<13;i++) {
+                    const group=qwebPage.locator('[data-qweb-family="'+i+'"]'), detail=group.locator('details'), summary=detail.locator('summary');
+                    await summary.focus();await summary.press('Enter');assert.notEqual(await detail.getAttribute('open'),null);
+                    const contracts=await detail.locator('form').evaluateAll(forms=>forms.map(form=>{
+                        const clone=form.cloneNode(true);
+                        const submitters=[...form.querySelectorAll('button,input[type=submit]')];
+                        const copies=[...clone.querySelectorAll('button,input[type=submit]')];
+                        return {action:form.getAttribute('action'),method:form.getAttribute('method'),
+                            fields:[...form.elements].filter(e=>e.name).map(e=>({tag:e.tagName,name:e.name,type:e.type,value:e.value,required:e.required,disabled:e.disabled})),
+                            base_equal:JSON.stringify([...new FormData(form)])===JSON.stringify([...new FormData(clone)]),
+                            submitters:submitters.map((b,j)=>({tag:b.tagName,type:b.getAttribute('type'),name:b.getAttribute('name'),value:b.getAttribute('value'),disabled:b.disabled,
+                                equal:JSON.stringify([...new FormData(form,b)])===JSON.stringify([...new FormData(clone,copies[j])])})),
+                            submit_event_dispatched:false,network_request_sent:false};
+                    }));
+                    assert(contracts.length&&contracts.every(x=>x.base_equal&&x.submitters.every(v=>v.equal)));
+                    for(const button of await detail.locator('button').all()) {
+                        await button.focus();assert(await button.evaluate(e=>e===document.activeElement));
+                        const value=await button.evaluate(computed);contrast(value,true);
+                        assert(value.text.trim());
+                    }
+                    if(i===0||i===8||i===12)await shot('component-QWeb-family-'+i+'-expanded',qwebPage);
+                    await summary.focus();await summary.press('Space');assert.equal(await detail.getAttribute('open'),null);
+                    outcomes.push({name:loaded.details[i].name,contracts,native_open_close:true});
+                }
+                save('all-13-QWeb-memory-family-contracts.json',{fixture_sha256:hash(filename),outcomes,
+                    layer:'ACTUAL_LOADED_QWEB_MEMORY_COMPONENT',real_authorization_or_business_execution:false});
+                check('all-13-loaded-QWeb-family-FormData-native-semantics',{families:13,layer:'QWEB_MEMORY_BROWSER_COMPONENT'});
+                await qwebPage.close();
             }
             const before=gets();
             assert.equal(await fixture.locator('[data-fixture-state=disabled]').isDisabled(),true);
@@ -414,7 +498,7 @@ function contrast(value, boundary=false, focus=false) {
                         operations:document.querySelectorAll('details[name="inventory-operation"]').length};
                 });
                 if(name==='inventory-reader')assert.equal(snapshot.operations,0);
-                else if(name==='inventory-none')assert.equal(response.status(),403);
+                else if(name==='inventory-none'){assert.equal(response.status(),403);assert.equal(snapshot.P7scope,0);assert.equal(snapshot.P7class,0);}
                 else {assert.equal(snapshot.P7scope,0);assert.equal(snapshot.P7class,0);}
                 save(name+'-projection.json',snapshot);
                 assert.equal(await page.locator('input[type=password]').count(),0);
@@ -422,6 +506,31 @@ function contrast(value, boundary=false, focus=false) {
                 await context.request.post(base+'/web/session/destroy',{data:{jsonrpc:'2.0',method:'call',params:{},id:9}});await context.close();
             }
             context=primaryContext;page=primaryPage;logged=true;
+        }
+        if(stage==='after'&&mode==='main') {
+            const contracts=await page.evaluate(()=>{
+                return [...document.querySelectorAll('form[action="/ydental/inventory/action"],form[action="/ydental/inventory/scan"]')].map(form=>{
+                    const clone=form.cloneNode(true);
+                    const all=form.querySelectorAll('input,select,textarea');
+                    const targets=clone.querySelectorAll('input,select,textarea');
+                    all.forEach((e,i)=>{targets[i].value=e.value;if('checked' in e)targets[i].checked=e.checked;});
+                    const submitters=[...form.querySelectorAll('button,input[type=submit]')];
+                    const candidate=[...clone.querySelectorAll('button,input[type=submit]')];
+                    const base=JSON.stringify([...new FormData(form)]),copied=JSON.stringify([...new FormData(clone)]);
+                    const matches=submitters.map((button,i)=>{
+                        const original=JSON.stringify([...new FormData(form,button)]),duplicate=JSON.stringify([...new FormData(clone,candidate[i])]);
+                        return {tag:button.tagName,type:button.getAttribute('type'),name:button.getAttribute('name'),
+                            value:button.getAttribute('value'),disabled:button.disabled,formdata_equal_in_memory:original===duplicate};
+                    });
+                    return {action:form.getAttribute('action'),method:form.getAttribute('method'),
+                        original_connected:form.isConnected,clone_connected:clone.isConnected,
+                        base_formdata_equal_in_memory:base===copied,submitters:matches,
+                        event_dispatched:false,network_sent:false,token_values_or_hashes_recorded:false};
+                });
+            });
+            assert(contracts.length>0&&contracts.every(x=>x.base_formdata_equal_in_memory&&x.submitters.every(s=>s.formdata_equal_in_memory)));
+            save('detached-memory-FormData-contracts.json',contracts);
+            check('detached-memory-FormData-submitters-no-submit-no-network',{forms:contracts.length,layer:'MEMORY_COMPONENT',business_execution_claimed:false});
         }
         if(stage==='after'&&mode==='main') {
             const manifest=await page.locator(optin).evaluateAll(xs=>xs.map(e=>({tag:e.tagName,text:e.textContent.trim(),class:e.className,svg:[...e.querySelectorAll('svg')].map(s=>s.dataset.icon)})));

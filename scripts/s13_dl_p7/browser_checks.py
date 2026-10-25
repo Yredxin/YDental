@@ -27,6 +27,7 @@ def main():
     parser.add_argument('--mode', choices=('main', 'zoom', 'nojs', 'fixtures', 'bypass'), default='main')
     parser.add_argument('--sample-file', default='.local/dl-p6/verification/ordinary-sample.json')
     parser.add_argument('--timeout', type=int, default=600)
+    parser.add_argument('--fixture-file')
     args = parser.parse_args()
     assert re.fullmatch(r'[A-Za-z0-9_-]{1,60}', args.label)
     assert 0 < args.timeout <= 1200
@@ -45,6 +46,8 @@ def main():
             stream.write(raw)
         return hashlib.sha256(raw).hexdigest()
 
+    if args.fixture_file:
+        command.extend(['--fixture-file', args.fixture_file])
     dependencies = [Path(__file__), source,
                     ROOT / 'scripts/s13/browser_client.py',
                     ROOT / '.local/dl-p3/tools/webkit_finite_zoom_bridge.cjs',
