@@ -202,3 +202,13 @@ P7按钮统一圆角 `.625rem`、文字 `1rem/600`、最小高度 `2.75rem`、pa
 唯一实现入口 `ydental_inventory/static/src/scss/inventory_actions.scss`，元素级 `data-dl-actions="inventory-actions"` 配明确类，按既有精确路径判定开启；不在表单祖先放字体/颜色，不全局覆盖Odoo控件。13原办理族只允许按钮/原取消/summary的class、文字span与静态SVG变化，原字段/提交/权限/顺序仍冻结。
 
 Lucide采用 `0.468.0 / f12b0de177fbc2a6795e99be065887e72b237123`，原文件及来源SHA/修改记录在 `ydental_inventory/static/lib/lucide/SOURCE.json`，完整ISC与Feather MIT随资源保留。七图用途固定为search、arrow-right、chevron-left/right、scan-line、package、list；summary无另加箭头，确认无完成勾。
+
+## 13. DL-P8 文书动作控件限定推广（用户本轮启用）
+
+[完整P8计划](../execution/S13_DL_P8_IMPLEMENTATION_PLAN.md)仅启用文书主模板`ydental_document_page`的25个动作/标题呈现定义；GET和POST preview回页均按元素`data-dl-actions="documents-actions"`启用。两动态combobox仍为P1字段，不套按钮变体；现有同意/临床集合/设备故障继承入口保持。P7技术交付保持，用户亲手效果不反签；后续报表、结算及其它页面仍未启用。
+
+DL-15—20的唯一通用规范源机械提取到`ydental_access/static/src/scss/_actions.scss`的`o-ydental-actions` mixin，单独不输出CSS。库存原`inventory_actions.scss`以原选择器/opt-in调用；文书`documents_actions.scss`以独立`o_ydental_print_document_*`元素类调用。tokens/变体/原生marker/焦点/状态规则相同，不创建主题设置或全局控件覆盖；提取前后库存源码编译与有限实际computed另作影响验证，不重跑P7业务。
+
+文书查询secondary、预览primary，查看原件及五工作区链接quiet，下载/打印请求/导出/分页secondary，生成/各管理表单提交primary，summary为原生disclosure。强调不表示已经生成、审核或签署；生成、打印、模板创建审核发布、导出本轮不live提交。允许原preview读取HTML、pdf_view/download读旧bytes；源码/内存合同和真实读取分层。
+
+只直接复用P7已固定`ydental_inventory.p7_icon_search/arrow_right/chevron_left/chevron_right/list`五种QWeb片段，原SVG几何/SHA/完整ISC及适用Feather MIT/SOURCE不动。print明确声明access/inventory依赖；新图标类适配仅在文书元素opt-in内，标题最多两个list。原中文用`span t-translation="on"`保持原生术语，实际loaded中文/名称另验证，不靠PO存在断言通过。

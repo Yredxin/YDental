@@ -30,11 +30,11 @@ for before in nodes:
     original_classes = set(before.get('class', '').split())
     classes = set(after.get('class', '').split())
     assert original_classes <= classes, xpath
-    assert all(c.startswith('o_ydental_document_') for c in classes - original_classes), xpath
-    labels = after.xpath('./span[@class="o_ydental_document_action_label"]')
+    assert all(c.startswith('o_ydental_print_document_') for c in classes - original_classes), xpath
+    labels = after.xpath('./span[@class="o_ydental_print_document_action_label"]')
     assert len(labels) == 1, xpath
     label = labels[0]
-    assert label.attrib == {'class': 'o_ydental_document_action_label', 't-translation': 'on'}, xpath
+    assert label.attrib == {'class': 'o_ydental_print_document_action_label', 't-translation': 'on'}, xpath
     assert len(label) == 0 and label.text == before.text, xpath
     icons = []
     for child in after:

@@ -58,26 +58,6 @@
         }
     }
 
-    .o_ydental_print_header_link {
-        display: inline-block;
-        max-inline-size: 100%;
-        padding-block: 0.25em;
-        border-radius: 0.125rem;
-        // The portal page sets its anchor color with an inline important rule.
-        color: var(--ydental-header__accent-color) !important;
-        text-decoration: underline;
-        text-underline-offset: 0.2em;
-
-        &:hover {
-            color: var(--ydental-header__accent-color--hover) !important;
-        }
-
-        &:focus-visible {
-            outline: 0.125rem solid var(--ydental-header__focus-color);
-            outline-offset: 0.1875rem;
-        }
-    }
-
     .o_ydental_print_header_notes {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -135,14 +115,6 @@
             padding-inline-start: 0;
             border-block-start: 1px solid var(--ydental-header__divider-color);
             border-inline-start: 0;
-        }
-    }
-}
-
-@media (forced-colors: active) {
-    .o_ydental_print_header[data-dl-scope="documents-header"] {
-        .o_ydental_print_header_link:focus-visible {
-            outline-color: Highlight;
         }
     }
 }

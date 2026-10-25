@@ -74,8 +74,7 @@
     }
 
     .o_ydental_print_query_control,
-    .o_ydental_print_query_trigger,
-    .o_ydental_print_query_button {
+    .o_ydental_print_query_trigger {
         box-sizing: border-box;
         min-inline-size: 0;
         min-block-size: 2.75em;
@@ -96,8 +95,7 @@
     }
 
     .o_ydental_print_query_control:focus-visible,
-    .o_ydental_print_query_trigger:focus-visible,
-    .o_ydental_print_query_button:focus-visible {
+    .o_ydental_print_query_trigger:focus-visible {
         outline: 0.125rem solid var(--ydental-dl__focus-color);
         outline-offset: 0.1875rem;
     }
@@ -135,16 +133,6 @@
         transform: rotate(180deg);
     }
 
-    .o_ydental_print_query_button {
-        cursor: pointer;
-
-        &:not(:disabled):hover {
-            border-color: var(--ydental-dl__accent-color);
-            background: var(--ydental-dl__tint-color);
-        }
-    }
-
-    .o_ydental_print_query_button:disabled,
     .o_ydental_print_query_trigger:disabled,
     .o_ydental_print_query_control:disabled {
         border-color: var(--ydental-dl__border-color);
@@ -168,15 +156,6 @@
     .o_ydental_print_query_primary {
         justify-self: start;
         grid-column: 1 / -1;
-        border-color: var(--ydental-dl__accent-color);
-        color: var(--ydental-dl__field-color);
-        background: var(--ydental-dl__accent-color);
-        font-weight: 600;
-
-        &:not(:disabled):hover {
-            border-color: var(--ydental-dl__accent-color--hover);
-            background: var(--ydental-dl__accent-color--hover);
-        }
     }
 
     .o_ydental_print_query_note,
@@ -294,8 +273,7 @@
 @media (forced-colors: active) {
     .o_ydental_dl_v1[data-dl-scope="documents-query"] {
         .o_ydental_print_query_trigger,
-        .o_ydental_print_query_control,
-        .o_ydental_print_query_button {
+        .o_ydental_print_query_control {
             border-color: ButtonText;
         }
 

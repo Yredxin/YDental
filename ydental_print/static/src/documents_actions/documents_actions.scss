@@ -1,0 +1,14 @@
+// The main QWeb template opts in for GET and preview POST returns alike.
+@import "ydental_access/static/src/scss/actions";
+@include o-ydental-actions("o_ydental_print_document", "documents-actions",
+    ".o_ydental_print_document_action_heading");
+
+// The frontend shell has an important anchor color; limit the correction to
+// this template's explicit action links. Inventory's selectors stay unchanged.
+a.o_ydental_print_document_action[data-dl-actions="documents-actions"] {
+    color: var(--ydental-action__text-color) !important;
+
+    @media (forced-colors: active) {
+        color: ButtonText !important;
+    }
+}

@@ -10,13 +10,13 @@
                 <p class="o_ydental_print_header_purpose">Find patient documents, select a source to preview, or read saved originals.</p>
                 <nav class="o_ydental_print_header_nav" aria-label="Related work areas">
                     <ul class="o_ydental_print_header_links">
-                        <li><a class="o_ydental_print_header_link" href="/ydental/clinical">Clinical workbench</a></li>
-                        <li><a class="o_ydental_print_header_link" href="/ydental/treatment">Treatment and pharmacy</a></li>
-                        <li><a class="o_ydental_print_header_link" href="/ydental/exam">Examination</a></li>
+                        <li><a class="o_ydental_print_header_link o_ydental_print_document_action o_ydental_print_document_action_quiet" href="/ydental/clinical" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">Clinical workbench</span></a></li>
+                        <li><a class="o_ydental_print_header_link o_ydental_print_document_action o_ydental_print_document_action_quiet" href="/ydental/treatment" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">Treatment and pharmacy</span></a></li>
+                        <li><a class="o_ydental_print_header_link o_ydental_print_document_action o_ydental_print_document_action_quiet" href="/ydental/exam" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">Examination</span></a></li>
                     </ul>
                     <ul class="o_ydental_print_header_links">
-                        <li><a class="o_ydental_print_header_link" href="/ydental/access">Current store and permissions</a></li>
-                        <li><a class="o_ydental_print_header_link" href="/ydental/settlement">Patient settlement</a></li>
+                        <li><a class="o_ydental_print_header_link o_ydental_print_document_action o_ydental_print_document_action_quiet" href="/ydental/access" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">Current store and permissions</span></a></li>
+                        <li><a class="o_ydental_print_header_link o_ydental_print_document_action o_ydental_print_document_action_quiet" href="/ydental/settlement" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">Patient settlement</span></a></li>
                     </ul>
                 </nav>
                 <section class="o_ydental_print_header_notes" aria-label="Document scope and limits">
@@ -36,13 +36,13 @@
             </header>
             <section class="o_ydental_dl_v1" data-dl-scope="documents-query" aria-labelledby="ydental-documents-query-title">
                 <section class="o_ydental_access_search">
-                    <h2 class="o_ydental_print_query_title" id="ydental-documents-query-title">Find patient documents</h2>
+                    <h2 class="o_ydental_print_query_title o_ydental_print_document_action_heading" id="ydental-documents-query-title" data-dl-actions="documents-actions"><t t-call="ydental_inventory.p7_icon_list"/><span class="o_ydental_print_document_action_label" t-translation="on">Find patient documents</span></h2>
                     <form class="o_ydental_print_query_search" data-ydental-query-form="search" action="/ydental/documents" method="get">
                         <div class="o_ydental_print_query_field">
                             <label class="o_ydental_print_query_label" for="ydental-documents-query-term">Patient name or number</label>
                             <input class="o_ydental_print_query_control" id="ydental-documents-query-term" name="q" maxlength="100" t-att-value="term"/>
                         </div>
-                        <button class="o_ydental_print_query_button" type="submit">Search documents</button>
+                        <button class="o_ydental_print_query_button o_ydental_print_document_action o_ydental_print_document_action_secondary" type="submit" data-dl-actions="documents-actions"><t t-call="ydental_inventory.p7_icon_search"/><span class="o_ydental_print_document_action_label" t-translation="on">Search documents</span></button>
                     </form>
                     <p class="o_ydental_print_query_status" data-ydental-query-busy="search" role="status" hidden="hidden">Searching patient documents...</p>
                 </section>
@@ -56,7 +56,7 @@
                         <label class="o_ydental_print_query_label" id="ydental-documents-template-label" for="ydental-documents-template">Content template</label>
                         <select class="o_ydental_print_query_control" id="ydental-documents-template" data-ydental-query-select="template" name="template_id" aria-describedby="ydental-documents-query-help"><option value="">Explicit synthetic test sample / unreviewed</option><option t-foreach="templates" t-as="template" t-att-value="template.id"><t t-out="template.name"/> / <t t-out="template.version"/> / <t t-out="'SYNTHETIC' if template.synthetic else 'Published formal content'"/></option></select>
                     </div>
-                    <button class="o_ydental_print_query_button o_ydental_print_query_primary" type="submit" t-att-disabled="not choices" t-att-aria-describedby="'ydental-documents-query-empty' if not choices else 'ydental-documents-query-help'">Preview selected source</button>
+                    <button class="o_ydental_print_query_button o_ydental_print_query_primary o_ydental_print_document_action o_ydental_print_document_action_primary" type="submit" t-att-disabled="not choices" t-att-aria-describedby="'ydental-documents-query-empty' if not choices else 'ydental-documents-query-help'" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">Preview selected source</span></button>
                 </form>
                 <p class="o_ydental_print_query_status" data-ydental-query-busy="preview" role="status" hidden="hidden">Preparing the selected source preview...</p>
                 <p class="o_ydental_print_query_note" id="ydental-documents-query-empty" role="status" t-if="not choices">No selectable sources are available in the current scope. Search another authorized patient or check the current store and permissions before previewing.</p>
@@ -64,16 +64,16 @@
                 <p data-ydental-query-message="required" hidden="hidden">Select a source before previewing.</p>
             </section>
             <section t-if="preview">
-                <h2>Reviewed source</h2><details><summary>Source and template trace</summary><p>Template SHA256: <t t-out="preview['template_digest']"/></p>
-                </details><details><summary>Source and template trace</summary><p>Source SHA256: <t t-out="preview['source_digest']"/></p></details><iframe title="Document source preview" sandbox="" t-att-srcdoc="preview['html']" width="100%" height="600"/>
+                <h2>Reviewed source</h2><details><summary class="o_ydental_print_document_disclosure" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">Source and template trace</span></summary><p>Template SHA256: <t t-out="preview['template_digest']"/></p>
+                </details><details><summary class="o_ydental_print_document_disclosure" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">Source and template trace</span></summary><p>Source SHA256: <t t-out="preview['source_digest']"/></p></details><iframe title="Document source preview" sandbox="" t-att-srcdoc="preview['html']" width="100%" height="600"/>
                 <form action="/ydental/documents/action" method="post">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="generate"/><input type="hidden" name="q" t-att-value="term"/><input type="hidden" name="page" t-att-value="pagination['page']"/>
                     <input type="hidden" name="selection" t-att-value="selection"/><input type="hidden" name="expected_digest" t-att-value="preview['source_digest']"/><input type="hidden" name="key" t-att-value="key"/>
-                    <label>Previous original for a new version <select name="previous_id"><option value="" t-if="not previous_originals">New original without a previous version</option><option t-foreach="previous_originals" t-as="previous" t-att-value="previous['id']"><span>Latest saved original</span> · <t t-out="previous['patient_number']"/> · v<t t-out="previous['version']"/></option></select></label><button type="submit">Generate and preserve original PDF</button>
+                    <label>Previous original for a new version <select name="previous_id"><option value="" t-if="not previous_originals">New original without a previous version</option><option t-foreach="previous_originals" t-as="previous" t-att-value="previous['id']"><span>Latest saved original</span> · <t t-out="previous['patient_number']"/> · v<t t-out="previous['version']"/></option></select></label><button type="submit" class="o_ydental_print_document_action o_ydental_print_document_action_primary" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">Generate and preserve original PDF</span></button>
                 </form>
             </section>
-            <p t-if="result" role="status">Operation accepted. Review the saved original or related record below.</p><details t-if="result"><summary>Operation trace</summary><pre t-out="result"/></details><section class="o_ydental_print_originals" data-dl-scope="documents-originals" aria-labelledby="ydental-documents-originals-title">
-                <h2 class="o_ydental_print_originals_title" id="ydental-documents-originals-title">Saved originals in the current authorized scope</h2>
+            <p t-if="result" role="status">Operation accepted. Review the saved original or related record below.</p><details t-if="result"><summary class="o_ydental_print_document_disclosure" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">Operation trace</span></summary><pre t-out="result"/></details><section class="o_ydental_print_originals" data-dl-scope="documents-originals" aria-labelledby="ydental-documents-originals-title">
+                <h2 class="o_ydental_print_originals_title o_ydental_print_document_action_heading" id="ydental-documents-originals-title" data-dl-actions="documents-actions"><t t-call="ydental_inventory.p7_icon_list"/><span class="o_ydental_print_document_action_label" t-translation="on">Saved originals in the current authorized scope</span></h2>
                 <p class="o_ydental_print_originals_help">Patient labels use the current patient record. Versions and states describe the saved original, not the current source.</p>
                 <p class="o_ydental_print_originals_help" id="ydental-documents-originals-scroll-help">Scroll within the table to read all columns. Focus the table to scroll with the keyboard.</p>
                 <div class="o_ydental_access_scroll o_ydental_print_originals_scroll" tabindex="0" role="region" aria-label="Saved document details" aria-describedby="ydental-documents-originals-scroll-help">
@@ -102,7 +102,7 @@
                                         <p class="o_ydental_print_originals_warning" t-if="original['synthetic']">Synthetic test; awaiting applicable review or signature</p>
                                     </div>
                                     <details class="o_ydental_print_original_trace">
-                                        <summary class="o_ydental_print_original_trace_summary">Source, template and file trace</summary>
+                                        <summary class="o_ydental_print_original_trace_summary o_ydental_print_document_disclosure" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">Source, template and file trace</span></summary>
                                         <dl class="o_ydental_print_original_trace_values">
                                             <t t-foreach="original['trace']" t-as="field">
                                                 <dt class="o_ydental_print_original_trace_key" t-att-data-trace-key="field">
@@ -132,10 +132,10 @@
                                     <form class="o_ydental_print_originals_actions" action="/ydental/documents/action" method="post" target="_blank">
                                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="original_id" t-att-value="original['id']"/>
                                         <div class="o_ydental_print_originals_read_actions">
-                                            <button class="o_ydental_print_originals_button o_ydental_print_originals_view" name="operation" value="pdf_view">View original</button>
-                                            <button class="o_ydental_print_originals_button" name="operation" value="download">Download original</button>
+                                            <button class="o_ydental_print_originals_button o_ydental_print_originals_view o_ydental_print_document_action o_ydental_print_document_action_quiet" name="operation" value="pdf_view" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">View original</span><t t-call="ydental_inventory.p7_icon_arrow_right"/></button>
+                                            <button class="o_ydental_print_originals_button o_ydental_print_document_action o_ydental_print_document_action_secondary" name="operation" value="download" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">Download original</span></button>
                                         </div>
-                                        <details><summary>Request printing</summary><p>A request is not verified physical paper output.</p><button name="operation" value="print_request">Request printing original</button></details>
+                                        <details><summary class="o_ydental_print_document_disclosure" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">Request printing</span></summary><p>A request is not verified physical paper output.</p><button name="operation" value="print_request" class="o_ydental_print_document_action o_ydental_print_document_action_secondary" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">Request printing original</span></button></details>
                                     </form>
                                 </td>
                             </tr>
@@ -148,28 +148,28 @@
                         <p class="o_ydental_print_originals_count">Current page <strong t-out="pagination['page']"/> / <span t-out="pagination['page_count']"/></p>
                     </div>
                     <div class="o_ydental_print_originals_page_actions">
-                        <a class="o_ydental_print_originals_page_link" t-if="pagination['previous']" t-att-href="search_url(pagination['previous'])">Previous originals page</a>
+                        <a class="o_ydental_print_originals_page_link o_ydental_print_document_action o_ydental_print_document_action_secondary" t-if="pagination['previous']" t-att-href="search_url(pagination['previous'])" data-dl-actions="documents-actions"><t t-call="ydental_inventory.p7_icon_chevron_left"/><span class="o_ydental_print_document_action_label" t-translation="on">Previous originals page</span></a>
                         <span class="o_ydental_print_originals_page_boundary" t-else="" aria-disabled="true">First page reached</span>
-                        <a class="o_ydental_print_originals_page_link" t-if="pagination['next']" t-att-href="search_url(pagination['next'])">Next originals page</a>
+                        <a class="o_ydental_print_originals_page_link o_ydental_print_document_action o_ydental_print_document_action_secondary" t-if="pagination['next']" t-att-href="search_url(pagination['next'])" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">Next originals page</span><t t-call="ydental_inventory.p7_icon_chevron_right"/></a>
                         <span class="o_ydental_print_originals_page_boundary" t-else="" aria-disabled="true">Last page reached</span>
                     </div>
                 </nav>
                 <p class="o_ydental_print_originals_empty" role="status" t-if="not originals">No saved originals are available for this search in the current authorized scope.</p>
             </section>
-            <details name="document_template_review"><summary>Template review and publication</summary><p>Only group document policy administrators can perform these actions. Content is plain text and is never executed as a QWeb template. Review and publication apply to this store and this explicit version.</p>
+            <details name="document_template_review"><summary class="o_ydental_print_document_disclosure" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">Template review and publication</span></summary><p>Only group document policy administrators can perform these actions. Content is plain text and is never executed as a QWeb template. Review and publication apply to this store and this explicit version.</p>
                 <form action="/ydental/documents/action" method="post"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="template_create"/>
                     <label>Name <input name="name" required="required" maxlength="120"/></label><label>Type <select name="kind"><option value="clinical">Clinical text</option><option value="clinical_summary">Clinical collection</option><option value="consent">Consent awaiting signature</option><option value="receipt">Collection receipt</option><option value="refund">Actual refund receipt</option><option value="bill">Internal bill</option><option value="lab_label">Laboratory label</option><option value="exam">Examination</option><option value="prescription">Prescription</option></select></label><label>Version <input name="version" required="required" maxlength="80"/></label>
                     <label>Applicable scope <input name="applicability" required="required" maxlength="240"/></label><label>Plain text body <textarea name="body" required="required" maxlength="40000"/></label>
                     <label><input type="checkbox" name="synthetic" checked="checked"/>Synthetic software test only</label><label><input type="checkbox" name="allow_excerpt"/>Allow clearly scoped confirmed excerpts</label>
                     <label>Explicit accepted earlier same-store consent template IDs, separated by commas <input name="accepted_previous_template_ids" maxlength="300"/></label>
-                    <label>Paper <select name="paper"><option value="a4">A4</option><option value="80mm">80 mm demonstration / no device approval</option><option value="label100x70">100 × 70 mm laboratory demonstration / no device approval</option></select></label><label>Formal approval reference <input name="approval_reference" maxlength="240"/></label><button>Create unreviewed version</button>
+                    <label>Paper <select name="paper"><option value="a4">A4</option><option value="80mm">80 mm demonstration / no device approval</option><option value="label100x70">100 × 70 mm laboratory demonstration / no device approval</option></select></label><label>Formal approval reference <input name="approval_reference" maxlength="240"/></label><button class="o_ydental_print_document_action o_ydental_print_document_action_primary" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">Create unreviewed version</span></button>
                 </form>
                 <form action="/ydental/documents/action" method="post"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="template_review"/>
-                    <label>Template ID <input name="template_id" type="number" min="1" required="required"/></label><label>Action <select name="action"><option value="review">Review draft</option><option value="publish">Publish reviewed version</option></select></label><button>Record review action</button>
+                    <label>Template ID <input name="template_id" type="number" min="1" required="required"/></label><label>Action <select name="action"><option value="review">Review draft</option><option value="publish">Publish reviewed version</option></select></label><button class="o_ydental_print_document_action o_ydental_print_document_action_primary" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">Record review action</span></button>
                 </form>
             </details>
-            <details name="document_bulk_export"><summary>Export saved originals</summary><p>Export permission and every selected source read permission are both required.</p>
-                <form action="/ydental/documents/action" method="post"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="export"/><label>Original IDs separated by commas <input name="original_ids" required="required" maxlength="300"/></label><button>Export authorized originals as ZIP</button></form>
+            <details name="document_bulk_export"><summary class="o_ydental_print_document_disclosure" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">Export saved originals</span></summary><p>Export permission and every selected source read permission are both required.</p>
+                <form action="/ydental/documents/action" method="post"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="export"/><label>Original IDs separated by commas <input name="original_ids" required="required" maxlength="300"/></label><button class="o_ydental_print_document_action o_ydental_print_document_action_secondary" data-dl-actions="documents-actions"><span class="o_ydental_print_document_action_label" t-translation="on">Export authorized originals as ZIP</span></button></form>
             </details>
         </main></t>
     </template>

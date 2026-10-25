@@ -142,19 +142,6 @@
         margin-block: 0.75rem 0;
     }
 
-    .o_ydental_print_original_trace_summary {
-        padding-block: 0.5em;
-        border-radius: 0.125rem;
-        color: var(--ydental-originals__accent-color);
-        font-weight: 600;
-        cursor: pointer;
-
-        &:focus-visible {
-            outline: 0.125rem solid var(--ydental-originals__focus-color);
-            outline-offset: 0.1875rem;
-        }
-    }
-
     .o_ydental_print_original_trace_values {
         display: grid;
         grid-template-columns: minmax(0, 1fr);
@@ -197,8 +184,6 @@
         max-inline-size: 100%;
     }
 
-    .o_ydental_print_originals_button,
-    .o_ydental_print_originals_page_link,
     .o_ydental_print_originals_page_boundary {
         box-sizing: border-box;
         min-block-size: 2.75em;
@@ -217,33 +202,6 @@
         overflow-wrap: anywhere;
     }
 
-    .o_ydental_print_originals_button,
-    .o_ydental_print_originals_page_link {
-        cursor: pointer;
-
-        &:hover {
-            border-color: var(--ydental-originals__accent-color);
-            background: var(--ydental-originals__tint-color);
-        }
-
-        &:focus-visible {
-            outline: 0.125rem solid var(--ydental-originals__focus-color);
-            outline-offset: 0.1875rem;
-        }
-    }
-
-    .o_ydental_print_originals_view {
-        border-color: var(--ydental-originals__accent-color);
-        color: var(--ydental-originals__field-color);
-        background: var(--ydental-originals__accent-color);
-        font-weight: 600;
-
-        &:hover {
-            border-color: var(--ydental-originals__accent-color--hover);
-            background: var(--ydental-originals__accent-color--hover);
-        }
-    }
-
     .o_ydental_print_originals_pager {
         display: grid;
         gap: 0.75rem;
@@ -255,17 +213,6 @@
         flex-wrap: wrap;
         gap: 0.375rem;
         margin: 0;
-    }
-
-    .o_ydental_print_originals_page_link {
-        // The portal page sets its anchor color with an inline important rule.
-        color: var(--ydental-originals__accent-color) !important;
-        text-decoration: underline;
-        text-underline-offset: 0.2em;
-
-        &:hover {
-            color: var(--ydental-originals__accent-color--hover) !important;
-        }
     }
 
     .o_ydental_print_originals_page_boundary {
@@ -282,14 +229,5 @@
 @media (max-width: 45rem) {
     .o_ydental_print_originals[data-dl-scope="documents-originals"] {
         padding: 1rem;
-    }
-}
-
-@media (forced-colors: active) {
-    .o_ydental_print_originals[data-dl-scope="documents-originals"] {
-        .o_ydental_print_originals_button,
-        .o_ydental_print_originals_page_link {
-            border-color: ButtonText;
-        }
     }
 }
