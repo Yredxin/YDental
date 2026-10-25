@@ -84,7 +84,7 @@
                             <select id="ydental-report-stores" name="store_ids" multiple="multiple" size="3" required="required" aria-labelledby="ydental-report-stores-label" aria-describedby="ydental-report-stores-help ydental-report-stores-error"><option t-foreach="options['stores']" t-as="store" t-att-value="store['id']" t-att-selected="store['id'] in selected_stores"><t t-out="store['label']"/> · <t t-out="store['timezone']"/></option></select>
                             <p id="ydental-report-stores-help" class="o_ydental_reporting_filter_help">Select at least one authorized store. This does not change your current working store.</p>
                             <p id="ydental-report-stores-error" class="o_ydental_reporting_filter_error" data-report-filter-error="stores" role="alert" hidden="hidden">Select at least one authorized store.</p>
-                            <span data-report-filter-message="unavailable" hidden="hidden">No stores are available in this authorized metric scope.</span>
+                            <p data-report-filter-message="unavailable" hidden="hidden">No stores are available in this authorized metric scope.</p>
                         </fieldset>
                         <div class="o_ydental_reporting_filter_conditions">
                             <div class="o_ydental_reporting_filter_field">
@@ -107,7 +107,7 @@
                         <p class="o_ydental_reporting_filter_help">After changing other filters, select Query. Results, exports and source links use the last applied filters.</p>
                         <p class="o_ydental_reporting_filter_status" data-report-filter-busy="true" role="status" hidden="hidden">Querying authorized sources...</p>
                     </div>
-                    <span data-report-filter-message="required" hidden="hidden">Select an available option.</span>
+                    <p data-report-filter-message="required" hidden="hidden">Select an available option.</p>
                 </form>
                 <h2 t-out="display['title']"/>
                 <p t-if="report['filters']['metric'] == 'receivables'" class="o_ydental_reporting_notice">Current receivable for the selected original bill date range. Dates do not represent a historical balance cutoff.</p>
