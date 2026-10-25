@@ -2,7 +2,7 @@
 
 `[CODEX-FINAL] YD-S13-DL-P5 / 1.0`
 
-技术：**TECHNICALLY_COMPLETE（限定P5软件，未实现者本地技术总签已实际完成）**。同步：**本轮SYNCED（首轮实际同步及读回已完成，最终元数据随后读回）**；13bdf549原PARTIAL交付的SYNCED保持。用户亲手效果：**待确认**。
+技术：**TECHNICALLY_COMPLETE（限定P5软件，未实现者本地技术总签已实际完成）**。同步：**本轮SYNCED**；13bdf549原PARTIAL交付的SYNCED保持。用户亲手效果：**待确认**。
 
 本次只补原P5的第二引擎、非空长值浏览器组件、全阶段独立保护及新包/技术总验收，没有重新设计产品。原PARTIAL历史见[13bdf549固定报告](https://github.com/Yredxin/YDental/blob/13bdf549dcb43cfe4d8b44b72de6eba55115cd31/docs/reports/s13-dl-p5/summary.md)，原失败/UNKNOWN及旧包不覆盖。
 
@@ -89,4 +89,13 @@ owned run20261025T095230Z-5d77f24f9b3a于 **2026-10-25T09:58:48.758607UTC** 正�
 
 2026-10-25T10:13:27UTC正常push并实际ls-remote：首份续办报告 **1fd5d9959afeb38240e3e3dd9ad26e1102b91942**，main仅两路由 **bed21a5126c192969746cddc6566d474679ddde4**。GitHub正常插件读回业务CURRENT/三报告及main两路由完整UTF8字节与gitblob逐一同本地，比较回执SHA **8e575d2dd4d0a1906c96b2395caea906e3931551daa83d3ba32dc7e9406b3c18**。
 
-原唯一P5评论[6395137158](https://github.com/Yredxin/YDental/issues/37#issuecomment-6395137158)仅追加续办结果，2026-10-25T10:14:24UTC前实际GET核原3720字PARTIAL前缀、其余六条旧评论全文、总七评论与请求正文均一致；#37 OPEN/#36 CLOSED，Issue原正文保持。读回回执SHA **405100d19709a68e447901f2056a1ba129edc5a8a2e10feaec37aec602e7f9bd**。本提交只记录已发生的同步事实；最终报告元数据HEAD/全文和同评论最终锚点继续实际读回，未实现者远端复核另存私有回执，不能预签未来或用户效果。
+原唯一P5评论[6395137158](https://github.com/Yredxin/YDental/issues/37#issuecomment-6395137158)仅追加续办结果，2026-10-25T10:14:24UTC前实际GET核原3720字PARTIAL前缀、其余六条旧评论全文、总七评论与请求正文均一致；#37 OPEN/#36 CLOSED，Issue原正文保持。读回回执SHA **405100d19709a68e447901f2056a1ba129edc5a8a2e10feaec37aec602e7f9bd**。随后f6c88f5元数据和同评论最终锚点亦实际读回，未实现者独立远端复核已发生，见下；本提交只记录该实际事实，不能预签未来或用户效果。
+
+
+## 最终独立技术收口
+
+未实现者于 **2026-10-25T10:18:49.290733+00:00** 正常GitHub插件直接GET两ref（业务 **f6c88f554b9970cf193f26e198188e19956a5f0f** / main **bed21a5126c192969746cddc6566d474679ddde4**），六份完整UTF8内容及gitblob逐一同固定提交；同评论6395137158最终全文同请求，原3720字PARTIAL前缀/其余六评论body+ID/总七评论及唯一P5保持，两Issue标题/正文和37OPEN/36CLOSED实际核。before旧时间字段未取得，不宣称旧时间元数据全同。
+
+独立远端回执 `acceptance/continuation/final-sync-independent.json`，SHA **6ce64c937930fd5defe935043cb85938f0a9bc124445a60fd2b790ec2fb97266**，T14远端子项实际PASS；结合c747本地总签，原14项全部适用断言、全阶段完整保护、新包、正常收尾与同步独立验收成立。**TECHNICALLY_COMPLETE / SYNCED；用户亲手效果待确认。** 此签审f6c88f5，最后文档仅记录已发生验收事实，其最终HEAD/全文与同评论锚点按实际增量读回，不重复软件/DB/包验证，不重启服务。
+
+P5交付后停止。产品beea6d3、工具9f4及实际运行bad6f7f不变；原13bd历史、失败/UNKNOWN和旧包保持。完整S13未完成，P6、产品合并、部署和生产未启用。
