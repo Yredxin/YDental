@@ -1,3 +1,18 @@
+# DL-P8 当前状态｜YD-S13-DL-P8 / 1.0
+
+## IN_PROGRESS / 用户亲手效果待确认
+
+- 用户本会话明确启用[完整P8计划](docs/execution/S13_DL_P8_IMPLEMENTATION_PLAN.md)，按W0—W4连续实施。仅文书主模板动作控件及P7共享纯样式提取；不重开P7、不推广其它页、不合产品或部署。附件制定日期2026-10-26保留，现场执行使用真实UTC。
+- 从clean P7最终9f5ce4626895cb8f3da0562d9170e79220728378正常创建 `codex/s13-dl-p8-documents-actions-icons-r1`；origin/main现场994a9e4路由已读，本地旧main不作产品基线。P7产品52d5422/唯一回执6399387525及P1—P7旧交付、P5 PARTIAL、旧包/失败/UNKNOWN不改。
+- root唯一产品/状态/报告写者和运行主控；testing_p8测试工具/浏览器，runtime_p8新scope/运行/加载/保护与loaded QWeb工具，acceptance_p8未实现产品或测试工具的独立验收。同OS不冒隔离，旧期限/STOP/guard不改。
+- W0核9button/7summary/7a及最多2标题，P1两动态combobox明确排除。原字段/隐式submit/权限/顺序/P1 JS保持；GET与preview POST同模板元素opt-in。允许preview/pdf_view/download读取，禁止generate/print_request/template_create/template_review/export live提交。
+- 唯一旧合成目标/OID2171423/cluster7694897083368259627及原filestore；83附件引用/80唯一文件逐项保护，旧17431+P7新增200审计均作为历史。当前尚未启动P8服务/DB/浏览器，待工具与独立准入。
+- 最终交三报告、私有效果包、独立保护及一份#37 P8最终评论；#37 OPEN/#36 CLOSED，main只必要路由。缺必需验收则PARTIAL；完成P8后停止。
+
+---
+
+以下完整保留P7及更早事实与不可重放历史；历史“P8未启用”仅被本次用户明确P8授权替代。
+
 # DL-P7 当前状态｜YD-S13-DL-P7 / 1.0
 
 ## TECHNICALLY_COMPLETE（限定P7软件）/ SYNCED / 用户亲手效果待确认
