@@ -1,3 +1,20 @@
+# DL-P7 当前状态｜YD-S13-DL-P7 / 1.0
+
+## W0 进行中 / 尚未技术验收 / 尚未同步
+
+- 用户2026-10-25直接交付并启用《统一按钮语言与轻量SVG——仓库页面试点》完整P7计划；W0—W4连续执行，仅 `/ydental/inventory`。P1—P6技术交付承接，用户亲手效果仍待确认。P7完成后停止。
+- 实际起点 e31ea56d1ff903461eda86c08088c5f7e32aef7e，工作树开工clean；从指定P6业务分支正常建立 `codex/s13-dl-p7-inventory-actions-icons-r1`，已正常fetch，无reset/clean/强推/从main重建。
+- root唯一产品、状态及报告写者和环境运行调度；testing只P7浏览器工具；runtime只P7运行绑定工具；acceptance未实现产品及相应测试工具，独立SOURCE、真实新physical保护和最终验收。同OS不是隔离证明。
+- 13办理模板族：can_write的setup/policy/lot/receive/issue/inventory/transfer/lot_edit，can_catalog的product/product_edit，来源can_write的return/verify/recover条件分支。原前10有取消，后三无取消。仅允许控件class/文字span/静态SVG变化；保留全部字段/提交/权限/顺序与业务逻辑。
+- 正常新P7私有目录 `.local/dl-p7/`；原目标/OID2171423/cluster7694897083368259627与原filestore，不新建/复制/改名库。旧scope/STOP/guard/UNKNOWN及旧83文件、原件、金额库存、审计、未完责任保持。新阶段完整保护与独立准入形成后才开owned窗口。
+- 所有办理/scan POST禁止执行；仅GET查询/来源/分页，办理只展开/焦点/收起/原取消，序列化仅无网络内存。零新增原件/PDF/打印/scan/经济库存；访问审计和必要技术加载另分类。
+- 已读默认main路由/活动状态、#23/#37正文及相关增量，#37 OPEN/#36 CLOSED；实施中不发Issue进度。最终仅一份P7回执，旧P1—P6评论不改，main仅必要路由文档、不合产品、不部署。
+- [完整计划](docs/execution/S13_DL_P7_IMPLEMENTATION_PLAN.md)。三报告将使用 docs/reports/s13-dl-p7/{summary,acceptance-matrix,evidence-index}.md。完整S13/后续页面/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/合并部署生产均未启用。
+
+---
+
+以下为P6及更早完整历史，保留当时结论/失败/保护与不可重放事实；历史P7未启用仅由本次明确授权替代。
+
 # DL-P6最终状态｜YD-S13-DL-P6 / 1.0
 
 ## TECHNICALLY_COMPLETE（限定P6软件）/ SYNCED / 用户亲手效果待确认
