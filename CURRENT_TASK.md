@@ -13,6 +13,10 @@
 - 准备e2e1d33、工具API修0264fc2、真实前态工具29bccc48e67878203369f66c0abacf38b243869b；产品仍承接P6，前态正常owned run133107已停止。独立physical266501 RO/RR/rollbackclosed核145业务/13技术/83文件与P6末态九区exact；before3准入7f77af3d…按新probe/checkpoint绑定，正常认证audit单列。
 - 实际before Chromium main-v2及六旁路bypass-v1均child0/native0/logout200，无库存/scan POST；前态原图45unique（result索引50，5重名末次覆盖，其中3初索引hash不可核），独立指出取证缺陷，原失败保留、后态改唯一拒覆盖，不重放GET链补报告。首before-v1在后台UI就绪后错误等待networkidle超时child2/native0，未进入库存主链；工具正常修复，不冒整轮通过。
 - W1—W2产品：15原按钮、13summary、10原取消、1来源和2分页链接、2标题按精确path元素opt-in；四变体和七Lucide静态图，ISC/MIT及原SHA齐。SOURCE合同工具核仅还原允许呈现后完整P6 XML逐字规范化同，业务字段/条件/DOM/表单合同保持。后态尚未实际加载/浏览器/最终保护/独立总验收，不预签。
+- 首产品f3f8e61/实际工具运行d61200b已完成第一必要inventory加载0/ERROR0/noNative；即时pre85143…/posta6e7…独立b257e6c7…核业务仅49access/group69/inventory_mutex1写日（revision0）、10技术类及7SVG新view/XMLID，旧audit/83文件/其余七区exact。owned134502已正常stop。
+- 首after main-v1 client2/native0：原GET图/字/Enter、来源双目标、30+20真分页已采；首confirm即时采到140ms中间色contrast3.1249，不反签整轮。私有真实focus诊断180/400ms均white/#94513A contrast6.00471894/几何同，源/图/原退出保。测试只增加状态稳定等待，不降对比门槛。
+- 真实DOM另发现43新增span全英文，原fallback中文仍在；原生trans_export/独立只读与xml_translate证26unique新markup术语。产品仅给43文字span加t-translation=on，原生内存原中文全恢复、markupterm43→0；不加新业务条件、不关闭翻译、不重写文字/PO。此XML变更需第二次必要加载和完整即时保护，尚未执行。
+- 原生QWeb工具v1 request未绑定、v2到翻译断言失败均native1/noSignal，旧源/日志保留；v1只以内存minimal_qcontext修复正常环境，未改产品/真实token/权限。一次nativeRO诊断正常0/rollbackclosed，未实施业务或新原件。
 
 ---
 

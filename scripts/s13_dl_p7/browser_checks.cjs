@@ -150,13 +150,13 @@ function contrast(value, boundary=false, focus=false) {
         const families=[];
         for(let i=0;i<await details.count();i++) {
             const d=details.nth(i),s=d.locator('summary');
-            await s.focus();await s.press('Enter');assert.notEqual(await d.getAttribute('open'),null);
+            await s.focus();await s.press('Enter');assert.notEqual(await d.getAttribute('open'),null);await page.waitForTimeout(180);
             const summary=await s.evaluate(computed);
             const buttons=d.locator('button');
             const submits=[];
             for(let j=0;j<await buttons.count();j++) {
                 const b=buttons.nth(j);await b.focus();await page.keyboard.press('Tab');await page.keyboard.press('Shift+Tab');
-                assert(await b.evaluate(e=>e===document.activeElement));
+                assert(await b.evaluate(e=>e===document.activeElement));await page.waitForTimeout(180);
                 const value=await b.evaluate(computed);
                 if(stage==='after')contrast(value,true,true);
                 submits.push(value);
@@ -191,6 +191,13 @@ function contrast(value, boundary=false, focus=false) {
             states.active=await target.evaluate(computed);await page.mouse.move(0,0);await page.mouse.up();
             await target.focus();await page.keyboard.press('Tab');await page.keyboard.press('Shift+Tab');await page.waitForTimeout(180);
             states.focus=await target.evaluate(computed);
+            if(stage==='after'&&['BUTTON','A'].includes(states.focus.tag)) {
+                assert(/[\u3400-\u9fff]/.test(states.focus.text),'Visible action name must remain Chinese');
+                const matches=await page.getByRole(states.focus.tag==='A'?'link':'button',{name:states.focus.text,exact:true}).all();
+                const original=await target.elementHandle();let same=false;
+                for(const match of matches)if(await match.evaluate((e,expected)=>e===expected,original))same=true;
+                await original.dispose();assert(same,'Native accessible name must equal the visible Chinese action text');
+            }
             if(stage==='after')for(const [state,value] of Object.entries(states)) {
                 contrast(value,!['source','cancel'].includes(name),state==='focus');
                 for(const icon of value.svg) {
@@ -268,6 +275,14 @@ function contrast(value, boundary=false, focus=false) {
         assert.equal(initial.forms[0].method,'get');
         assert.deepEqual(initial.events.map(e=>Number(e.id)),samples.real_source_first_ids);
         check('ordinary-menu-original-GET-and-nine-columns',{visible_operations:initial.operations.length});
+        if(stage==='after') {
+            const baselineFile=path.join(root,'.local/dl-p7/evidence/before-chromium-v2/result.json');
+            const baseline=JSON.parse(fs.readFileSync(baselineFile)).initial;
+            const labels=value=>({buttons:value.forms.flatMap(f=>f.submitters.map(s=>s.text)),summary:value.operations.map(o=>o.summary)});
+            assert.deepEqual(labels(initial),labels(baseline),'Original loaded Chinese action and disclosure names must remain exact');
+            assert(labels(initial).buttons.every(text=>/[\u3400-\u9fff]/.test(text))&&labels(initial).summary.every(text=>/[\u3400-\u9fff]/.test(text)));
+            check('original-loaded-Chinese-action-disclosure-labels-exact',{before_result_sha256:hash(baselineFile),labels:labels(initial)});
+        }
         if(mode==='main'||mode==='nojs') {
             for(const [name,target] of [['icon','svg'],['text','span'],['Enter',null]]) {
                 const q=page.locator(search+' [name=q]'), before=gets();await q.fill(samples.product_name);await q.press('Tab');await page.waitForTimeout(100);assert.equal(gets(),before);

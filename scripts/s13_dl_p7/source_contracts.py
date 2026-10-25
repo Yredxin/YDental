@@ -21,7 +21,7 @@ for xp in xpaths:
    elif key in n.attrib:n.attrib.pop(key)
   branches=list(n);assert len(branches)==2 and branches[0].tag=='t' and branches[0].get('t-if')=='inventory_lookup' and branches[1].get('t-else')==''
   assert branches[1].text==o.text and not len(branches[1])
-  parts=list(branches[0]);assert all((p.tag=='span' and p.attrib=={'class':'o_ydental_inventory_action_label'} and not len(p) and p.text==o.text) or (p.tag=='t' and list(p.attrib)==['t-call'] and p.get('t-call').startswith('ydental_inventory.p7_icon_') and not len(p)) for p in parts)
+  parts=list(branches[0]);assert all((p.tag=='span' and p.attrib=={'class':'o_ydental_inventory_action_label','t-translation':'on'} and not len(p) and p.text==o.text) or (p.tag=='t' and list(p.attrib)==['t-call'] and p.get('t-call').startswith('ydental_inventory.p7_icon_') and not len(p)) for p in parts)
   assert len([p for p in parts if p.tag=='span'])==1
   for ch in list(n):n.remove(ch)
   n.text=o.text
