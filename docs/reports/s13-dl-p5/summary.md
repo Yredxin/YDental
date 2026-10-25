@@ -2,7 +2,7 @@
 
 `[CODEX-FINAL] YD-S13-DL-P5 / 1.0`
 
-技术：**TECHNICALLY_COMPLETE（限定P5软件，未实现者本地技术总签已实际完成）**。同步：**本轮SYNC_PENDING**；13bdf549原PARTIAL交付的SYNCED保持。用户亲手效果：**待确认**。
+技术：**TECHNICALLY_COMPLETE（限定P5软件，未实现者本地技术总签已实际完成）**。同步：**本轮SYNCED（首轮实际同步及读回已完成，最终元数据随后读回）**；13bdf549原PARTIAL交付的SYNCED保持。用户亲手效果：**待确认**。
 
 本次只补原P5的第二引擎、非空长值浏览器组件、全阶段独立保护及新包/技术总验收，没有重新设计产品。原PARTIAL历史见[13bdf549固定报告](https://github.com/Yredxin/YDental/blob/13bdf549dcb43cfe4d8b44b72de6eba55115cd31/docs/reports/s13-dl-p5/summary.md)，原失败/UNKNOWN及旧包不覆盖。
 
@@ -82,4 +82,11 @@ owned run20261025T095230Z-5d77f24f9b3a于 **2026-10-25T09:58:48.758607UTC** 正�
 原PARTIAL历史与当前续办状态分列，最终只在原评论6395137158后追加带实际时间及新锚点的结果，保留整个原PARTIAL正文；不新发第二份P5回执、不改P1—P4评论，#37 OPEN/#36 CLOSED。main仅必要路由；P5完成后停止，P6/完整S13/合并/部署/生产继续未启用。
 
 
-未实现者本地技术总验收已实际完成：`acceptance/continuation/technical-total-local.json`，SHA **c747a2c29c3af0dce09166e298401e4234cbfd17df3c1388476eb5b6c2314f3d**，状态LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING；14项适用软件/全阶段保护/新包/正常收尾已PASS，无剩余软件缺口。此签名不预签后续远端同步，用户亲手效果仍待确认。报告内容/60项实际SHA/12client原源及退出已被未实现者全文核。本轮最终report HEAD/main路由与同一评论续办追加将在真实同步读回后记录，不重启服务或重采数据库。
+未实现者本地技术总验收已实际完成：`acceptance/continuation/technical-total-local.json`，SHA **c747a2c29c3af0dce09166e298401e4234cbfd17df3c1388476eb5b6c2314f3d**，状态LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING；14项适用软件/全阶段保护/新包/正常收尾已PASS，无剩余软件缺口。此签名不预签后续远端同步，用户亲手效果仍待确认。报告内容/60项实际SHA/12client原源及退出已被未实现者全文核。本地签署时远端尚未执行，故原签状态保留REMOTE_PENDING；之后实际同步与读回事实如下，不反改原签时间/结论。不重启服务或重采数据库。
+
+
+## 本轮实际同步与读回
+
+2026-10-25T10:13:27UTC正常push并实际ls-remote：首份续办报告 **1fd5d9959afeb38240e3e3dd9ad26e1102b91942**，main仅两路由 **bed21a5126c192969746cddc6566d474679ddde4**。GitHub正常插件读回业务CURRENT/三报告及main两路由完整UTF8字节与gitblob逐一同本地，比较回执SHA **8e575d2dd4d0a1906c96b2395caea906e3931551daa83d3ba32dc7e9406b3c18**。
+
+原唯一P5评论[6395137158](https://github.com/Yredxin/YDental/issues/37#issuecomment-6395137158)仅追加续办结果，2026-10-25T10:14:24UTC前实际GET核原3720字PARTIAL前缀、其余六条旧评论全文、总七评论与请求正文均一致；#37 OPEN/#36 CLOSED，Issue原正文保持。读回回执SHA **405100d19709a68e447901f2056a1ba129edc5a8a2e10feaec37aec602e7f9bd**。本提交只记录已发生的同步事实；最终报告元数据HEAD/全文和同评论最终锚点继续实际读回，未实现者远端复核另存私有回执，不能预签未来或用户效果。

@@ -1,6 +1,6 @@
 # DL-P5逐项验收矩阵（定向续办）
 
-产品beea6d3保持，续办运行bad6f7f（仅CURRENT）。技术TECHNICALLY_COMPLETE（限定P5软件，本地未实现者总签已实际完成）；本轮同步SYNC_PENDING，原13bd历史SYNCED保持。
+产品beea6d3保持，续办运行bad6f7f（仅CURRENT）。技术TECHNICALLY_COMPLETE（限定P5软件，本地未实现者总签已实际完成）；本轮同步SYNCED（首轮实际ref/全文/同评论/状态读回已完成），原13bd历史SYNCED保持。
 
 |项|原候选/证据范围|本次影响及复用或补验|独立实际判断|
 |---|---|---|---|
@@ -17,7 +17,7 @@
 |T11 旁路冻结|原P4取消确认/两店draft-effective，P1—P3只读|原源/请求/原图新验收者已复核，无资产/产品变化，不重放历史|限定代表复用PASS|
 |T12 第二引擎无JS|原Chrome正常链/同context无JS|A真实WebKit27.2/18check/五视口/正常auth/menu/search/trace/键盘/back；child/native0|PASS，旧404及v2工具FAIL不倒签|
 |T13 加载完整保护|原唯一settlement-u即时pre→0→post已独立核|不重复-u；C新physical215272完整145/13/83、全P5五时点差异与root最终exact|PASS，旧末态不伪改为旧时点独立连接|
-|T14 独立包与收口|原13bd PARTIAL/旧包421fd原字节|新包01eb5/35成员/30PNG独立核；owned09:58:48UTC正常stop，本地技术总签实际PASS，远端未预签|本地技术PASS；本轮同步待实际收口|
+|T14 独立包与收口|原13bd PARTIAL/旧包421fd原字节|新包01eb5/35成员/30PNG独立核；owned09:58:48UTC正常stop，本地技术总签实际PASS，远端未预签|技术PASS；首轮远端同步读回PASS，最终元数据独立读回另存|
 
 A独立e144505a…、B独立03010722…、C独立3cf43ee1…、包独立97c08a78…；原复用11类由未实现者e7d40d13…逐件SHA/未变源码核。SOURCE/PURE、QWeb内存组件、HTTP、真实BROWSER/nativeAX、新physicalRO和图/包分层，截图或hash不代提交/权限证明。
 
@@ -27,3 +27,6 @@ A独立e144505a…、B独立03010722…、C独立3cf43ee1…、包独立97c08a78
 
 
 未实现者实际本地技术总签：`technical-total-local.json` SHA **c747a2c29c3af0dce09166e298401e4234cbfd17df3c1388476eb5b6c2314f3d**，LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING；14项适用软件断言/保护/包及收尾全PASS，T14远端子项随后实际读回，不能借同步反签软件。用户效果保持待确认。
+
+
+T14同步子项实际进展：首份报告1fd5d99/main两路由bed21a5正常push，六个远端全文/gitblob逐值同；同评论6395137158原3720字PARTIAL前缀/其余六评论/总七条和#37OPEN/#36CLOSED实际GET保持（10:14:24UTC前）。首轮同步回执405100d1…；本同步元数据最终HEAD/全文及未实现者独立远端复核随后实际读回，不把原本地REMOTE_PENDING签改成旧时点远端通过。

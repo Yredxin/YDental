@@ -1,6 +1,6 @@
 # DL-P5脱敏证据索引（定向续办）
 
-当前限定P5软件本地独立总签已实际完成，本轮同步SYNC_PENDING；原13bdf549的PARTIAL/SYNCED历史保持。产品beea6d3不变，续办运行bad6f7f（仅CURRENT），tracked适配工具9f4保留；私有A/B实际源按每次执行归档，不混同不同版本。Public不上传原图/原请求/程序/配置/DB/保护原件或任何凭据。
+当前限定P5软件本地独立总签已实际完成，本轮同步SYNCED（首轮真实ref/全文/同评论/状态已读回）；原13bdf549的PARTIAL/SYNCED历史保持。产品beea6d3不变，续办运行bad6f7f（仅CURRENT），tracked适配工具9f4保留；私有A/B实际源按每次执行归档，不混同不同版本。Public不上传原图/原请求/程序/配置/DB/保护原件或任何凭据。
 
 ## 续办实际材料
 
@@ -100,3 +100,11 @@ GitHub只在本PARTIAL最终交付同步；#37仅一份P5结果保持OPEN，旧P
 |层级|私有相对路径|实际SHA256|范围及边界|
 |---|---|---|---|
 |未实现者本地技术总签|`acceptance/continuation/technical-total-local.json`|`c747a2c29c3af0dce09166e298401e4234cbfd17df3c1388476eb5b6c2314f3d`|14项本地软件/保护/包/收尾全PASS；SYNC_PENDING，不预签远端或用户效果|
+
+
+## 续办首轮实际同步（最终元数据随后读回）
+
+|实际材料|私有相对路径|SHA256|边界|
+|---|---|---|---|
+|首份报告及main六全文比较|`continuation/first-final-file-readback-comparison.json`|`8e575d2dd4d0a1906c96b2395caea906e3931551daa83d3ba32dc7e9406b3c18`|正常push后ref1fd5d99/bed21a5；六UTF8全文/gitblob exact，不是附件hash冒动态|
+|同评论续办首次实际GET|`continuation/first-comment-readback.json`|`405100d19709a68e447901f2056a1ba129edc5a8a2e10feaec37aec602e7f9bd`|原3720字前缀/其余六评论/总七条不变，37OPEN/36CLOSED；最终元数据/独立远端签随后实际发生，不能预签|

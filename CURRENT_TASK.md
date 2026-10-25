@@ -1,8 +1,8 @@
 # DL-P5定向续办当前状态｜2026-10-25
 
-## TECHNICALLY_COMPLETE（限定P5软件）/ 本轮SYNC_PENDING
+## TECHNICALLY_COMPLETE（限定P5软件）/ 本轮SYNCED
 
-- 原P5范围A—D缺口已实际补齐，未实现者本地技术总签SHA c747a2c29c3af0dce09166e298401e4234cbfd17df3c1388476eb5b6c2314f3d，LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING；14项适用软件/全阶段保护/新包/正常收尾PASS，无剩余软件缺口。同步尚待本轮实际push/ref/全文/同评论读回；原13bdf549 PARTIAL交付的SYNCED历史保持，用户亲手效果仍待确认。
+- 原P5范围A—D缺口已实际补齐，未实现者本地技术总签SHA c747a2c29c3af0dce09166e298401e4234cbfd17df3c1388476eb5b6c2314f3d，LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING；14项适用软件/全阶段保护/新包/正常收尾PASS，无剩余软件缺口。本轮首份续办报告1fd5d9959afeb38240e3e3dd9ad26e1102b91942与main两路由bed21a5126c192969746cddc6566d474679ddde4已正常push，ref/六文档全文/gitblob及同评论原前缀/其余六评论/OPEN-CLOSED状态已于10:14:24UTC前实际读回一致；本记录为随后同步元数据，最终ref继续实际读回。原13bdf549 PARTIAL交付的SYNCED历史保持，用户亲手效果仍待确认。
 - [原P5完整计划](docs/execution/S13_DL_P5_IMPLEMENTATION_PLAN.md) · [续办结果/7步复现](docs/reports/s13-dl-p5/summary.md) · [原14项更新矩阵](docs/reports/s13-dl-p5/acceptance-matrix.md) · [脱敏证据索引](docs/reports/s13-dl-p5/evidence-index.md)。只P5，不重开P1—P4、不启P6。
 - 产品beea6d3dc9223fa06d298984b80cb463f2fcafea原四文件SHA完全不变，tracked运行适配工具9f4cfa46be547ce014436fa064ef9f789aa2ed35部分无变；续办真实运行绑定bad6f7f071daac997a2af53f7958fcc7429a18d6仅CURRENT，私有新测试工具逐次实际source/exit归档。core f0c5a9b、同一合成目标/OID2171423/cluster7694897083368259627及filestore保持，无产品修复/重复-u/新库/合并部署。
 - 用户当前CLI证据原样：Weekly limit: 99% left (resets 7:45 AM on 1 Nov)，来源用户，不冒API独立取得，时区未注明不推测；context18%是会话上下文非账户额度。正常新p5_resume_tester及未实现者p5_resume_acceptance均实际执行，无新额度错误；旧用量及主控接口UNKNOWN仅历史，不再调查/索要相同信息。
@@ -13,7 +13,7 @@
 - D新0400包S13-DL-P5-view-only-20261025-continuation-r1.zip：2263458B/SHA01eb5b6fceb68a259b04b54f32c5105f64618a5ac8e23e17d880974921fe569d，35members/30PNG（13旧必要图＋17新）/0PDF；全manifest34/sourcebytes/SHA/decode/privacy独立核SHA97c08a78dc27b7835bcc8bf0ce05b8567fe4b1bb28d0d82d59e5715bd6531cea。旧421fd...包原字节保持，不上传Public，无秘密/profile/配置/raw请求/程序字体/完整DB。
 - 原WebKit-v1 preauth404保持UNKNOWN；续办v2认证成功后Node函数未调用TypeError/client2/native0保留，最小IIFE工具修后v3通过不倒签旧失败。全部12client=9×0/1×1/2×2，旧Native139/Firefox/其他UNKNOWN不追溯诊断。真实OS IME/屏读/Safari/iOS/实机/正式政策未验。
 - owned续办run20261025T095230Z-5d77f24f9b3a于09:58:48.758607UTC正常stop_requested/child4090021 exit0/signull/groupstopped；browser/profile/active/18411与12/其他目标连接空，无临时grant，未动共享服务；独立已核真实收尾。不为写报告复开服务。
-- 末收口仅正常commit/push、main必要两路由、同一P5评论6395137158追加带实际时间/锚点续办结果并读回，原PARTIAL正文/旧P1—P4评论保留，#37 OPEN/#36 CLOSED。完整S13未完成，用户亲手效果待确认；P6/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/合并部署生产未启，P5交付后停止。
+- 末收口已正常commit/push、main仅两路由，同一P5评论6395137158已追加续办结果并读回；原PARTIAL完整3720字前缀/其余六评论/总7评论保持，首轮同步回执SHA405100d19709a68e447901f2056a1ba129edc5a8a2e10feaec37aec602e7f9bd，最终元数据与独立远端复核随后实际收尾，原PARTIAL正文/旧P1—P4评论保留，#37 OPEN/#36 CLOSED。完整S13未完成，用户亲手效果待确认；P6/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/合并部署生产未启，P5交付后停止。
 
 ---
 
