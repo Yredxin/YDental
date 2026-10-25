@@ -2,8 +2,11 @@
 
 `[CODEX-FINAL] YD-S13-DL-P5 / 1.0`
 
-技术：**IN_PROGRESS**。同步：**NOT_YET_SYNCED**。用户亲手效果：**待确认**。
-本文件为本地收口草稿；最终独立验收、保护、包及远端读回须按实际结果补齐。
+技术：**PARTIAL**。同步：**SYNC_PENDING（最终远端读回后更新）**。用户亲手效果：**待确认**。
+
+产品已限定实现；已完成的源码、Chromium、HTTP、QWeb组件和加载保护分项有真实证据。剩余缺口是成功的WebKit关键路径/双放大、浏览器长值三段组件、最终完整保护/私有包/技术总项的未实现者独立验收。测试线程触发平台用量限制后已退出，现无可用独立线程；不新建线程规避限制，不以主控自签补齐。旧owned窗口两小时正常到期后，30分钟独立准入已过期，原launcher真实拒绝重启；未放宽检查或伪造review。
+
+本次按PARTIAL最终交付并停止，不将软件范围实现等同于P5全部验收完成。后续补验仍属P5，须恢复正常可用的独立验收能力与新鲜实际准入，不需重授业务范围或重跑已采历史全链。
 
 ## 范围与固定候选
 
@@ -65,7 +68,9 @@ P5开工fresh RO baseline145业务/13技术/83实际文件与P4末态九区段�
 
 加载变化仅20条native ir_access及group69的write_date、7类技术元数据的时间、本页view1602 arch_db及report view1623的arch_prev；后者当前arch_db不变。无行增删/实际权限值变化，其他业务、配置/schema和83文件保持。正常读取审计及认证/资产技术元数据须另分类，不称全库物理零diff。
 
-最终保护及服务收尾：**待最终实际核验补齐**。65内部+2外部原件、实际完整文件、身份/作者/价源、金额库存、旧审计和未完成责任均受保护；固定旧来源1073+前批230=1303、本阶段贡献0及lot253收10/用2/余8是承接锚点，不把未来查询总数硬编码为1303。
+最终主控新RO/RR probe backend182076及完整末态snapshot已实际完成：145业务/13技术/83实际文件，snapshot SHA `134612cb6e0d1ccba91f3381ef92eac3d861efdd955359e75b1d82b8b07a3d07`。相对开工只新增949条accepted审计（13 login/13 login.scope/13 store.switch/726 settlement.source_view/182 settlement.invoice_view/1 other_store_summary/1 report.view），原审计无改删；native权限时间和7技术类变化沿唯一加载分类，其余业务/原文件/配置/schema保持。主控完整比较SHA `f0b4da4474c86caddb987dd8fe0de3232acfcf2563bd5b55d986fb6dc27e5db2`，这是工具作者观察，**最终未实现者独立保护尚缺**。
+
+末owned run20261025T044950Z-9f131a95d41e于2026-10-25T06:49:51.346268UTC因bounded_runtime_expired正常退出，child0/signull/groupstopped。前两次owned也正常stop。全部已执行browser正常close，原querytop失败轮由测试者核清profile后正常收尾；末主控核无browser/node进程、无owned profile、18411/12离线、active无、目标其他连接[]。无临时授权或待恢复grant。停止态SHA `19b929b6172d5809efb802e9d1f5861f818166638170042fa2a58b7d0af0ad3f`。未操作共享主服务。65内部+2外部原件、实际完整文件、身份/作者/价源、金额库存、旧审计和未完成责任均受保护；固定旧来源1073+前批230=1303、本阶段贡献0及lot253收10/用2/余8是承接锚点，不把未来查询总数硬编码为1303。
 
 保留首次普通路径/解释器/翻译提取错误及修正。内存QWeb组件的原生safe_eval callable WARNING保留，没有关闭检查。原search区域很长，scrollIntoView初图落在候选中段；这些原图只作候选/布局证据，补采真实query-top，不伪造历史before或声称同scrollY逐像素。
 
@@ -73,7 +78,9 @@ P5开工fresh RO baseline145业务/13技术/83实际文件与P4末态九区段�
 
 ## 私有包、复现与结束
 
-私有查看包和独立包核：**待实际构造与核验补齐**。包只含必要原PNG、README、字段映射/索引及manifest；不含秘密/session/profile/配置/raw请求、备份、程序/字体、PDF或完整DB投影，不上传Public。
+私有0400包 `.local/dl-p5/viewing/S13-DL-P5-view-only-20261025.zip`：3,071,325B / SHA256 `421fd23fe5b0878fffd665596722a95be099674a6625db584f752e9409f38c83`。39成员=34实际PNG（32不同SHA）+5说明/派生，manifest38非self；主控全成员回读/源字节SHA/PNG全解码通过。**独立包验收未完成**，不由构造者代签。只含必要原图、README、字段映射/截图索引/限制和manifest；无秘密/session/profile/配置/raw请求、备份、程序/字体、PDF或完整DB投影，不上传Public。包和截图不能重签完整数据保护。
+
+9次实际浏览器client：7次exit0，querytop首轮清理对象API用错exit1、WebKit首轮登录前minimal资源404后等待超时exit2。querytop-v2只补取图与草拟/另选返回，实际0/driver0/profile清理；旧v1不反签。WebKit27.2 native主进程0，未填凭据/进入结算。root后验同URL实际HTTP200、已有attachment222/39819B/同SHA cef8327be567721cdd09c79d4543715931e84ec836fa5540b5bfb08222265ad6，正常owned生命周期已重开过，但第二轮未运行，根因仍UNKNOWN。旧源/原错误/退出保留。报告准备fb2ace5只CURRENT/summary，不是新产品；首次重开因root自有报告dirty被clean guard拒，正常提交文档后启动，不修改guard。
 
 正常复开后七步，不承诺当前在线：
 

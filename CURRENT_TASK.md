@@ -1,18 +1,18 @@
 # DL-P5当前状态｜YD-S13-DL-P5 / 1.0
 
-## IN_PROGRESS / NOT_YET_SYNCED
+## PARTIAL / SYNC_PENDING
 
-- 用户2026-10-25完整启用P5，随后明确`run`；仅患者查询、已选患者及范围、今日/历史未出账和待核对只读费用概览。完整计划见`docs/execution/S13_DL_P5_IMPLEMENTATION_PLAN.md`。连续W0—W4，不逐包等待GPT。
-- 从实际本地/远端P4报告d2dfec3d7e0bde6e76005c7bba2865a22b4774ea正常建立`codex/s13-dl-p5-settlement-lookup-r1`，开工工作树clean；P4产品85b62b43cf7cda889e20663662ae86484a55f032保持。未reset/clean/强推、未从main重建产品。
-- root统一环境/运行/状态/工具绑定与报告；p5_product唯一产品写者；p5_tester测试工具及真实浏览器；p5_contract_review未实现者独立验收。共享OS不冒隔离。先真实before，再应用产品。
-- SOURCE已核：q只查本店候选，patient独立决定生效上下文；未选为本店范围，已选含规范患者的合并来源；history按业务日不等于今日。原GET/list/URL helpers/字段/顺序/50条费用及30条候选分页保持；无产品JS/新统计。
-- P1—P4保持原技术交付/同步结论，用户亲手效果仍待确认；#37 OPEN/#36 CLOSED。本轮尚未运行P5浏览器、模块加载或独立已提交保护，不预签通过。
-- 唯一已授权目标ydental_s11_synth_20261023_01/OID2171423/cluster7694897083368259627及原filestore；须现场新核。83文件是P4承接数量，按实际完整清单核；65内部+2外部原件、身份/作者/价源/金额/库存/旧审计/未完成责任保持。P5禁止新原件/PDF/打印/签署/发布/经济库存动作，正常访问审计与技术元数据分列。
-- W0实际工具/before候选9f4cfa46be547ce014436fa064ef9f789aa2ed35，fresh只读baseline145业务/13技术/83实际文件与P4末态九区段全同；未实现者新physical132590独立RO-RR复核并绑定准入。before正常uid14/store1/menu/query/select655/5views已实际0，服务20261025T043209Z-26dd78149c59正常stop，所有browser关闭。
-- 现场真实today0/history27/pending0，候选27真一页；明确显示/分页夹具将补覆盖，不能称真实非空/多页。W1/W2四产品文件已限定应用，18新增PO真实提取/SCSS预编译通过；页头前缀/首bill完整后缀/共享分页原字节同，尚待固定候选必要加载与动态验收。
-- 首固定产品/运行候选beea6d3dc9223fa06d298984b80cb463f2fcafea；唯一settlement-u即时pre→实际exit0/ERROR0/noNative→post完整。未实现者fresh RO134332九区段exact，load仅20 ir_access/group69时间与7类技术时间及本页arch/另一view的arch_prev，权限值/原件/业务不变；18新译文实载。
-- actual QWeb分页组件19断言通过（RO backend134317/rollback/0ORM业务创建）；today/history/pending纯内存长值片段与pending原因回退及追溯转义通过，只作组件层。after owned run20261025T043921Z-0b4e5acef0b6已正常start，真实浏览器正在执行，不预签最终。
-- 完整S13、P6、50活动会话/备份恢复/实机/正式政策/S11组合扫码/真实患者资金与外部通道/产品合并/部署/生产未启。P5交付后停止。
+- 用户2026-10-25完整启用P5并明确run/继续；限定患者查询、所选患者/费用范围及现有三段只读费用概览。[完整原文计划](docs/execution/S13_DL_P5_IMPLEMENTATION_PLAN.md) · [结果](docs/reports/s13-dl-p5/summary.md) · [14项矩阵](docs/reports/s13-dl-p5/acceptance-matrix.md) · [证据索引](docs/reports/s13-dl-p5/evidence-index.md)。本次PARTIAL最终交付后停止；缺项不能写通过。
+- 从实际合法P4报告d2dfec3d7e0bde6e76005c7bba2865a22b4774ea承接`codex/s13-dl-p5-settlement-lookup-r1`，开工clean、无reset/clean/强推/从main重建。产品/运行候选beea6d3dc9223fa06d298984b80cb463f2fcafea；准备/运行适配工具与真实before9f4cfa46be547ce014436fa064ef9f789aa2ed35；fb2ace5仅两文档检查点；core f0c5a9b不改。
+- 四产品文件限定XML/一SCSS/manifest CSS/新增18PO，无产品JS/统计/后台或权限schema改动。prefix2150B、首bill起suffix22764B及共享分页原字节同，25原t-out及原href/foreach保持；q只查候选，patient决定规范患者及合并来源上下文；未选本店范围，history是业务日!=今日，不把无候选解释为结清。
+- root统一运行/状态/工具/报告；p5_product唯一产品实现，p5_tester工具/真实浏览器，p5_contract_review未实现者审源/原图/请求/新physicalRO。各自真实分工，共享OS不冒隔离。独立已采SOURCE/字段290项/contrast54样本/HTTP/Chromium zoom/noJS/QWeb及加载保护；最终总签缺失，不由主控替代。
+- 实际Chrome156正常uid14/store1/menu/query/selected655/追溯/原bill展开取消/原他店摘要，五视口前后字段和内部computed同，320根宽320；native200%与独立root32/JSoff/原生AX/另选返回/P4草拟定向旁路已采。16HTTP=4x200/3x403/9x400，reader16/none17/现存跨店60/非法输入，0临时grant。真实候选27/history27/today0/pending0、selected history1，真一页；19QWeb分页和三段纯内存render/转义/原因回退另为组件，不冒真实非空或多页。
+- 未完成：成功WebKit关键路径及两种放大；三段长值浏览器组件；最终完整保护、私有包和技术总项的未实现者独立验收。WebKit首轮preauth minimal404/client2/native0，root同URL HTTP200+39819B实际原文件证保留，首因UNKNOWN；querytop首清理API错误exit1保留，v2定向通过。平台用量限制使测试线程退出，当前无可用独立线程；原fresh独立准入过30min，真实launcher拒重启，未换agent绕限制/伪review/改guard。P5授权不撤销，正常资源恢复后只补缺项。
+- 唯一既有目标ydental_s11_synth_20261023_01/OID2171423/cluster7694897083368259627和原filestore。唯一settlement-u即时pre→exit0/ERROR0/noNative→post，独立fresh134332九段与root同、18词实载；加载只native权限时间/7技术类变化。P4末态到本阶段开工全145/13/83九段同。
+- 最终root新RO182076/完整145业务+13技术+83实际文件，SHA134612cb6e0d1ccba91f3381ef92eac3d861efdd955359e75b1d82b8b07a3d07；其余原件/金额库存/身份作者价源/旧审计/未完责任保持。949正常accepted审计及原加载metadata单列，不称物理零diff；新增原件/PDF/打印/签署/发布/经济库存0。最终独立保护仍缺，不能冒PASS。固定1303/lot253收10用2余8保持，不重放历史责任。
+- 私有0400查看包3071325B/SHA421fd23fe5b0878fffd665596722a95be099674a6625db584f752e9409f38c83，39成员/34PNG/32distinct/0PDF，主控全bytes/hash/decode核，无秘密/配置/session/profile/raw请求/程序字体/DB投影或原文件字节；独立包核NOT_RUN。仅本机及用户授权会话查看，Public不传包。
+- 末owned run20261025T044950Z-9f131a95d41e于06:49:51.346268UTC窗口正常到期child0/signull/groupstopped。全部browser关闭/本人profile空/active无/18411与12离线/其他目标连接[]；无临时grant，未动共享主服务。旧scope不改，不承诺在线，不为交报告复开服务。
+- 只在结束正常同步分支/必要main两路由/一份#37 P5最终结果并实际读回；失败标SYNC_PENDING，不预签。#37 OPEN、#36 CLOSED，P1—P4原交付与评论不改，用户亲手效果仍待确认。完整S13未完成；P6/负载/恢复/实机/正式政策/S11组合扫码/真实患者资金与外部通道/产品合并/部署/生产未启用。
 
 ---
 
