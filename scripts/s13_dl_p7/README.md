@@ -42,3 +42,12 @@ checkpoint and launcher hashes before `bind_admission.py --probe <probe>
 --checkpoint <checkpoint> --review <review>`. Use `launcher.py --help` for the
 existing supervised start/status/stop interface; never modify an expired prior
 stage scope or replay a module upgrade merely to collect images.
+
+P7's executed browser evidence uses the exact per-run sources and dependency
+snapshots indexed in `docs/reports/s13-dl-p7/evidence-index.md`. The broad matrix
+client is the frozen preparation driver, not a reason to replay its old failed
+WebKit focus assumptions or JS-off asynchronous waits. Private finite clients
+separate natural Tab traces, keyboard-modality focus states, native JS-off
+viewport capture and component fault checks. Their original commands, sources,
+actual exit codes and failed attempts remain in the stage evidence. None of
+these tools changes a live form's submission capabilities.

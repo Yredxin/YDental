@@ -1,26 +1,23 @@
 # DL-P7 当前状态｜YD-S13-DL-P7 / 1.0
 
-## W1—W2 已实现，W3 验证准备 / 尚未技术验收 / 尚未同步
+## TECHNICALLY_COMPLETE（限定P7软件）/ SYNC_PENDING / 用户亲手效果待确认
 
-- 用户2026-10-25直接交付并启用《统一按钮语言与轻量SVG——仓库页面试点》完整P7计划；W0—W4连续执行，仅 `/ydental/inventory`。P1—P6技术交付承接，用户亲手效果仍待确认。P7完成后停止。
-- 实际起点 e31ea56d1ff903461eda86c08088c5f7e32aef7e，工作树开工clean；从指定P6业务分支正常建立 `codex/s13-dl-p7-inventory-actions-icons-r1`，已正常fetch，无reset/clean/强推/从main重建。
-- root唯一产品、状态及报告写者和环境运行调度；testing只P7浏览器工具；runtime只P7运行绑定工具；acceptance未实现产品及相应测试工具，独立SOURCE、真实新physical保护和最终验收。同OS不是隔离证明。
-- 13办理模板族：can_write的setup/policy/lot/receive/issue/inventory/transfer/lot_edit，can_catalog的product/product_edit，来源can_write的return/verify/recover条件分支。原前10有取消，后三无取消。仅允许控件class/文字span/静态SVG变化；保留全部字段/提交/权限/顺序与业务逻辑。
-- 正常新P7私有目录 `.local/dl-p7/`；原目标/OID2171423/cluster7694897083368259627与原filestore，不新建/复制/改名库。旧scope/STOP/guard/UNKNOWN及旧83文件、原件、金额库存、审计、未完责任保持。新阶段完整保护与独立准入形成后才开owned窗口。
-- 所有办理/scan POST禁止执行；仅GET查询/来源/分页，办理只展开/焦点/收起/原取消，序列化仅无网络内存。零新增原件/PDF/打印/scan/经济库存；访问审计和必要技术加载另分类。
-- 已读默认main路由/活动状态、#23/#37正文及相关增量，#37 OPEN/#36 CLOSED；实施中不发Issue进度。最终仅一份P7回执，旧P1—P6评论不改，main仅必要路由文档、不合产品、不部署。
-- [完整计划](docs/execution/S13_DL_P7_IMPLEMENTATION_PLAN.md)。三报告将使用 docs/reports/s13-dl-p7/{summary,acceptance-matrix,evidence-index}.md。完整S13/后续页面/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/合并部署生产均未启用。
-- 准备e2e1d33、工具API修0264fc2、真实前态工具29bccc48e67878203369f66c0abacf38b243869b；产品仍承接P6，前态正常owned run133107已停止。独立physical266501 RO/RR/rollbackclosed核145业务/13技术/83文件与P6末态九区exact；before3准入7f77af3d…按新probe/checkpoint绑定，正常认证audit单列。
-- 实际before Chromium main-v2及六旁路bypass-v1均child0/native0/logout200，无库存/scan POST；前态原图45unique（result索引50，5重名末次覆盖，其中3初索引hash不可核），独立指出取证缺陷，原失败保留、后态改唯一拒覆盖，不重放GET链补报告。首before-v1在后台UI就绪后错误等待networkidle超时child2/native0，未进入库存主链；工具正常修复，不冒整轮通过。
-- W1—W2产品：15原按钮、13summary、10原取消、1来源和2分页链接、2标题按精确path元素opt-in；四变体和七Lucide静态图，ISC/MIT及原SHA齐。SOURCE合同工具核仅还原允许呈现后完整P6 XML逐字规范化同，业务字段/条件/DOM/表单合同保持。后态尚未实际加载/浏览器/最终保护/独立总验收，不预签。
-- 首产品f3f8e61/实际工具运行d61200b已完成第一必要inventory加载0/ERROR0/noNative；即时pre85143…/posta6e7…独立b257e6c7…核业务仅49access/group69/inventory_mutex1写日（revision0）、10技术类及7SVG新view/XMLID，旧audit/83文件/其余七区exact。owned134502已正常stop。
-- 首after main-v1 client2/native0：原GET图/字/Enter、来源双目标、30+20真分页已采；首confirm即时采到140ms中间色contrast3.1249，不反签整轮。私有真实focus诊断180/400ms均white/#94513A contrast6.00471894/几何同，源/图/原退出保。测试只增加状态稳定等待，不降对比门槛。
-- 真实DOM另发现43新增span全英文，原fallback中文仍在；原生trans_export/独立只读与xml_translate证26unique新markup术语。产品仅给43文字span加t-translation=on，原生内存原中文全恢复、markupterm43→0；不加新业务条件、不关闭翻译、不重写文字/PO。此XML变更需第二次必要加载和完整即时保护，尚未执行。
-- 原生QWeb工具v1 request未绑定、v2到翻译断言失败均native1/noSignal，旧源/日志保留；v1只以内存minimal_qcontext修复正常环境，未改产品/真实token/权限。一次nativeRO诊断正常0/rollbackclosed，未实施业务或新原件。
+- 用户2026-10-25直接启用[完整P7计划](docs/execution/S13_DL_P7_IMPLEMENTATION_PLAN.md)，W0—W4连续实施，范围仅 `/ydental/inventory` 按钮/动作链接/原生summary/七种静态SVG；非全站、非库存业务开发。完成P7后停止。用户亲手效果待确认，完整S13/后续页面/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/合并部署生产均未启用。
+- [结果与7步复现](docs/reports/s13-dl-p7/summary.md) · [12项矩阵](docs/reports/s13-dl-p7/acceptance-matrix.md) · [完整脱敏索引](docs/reports/s13-dl-p7/evidence-index.md)。实际未实现者12项本地总签 **204b21aaa02b40cda64d0dab8384313990ed12e7899a63c39fed74f3411dde6b** 已完成（LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING），无本地技术缺口，T12远端同步子项待实际发生，不预签；本阶段Issue只在结束新增一份P7结果，#37 OPEN/#36 CLOSED、P1—P6旧评论不改。
+- 活动分支 `codex/s13-dl-p7-inventory-actions-icons-r1`；从真实P6报告e31ea56d1ff903461eda86c08088c5f7e32aef7e开工clean正常承接，无reset/clean/强推/从main重建。P6产品aec20359、工具539d147、唯一回执6397824653及P1—P6原技术交付保持，用户效果不反签。
+- 最终产品/实际运行 **52d5422fa0083bf88cec4442ffcd45d35d27e9f7**；首产品f3f8e61/运行工具d61200b保留，最终只补43span原生translation-on边界恢复原中文。before实际29bccc4（产品P6）。22浏览器client各真正executed源/依赖/command/exit另固定，13×0/7×2/2×130，旧失败不改。core f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb及原目标/OID2171423/cluster7694897083368259627、原filestore保持，无新库/复制/改名。
+- root唯一产品/状态/报告写者和运行调度；testing实际浏览器/测试工具，runtime运行/QWeb/包工具，acceptance未实现产品或对应工具独立SOURCE/新physical/原图/包/总签。同OS不是隔离证明。旧scope/STOP/guard/时间/UNKNOWN不改，不重查旧/status，不等逐包GPT审批。
+- 43目标呈现节点=15button/13summary/13a/2标题；四变体统一token入口 inventory_actions.scss，元素级准确path opt-in；7 Lucide0.468.0/f12b0de…官方几何、原SHA、完整ISC+Feather MIT。整个原XML只还原获准呈现/翻译边界后canonical exact；全部原字段/action/type/token来源/权限/可见条件/DOM/业务不变，无产品JS/自动提交/确认弹窗/全局样式。不改输入/select/九列表、catalog/error/P1—P5。
+- 真实Chromium156.0.8078.4＋WebKit27.2 WPE五视口、各native200/root200、各真JSoff代表两view/原GET导航/details、所有目标族/状态/13QWeb组件/故障及旁路已按层级采齐。WKit读链复用v2失败client已成8GET分项＋v5控件/独立13步自然Tab，矩阵focus另标native键盘模态/directfocus；Chrome组件复用首fixture前10有效分项＋faulttail，不反签整client。7主投影及有限旁路fields/computed严格同，分类动态0/无归一化。实际正文min5.20163/必要边3.24013/focus6.95377；非屏读/实机或业务重新执行。
+- 两次必要XML加载均0/ERROR0/noNative，有即时完整pre/post及独立分类；第二次为翻译边界修复，非纯asset重-u。全阶段仅49access/group69/inventory_mutex1 write_date（revision0）及原生技术类变化；7SVGview/XMLID新增、主view arch/prev和后续原生backup刷新精确分类。controller/model/service/ACL/schema/core不变。
+- 最终新physical **288600** RO/RR/rollbackidle/closed，完整145业务/13技术九区same root2d47dc49…；独立全阶段保护 **f0e59116c7170ee2c842701a6de6e23f2aef493215082f99b1ab1c52b217d1f0**。现场澄清 **83受保护附件文件引用/80唯一物理路径/80不同SHA**，3引用原生共享存储，全部引用与文件字节/尺寸/SHA保持，不是丢3文件，不改旧P6原回执。旧17431audit全保，新200accepted=login/scope/switch各34、inventory.view94、settlement.source_view2、report.view2；原件/金额库存/身份作者价源/未完责任/配置SMTP/schema保持，新原件/PDF/打印/签署/发布/scan/经济库存0，无临时grant。
+- 最后owned run20261025T135854Z-3a6a00c1da8f于 **2026-10-25T14:48:28.068882Z** 正常stop/child0/signull/groupstopped；独立OS/其它targetconn/ports18411和12/browser/node/profile/active空，回执c96d82a0…，未动共享主服务，不为报告复开。
+- 新私有0400包 `.local/dl-p7/viewing/S13-DL-P7-view-only-20261025-r1.zip`：2396745B / **6ddf2df5e54df61e898ea21fa553d125059c7a0366e43e30cdc1daa6cb356df6**，37成员/34原PNG/33不同SHA（catalog前后同字节）/36非self manifest；独立逐37成员/manifest/sourcebytes/34PNG/privacy已PASS，回执aaa9e114…；最后旁路/22退出独立4c481db2…已成。只本机/授权会话查看，不上传Public，无凭据/session/profile/raw请求/配置/完整DB/原件PDF/程序字体。前态50索引45图/3旧hash不可核保；包只选可核末次原图，不声称像素对齐或逐图未知身份。
+- 首产品新增span术语导致英文、过渡即时contrast3.1249、WebKit404/快速Tab假设、JSoff异步等待130、SVG缩进空白比较及原生QWeb工具失败均保留原源/退出/原件。最终真实原中文/稳定状态/自然Tab/NOJS及故障分层补验成立，不降门槛、不改产品CSS凑截图。没有live确认/scan POST或旧经济动作重放。
 
 ---
 
-以下为P6及更早完整历史，保留当时结论/失败/保护与不可重放事实；历史P7未启用仅由本次明确授权替代。
+以下为P6及更早完整历史，保留当时结论/失败/保护与不可重放事实；历史P7未启用仅由本次明确授权替代。P7当前现场计数澄清不追溯改写旧回执。
 
 # DL-P6最终状态｜YD-S13-DL-P6 / 1.0
 
