@@ -330,7 +330,7 @@ function contrast(value, boundary=false, focus=false) {
         if(mode==='fixtures') {
             assert.equal(stage,'after');
             const markup=await page.evaluate(()=>({
-                styles:[...document.querySelectorAll('link[rel=stylesheet]')].map(e=>e.outerHTML).join(''),
+                styles:[...document.querySelectorAll('link[rel=stylesheet]')].map(e=>{const link=e.cloneNode(true);link.href=e.href;return link.outerHTML;}).join(''),
                 query:document.querySelector('form[action="/ydental/inventory"] button').outerHTML,
                 scan:document.querySelector('form[action="/ydental/inventory/scan"] button').outerHTML,
                 source:document.querySelector('article[data-event] a[href*="event_id="]').outerHTML,
@@ -345,8 +345,7 @@ function contrast(value, boundary=false, focus=false) {
                     if(name==='styles'||!html)continue;
                     const holder=document.createElement(name==='disclosure'?'details':'div');holder.dataset.fixture=name;
                     holder.innerHTML=html;const target=holder.firstElementChild;
-                    if(target.tagName==='BUTTON')target.type='button';
-                    if(target.tagName==='A')target.setAttribute('href','#component-link');
+                    if(target.tagName==='BUTTON'&&target.form)throw Error('Standalone control fixture unexpectedly belongs to a live form');
                     const label=target.querySelector('.o_ydental_inventory_action_label')||target;
                     label.textContent='【组件长文字】'+('查询来源、取消返回与原办理确认完整中文'.repeat(5))+'末端';
                     parent.append(holder);
@@ -361,6 +360,17 @@ function contrast(value, boundary=false, focus=false) {
                     parent.append(b);
                 }
             },markup);
+            await settle(fixture);
+            const actualFixtureCSS=await fixture.locator('[data-fixture=query] button').evaluate(e=>({
+                fontSize:getComputedStyle(e).fontSize,color:getComputedStyle(e).color,
+                background:getComputedStyle(e).backgroundColor,
+                token:getComputedStyle(e).getPropertyValue('--ydental-action__primary-color').trim(),
+                links:[...document.querySelectorAll('link[rel=stylesheet]')].map(l=>({href:l.href,loaded:!!l.sheet}))}));
+            assert.equal(actualFixtureCSS.fontSize,'16px');assert.equal(actualFixtureCSS.color,'rgb(255, 255, 255)');
+            assert.equal(actualFixtureCSS.background,'rgb(148, 81, 58)');assert.equal(actualFixtureCSS.token,'#94513a');
+            assert(actualFixtureCSS.links.length>0&&actualFixtureCSS.links.every(l=>l.loaded&&l.href.startsWith(base+'/')));
+            save('component-actual-CSS-loaded-computed.json',actualFixtureCSS);
+            const originalLinkContracts=await fixture.locator('a').evaluateAll(xs=>xs.map(e=>({href:e.getAttribute('href'),tag:e.tagName,role:e.getAttribute('role')})));
             for(const [width,height] of views) {
                 await fixture.setViewportSize({width,height});await settle(fixture);
                 const measurements=await fixture.locator(optin).evaluateAll(xs=>xs.map(e=>({
@@ -460,12 +470,16 @@ function contrast(value, boundary=false, focus=false) {
             assert.equal(await fixture.locator('[data-fixture-state=disabled]').isDisabled(),true);
             assert.equal(await fixture.locator('[data-fixture-state=busy]').getAttribute('aria-busy'),'true');
             const baseControls=await fixture.locator(optin).evaluateAll(xs=>xs.map(e=>({tag:e.tagName,text:e.textContent})));
+            assert.deepEqual(await fixture.locator('a').evaluateAll(xs=>xs.map(e=>({href:e.getAttribute('href'),tag:e.tagName,role:e.getAttribute('role')}))),originalLinkContracts);
             await fixture.locator('svg').evaluateAll(xs=>xs.forEach(e=>e.remove()));
             assert.deepEqual(await fixture.locator(optin).evaluateAll(xs=>xs.map(e=>({tag:e.tagName,text:e.textContent}))),baseControls);
             await fixture.setViewportSize({width:390,height:844});await fixture.locator('[data-fixture=query]').scrollIntoViewIfNeeded();await shot('fixture-SVG-absent-readable',fixture);
             await fixture.locator('link[rel=stylesheet]').evaluateAll(xs=>xs.forEach(e=>e.remove()));
             const active=fixture.locator('[data-fixture=query] button');await active.focus();assert(await active.evaluate(e=>e===document.activeElement));
             assert.deepEqual(await fixture.locator(optin).evaluateAll(xs=>xs.map(e=>({tag:e.tagName,text:e.textContent}))),baseControls);
+            for(const link of await fixture.locator('a').all()){await link.focus();assert(await link.evaluate(e=>e===document.activeElement));}
+            assert.deepEqual(await fixture.locator('a').evaluateAll(xs=>xs.map(e=>({href:e.getAttribute('href'),tag:e.tagName,role:e.getAttribute('role')}))),originalLinkContracts);
+            save('component-failure-original-link-contracts.json',{links:originalLinkContracts,href_changed:false,network_navigation_dispatched:false,all_original_links_native_focusable:true});
             await shot('fixture-styles-absent-native-focus',fixture);
             assert.equal(gets(),before);check('explicit-SVG-and-CSS-absent-readable-native-elements',{layer:'COMPONENT_BROWSER',no_business_requests:true});
             await fixture.close();
