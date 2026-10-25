@@ -1405,3 +1405,78 @@ msgstr "可局部滚动的明细"
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
 msgid "Cancel and return to viewing"
 msgstr "取消并返回查阅"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "Lots match product or lot names. Source records also match product codes. Only source records are paginated."
+msgstr "批次按物料或批次名称匹配；来源记录还可按物料编码匹配。下方翻页只针对来源记录。"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "Submit the search to update the displayed results. Typing alone does not apply a new query."
+msgstr "点击查询或按 Enter 后更新结果；输入中的文字尚未生效。"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "On hand, available and quarantine are separate values. Dates are shown in UTC. No alert does not confirm that stock is issuable."
+msgstr "在手、可用和隔离分别显示，不可合并理解。日期为 UTC；没有告警不代表可发放。"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "Focus the lot table and use the arrow keys to read all nine columns."
+msgstr "表格可局部横向滚动；聚焦后使用左右方向键阅读全部九列。"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "No lots are displayed for this name query in the current authorized scope."
+msgstr "当前名称查询和授权范围内，没有可显示的批次。"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "Opening a source only locates its record. It does not receive, issue, verify or recover stock."
+msgstr "查看来源仅用于定位记录，不会接收、发出、复核或恢复库存。"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "No source records are displayed on this page for the current query and authorized scope."
+msgstr "当前查询和授权范围内，本页没有可显示的来源记录。"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "Inventory source quantity"
+msgstr "来源数量"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "Inventory source lot"
+msgstr "来源批次"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "Inventory source responsible person"
+msgstr "负责人"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "Inventory source pages"
+msgstr "库存来源分页"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "This is the first source page."
+msgstr "当前为首个来源页。"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "Current source page"
+msgstr "当前来源页"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "There is no next source page for this query."
+msgstr "本查询没有下一来源页。"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "Pagination applies only to source records, not to the lot table."
+msgstr "此处翻页仅针对来源记录，批次表不分页。"

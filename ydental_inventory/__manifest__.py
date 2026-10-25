@@ -5,5 +5,10 @@
     'license': 'LGPL-3',
     'depends': ['stock', 'product', 'uom', 'product_expiry', 'ydental_access', 'ydental_intake', 'ydental_queue'],
     'data': ['security/ir.access.csv', 'data/ydental_inventory_data.xml', 'views/ydental_inventory_templates.xml'],
+    'assets': {
+        'web.assets_frontend': [
+            'ydental_inventory/static/src/scss/inventory_lookup.scss',
+        ],
+    },
     'installable': True,
 }

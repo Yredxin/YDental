@@ -9,6 +9,11 @@
 - 先准备工具/验收者、新有效准入及完整前态后再开必要owned服务；不调查旧额度、不索要相同status/凭据、不改旧准入时间/STOP/guard。当前调用若有真实新拒绝按实际保存并停止受影响动作，不换入口规避。
 - 本轮技术仍未验收，不预签完成或同步。最终维护指定P6三报告、私有包、5—8步路径；#37只一份新P6最终结果且OPEN，P1—P5回执不改，#36 CLOSED；main只路由。P6交付后停止，不自行整站补齐/下一计划，不合并部署生产。
 
+- W0实际：准备/工具/真实before候选539d147d659a6214d16e2796460728912f810ccf，9项纯边界PASS；root前态2e227924…完整145业务/13技术/现场83文件与P5末态九区逐值同。未实现者新physical228803 RO-RR/实际0/rollback闭独立核，review d13a3e4f…与950723b…真实绑定，旧记录不改。
+- BEFORE run20261025T105814Z-0a10c7d9f83c已正常stop：before-v1实际client2，主链12分项/五视口/catalog已采后同context重登录等待超时；before-bypass-v1仅补P5/P4/doc三旁路6分项及正常freshcontext/关闭均已采，最后Process.poll API错client2/signull。原失败/源/退出保留，不把两整轮改PASS，不重采成功部分。后续仅修工具returncode采集。
+- 真实门店1有3批次/50来源（真实30+20两页）、编码差异查询lot0/source23、源定位保批次范围、五视口原root宽等视口（320实际320）；warehouse13主路径、reader16读取、none17负例均沿现有正常身份。全库当前无带target的transfer，真实incoming样本缺失按SOURCE域/产品无过滤及组件明确分层，不造库存链。
+- 产品唯一写者已应用4文件候选（application-index b8518f54…），SOURCE13办理/scan/header/error/各原投影及helpers保持；15独有PO追加，四片段局部暖色，无JS。接续固定产品候选/完整即时pre/新独立准入后才唯一inventory加载，不预签动态PASS。
+
 ---
 
 以下为P5及更早完整状态历史，原事实和失败/UNKNOWN保留；本次启用只替代P6未启用，不反签用户效果。
