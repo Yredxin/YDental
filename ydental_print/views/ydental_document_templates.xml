@@ -72,8 +72,90 @@
                     <label>Previous original for a new version <select name="previous_id"><option value="" t-if="not previous_originals">New original without a previous version</option><option t-foreach="previous_originals" t-as="previous" t-att-value="previous['id']"><span>Latest saved original</span> · <t t-out="previous['patient_number']"/> · v<t t-out="previous['version']"/></option></select></label><button type="submit">Generate and preserve original PDF</button>
                 </form>
             </section>
-            <p t-if="result" role="status">Operation accepted. Review the saved original or related record below.</p><details t-if="result"><summary>Operation trace</summary><pre t-out="result"/></details><h2>Saved originals in the current authorized scope</h2>
-            <div class="o_ydental_access_scroll" tabindex="0" aria-label="Saved document details"><table class="table"><thead><tr><th>Patient and purpose</th><th>Version and state at generation</th><th>Actual generation time (UTC)</th><th>Saved original</th></tr></thead><tbody><tr t-foreach="originals" t-as="original"><td><strong t-out="original['patient_name']"/> · <t t-out="original['patient_number']"/><br/><t t-out="original['title']"/><p t-if="original['synthetic']">Synthetic test; awaiting applicable review or signature</p></td><td>v<t t-out="original['version']"/> · <t t-out="original['status']"/><details><summary>Source, template and file trace</summary><dl><t t-foreach="original['trace']" t-as="field"><dt t-out="field"/><dd t-out="original['trace'][field]"/></t></dl></details></td><td t-out="original['generated_at']"/><td><form action="/ydental/documents/action" method="post" target="_blank"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="original_id" t-att-value="original['id']"/><button name="operation" value="pdf_view">View original</button><button name="operation" value="download">Download original</button><details><summary>Request printing</summary><p>A request is not verified physical paper output.</p><button name="operation" value="print_request">Request printing original</button></details></form></td></tr></tbody></table></div><nav><span> <t t-out="pagination['total']"/> saved originals; page <t t-out="pagination['page']"/> / <t t-out="pagination['page_count']"/> </span><a t-if="pagination['previous']" t-att-href="search_url(pagination['previous'])">Previous originals page</a><a t-if="pagination['next']" t-att-href="search_url(pagination['next'])">Next originals page</a></nav><p t-if="not originals">No saved originals are available in this scope.</p>
+            <p t-if="result" role="status">Operation accepted. Review the saved original or related record below.</p><details t-if="result"><summary>Operation trace</summary><pre t-out="result"/></details><section class="o_ydental_print_originals" data-dl-scope="documents-originals" aria-labelledby="ydental-documents-originals-title">
+                <h2 class="o_ydental_print_originals_title" id="ydental-documents-originals-title">Saved originals in the current authorized scope</h2>
+                <p class="o_ydental_print_originals_help">Patient labels use the current patient record. Versions and states describe the saved original, not the current source.</p>
+                <p class="o_ydental_print_originals_help" id="ydental-documents-originals-scroll-help">Scroll within the table to read all columns. Focus the table to scroll with the keyboard.</p>
+                <div class="o_ydental_access_scroll o_ydental_print_originals_scroll" tabindex="0" role="region" aria-label="Saved document details" aria-describedby="ydental-documents-originals-scroll-help">
+                    <table class="table o_ydental_print_originals_table" aria-labelledby="ydental-documents-originals-title">
+                        <thead>
+                            <tr>
+                                <th class="o_ydental_print_originals_heading o_ydental_print_originals_patient_column" scope="col">Patient and purpose</th>
+                                <th class="o_ydental_print_originals_heading o_ydental_print_originals_state_column" scope="col">Original version and state at generation</th>
+                                <th class="o_ydental_print_originals_heading o_ydental_print_originals_time_column" scope="col">Actual generation time (UTC)</th>
+                                <th class="o_ydental_print_originals_heading o_ydental_print_originals_action_column" scope="col">Read saved original</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="originals" t-as="original" t-att-data-original-id="original['id']">
+                                <td class="o_ydental_print_originals_cell">
+                                    <div class="o_ydental_print_originals_patient">
+                                        <strong t-out="original['patient_name']"/>
+                                        <span class="o_ydental_print_originals_number" t-out="original['patient_number']"/>
+                                        <p class="o_ydental_print_originals_purpose" t-out="original['title']"/>
+                                    </div>
+                                </td>
+                                <td class="o_ydental_print_originals_cell">
+                                    <div class="o_ydental_print_originals_state">
+                                        <span class="o_ydental_print_originals_version">Original version <t t-out="original['version']"/></span>
+                                        <p class="o_ydental_print_originals_status" t-out="original['status']"/>
+                                        <p class="o_ydental_print_originals_warning" t-if="original['synthetic']">Synthetic test; awaiting applicable review or signature</p>
+                                    </div>
+                                    <details class="o_ydental_print_original_trace">
+                                        <summary class="o_ydental_print_original_trace_summary">Source, template and file trace</summary>
+                                        <dl class="o_ydental_print_original_trace_values">
+                                            <t t-foreach="original['trace']" t-as="field">
+                                                <dt class="o_ydental_print_original_trace_key" t-att-data-trace-key="field">
+                                                    <span t-if="field == 'pdf_sha256'">PDF SHA256</span>
+                                                    <span t-elif="field == 'original_id'">Saved original ID</span>
+                                                    <span t-elif="field == 'previous_original_id'">Previous original ID</span>
+                                                    <span t-elif="field == 'source_model'">Source model</span>
+                                                    <span t-elif="field == 'source_id'">Source record ID</span>
+                                                    <span t-elif="field == 'source_version'">Source version</span>
+                                                    <span t-elif="field == 'source_sha256'">Source SHA256</span>
+                                                    <span t-elif="field == 'template_sha256'">Template SHA256</span>
+                                                    <span t-elif="field == 'layout_version'">Layout version</span>
+                                                    <span t-elif="field == 'template'">Template code</span>
+                                                    <span t-elif="field == 'template_version'">Template version</span>
+                                                    <span t-elif="field == 'frozen_title'">Title at generation</span>
+                                                    <span t-elif="field == 'details'">Frozen details</span>
+                                                    <span t-elif="field == 'versions'">Version summary</span>
+                                                    <code class="o_ydental_print_original_trace_machine_key" t-out="field"/>
+                                                </dt>
+                                                <dd class="o_ydental_print_original_trace_value"><t t-out="original['trace'][field]"/></dd>
+                                            </t>
+                                        </dl>
+                                    </details>
+                                </td>
+                                <td class="o_ydental_print_originals_cell"><span class="o_ydental_print_originals_generated" t-out="original['generated_at']"/></td>
+                                <td class="o_ydental_print_originals_cell">
+                                    <form class="o_ydental_print_originals_actions" action="/ydental/documents/action" method="post" target="_blank">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="original_id" t-att-value="original['id']"/>
+                                        <div class="o_ydental_print_originals_read_actions">
+                                            <button class="o_ydental_print_originals_button o_ydental_print_originals_view" name="operation" value="pdf_view">View original</button>
+                                            <button class="o_ydental_print_originals_button" name="operation" value="download">Download original</button>
+                                        </div>
+                                        <details><summary>Request printing</summary><p>A request is not verified physical paper output.</p><button name="operation" value="print_request">Request printing original</button></details>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <nav class="o_ydental_print_originals_pager" aria-label="Saved originals pages">
+                    <div class="o_ydental_print_originals_page_meta">
+                        <p class="o_ydental_print_originals_count">Matching authorized originals <strong t-out="pagination['total']"/></p>
+                        <p class="o_ydental_print_originals_count">Current page <strong t-out="pagination['page']"/> / <span t-out="pagination['page_count']"/></p>
+                    </div>
+                    <div class="o_ydental_print_originals_page_actions">
+                        <a class="o_ydental_print_originals_page_link" t-if="pagination['previous']" t-att-href="search_url(pagination['previous'])">Previous originals page</a>
+                        <span class="o_ydental_print_originals_page_boundary" t-else="" aria-disabled="true">First page reached</span>
+                        <a class="o_ydental_print_originals_page_link" t-if="pagination['next']" t-att-href="search_url(pagination['next'])">Next originals page</a>
+                        <span class="o_ydental_print_originals_page_boundary" t-else="" aria-disabled="true">Last page reached</span>
+                    </div>
+                </nav>
+                <p class="o_ydental_print_originals_empty" role="status" t-if="not originals">No saved originals are available for this search in the current authorized scope.</p>
+            </section>
             <details name="document_template_review"><summary>Template review and publication</summary><p>Only group document policy administrators can perform these actions. Content is plain text and is never executed as a QWeb template. Review and publication apply to this store and this explicit version.</p>
                 <form action="/ydental/documents/action" method="post"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="template_create"/>
                     <label>Name <input name="name" required="required" maxlength="120"/></label><label>Type <select name="kind"><option value="clinical">Clinical text</option><option value="clinical_summary">Clinical collection</option><option value="consent">Consent awaiting signature</option><option value="receipt">Collection receipt</option><option value="refund">Actual refund receipt</option><option value="bill">Internal bill</option><option value="lab_label">Laboratory label</option><option value="exam">Examination</option><option value="prescription">Prescription</option></select></label><label>Version <input name="version" required="required" maxlength="80"/></label>

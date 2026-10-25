@@ -9,7 +9,8 @@
 - 同一既有目标/filestore；运行前完整现态保护及fresh准入待核，83为承接数量而非硬编码结论。旧原件/金额/库存/审计/责任保护，不生成、不打印、不做经济库存动作。
 - W0：完整计划已保存；准备工具2cfd141与路径guard前向修复3a30457，仅文档/阶段适配，addon仍P2。7项PURE通过；当前完整RO145业务表/13技术表/83文件与P2最终9区段同，独立准入进行中。新P3自有scope至2026-10-25T12:51:43UTC，不代表服务在线。
 - W0前态已完成：独立backend77211全9区段同；正常owned run20261025T005530Z-2978a1ab6c4f已采真实47原件/2页(30+17)、5视口/trace/单页/特殊字符空态/完整preview文本/3旁路，正常stop与supervisor退出0。before首table选择器错误保留，工具定向补采成功；旧False追溯dd缺失抽取问题单列纠正，未改数据。
-- W1/W2：documents已获4产品文件独占写权；root/tester/acceptance分别准备定向HTTP/最终浏览器/独立验收。下一动作：冻结产品、即时完整pre/限定print加载/post及独立核，再最终T01—14；不重跑P1/P2历史全套。#37保持OPEN/#36 CLOSED，过程不发布Issue。
+- W1/W2已实现并交回写权：恰XML/manifest/新增originals SCSS/25新PO项；SOURCE/PURE原生XML翻译/PO/libsass/QWeb False与完整hash转义通过。P1/P2及preview/生成/管理导出前后字节、打印details字节保持；此非动态或独立通过。
+- W3下一动作：冻结首产品、即时完整pre/限定print加载/post及独立核，再最终T01—14。before原47行raw trace已与后取只读14源事实逐字核一致，10空前版错误单列纠正派生、原result不改；不重跑P1/P2历史全套。#37保持OPEN/#36 CLOSED，过程不发布Issue。
 
 ---
 

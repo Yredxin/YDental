@@ -2487,3 +2487,128 @@ msgstr "合成、签署与出纸"
 #: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
 msgid "Access and saved originals"
 msgstr "读取权限与原件"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Patient labels use the current patient record. Versions and states describe the saved original, not the current source."
+msgstr "患者标签沿用当前患者资料。版本和状态描述已保存原件，不是来源的当前状态。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Scroll within the table to read all columns. Focus the table to scroll with the keyboard."
+msgstr "在表格区域内横向滚动可阅读全部列；聚焦表格后可用方向键滚动。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Original version and state at generation"
+msgstr "原件版本与生成时状态"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Read saved original"
+msgstr "查阅已保存原件"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "PDF SHA256"
+msgstr "PDF文件校验值（SHA256）"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Saved original ID"
+msgstr "原件内部编号"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Previous original ID"
+msgstr "前版原件内部编号"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Source model"
+msgstr "来源模型"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Source record ID"
+msgstr "来源记录内部编号"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Source version"
+msgstr "来源版本"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Source SHA256"
+msgstr "来源校验值（SHA256）"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Template SHA256"
+msgstr "模板校验值（SHA256）"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Layout version"
+msgstr "版式版本"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Template code"
+msgstr "模板代码"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Template version"
+msgstr "模板版本"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Title at generation"
+msgstr "生成时标题"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Frozen details"
+msgstr "冻结明细"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Version summary"
+msgstr "版本摘要"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Saved originals pages"
+msgstr "已保存原件分页"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Matching authorized originals"
+msgstr "当前授权查询原件总数"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Current page"
+msgstr "当前页"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "First page reached"
+msgstr "已到首页"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Last page reached"
+msgstr "已到末页"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "No saved originals are available for this search in the current authorized scope."
+msgstr "当前查询与授权范围内没有可显示的已保存原件。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_page
+msgid "Original version"
+msgstr "原件版本"
