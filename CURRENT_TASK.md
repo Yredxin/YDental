@@ -10,7 +10,7 @@
 - W0：完整计划已保存；准备工具2cfd141与路径guard前向修复3a30457，仅文档/阶段适配，addon仍P2。7项PURE通过；当前完整RO145业务表/13技术表/83文件与P2最终9区段同，独立准入进行中。新P3自有scope至2026-10-25T12:51:43UTC，不代表服务在线。
 - W0前态已完成：独立backend77211全9区段同；正常owned run20261025T005530Z-2978a1ab6c4f已采真实47原件/2页(30+17)、5视口/trace/单页/特殊字符空态/完整preview文本/3旁路，正常stop与supervisor退出0。before首table选择器错误保留，工具定向补采成功；旧False追溯dd缺失抽取问题单列纠正，未改数据。
 - W1/W2已实现并交回写权：恰XML/manifest/新增originals SCSS/25新PO项；SOURCE/PURE原生XML翻译/PO/libsass/QWeb False与完整hash转义通过。P1/P2及preview/生成/管理导出前后字节、打印details字节保持；此非动态或独立通过。
-- W3下一动作：冻结首产品、即时完整pre/限定print加载/post及独立核，再最终T01—14。before原47行raw trace已与后取只读14源事实逐字核一致，10空前版错误单列纠正派生、原result不改；不重跑P1/P2历史全套。#37保持OPEN/#36 CLOSED，过程不发布Issue。
+- W3首产品/执行固定`2873a3b6d9ac77b7d55fb0da6311c65534df8a11`；原生SOURCE及未实现者独立核通过。已唯一限定print-u：即时完整pre→实际exit0/ERROR0/noNative→完整post，独立新物理backend80347与root九区段同，145/13/83；仅原生日期和本页1618arch变化。首同条件after已完成：47行/14trace/10页未改区同，3旁路PNG同SHA，完整preview唯一渲染时间差已实际全文核。root10项真实单份HTTP及原95bytes/头SHA/保护同，none17临时exportwrite验证拒绝后新RO恢复原授权。独立发现2actual译文复用，正局部修复；Chrome首inline body断言未存原body首因UNKNOWN，已过片段保留、缺字节/zoom待定向补。run20261025T010707Z-d65d69666669所有browser正常关，root已正常stop/supervisor0。下一动作：2词局部修复/必要加载后补两引擎及缺口，不重跑已过无关整链；完整保护/独立验收/包/同步后停止。before原47行raw trace已与后取只读14源事实逐字核一致，10空前版错误单列纠正派生、原result不改；不重跑P1/P2历史全套。#37保持OPEN/#36 CLOSED，过程不发布Issue。
 
 ---
 
