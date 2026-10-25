@@ -1,8 +1,8 @@
 # DL-P3当前状态｜YD-S13-DL-P3 / 1.0
 
-## TECHNICALLY_COMPLETE（限定P3软件）/ SYNC_PENDING
+## TECHNICALLY_COMPLETE（限定P3软件）/ SYNCED
 
-- 用户2026-10-25明确启用[完整P3计划](docs/execution/S13_DL_P3_IMPLEMENTATION_PLAN.md)，W0—W4限定软件验证、未实现者分项/完整保护/私有包均已完成；未实现者本地技术总签已实际完成SHA188c0db20a8a9e8cb70933f391f916e7282f615fa34cd4aece9a82e374a94dfc；真实GitHub收口待执行，不预签未来同步。[结果](docs/reports/s13-dl-p3/summary.md) · [14项矩阵](docs/reports/s13-dl-p3/acceptance-matrix.md) · [证据索引](docs/reports/s13-dl-p3/evidence-index.md)。
+- 用户2026-10-25明确启用[完整P3计划](docs/execution/S13_DL_P3_IMPLEMENTATION_PLAN.md)，W0—W4限定软件验证、未实现者分项/完整保护/私有包均已完成；未实现者本地技术总签已实际完成SHA188c0db20a8a9e8cb70933f391f916e7282f615fa34cd4aece9a82e374a94dfc；首业务aa5f6a57473aea67e079d77c43a9cb50fece51d3/main cd5d0327eb5dff3ec1e5cf74be0cedfedb16fbfa两ref与11完整正文、#37唯一新P3评论6392314778及状态/全部旧内容已实际读回，首同步SHA206773090dd072274d073c1ec72e89e89bb0cdc9c064aab2e1d8043176229360；本提交只补同步元事实，最终ref/独立远端另读回，不预签未来。[结果](docs/reports/s13-dl-p3/summary.md) · [14项矩阵](docs/reports/s13-dl-p3/acceptance-matrix.md) · [证据索引](docs/reports/s13-dl-p3/evidence-index.md)。
 - 分支`codex/s13-dl-p3-documents-originals-r1`从现场合法P2报告1d3fe088c029e0d9562325b2895a64ac31945b71正常承接，开工工作树clean/incoming diff0；P2已同步当时P1复核补记。P1/P2原交付TECHNICALLY_COMPLETE/SYNCED，不重开、不重跑历史全套；三阶段用户亲手效果均待确认。
 - 准备2cfd141/guard前向修复3a30457、before执行d4a94d0（addon仍P2）、首产品2873a3b；最终产品/执行 **b72bcd6d125aad45bf8e62fb7596d5bb5725ac13**，core f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb未改。报告提交不当新产品。原P2 a0b33c14及6391318665/P1 8dea264及6384111913保持。
 - 恰4addon文件：列表XML、新documents-originals SCSS、manifest一资产、25新PO。单份语义表格/原排序授权数据/分页q与page/14追溯原序值/原POST submitter契约保持；打印190B子树、P1P2/preview/生成/管理导出及后台/PDF/其他页/全局品牌冻结。
@@ -13,7 +13,7 @@
 - 原before selector/10空previous误采、旧2译文、Chrome首body未存及后601B内建shell/Observer误分本地资源、JSoff rAF受控SIGINT/额外Tab强假设、WebKit首controlled Node1/nativeUNKNOWN/后metadata和身份探测错误保留。仅普通P3私有appsink插件补件，经官方签名索引SHA与独立native工厂核，原引擎/driver/认证/安全不改，旧hang原因UNKNOWN。最终WebKit client/main0；不反签旧失败。
 - 320整页345/client320限制保持；Tab可聚焦下载但非自动全显，实际ArrowRight局部横读后完整可达/旧下载真bytes同。Firefox字体/历史Native139/WebKit404 UNKNOWN、实机/屏读/Safari及正式政策未验不冒PASS。
 - 私有0400效果包`.local/dl-p3/viewing/S13-DL-P3-view-only-20261025.zip`：3330880B/SHA885317dfb014a5542eecbdb5aed0d2226694fdcb567b622e41701a2d36934c60，36成员/31原PNG/0PDF，manifest35全部bytes/hash/源图核；独立包SHA d13ce496ccc5670fb3084ae9b40283fdc46ec95839587fc76deddde295a51db0。不含秘密/profile/raw请求/原DB或83文件bytes，不上传Public。
-- 下一动作：本地总签已完成→正常commit/push与真实ref/正文/#37唯一新P3评论/旧内容状态读回，main仅必要两路由文档；成功后更新SYNCED并交付停止。#37保持OPEN/#36保持CLOSED，不合产品main、不部署。P4—P6、完整S13、负载/备份恢复/实机/正式政策/组合扫码/真实患者资金外部通道及生产仍未启用。
+- 收口：本地总签、首完整两ref/11正文与#37唯一P3最终记录6392314778全文/旧内容/状态读回已实际完成。仅同步本提交文档元事实与同一评论最终报告HEAD，未实现者随后实际远端读回；不新增评论、不重跑业务，完成即交付停止。main已仅两路由文档。#37保持OPEN/#36保持CLOSED，不合产品main、不部署。P4—P6、完整S13、负载/备份恢复/实机/正式政策/组合扫码/真实患者资金外部通道及生产仍未启用。
 
 ---
 

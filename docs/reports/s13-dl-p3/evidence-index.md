@@ -49,6 +49,9 @@
 
 原source/check/map旧版、before-v1/raw trace误采、Chrome601B shell及旧body未存FAIL、JSoff受控SIGINT/parse/mode/Tab强假设错误、WebKit首controlled Node1/nativeUNKNOWN及其后metadata/identity探测失败，连同17个实际client过程/source归档均在tester-final-summary及对应原process/phase/native.log，不反签旧非零。原HTML/fulltext均实际保留，本批仅已证明单一次render.generated_at差；不回签P2。
 
-软件分项/最终完整保护/私有包独立已核；本地总签与随后真实GitHub同步另存`acceptance/final-acceptance-independent.json`和`acceptance/final-sync-independent.json`。当前未来同步尚未执行，不预签、不把本地结果当远端回执；实际最终SHA随同一份#37 P3最终评论读回。
+软件分项/最终完整保护/私有包独立已核；本地总签与随后真实GitHub同步另存`acceptance/final-acceptance-independent.json`和`acceptance/final-sync-independent.json`。首完整同步现已实际完成；本提交只补同步元事实，最终ref/独立远端与同评论最终HEAD另读回，不由旧本地总签预签。实际最终SHA随同一份#37 P3最终评论读回。
 
 |独立本地技术总签|`acceptance/final-acceptance-independent.json`|`188c0db20a8a9e8cb70933f391f916e7282f615fa34cd4aece9a82e374a94dfc`|T01—13及T14local PASS，remote当时NOT_RUN，未预签未来同步|
+
+|首代码/main全正文|`verification/code-main-first-readback.json`|`e5f61556afdc138f6a5150fdfa2fb72ba5985e39bff6ef82b9a4544c1e5557e9`|11实际正文bytes/Gitblob与两ref、旧内容状态核|
+|首完整同步/唯一评论|`verification/first-final-sync-readback.json`|`206773090dd072274d073c1ec72e89e89bb0cdc9c064aab2e1d8043176229360`|aa5/cd5及唯一新6392314778全文GET同、旧评论/Issue正文/状态保持|

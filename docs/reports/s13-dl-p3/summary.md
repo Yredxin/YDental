@@ -2,7 +2,7 @@
 
 `[CODEX-FINAL] YD-S13-DL-P3 / 1.0`
 
-技术：**TECHNICALLY_COMPLETE（限定P3软件，未实现者本地技术总签已实际完成）**；同步：SYNC_PENDING（尚未执行最终远端收口）。
+技术：**TECHNICALLY_COMPLETE（限定P3软件，未实现者本地技术总签已实际完成）**；同步：**SYNCED**；首业务/main两ref、11份完整正文、唯一P3最终评论和旧内容/Issue状态已实际读回。本提交仅同步元事实，不是新产品或业务重跑。
 用户亲手效果：待确认；P3启用不代表P1/P2已获亲手验收。
 P1/P2保持TECHNICALLY_COMPLETE / 原交付SYNCED，不重开、不重跑历史全套。完整S13未完成；#37保持OPEN，#36保持CLOSED。P4—P6、生产及产品合并未启用。
 
@@ -104,4 +104,4 @@ P3定向HTTP实际10例在2873执行并按b72纯静态词增量复用：doctor9 
 6. 搜索S，按现有上下页核q保留、原排序与首末边界；本次47/两页，不硬编码未来数量。
 7. 320/390窄屏按提示聚焦局部表格、方向键横读/到下载；另用无结果查询核准确空态。
 
-本地软件与保护/包已获未实现者总签，SHA `188c0db20a8a9e8cb70933f391f916e7282f615fa34cd4aece9a82e374a94dfc`，T14local已通过，remote当时NOT_RUN。下一正常commit/push、实际读回两ref/正文和必要Issue状态；仅#37新增一份P3最终结果，旧P1/P2评论不改、#36不改，main只必要两路由文档。当前同步尚待实际执行，不预签未来回执。P3最终交付后停止，不开始P4—P6，不合产品main、不部署。
+本地软件与保护/包已获未实现者总签，SHA `188c0db20a8a9e8cb70933f391f916e7282f615fa34cd4aece9a82e374a94dfc`；其当时remote NOT_RUN历史状态保留，不预签未来。现已正常push首完整报告HEAD `aa5f6a57473aea67e079d77c43a9cb50fece51d3`与main两路由 `cd5d0327eb5dff3ec1e5cf74be0cedfedb16fbfa`，11份实际正文逐字节/Gitblob同；仅新增[#37 P3最终评论6392314778](https://github.com/Yredxin/YDental/issues/37#issuecomment-6392314778)，全文读回同，#37 OPEN/5评论、#36 CLOSED/2评论，Issue正文与全部旧评论同。首完整同步SHA `206773090dd072274d073c1ec72e89e89bb0cdc9c064aab2e1d8043176229360`。本提交只补同CURRENT/3报告同步元事实，随后同一新评论更新最终报告HEAD并读回，未实现者独立远端另存final-sync-independent，不新增评论或业务。P3交付后停止，不开始P4—P6，不合产品main、不部署。

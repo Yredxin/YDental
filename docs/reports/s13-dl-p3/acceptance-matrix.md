@@ -17,6 +17,6 @@
 |T11 P1P2旁路|正常搜索/选择取消确认/显式preview及P2内部字段/提示/样式同；10页严格对照、3代表旁路PNG同SHA；原preview HTML/fulltext保存后只一次generated_at差，未删正文/改iframe。未重跑历史全套|BROWSER+SOURCE+独立全文；before-after-contract-independent，首2873证据按b72两词增量复用|PASS|
 |T12 跨引擎无JS|Chrome156.0.8078.4与真WebKit27.2完成适用正常角色路径/分页/trace/旧文件/窄屏/zoom，JSoff原表单/trace/实际下载过。失败/受控中断/未知旧native退出分别保留；最终WebKit main0/client0。普通私有appsink补件不改引擎/认证/平台，不冒Safari/iOS|真实BROWSER+实际进程收据；tester-final-summary、jsoff/webkit/stress独立签|PASS|
 |T13 加载保护|固定b72；两次必要print加载各完整即时pre→实际0/ERROR0/noNative→post。未实现者最终新物理RO/RR backend93247逐值9区段同root，145/13/83，原件/金额/库存/职责/权限同；元数据/fence另分类|原生加载+独立已提交RO；final-protection-independent aab620…、final-quiescence|PASS|
-|T14 交付停止|软件断言/独立分项、31原图私有包和7步复现、实际owned stop01:54:50UTC/child0/group stopped已齐。未来远端ref/正文/唯一#37评论读回尚未执行，不预签；P4—P6未启用|独立本地总签188c0db2…已实际完成；最终远端同步待收口|LOCAL_PASS / SYNC_PENDING|
+|T14 交付停止|软件断言/独立分项、31原图私有包和7步复现、实际owned stop01:54:50UTC/child0/group stopped已齐。首两ref/11正文/唯一#37评论6392314778实际读回、全部旧内容与状态同；末文档元事实与独立远端另记；P4—P6未启用|独立本地总签188c0db2…；first-final-sync-readback20677309…已实际完成|PASS|
 
-所有PASS仅适用限定软件断言；没有用户亲手、真实设备/屏读、Safari/iOS、正式政策或完整S13/生产批准。T14未来同步不由本地签名代替。首Chrome/JSoff/WebKit非零、受控SIGINT以及历史UNKNOWN完整保留，详见summary及17次实际客户端退出索引。
+所有PASS仅适用限定软件断言；没有用户亲手、真实设备/屏读、Safari/iOS、正式政策或完整S13/生产批准。T14本地与后来真实远端读回分别留证，本地签名未预签未来。首Chrome/JSoff/WebKit非零、受控SIGINT以及历史UNKNOWN完整保留，详见summary及17次实际客户端退出索引。
