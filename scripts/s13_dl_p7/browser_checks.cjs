@@ -445,6 +445,16 @@ function contrast(value, boundary=false, focus=false) {
                     layer:'ACTUAL_LOADED_QWEB_MEMORY_COMPONENT',real_authorization_or_business_execution:false});
                 check('all-13-loaded-QWeb-family-FormData-native-semantics',{families:13,layer:'QWEB_MEMORY_BROWSER_COMPONENT'});
                 await qwebPage.close();
+                assert(loaded.error_html,'Loaded original inventory error main component required');
+                const errorPage=await context.newPage();
+                await errorPage.setContent('<!doctype html><html lang="zh-CN"><head>'+markup.styles+'</head><body>'+loaded.error_html+'</body></html>');
+                assert.equal(await errorPage.locator(optin).count(),0);
+                assert.equal(await errorPage.locator('.o_ydental_inventory_action,.o_ydental_inventory_disclosure,.o_ydental_inventory_icon').count(),0);
+                const errorControls=await errorPage.locator('main h1,main p,main a,main button,main summary').evaluateAll(xs=>xs.map(e=>({tag:e.tagName,text:e.textContent,style:Object.fromEntries(['display','fontFamily','fontSize','color','backgroundColor','borderColor','padding'].map(k=>[k,getComputedStyle(e)[k]]))})));
+                assert(errorControls.length>0);
+                save('component-original-inventory-error-computed.json',{layer:'ACTUAL_LOADED_QWEB_ERROR_MAIN_COMPONENT',controls:errorControls,loaded_arch_sha256:loaded.error_template_loaded_sha256,full_layout_or_live_POST_claimed:false});
+                await shot('component-original-inventory-error',errorPage);await errorPage.close();
+                check('original-loaded-error-main-no-P7-scope-or-inherited-control-classes',{layer:'QWEB_MEMORY_BROWSER_COMPONENT',live_POST_refusal_claimed:false});
             }
             const before=gets();
             assert.equal(await fixture.locator('[data-fixture-state=disabled]').isDisabled(),true);
