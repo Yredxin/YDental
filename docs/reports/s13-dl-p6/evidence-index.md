@@ -1,6 +1,6 @@
 # DL-P6脱敏证据索引
 
-产品/运行aec20359；工具/前态539d147；原始材料仅在忽略的.local/dl-p6，Public只原计划/代码/脱敏报告。凭据/Cookie/session/profile/原请求/连接配置/完整DB投影/原保护文件字节/字体/程序不进入查看包或Public。本地总签已实际完成，仅本轮SYNC_PENDING；不预签远端或用户亲手效果。
+产品/运行aec20359；工具/前态539d147；原始材料仅在忽略的.local/dl-p6，Public只原计划/代码/脱敏报告。凭据/Cookie/session/profile/原请求/连接配置/完整DB投影/原保护文件字节/字体/程序不进入查看包或Public。本地总签及首交付实际远端独立GET已完成，本轮SYNCED；用户亲手效果待确认。
 
 ## 实际原件与独立结论
 
@@ -93,3 +93,14 @@ owned服务最后12:19:33.567280UTC正常0/signull/groupstopped，browser/profil
 |实际未实现者14项本地总签|acceptance/technical-total-local.json|d5f60e25649e7d7aec71f13684f0c98c95717e12bc49ae864bcbc652b2d50ccc|
 
 12:42:06UTC实际LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING，无本地技术缺口，技术TECHNICALLY_COMPLETE/用户亲手效果待确认；T14远端后续真实读回，原签不改时补造。总签首次私有脚本对“用户效果/亲手”同义文字作过强字面assert的原失败也留档，仅校验同义文本修正，无软件/业务重测。
+
+
+## 实际同步与独立远端结论
+
+|实际材料|私有相对路径|SHA256|
+|---|---|---|
+|首交付21完整UTF8/bytes/Gitblob比较|verification/first-remote-full-comparison.json|5e77d4c13c28256ee69c28f10e311a0eee62175aa079e55655847aba2cdd93a2|
+|唯一新P6全文/旧7/Issue原正文状态实际GET|verification/first-final-sync-readback.json|7858734ee69327e49532ff40128e80949c07bf2921c6c77bc1397813a61690f9|
+|未实现者实际独立正常插件远端总核|acceptance/final-sync-independent.json|a6c62d9a6da9021ad5e1a02ea5235aaa5a170e6bc7f62e66b3029b7de0145bf2|
+
+12:50:34UTC真实核两ref fe2c928/9499e59、21全文/Blob、新6397824653精确全文、旧7/总8及37OPEN36CLOSED/body/title全同。原签不改时间；最后报告元数据仅记录已发生事实，最终HEAD/全文与同评论增量实际读回另存，同目录私有最终回执不进ZIP或Public原件。P6技术/同步已完成，用户亲手效果仍待确认，交付后停止。

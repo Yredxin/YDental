@@ -2,7 +2,7 @@
 
 [CODEX-FINAL] YD-S13-DL-P6 / 1.0
 
-技术：TECHNICALLY_COMPLETE（限定P6软件；未实现者本地技术总签已实际完成）。同步：本轮SYNC_PENDING。用户亲手效果：待确认。P1—P5既有技术/同步结果、P5 PARTIAL历史/新旧包和所有失败/UNKNOWN保持，不重开历史全套。
+技术：TECHNICALLY_COMPLETE（限定P6软件；未实现者本地技术总签已实际完成）。同步：本轮SYNCED（首份交付及独立远端核已实际完成）。用户亲手效果：待确认。P1—P5既有技术/同步结果、P5 PARTIAL历史/新旧包和所有失败/UNKNOWN保持，不重开历史全套。
 
 ## 固定候选、范围与分工
 
@@ -128,3 +128,14 @@ WebKit-v2原minimalJS/font404及Chrome组件初始CSS404保留。root11:55:15UTC
 ## 实际本地技术总签
 
 2026-10-25T12:42:06.913403+00:00，未实现者完成实际14项本地技术总验收：acceptance/technical-total-local.json SHA **d5f60e25649e7d7aec71f13684f0c98c95717e12bc49ae864bcbc652b2d50ccc**，LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING。软件、冻结无新增回归、完整阶段保护、新包和owned收尾齐，无剩余本地技术缺口。原签时间远端尚未执行，不预签GitHub；本轮SYNC_PENDING，用户亲手效果待确认。最终正常push/ref/全文/唯一新P6评论与Issue状态在实际读回后记录，不复开服务或重采业务。
+
+
+## 本轮实际同步及独立远端验收
+
+首份技术报告 **fe2c928c57b1745196bf3bfbdd2c36b2c4b6731b** 与main仅两路由 **9499e59365b2460e869a3890a317b5f20c4e6663** 已正常push，21完整远端UTF8字节/bytes/gitblob和两ref由主控逐值读回，回执SHA **5e77d4c13c28256ee69c28f10e311a0eee62175aa079e55655847aba2cdd93a2**。
+
+#37仅新增P6评论[6397824653](https://github.com/Yredxin/YDental/issues/37#issuecomment-6397824653)，随后实际GET全文exact、总8条/唯一新增/旧7ID+body全同（P5完整8154字符不改）；两Issue原title/body和37OPEN/36CLOSED保持，首实际读回SHA **7858734ee69327e49532ff40128e80949c07bf2921c6c77bc1397813a61690f9**。
+
+未实现者于 **2026-10-25T12:50:34.841256UTC** 通过正常GitHub插件独立直接GET两ref、全部21完整UTF8/Gitblob、新唯一P6全文/旧7/两Issue正文状态，全exact；回执 `acceptance/final-sync-independent.json` SHA **a6c62d9a6da9021ad5e1a02ea5235aaa5a170e6bc7f62e66b3029b7de0145bf2**。T14远端子项实际PASS，限定P6 **TECHNICALLY_COMPLETE / SYNCED**，用户亲手效果待确认。原本地总签时REMOTE_PENDING保留，不改旧时点。
+
+此最后文档提交只记录上述已发生验收；其最终HEAD/全文及同一新P6评论锚点继续普通实际增量读回，私有回执另存，不预签未知SHA。没有新产品/工具/业务或服务；P6交付后停止，下一计划、合并、部署、生产未启用。

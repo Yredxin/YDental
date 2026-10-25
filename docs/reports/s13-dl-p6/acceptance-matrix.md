@@ -2,7 +2,7 @@
 
 计划YD-S13-DL-P6 / 1.0；产品/实际后态运行aec20359d6f0cdc0e7a1f1070bcc870fd0798b95，工具/原前态539d147d659a6214d16e2796460728912f810ccf，后续HEAD仅报告。除SOURCE/组件外，未另注的真实浏览器均普通warehouse13/store1；reader16/none17及4旁路角色另见原结果。真实输入、逐项预期/实际、源/进程/原图/参数均在固定原件，非本表摘要代实证。
 
-当前技术TECHNICALLY_COMPLETE（限定P6软件），未实现者本地14项总签已实际完成，分项/完整保护/包/收尾成立；本轮SYNC_PENDING，远端尚未执行不预签。用户亲手效果待确认。
+当前技术TECHNICALLY_COMPLETE（限定P6软件），未实现者本地14项总签已实际完成，分项/完整保护/包/收尾成立；本轮SYNCED（首交付21全文/唯一新P6回执及状态已实际独立GET通过）。用户亲手效果待确认。
 
 |项|条件与预期|实际与证据层级|未实现者当前判断|
 |---|---|---|---|
@@ -19,7 +19,7 @@
 |T11 冻结旁路零业务|同条件字段/内部样式、catalog/scan/header及4代表旧页不回归，0业务POST|同13/store1/q默认/page1/1440完整9objects strict exact；5view fields/可见开闭＋CDP三节点匹配/继承scope0；4旁路所采节点/字段/computed同，仅P4 query_at精准分类|限定SOURCE＋BROWSER＋COMMITTED_RO PASS；9ce55…/db91…；原cold不稳定/FAIL全保，不称全文或5view hiddencomputed全同|
 |T12 真实跨引擎|Chromium＋WebKit正常menu/query/lot/source/back/page/narrow/退出|Chromium156.0.8078.4；WebKit27.2 v1四view/v3正常23链+320两端/targeted39两压合证；新zoom client0/native4180293 0，旧v1/2/3仍2|真实BROWSER分项合证 PASS；0b109…；旧left/bbox/404UNKNOWN保留，不称旧失败client全程成功|
 |T13 加载完整保护|必要加载即时pre→实际exit→post独立分类；最终新physical完整文件/投影全阶段核|唯一inventory-u0/ERROR0；新final251350 RO-RR/rollback闭全145/13/83与root九区exact；P5末/本阶段start/pre/load/post/final分类，旧audit全保、新217accepted|LOADING＋INDEPENDENT_PHYSICAL_RO PASS；94a43…/db91…；不重复-u|
-|T14 包/总签/同步/停止|所有适用分项、完整保护、新包全成员、7步路径、owned收尾/唯一P6远端读回|r2 ZIPb7db94…/2360375B/38members/33PNG独立全核，服务12:19:33UTC正常0，profile/active/ports/其它targetconn空；本地总签d5f60e25…已实际完成，远端子项待实际发生|本地技术PASS（d5f60e25…），仅远端尚待实际收口|
+|T14 包/总签/同步/停止|所有适用分项、完整保护、新包全成员、7步路径、owned收尾/唯一P6远端读回|r2 ZIPb7db94…/2360375B/38members/33PNG独立全核，服务12:19:33UTC正常0，profile/active/ports/其它targetconn空；本地总签d5f60e25…已实际完成，远端a6c62d9a…已实际GET通过，最后文档增量读回另存|PASS：本地d5f60e25…＋实际远端a6c62d9a…，用户效果待确认|
 
 SOURCE/PURE、原生QWeb内存、BROWSER_FIXTURE、真实HTTP/BROWSER/nativeAX、独立新physicalRO和ZIP逐字节核均分层。真实来源仅done/无incoming、policy未配；组件不冒真实患者/库存或权限。原记录15client=7×0/8×2、offlinecompare-v1/core-v1/core-v2 FAIL及后有效分项保留；缺旧driver/left/bbox仍UNKNOWN，不反填历史。
 
@@ -27,3 +27,6 @@ SOURCE/PURE、原生QWeb内存、BROWSER_FIXTURE、真实HTTP/BROWSER/nativeAX�
 
 
 实际本地总签SHA **d5f60e25649e7d7aec71f13684f0c98c95717e12bc49ae864bcbc652b2d50ccc**，12:42:06UTC / LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING。所有14项适用本地软件/保护/包/收尾已签，T14远端子项后续真实读取，不反改原签时间或用户效果；本轮SYNC_PENDING。
+
+
+T14远端实际PASS：12:50:34UTC未实现者正常插件直接GET业务fe2c928/main9499e59两ref、21完整正文/Gitblob、唯一新P6评论6397824653全文、全部旧7ID/body/总8、37OPEN/36CLOSED及原Issue正文title全同，receipt SHA **a6c62d9a6da9021ad5e1a02ea5235aaa5a170e6bc7f62e66b3029b7de0145bf2**。最终四文档仅记录此实际元事实，不重跑软件/DB/包；最终metadata ref/fullbody/comment增量另实际读回，不反签旧REMOTE_PENDING或用户亲手效果。

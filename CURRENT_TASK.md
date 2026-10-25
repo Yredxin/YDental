@@ -1,33 +1,18 @@
-# DL-P6当前状态｜YD-S13-DL-P6 / 1.0
+# DL-P6最终状态｜YD-S13-DL-P6 / 1.0
 
-## TECHNICALLY_COMPLETE（限定P6软件）/ 本轮SYNC_PENDING / 用户亲手效果待确认
+## TECHNICALLY_COMPLETE（限定P6软件）/ SYNCED / 用户亲手效果待确认
 
-- 用户已完整启用P6并明确Implement the plan；从真实业务HEAD ede6205976f28f6367bcd2a33aa785d96f6aff21正常建立codex/s13-dl-p6-inventory-lookup-r1。开工工作树clean，无reset/clean/强推，从P5产品正常承接，不从文档main重建。
-- [完整用户原计划](docs/execution/S13_DL_P6_IMPLEMENTATION_PLAN.md)。范围仅库存查询、九列批次表、来源只读前缀、末尾来源分页四分离片段；库存全部办理/扫码/目录/后台/P1—P5冻结。P6启用不改变用户效果待确认及完整S13未完成。
-- root为唯一主控/运行/状态/工具适配和同步写者；p6_product唯一addon写者；复用p5_resume_tester准备P6私有工具/真实浏览器，p5_resume_acceptance未实现者独立审源/新物理RO/准入/保护/包/总项。共享OS不冒隔离，不自签产品或测试工具。
-- 同一原合成目标ydental_s11_synth_20261023_01/OID2171423/cluster7694897083368259627及filestore；core f0c5a9b固定。全部当前原件、金额、库存、审计与责任保护，P5原949＋320=1269历史审计不删清。本轮不新增原件/PDF/打印/签署/发布/收退款/治疗/经济库存业务，不提交scan/action。
-- 先准备工具/验收者、新有效准入及完整前态后再开必要owned服务；不调查旧额度、不索要相同status/凭据、不改旧准入时间/STOP/guard。当前调用若有真实新拒绝按实际保存并停止受影响动作，不换入口规避。
-- 本轮技术仍未验收，不预签完成或同步。最终维护指定P6三报告、私有包、5—8步路径；#37只一份新P6最终结果且OPEN，P1—P5回执不改，#36 CLOSED；main只路由。P6交付后停止，不自行整站补齐/下一计划，不合并部署生产。
-
-- W0实际：准备/工具/真实before候选539d147d659a6214d16e2796460728912f810ccf，9项纯边界PASS；root前态2e227924…完整145业务/13技术/现场83文件与P5末态九区逐值同。未实现者新physical228803 RO-RR/实际0/rollback闭独立核，review d13a3e4f…与950723b…真实绑定，旧记录不改。
-- BEFORE run20261025T105814Z-0a10c7d9f83c已正常stop：before-v1实际client2，主链12分项/五视口/catalog已采后同context重登录等待超时；before-bypass-v1仅补P5/P4/doc三旁路6分项及正常freshcontext/关闭均已采，最后Process.poll API错client2/signull。原失败/源/退出保留，不把两整轮改PASS，不重采成功部分。后续仅修工具returncode采集。
-- 真实门店1有3批次/50来源（真实30+20两页）、编码差异查询lot0/source23、源定位保批次范围、五视口原root宽等视口（320实际320）；warehouse13主路径、reader16读取、none17负例均沿现有正常身份。全库当前无带target的transfer，真实incoming样本缺失按SOURCE域/产品无过滤及组件明确分层，不造库存链。
-- 产品唯一写者已应用4文件候选（application-index b8518f54…），SOURCE13办理/scan/header/error/各原投影及helpers保持；15独有PO追加，四片段局部暖色，无JS。接续固定产品候选/完整即时pre/新独立准入后才唯一inventory加载，不预签动态PASS。
-
-- W1/W2产品已固定aec20359d6f0cdc0e7a1f1070bcc870fd0798b95，工具539d147；新physical232577实际完整pre/准入432ece31…后，唯一inventory-u实际0/ERROR0/noNative。即时post33b1c264…及新physical233360九区exact、全83原文件保全；加载独立94a43ad7…通过，49access/group69/mutex1仅write_date（revision0原值不变），9技术类差异精确列明，P5/print currentarch不变。
-- after首次start因三未提交报告草稿触发原clean guard拒绝2，无服务；正常commit仅三文档5c4bf27后原入口通过，未放宽检查。AFTER run20261025T111857Z-82afd15585b3正常启动，运行产品仍aec20359，report-only delta沿原机制。本轮软件未总验收，不预签。
-- 实际native shell只读QWeb/MRO/原生翻译提取已退出0、RO/RR PID235294/rollback/config清除；15新词export/实际中文arch一致，真实MRO确认clock仅_now、lab/exam/treatment扩展与基类_dashboard，legacyclock未启。独立ebab8f8c…核通过，QWeb不是浏览器/授权实证。
-- after-v1主路径/真实两页/五视口/四旁路21分项已采后driver metadata取值在with内为None而client2/signull，失败/原源保留，不倒签0，不重采成功部分。前后查询字段已逐项比；1440闭合details内部computed冷差保留原FAIL，正只读原生展开/收起采raw冷暖，不预判成cache或盲归一。其余跨引擎/两放大/长值实际浏览器/HTTP/无JS及最终保护总项执行中。
-
-- W3真实已采：Chromium zoom41/noJS108/HTTP28/focus4/长值组件268均client0且driver0；普通13/reader16有权200、none17真403、匿名303、16非法格式400、跨店180/负id原200空无泄漏。实际双放大与无JS独立d4c9ff09…通过；原生QWeb/15词/MRO独立ebab8f8c…通过；字段/四旁路/正文对比/冻结限定影响独立9ce55ea0…通过。正文min5.613、必要input边界3.319、焦点≥7.061仅本scope。
-- 冻结差异原FAIL不抹：before/after闭合隐藏details的cold computed采样不稳定，core-v1/core-v2客户端2原值保留；后续同13/store1/defaultq/page1/1440完整9objects strict exact，五view45次实际native开闭＋三CSSmatched/继承scope0＋原13SOURCE证实限定影响无新增回归，不称五viewport隐藏computed全字符串同，不追溯确诊引擎首因。core-v2已成107分项后focus helper重新focus定位器错误导致尾FAIL，focus-v1仅补尾部实际0，原图及结果均保留。
-- WebKit-v1实际88分项/四完整view/查询定位真实page2/320右端已成，左端等待断言失败client2/native0且旧left值未存UNKNOWN；复核原判据abs(left-target)<=1px始终未变，口头“exact0”非实际源码判据。v2补证在preauth原minimalJS/font404、0checks/client2/native0，停止该链；11:55:15UTCroot普通同URL GET当前均200、login仍引用同JS，仅当前健康不反诊断旧失败。只允许一次普通reload初始化后v3必要成功链/320两端/两放大，无auth/响应/assetDB/UA/driver改动，失败则如实T12缺口PARTIAL，不无限整链。
-
-- W4实际本地总签2026-10-25T12:42:06.913403UTC已完成，technical-total-local.json SHA d5f60e25649e7d7aec71f13684f0c98c95717e12bc49ae864bcbc652b2d50ccc，所有14适用本地软件/全阶段保护/包/收尾PASS。技术TECHNICALLY_COMPLETE，本轮尚SYNC_PENDING，原P5SYNCED不冒本轮同步；用户亲手效果待确认。
-- 第二引擎v1四view/v3正常23链与320/targeted两压力39实际client0/native0已由未实现者0b1093a6…合证签；三个旧client2/left/bbox/404UNKNOWN保持，不说旧整轮成功。长组件268和真正末图2 actual0/driver0，新r2包2360375B/38members/33PNG/SHA b7db94f37dd540eedefac890863efa01d2fba0a7eef887cc5650d408f87eb430，完整独立512acbe8…核通过，所有原v1/旧P5包不覆盖。
-- 最终root完整21660b079407fccb0c4624986c087c4c0f80c25d29a9770f0ee81e5b645d2752与未实现者newphysical251350 RO/RR/rollbackclosed完整145/13/实际83文件九区exact，独立db91f726…全P6起点/pre/load/post/final分类通过。旧1269及更早audit保持，P6仅新增217 accepted（inventory.view76、settlement.source_view56、invoice_view14、login/login.scope/store.switch各23、report.view2），无持久拒绝audit新增，不以HTTP403冒提交。
-- 最后owned服务12:19:33.567280UTC正常stop/child0/signull/groupstopped；browser/profile/active/18411与12/其它targetconn空，独立d60822b9…收尾通过，无临时权限；新增原件/PDF/打印/签署/发布/治疗/经济库存0，未动共享服务，不为写报告复开。
-- 现在仅正常commit/push业务分支与main两必要路由、#37新增唯一P6最终结果并实际ref/正文/状态读回。P1—P5旧回执保持，#37 OPEN/#36 CLOSED；P6交付后停止，下一计划/整站补齐/完整S13负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/合并部署生产未启用。
+- [完整P6原计划](docs/execution/S13_DL_P6_IMPLEMENTATION_PLAN.md) · [实际结果/7步复现](docs/reports/s13-dl-p6/summary.md) · [14项矩阵](docs/reports/s13-dl-p6/acceptance-matrix.md) · [脱敏证据索引](docs/reports/s13-dl-p6/evidence-index.md)。P6软件/冻结无新增回归/全阶段保护/私有包/正常收尾已真实未实现者总签d5f60e25649e7d7aec71f13684f0c98c95717e12bc49ae864bcbc652b2d50ccc；原签REMOTE_PENDING保留为当时事实，不反签用户效果。
+- 当前分支codex/s13-dl-p6-inventory-lookup-r1，从真实P5最终ede6205976f28f6367bcd2a33aa785d96f6aff21正常承接，开工clean，无reset/clean/强推或从文档main重建。P1—P5技术/同步结论、P5 PARTIAL历史/新旧包及旧失败/UNKNOWN保持。
+- 产品/实际后态运行aec20359d6f0cdc0e7a1f1070bcc870fd0798b95；工具/准备/真实前态539d147d659a6214d16e2796460728912f810ccf；首份报告fe2c928c57b1745196bf3bfbdd2c36b2c4b6731b。15私有实际client/executed源/依赖/退出分别固定7×0/8×2，未把旧失败整轮改PASS或补旧driver/left/bbox值。core f0c5a9b、原目标/OID2171423/cluster7694897083368259627及filestore固定，无新库/克隆/改名/合并部署。
+- 仅四分离只读片段：原q-only查询、九列批次表、来源只读前缀、scan后原nav。wrapper在can_write前闭合；13办理/scan/header/error/原字段与helpers、目录/后台/P1—P5保持；无产品JS/下拉/统计/新lot_id API/ACL/schema或全局主题。实际request路径独立门控，can_catalog不是页面标识。q与源定位不隐式选择lot，原source链接只event_id+anchor，原nav只q/page；两集合名称/编码口径分明，数量/UTC/flags/actor/状态值不改。
+- Chromium156.0.8078.4＋真实WebKit27.2正常普通身份/菜单/查询/来源/返回/真实30+20页/五视口/各native200与root200/无JS实际成立。WK v1四view/v3正常23链+320/新targeted两压39 actualclient0/native0合证；旧三client2/404/left/bboxUNKNOWN保持。真实3lot/50source只有done/无incoming，pending/observed/全flags/长值均明确产品QWeb/CSS内存浏览器组件，0造业务/0修饰CSS，不冒真实授权/单位精度。15新词实际原生提取/loaded中文及真实MRO已核，clock未启。
+- 冻结cold原采样差不归一化：同13/store1/defaultq/page1/1440完整9objects exact，core-v2五view9面板45次原生只读开闭/三actualCSS规则及ancestor scope0，五view原fields、4旁路所采computed/字段同；仅P4 query_at精准分类，不称catalog全文byte同或5view所有隐藏computed全同，首因不追溯诊断。源码/11查询/三数量/flags/IDs/order严格同。正文min5.6130、必要边界3.3191/focus7.0613仅本scope，AX不冒实机屏读或OS IME。
+- 全P6完整保护root21660b079407fccb0c4624986c087c4c0f80c25d29a9770f0ee81e5b645d2752与newphysical251350 RO/RR/rollbackclosed全145业务/13技术/实际83文件bytes-size-SHA九区exact，独立db91f7261a2d3795768cc39445443f1512c58470d8e99332e148e5b088ada9ce覆盖P5末/P6初/pre/唯一load0/post/final。原1269及更早audit完整保持，P6仅新217 accepted（inventory.view76/settlement.source_view56/invoice_view14/login、scope、switch各23/report.view2），无新增持久拒绝audit，不把HTTP403冒提交。加载49access/group69/mutex1仅write_date且revision0保持，9技术类精确分类；原金额/库存/身份作者价源/责任/原件/schema/config不变。
+- 新私有0400包S13-DL-P6-view-only-20261025-r2.zip，2360375B/SHA b7db94f37dd540eedefac890863efa01d2fba0a7eef887cc5650d408f87eb430，38members/37manifest/33原PNG，完整独立512acbe8569c3db4a406629be8b82ed605f4e980e755728d919e791e3301638e全核。旧v1/P5两包保留，只本机/授权会话看、不传Public，无秘密/session/profile/raw请求/配置/DB/程序字体/PDF；fixture/scrollY/裁切/after-only明示，真summary末图可读，不冒像素对齐。
+- 最后owned run20261025T111857Z-82afd15585b3于2026-10-25T12:19:33.567280Z正常stop/child0/signull/groupstopped；browser/profile/active/18411与12/其它目标连接空，独立OS收尾d60822b9…通过，无临时grant，未动共享主服务，不为写报告复开。新增原件/PDF/打印/签署/发布/收退款/治疗/scan/经济库存动作0。旧scope/准入原字节归档、不改时间/STOP/guard；此前系统依赖/cleanup/source取样/资源404/取景/构造等实际失败与UNKNOWN均留原证据，不扩大为永久禁止，不再调查旧额度/索要同status。
+- 首交付fe2c928与main仅两路由9499e59365b2460e869a3890a317b5f20c4e6663正常push/两ref/21完整UTF8/Gitblob实际读回。#37唯一新P6评论[6397824653](https://github.com/Yredxin/YDental/issues/37#issuecomment-6397824653)实际GET全文exact，总8/旧7ID+body完全保持（P5完整8154字符不改），37OPEN/36CLOSED和原Issue title/body同。未实现者12:50:34.841256UTC正常插件独立directGET上述全部，receipt SHA a6c62d9a6da9021ad5e1a02ea5235aaa5a170e6bc7f62e66b3029b7de0145bf2，T14远端子项实际PASS。
+- 当前最后四文档只记录这些已发生的实际验收与同步事实，其最终metadata ref/全文和同一新P6评论锚点再作普通增量实际读回，不预签未知SHA；不重复软件/DB/包/服务。P6交付后停止；完整S13/全站UI未完成，用户亲手效果待确认。下一计划/整站补齐、全链/50活动负载/备份恢复/实机/正式政策/S11组合扫码/真实患者资金外部通道/产品合并/部署生产均未启用，#37 OPEN/#36 CLOSED。
 
 ---
 
