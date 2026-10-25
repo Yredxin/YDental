@@ -1,3 +1,18 @@
+# DL-P4当前状态｜YD-S13-DL-P4 / 1.0
+
+## IN_PROGRESS / SYNC_PENDING
+
+- 用户2026-10-25完整计划明确启用P4，仅`/ydental/reports`现有查询过滤form；连续W0—W4及T01—14，完成后停止。P1—P3原TECHNICALLY_COMPLETE/SYNCED不重开，用户亲手效果仍待确认；P5—P6未启用。
+- 从现场合法P3报告`aa04988be1d39d6dbcc20f24e023542b57a66ee7`、产品`b72bcd6d125aad45bf8e62fb7596d5bb5725ac13`正常承接至`codex/s13-dl-p4-report-filters-r1`。初始工作树clean、incoming.diff0字节、远端P3同锚点；main仅文档路由`cd5d0327eb5dff3ec1e5cf74be0cedfedb16fbfa`。未reset/clean/强推或覆盖未知增量。
+- root统一环境/运行/集成/报告，report_filters唯一产品与计划作者，p4_tester私有测试工具/浏览器，acceptance未实现者独立源码/实际原文件/新物理RO/证据及同步验收。同OS共享，不冒隔离。
+- 冻结报表页头/导航/结果/汇总/明细/分页/导出/钻取/错误页、后台controller/model/ACL/统计字典及文书P1—P3/其他岗位/全局品牌。原metric change仅metric/date_from/date_to导航，普通GET/revision/getlist保持；草拟条件不修改已生效结果参数。
+- 唯一既有合成目标ydental_s11_synth_20261023_01/OID2171423/cluster7694897083368259627及原filestore；保护全部当前原件/83文件基线、金额库存/作者身份价源/旧审计和未完责任。经济库存/原件/PDF/打印新增贡献0，不重放旧业务；正常审计和技术元数据按事实分类。
+- 当前W0：完整计划落盘与原契约分析、准备P4新scope和准入/完整保护、真实同条件before。未启动P4服务，尚无产品完成或验收PASS声明。#37 OPEN/5旧评论，#36 CLOSED/2；本阶段只在最终新增一份P4回执，不动旧内容。完整S13/负载/恢复/实机/正式政策/S11组合扫码/真实患者资金外部通道/合并部署生产仍未启用。
+
+---
+
+以下P3及以前记录原样保留；历史P4未启用仅被本次明确启用替代，其余边界与失败事实保持。
+
 # DL-P3当前状态｜YD-S13-DL-P3 / 1.0
 
 ## TECHNICALLY_COMPLETE（限定P3软件）/ SYNCED
