@@ -1,6 +1,6 @@
 # DL-P5当前状态｜YD-S13-DL-P5 / 1.0
 
-## PARTIAL / SYNC_PENDING
+## PARTIAL / SYNCED
 
 - 用户2026-10-25完整启用P5并明确run/继续；限定患者查询、所选患者/费用范围及现有三段只读费用概览。[完整原文计划](docs/execution/S13_DL_P5_IMPLEMENTATION_PLAN.md) · [结果](docs/reports/s13-dl-p5/summary.md) · [14项矩阵](docs/reports/s13-dl-p5/acceptance-matrix.md) · [证据索引](docs/reports/s13-dl-p5/evidence-index.md)。本次PARTIAL最终交付后停止；缺项不能写通过。
 - 从实际合法P4报告d2dfec3d7e0bde6e76005c7bba2865a22b4774ea承接`codex/s13-dl-p5-settlement-lookup-r1`，开工clean、无reset/clean/强推/从main重建。产品/运行候选beea6d3dc9223fa06d298984b80cb463f2fcafea；准备/运行适配工具与真实before9f4cfa46be547ce014436fa064ef9f789aa2ed35；fb2ace5仅两文档检查点；core f0c5a9b不改。
@@ -12,7 +12,7 @@
 - 最终root新RO182076/完整145业务+13技术+83实际文件，SHA134612cb6e0d1ccba91f3381ef92eac3d861efdd955359e75b1d82b8b07a3d07；其余原件/金额库存/身份作者价源/旧审计/未完责任保持。949正常accepted审计及原加载metadata单列，不称物理零diff；新增原件/PDF/打印/签署/发布/经济库存0。最终独立保护仍缺，不能冒PASS。固定1303/lot253收10用2余8保持，不重放历史责任。
 - 私有0400查看包3071325B/SHA421fd23fe5b0878fffd665596722a95be099674a6625db584f752e9409f38c83，39成员/34PNG/32distinct/0PDF，主控全bytes/hash/decode核，无秘密/配置/session/profile/raw请求/程序字体/DB投影或原文件字节；独立包核NOT_RUN。仅本机及用户授权会话查看，Public不传包。
 - 末owned run20261025T044950Z-9f131a95d41e于06:49:51.346268UTC窗口正常到期child0/signull/groupstopped。全部browser关闭/本人profile空/active无/18411与12离线/其他目标连接[]；无临时grant，未动共享主服务。旧scope不改，不承诺在线，不为交报告复开服务。
-- 只在结束正常同步分支/必要main两路由/一份#37 P5最终结果并实际读回；失败标SYNC_PENDING，不预签。#37 OPEN、#36 CLOSED，P1—P4原交付与评论不改，用户亲手效果仍待确认。完整S13未完成；P6/负载/恢复/实机/正式政策/S11组合扫码/真实患者资金与外部通道/产品合并/部署/生产未启用。
+- 首最终报告42b6954ca012dbd54066a6aadc4e3348b5ff3fb2/main仅两文档0922e00f1ab8f0b72788fddfdda9f74a7b7dc6e1、21完整正文bytes/Gitblob及唯一新P5评论6395137158全文已实际读回；全部六条原评论/两Issue正文状态保持，#37 OPEN7/#36 CLOSED。首同步SHA b6721033d223acb8c9b86e4d7649c8b364739fc9a3a0456b7d9a5004e6d949ca；本提交只4报告元事实，最终ref/同评论另实际核，不由旧分项签名预签。#37 OPEN、#36 CLOSED，P1—P4原交付与评论不改，用户亲手效果仍待确认。完整S13未完成；P6/负载/恢复/实机/正式政策/S11组合扫码/真实患者资金与外部通道/产品合并/部署/生产未启用。
 
 ---
 

@@ -17,7 +17,7 @@
 |T11 旁路冻结|P4真实单选确认取消/多店草拟不改effective，P1—P3只读无preview/PDF；结算后缀内部computed前后同|bypass-final-v1、冻结比较/资源全scoped|限定代表检查已通过；未重跑历史全套；末总签未完成|
 |T12 两引擎无JS|Chrome正常关键链/无JS同禁JScontext正常认证后原生链通过；WebKit27.2 preauth资源404，client2/native0，未进入结算|成功Chrome＋真实失败WebKit v1；root同URL200/原技术文件另证|PARTIAL，缺成功WebKit；不能用UA或Chrome替代|
 |T13 加载保护|唯一settlement-u完整pre→实际0/ERROR0/noNative→post已独立核；新资产524139B/SHAa6a1f234…实际200；root末态完整145/13/83同业务保护，metadata/audit分类|load-protection-independent及root新RO末态/资产|PARTIAL，加载独立PASS；最终完整保护独立复核缺失|
-|T14 收口独立|已有分项独立回执；私有包34PNG/39成员主控全bytes/decode核；正常服务/浏览器/profile收尾；最终技术/包/末态独立验收缺|已采9client含7×0/1×1/1×2；最终独立未执行|PARTIAL；远端同步单列，不以同步补PASS|
+|T14 收口独立|已有分项独立回执；私有包34PNG/39成员主控全bytes/decode核；正常服务/浏览器/profile收尾；最终技术/包/末态独立验收缺|已采9client含7×0/1×1/1×2；最终独立未执行|PARTIAL；首两ref/21正文/唯一评论已实际读回，末元事实另核；不以同步补PASS|
 
 测试线程平台用量限制退出；当前没有可用独立线程。旧服务窗口06:49:51UTC正常到期、现有独立准入超过30分钟，launcher原生拒重启；不绕guard、不新建线程规避额度、不伪造独立review。可恢复正常资源后针对缺项补验P5，不启P6。
 

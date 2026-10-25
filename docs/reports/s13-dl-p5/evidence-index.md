@@ -46,3 +46,9 @@
 历史Native139/Firefox字形/WebKit初始化UNKNOWN不追溯确诊。普通路径/解释器/提取/私有清理API/取景错误及原失败另留原工具和执行源；SOURCE/PURE、QWeb组件、HTTP、BROWSER/nativeAX、主控RO与独立RO严格分列。用户亲手、实机、OS输入法、屏读、Safari/iOS未验。
 
 GitHub只在本PARTIAL最终交付同步；#37仅一份P5结果保持OPEN，旧P1—P4回执/#36保持，main只必要路由。实际远端读回另留私有记录，不预签未来。
+
+
+|首两ref/21完整正文|`verification/code-main-first-readback.json`|`8328a3fcb818d04c07f8de38099993c1c18550de02a8cfcc8e313941d7bbc2d0`|42b6954/main0922e00，实际UTF8 bytes及Gitblob同|
+|首唯一P5最终记录/状态|`verification/first-final-sync-readback.json`|`b6721033d223acb8c9b86e4d7649c8b364739fc9a3a0456b7d9a5004e6d949ca`|6395137158全文/原六评论/两Issue正文状态实读，#37 OPEN7/#36 CLOSED|
+
+本次只4文档同步元事实，最终HEAD/ref/同评论随后实际读回并另存私有记录；不预签未来，不称独立远端验收已补齐。原技术PARTIAL、剩余动态及独立保护/包/总签缺口保持。
