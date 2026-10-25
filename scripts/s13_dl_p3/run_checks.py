@@ -59,7 +59,7 @@ def main():
         raise RuntimeError('A complete matching immediate pre snapshot is required; no upgrade is authorized.')
     if not pre.get('committed_business_anchors_verified'):
         raise RuntimeError('The protected committed source anchors were not verified.')
-    if (PRIVATE / 'active.json').exists() or (ROOT / '.local/s11/new-target-active.json').exists() or (ROOT / '.local/s12/active.json').exists() or (ROOT / '.local/s13/active.json').exists() or (ROOT / '.local/dl-p1/active.json', '.local/dl-p2/active.json').exists():
+    if (PRIVATE / 'active.json').exists() or (ROOT / '.local/s11/new-target-active.json').exists() or (ROOT / '.local/s12/active.json').exists() or (ROOT / '.local/s13/active.json').exists() or (ROOT / '.local/dl-p1/active.json').exists() or (ROOT / '.local/dl-p2/active.json').exists():
         raise RuntimeError('The shared target still has an active owner record.')
     for port in (18411, 18412):
         with socket.socket() as sock:
