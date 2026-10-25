@@ -320,7 +320,7 @@
 }
 
 @media (max-width: 45rem) {
-    .o_ydental_reporting_filters[data-dl-scope="report-filters"] {
+    .o_ydental_reporting_filters[data-dl-scope="report-filters"]:not([data-dl-portal]) {
         padding: 1rem;
 
         .o_ydental_reporting_filter_dates,
