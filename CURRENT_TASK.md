@@ -1,6 +1,6 @@
 # DL-P7 当前状态｜YD-S13-DL-P7 / 1.0
 
-## W0 进行中 / 尚未技术验收 / 尚未同步
+## W1—W2 已实现，W3 验证准备 / 尚未技术验收 / 尚未同步
 
 - 用户2026-10-25直接交付并启用《统一按钮语言与轻量SVG——仓库页面试点》完整P7计划；W0—W4连续执行，仅 `/ydental/inventory`。P1—P6技术交付承接，用户亲手效果仍待确认。P7完成后停止。
 - 实际起点 e31ea56d1ff903461eda86c08088c5f7e32aef7e，工作树开工clean；从指定P6业务分支正常建立 `codex/s13-dl-p7-inventory-actions-icons-r1`，已正常fetch，无reset/clean/强推/从main重建。
@@ -10,6 +10,9 @@
 - 所有办理/scan POST禁止执行；仅GET查询/来源/分页，办理只展开/焦点/收起/原取消，序列化仅无网络内存。零新增原件/PDF/打印/scan/经济库存；访问审计和必要技术加载另分类。
 - 已读默认main路由/活动状态、#23/#37正文及相关增量，#37 OPEN/#36 CLOSED；实施中不发Issue进度。最终仅一份P7回执，旧P1—P6评论不改，main仅必要路由文档、不合产品、不部署。
 - [完整计划](docs/execution/S13_DL_P7_IMPLEMENTATION_PLAN.md)。三报告将使用 docs/reports/s13-dl-p7/{summary,acceptance-matrix,evidence-index}.md。完整S13/后续页面/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/合并部署生产均未启用。
+- 准备e2e1d33、工具API修0264fc2、真实前态工具29bccc48e67878203369f66c0abacf38b243869b；产品仍承接P6，前态正常owned run133107已停止。独立physical266501 RO/RR/rollbackclosed核145业务/13技术/83文件与P6末态九区exact；before3准入7f77af3d…按新probe/checkpoint绑定，正常认证audit单列。
+- 实际before Chromium main-v2及六旁路bypass-v1均child0/native0/logout200，无库存/scan POST；前态原图45unique（result索引50，5重名末次覆盖，其中3初索引hash不可核），独立指出取证缺陷，原失败保留、后态改唯一拒覆盖，不重放GET链补报告。首before-v1在后台UI就绪后错误等待networkidle超时child2/native0，未进入库存主链；工具正常修复，不冒整轮通过。
+- W1—W2产品：15原按钮、13summary、10原取消、1来源和2分页链接、2标题按精确path元素opt-in；四变体和七Lucide静态图，ISC/MIT及原SHA齐。SOURCE合同工具核仅还原允许呈现后完整P6 XML逐字规范化同，业务字段/条件/DOM/表单合同保持。后态尚未实际加载/浏览器/最终保护/独立总验收，不预签。
 
 ---
 

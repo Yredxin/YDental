@@ -103,7 +103,7 @@ function contrast(value, boundary=false, focus=false) {
     async function shot(name,target=page) {
         live();assert.equal(await target.locator('input[type=password]').count(),0);
         await settle(target);
-        const dest=path.join(output,name+'.png');await target.screenshot({path:dest,fullPage:false,timeout:20000});fs.chmodSync(dest,0o600);
+        const dest=path.join(output,name+'.png');assert(!fs.existsSync(dest),'Screenshot path must be unique: '+name);await target.screenshot({path:dest,fullPage:false,timeout:20000});fs.chmodSync(dest,0o600);
         const value={file:path.relative(root,dest),sha256:hash(dest),bytes:fs.statSync(dest).size,
             layer:target===page?'ACTUAL_PRODUCT_BROWSER':'COMPONENT_BROWSER',
             viewport:await target.evaluate(()=>({innerWidth,innerHeight,rootFont:getComputedStyle(document.documentElement).fontSize,
@@ -186,6 +186,7 @@ function contrast(value, boundary=false, focus=false) {
             await target.scrollIntoViewIfNeeded();await page.mouse.move(0,0);await target.evaluate(e=>e.blur());await page.waitForTimeout(180);
             const states={normal:await target.evaluate(computed)};
             await target.hover();await page.waitForTimeout(180);states.hover=await target.evaluate(computed);
+            if(stage==='after'&&condition==='1440x900'&&['query','page','source','summary'].includes(name))await shot(condition+'-'+name+'-hover');
             const rect=await target.boundingBox();await page.mouse.move(rect.x+rect.width/2,rect.y+rect.height/2);await page.mouse.down();await page.waitForTimeout(180);
             states.active=await target.evaluate(computed);await page.mouse.move(0,0);await page.mouse.up();
             await target.focus();await page.keyboard.press('Tab');await page.keyboard.press('Shift+Tab');await page.waitForTimeout(180);
@@ -213,7 +214,7 @@ function contrast(value, boundary=false, focus=false) {
         if(pictures&&await details.count()) {
             const d=details.first(),s=d.locator('summary');await s.focus();await s.press('Enter');
             await shot(condition+'-expanded-summary');
-            const button=d.locator('button').first();await button.focus();await shot(condition+'-confirm-focus');
+            const button=d.locator('button').first();await button.focus();await shot(condition+'-expanded-confirm-focus');
             await s.focus();await s.press('Space');
         }
         if(pictures){await query.scrollIntoViewIfNeeded();await shot(condition+'-search');}
@@ -281,11 +282,12 @@ function contrast(value, boundary=false, focus=false) {
                 const before=await snap('before-source-'+target), link=page.locator('article[data-event] a[href*="event_id="]').first();
                 const href=await link.getAttribute('href'), parsed=new URL(href,base);
                 const click=await link.locator(target).count()?link.locator(target).first():link;
+                const actualTag=await click.evaluate(e=>e.tagName.toLowerCase());
                 const count=gets();await navigate(()=>click.click());
                 const located=await snap('located-source-'+target);
                 assert.deepEqual(located.query,[['event_id',before.events[0].id]]);assert.equal(located.fragment,parsed.hash);
                 assert.deepEqual(located.lots,before.lots);assert.equal(gets(),count+1);
-                check('source-'+target+'-original-GET-anchor',{href,actual_child_target:await click.count()>0});
+                check('source-'+target+'-original-GET-anchor',{href,requested_child_tag:target,actual_clicked_tag:actualTag,actual_child_target:actualTag===target});
                 await navigate(()=>page.goBack({waitUntil:'domcontentloaded'}));
             }
             await openInventory();

@@ -1,0 +1,54 @@
+{
+  "version": "0.468.0",
+  "commit": "f12b0de177fbc2a6795e99be065887e72b237123",
+  "files": [
+    {
+      "path": "LICENSE",
+      "sha256": "1e7290b35280a048667bbf0ebabac1c7fd52a75300e8b2946ac165715997f2bc",
+      "bytes": 880
+    },
+    {
+      "path": "icons/search.svg",
+      "sha256": "9322d964b61cf729b3a81210568d5a97eaf4a1f3239f25a056fda3013bf35611",
+      "bytes": 273
+    },
+    {
+      "path": "icons/arrow-right.svg",
+      "sha256": "288397fdb73bb4f783cf9eabb726ff47357df1d4e3f1201dd748090579f108b9",
+      "bytes": 261
+    },
+    {
+      "path": "icons/chevron-left.svg",
+      "sha256": "83b0681aa38bf55e9d52a1e4b4cced624abe1fe7678ecafda133a574f1161d93",
+      "bytes": 238
+    },
+    {
+      "path": "icons/chevron-right.svg",
+      "sha256": "2758143d7b2434e4aa7307dfd34405c87909ff4052f21b5f3f40d45224b4f19b",
+      "bytes": 237
+    },
+    {
+      "path": "icons/scan-line.svg",
+      "sha256": "d17ec0ebae568a92e18e18968bb85658fec088bc3d97b92b729df6f7f9c4848e",
+      "bytes": 390
+    },
+    {
+      "path": "icons/package.svg",
+      "sha256": "399c20ee3a2ef58300e30f4c930b8cfa52bbb8faf19053593b0ab027ffd45903",
+      "bytes": 460
+    },
+    {
+      "path": "icons/list.svg",
+      "sha256": "e7b0d1d0515c85a22e9996c2a2dee1a89f4729fda46570bb52eafd6e61b31833",
+      "bytes": 353
+    }
+  ],
+  "upstream": "https://github.com/lucide-icons/lucide",
+  "feather_license": {
+    "commit": "1b002399e8758fb2bccea4d07312dc9e0f43dcb8",
+    "version": "v4.29.2",
+    "url": "https://raw.githubusercontent.com/feathericons/feather/1b002399e8758fb2bccea4d07312dc9e0f43dcb8/LICENSE",
+    "sha256": "308028e93fcf84972523cdf6e616f73168546b4953895f516d01287f16fe7bee"
+  },
+  "modifications": "Vendored SVG originals unchanged. QWeb copies add decorative attributes/class/data-icon and relative width/height only; geometry/viewBox/stroke unchanged. All seven retained under ISC with full upstream Feather MIT for portions; no runtime."
+}

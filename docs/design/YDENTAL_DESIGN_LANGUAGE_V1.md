@@ -183,3 +183,22 @@ E验收约定：常规文字目标≥4.5:1；必要控件识别边界/焦点≥3
 设计师说明解决“为什么这样呈现”，实施记录解决“实际如何落地”。未实现者检查是否一致；用户只在该阶段最终结果上确认具体效果，不代签专业政策或生产。
 
 参考与来源编号见`05_SOURCE_REGISTER.md`。
+
+## 12. DL-P7 新增按钮与SVG规范（2026-10-25启用）
+
+本节是用户新增设计要求，限定首批 `/ydental/inventory`，不追溯声称P1—P6已实现。完整范围、保护及P7-T01—12见[本批计划](../execution/S13_DL_P7_IMPLEMENTATION_PLAN.md)。后续文书、报表、结算及其它页面推广尚未启用。
+
+|编号|新增约定|
+|---|---|
+|DL-15 统一按钮组件体系|一个元素级token/变体入口，同类圆角/字/间距/状态一致，按任务选primary、secondary、quiet、disclosure|
+|DL-16 柔和扁平与轻层次|暖白/浅杏、陶土、小圆角、薄边，默认无阴影；无厚阴影/浮雕/大渐变，文字与必要边界不降低对比|
+|DL-17 语义化强调层级|查询/展开办理确认primary，识别及翻页secondary，来源/原取消quiet，summary原生折叠；danger仅定义，P7不臆断库存确认危险|
+|DL-18 完整状态矩阵|default/hover/active/focus；真实disabled/busy不假造，缺样用明确内存组件；状态不跳尺寸，不加产品提交JS|
+|DL-19 单一线性图标语言|Lucide七种静态SVG，固定版本commit/原SHA/完整ISC+Feather MIT，不含runtime/CDN/字体，中文可见，图标aria-hidden/focusable=false|
+|DL-20 光学对齐与视觉重量平衡|24网格/线宽2/currentColor，控件1.125em、标题1.25em、图文gap.5em，文字为主，长中文自然换行|
+
+P7按钮统一圆角 `.625rem`、文字 `1rem/600`、最小高度 `2.75rem`、padding `.625em 1em`，随内容撑高。primary `#94513A`白字/hover `#7E432F`；secondary浅杏 `#F6E6DC`、深陶土字、`#8C7564`边界；quiet保留下划线；summary保留原生marker，不叠加箭头。焦点 `#6C513F`，仅140ms颜色/背景/边框过渡，减少动效时关闭，forced-colors保留系统边界和焦点。
+
+唯一实现入口 `ydental_inventory/static/src/scss/inventory_actions.scss`，元素级 `data-dl-actions="inventory-actions"` 配明确类，按既有精确路径判定开启；不在表单祖先放字体/颜色，不全局覆盖Odoo控件。13原办理族只允许按钮/原取消/summary的class、文字span与静态SVG变化，原字段/提交/权限/顺序仍冻结。
+
+Lucide采用 `0.468.0 / f12b0de177fbc2a6795e99be065887e72b237123`，原文件及来源SHA/修改记录在 `ydental_inventory/static/lib/lucide/SOURCE.json`，完整ISC与Feather MIT随资源保留。七图用途固定为search、arrow-right、chevron-left/right、scan-line、package、list；summary无另加箭头，确认无完成勾。

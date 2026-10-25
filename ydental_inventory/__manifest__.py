@@ -8,6 +8,7 @@
     'assets': {
         'web.assets_frontend': [
             'ydental_inventory/static/src/scss/inventory_lookup.scss',
+            'ydental_inventory/static/src/scss/inventory_actions.scss',
         ],
     },
     'installable': True,
