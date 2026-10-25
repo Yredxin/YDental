@@ -1,6 +1,6 @@
 # DL-P6当前状态｜YD-S13-DL-P6 / 1.0
 
-## 实施中 / 本轮SYNC_PENDING / 用户亲手效果待确认
+## TECHNICALLY_COMPLETE（限定P6软件）/ 本轮SYNC_PENDING / 用户亲手效果待确认
 
 - 用户已完整启用P6并明确Implement the plan；从真实业务HEAD ede6205976f28f6367bcd2a33aa785d96f6aff21正常建立codex/s13-dl-p6-inventory-lookup-r1。开工工作树clean，无reset/clean/强推，从P5产品正常承接，不从文档main重建。
 - [完整用户原计划](docs/execution/S13_DL_P6_IMPLEMENTATION_PLAN.md)。范围仅库存查询、九列批次表、来源只读前缀、末尾来源分页四分离片段；库存全部办理/扫码/目录/后台/P1—P5冻结。P6启用不改变用户效果待确认及完整S13未完成。
@@ -13,6 +13,21 @@
 - BEFORE run20261025T105814Z-0a10c7d9f83c已正常stop：before-v1实际client2，主链12分项/五视口/catalog已采后同context重登录等待超时；before-bypass-v1仅补P5/P4/doc三旁路6分项及正常freshcontext/关闭均已采，最后Process.poll API错client2/signull。原失败/源/退出保留，不把两整轮改PASS，不重采成功部分。后续仅修工具returncode采集。
 - 真实门店1有3批次/50来源（真实30+20两页）、编码差异查询lot0/source23、源定位保批次范围、五视口原root宽等视口（320实际320）；warehouse13主路径、reader16读取、none17负例均沿现有正常身份。全库当前无带target的transfer，真实incoming样本缺失按SOURCE域/产品无过滤及组件明确分层，不造库存链。
 - 产品唯一写者已应用4文件候选（application-index b8518f54…），SOURCE13办理/scan/header/error/各原投影及helpers保持；15独有PO追加，四片段局部暖色，无JS。接续固定产品候选/完整即时pre/新独立准入后才唯一inventory加载，不预签动态PASS。
+
+- W1/W2产品已固定aec20359d6f0cdc0e7a1f1070bcc870fd0798b95，工具539d147；新physical232577实际完整pre/准入432ece31…后，唯一inventory-u实际0/ERROR0/noNative。即时post33b1c264…及新physical233360九区exact、全83原文件保全；加载独立94a43ad7…通过，49access/group69/mutex1仅write_date（revision0原值不变），9技术类差异精确列明，P5/print currentarch不变。
+- after首次start因三未提交报告草稿触发原clean guard拒绝2，无服务；正常commit仅三文档5c4bf27后原入口通过，未放宽检查。AFTER run20261025T111857Z-82afd15585b3正常启动，运行产品仍aec20359，report-only delta沿原机制。本轮软件未总验收，不预签。
+- 实际native shell只读QWeb/MRO/原生翻译提取已退出0、RO/RR PID235294/rollback/config清除；15新词export/实际中文arch一致，真实MRO确认clock仅_now、lab/exam/treatment扩展与基类_dashboard，legacyclock未启。独立ebab8f8c…核通过，QWeb不是浏览器/授权实证。
+- after-v1主路径/真实两页/五视口/四旁路21分项已采后driver metadata取值在with内为None而client2/signull，失败/原源保留，不倒签0，不重采成功部分。前后查询字段已逐项比；1440闭合details内部computed冷差保留原FAIL，正只读原生展开/收起采raw冷暖，不预判成cache或盲归一。其余跨引擎/两放大/长值实际浏览器/HTTP/无JS及最终保护总项执行中。
+
+- W3真实已采：Chromium zoom41/noJS108/HTTP28/focus4/长值组件268均client0且driver0；普通13/reader16有权200、none17真403、匿名303、16非法格式400、跨店180/负id原200空无泄漏。实际双放大与无JS独立d4c9ff09…通过；原生QWeb/15词/MRO独立ebab8f8c…通过；字段/四旁路/正文对比/冻结限定影响独立9ce55ea0…通过。正文min5.613、必要input边界3.319、焦点≥7.061仅本scope。
+- 冻结差异原FAIL不抹：before/after闭合隐藏details的cold computed采样不稳定，core-v1/core-v2客户端2原值保留；后续同13/store1/defaultq/page1/1440完整9objects strict exact，五view45次实际native开闭＋三CSSmatched/继承scope0＋原13SOURCE证实限定影响无新增回归，不称五viewport隐藏computed全字符串同，不追溯确诊引擎首因。core-v2已成107分项后focus helper重新focus定位器错误导致尾FAIL，focus-v1仅补尾部实际0，原图及结果均保留。
+- WebKit-v1实际88分项/四完整view/查询定位真实page2/320右端已成，左端等待断言失败client2/native0且旧left值未存UNKNOWN；复核原判据abs(left-target)<=1px始终未变，口头“exact0”非实际源码判据。v2补证在preauth原minimalJS/font404、0checks/client2/native0，停止该链；11:55:15UTCroot普通同URL GET当前均200、login仍引用同JS，仅当前健康不反诊断旧失败。只允许一次普通reload初始化后v3必要成功链/320两端/两放大，无auth/响应/assetDB/UA/driver改动，失败则如实T12缺口PARTIAL，不无限整链。
+
+- W4实际本地总签2026-10-25T12:42:06.913403UTC已完成，technical-total-local.json SHA d5f60e25649e7d7aec71f13684f0c98c95717e12bc49ae864bcbc652b2d50ccc，所有14适用本地软件/全阶段保护/包/收尾PASS。技术TECHNICALLY_COMPLETE，本轮尚SYNC_PENDING，原P5SYNCED不冒本轮同步；用户亲手效果待确认。
+- 第二引擎v1四view/v3正常23链与320/targeted两压力39实际client0/native0已由未实现者0b1093a6…合证签；三个旧client2/left/bbox/404UNKNOWN保持，不说旧整轮成功。长组件268和真正末图2 actual0/driver0，新r2包2360375B/38members/33PNG/SHA b7db94f37dd540eedefac890863efa01d2fba0a7eef887cc5650d408f87eb430，完整独立512acbe8…核通过，所有原v1/旧P5包不覆盖。
+- 最终root完整21660b079407fccb0c4624986c087c4c0f80c25d29a9770f0ee81e5b645d2752与未实现者newphysical251350 RO/RR/rollbackclosed完整145/13/实际83文件九区exact，独立db91f726…全P6起点/pre/load/post/final分类通过。旧1269及更早audit保持，P6仅新增217 accepted（inventory.view76、settlement.source_view56、invoice_view14、login/login.scope/store.switch各23、report.view2），无持久拒绝audit新增，不以HTTP403冒提交。
+- 最后owned服务12:19:33.567280UTC正常stop/child0/signull/groupstopped；browser/profile/active/18411与12/其它targetconn空，独立d60822b9…收尾通过，无临时权限；新增原件/PDF/打印/签署/发布/治疗/经济库存0，未动共享服务，不为写报告复开。
+- 现在仅正常commit/push业务分支与main两必要路由、#37新增唯一P6最终结果并实际ref/正文/状态读回。P1—P5旧回执保持，#37 OPEN/#36 CLOSED；P6交付后停止，下一计划/整站补齐/完整S13负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/合并部署生产未启用。
 
 ---
 

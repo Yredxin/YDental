@@ -1,28 +1,95 @@
 # DL-P6脱敏证据索引
 
-原始材料仅在忽略的`.local/dl-p6/`；Public只原计划、代码和脱敏报告。私有源/原请求/进程日志/配置/数据库投影及原图不上传；任何凭据、Cookie/session/profile或认证哈希不进入报告或查看包。
+产品/运行aec20359；工具/前态539d147；原始材料仅在忽略的.local/dl-p6，Public只原计划/代码/脱敏报告。凭据/Cookie/session/profile/原请求/连接配置/完整DB投影/原保护文件字节/字体/程序不进入查看包或Public。本地总签已实际完成，仅本轮SYNC_PENDING；不预签远端或用户亲手效果。
 
-|实际材料|私有相对路径|已发生范围|
+## 实际原件与独立结论
+
+|材料|私有相对路径|实际SHA256|
 |---|---|---|
-|纯边界9项|`verification/runtime-pure.log`|真实主解释器，旧owner/阶段/唯一inventory/secret排除/clock/dirty边界|
-|原工具准备错误|`verification/tool-preparation-observations.json`|系统解释器缺依赖及复制适配修正，均在无服务前；不是业务失败|
-|W0实际绑定|`verification/w0-evidence-binding.json`|原方案/基线/样本/独立准入等真实bytes/SHA|
-|初始完整前态|`verification/upgrade-before-baseline-baseline.json`|SHA2e227924…，145业务/13技术/现场83文件|
-|P5末→P6初比较|`verification/p5-final-to-p6-start-comparison.json`|九区逐值同，旧1269审计及更早全部保持|
-|实际样本|`verification/ordinary-sample.json`、`query-samples.json`、`incoming-sample.json`|正常role/3lot/50source/代码差异；全库target-transfer当前空|
-|初始独立准入|`acceptance/before-runtime-review.json`|SHAd13a3e4f…，新physical228803、真实539+probe/checkpoint/runtime精确绑定|
-|初始工具独立审|`acceptance/before-tool-offline-review.json`|SHAf1768715…，READY不冒动态PASS|
-|产品独立SOURCE|`acceptance/overlay-source-review.json`|实际四片段/13details/scan/原值/局部CSS/PO旧prefix核|
-|原产品应用索引|`product/application-index.json`|SHAb8518f54…，四文件实际bytes/SHA|
-|before主/client2|`evidence/before-v1/result.json`|SHA314bbccc…，12成分/5views/catalog后登录工具Timeout，原失败不倒签|
-|before补/client2|`evidence/before-bypass-v1/result.json`|三缺旁路6checks/正常close后poll API元错误，不重跑业务补exit|
-|before实际独立审|`acceptance/before-browser-independent.json`|SHA8ab05b02…，24PNG/source/原请求/各分项真实独立核|
-|初始正常退出|`runs/20261025T105814Z-0a10c7d9f83c/exit.json`|11:04:27.713209UTC/child0/正常stop|
-|product1新probe|`verification/product1-probe.json`|SHA363e3bc4…，current候选/目标/RO-RR/privileges实际核|
-|product1新独立准入|`acceptance/product1-runtime-review.json`|SHA432ece31…，physical232577、新完整pre/候选/runtime精确核|
-|加载即时完整pre|`verification/upgrade-product1-load-pre.json`|SHAdd6cd60d…，145/13/83，无writer freeze|
-|唯一真实加载|`checks/product1-load-upgrade/result.json`|SHA2ff56f02…，actual0/ERROR0/noNative，无重试|
-|加载即时完整post|`verification/upgrade-product1-load-post.json`|SHA33b1c264…，145/13/83；完整原文件保持|
-|主控精确加载差异|`verification/product1-load-root-difference.json`|精确49ir_access/group69/mutex1写日及9技术类；不冒独立结论|
+|W0初始完整RO|verification/upgrade-before-baseline-baseline.json|2e2279248c23066d5e51ba47043a0c3f1688c44d67d98f9723d11ffe0c3f0b26|
+|P5末态承接九区比较|verification/p5-final-to-p6-start-comparison.json|3433328c9866ed44c788e8a836f710c66e8f72d87a2f28057faeaa3cf328acbd|
+|初始实际独立准入|acceptance/before-runtime-review.json|d13a3e4f64434ae98b15e4cd5e4c22740c135f825496750e2e4bf8459515ef57|
+|初始新physical|acceptance/before-physical-snapshot.json|2896ecfd2f9d0905686e77a7e4feeb11616813c776a6083dfc7ef2edb2a3ed8f|
+|固定原SOURCE基线|acceptance/original-source-contract-baseline.json|8c79a39e20b4f403587b6a79cb9ddbf3dc0588d4d83f36fc20e265949238eeb5|
+|产品独立SOURCE|acceptance/overlay-source-review.json|5d35b0eced6ad8326b5887820a53da5750aa418a203c0866a42b703bf201e39f|
+|产品应用bytes/SHA|product/application-index.json|b8518f5409d42966b83bf296a3ca5e50e30ed6afea6ec873dc7bc45e1c608e6c|
+|初始工具离线独立审|acceptance/before-tool-offline-review.json|f1768715814889d798037eb99876a730ed1fac81700cba12db170a8d3eb49f32|
+|before原件独立审|acceptance/before-browser-independent.json|8ab05b02c17ee0a9c0b5b4690b391f65a27b472a26940e2af1cdf228327c30af|
+|新产品实际probe|verification/product1-probe.json|363e3bc478d32c31acaddb284facd0cf76ed9c3d77b9ccbb8358d28224a94041|
+|新产品新physical准入|acceptance/product1-runtime-review.json|432ece31b16289e190dcfe54dac27a42d63c4346256b5a26c5161e0ceb328f8a|
+|加载即时完整pre|verification/upgrade-product1-load-pre.json|dd6cd60dcf1fd3852352a0f8771caa21c0c6371e319cf4d6d34abe646007ca9e|
+|唯一实际inventory加载|checks/product1-load-upgrade/result.json|2ff56f029ab5c45da4835633c94fa25809a7db00e541d906a7c8770f1c8b263f|
+|加载即时完整post|verification/upgrade-product1-load-post.json|33b1c264fbad8f911e04e3def3d266bea33198213be8aff56d1ea5021197c569|
+|唯一加载独立保护|acceptance/product1-load-protection-independent.json|94a43ad7fd25a36d9b564a2aa83a135341ca119050625f9304960c14b962b5b7|
+|原生QWeb/MRO/extract实际process|verification/qweb-execution/result.json|26e97109f565a94d899dee38463b1513631b28119b993419cc1576ab2d45123c|
+|actual loaded QWeb内存|verification/p6-qweb-fixture.json|236f56f8624967474b8db376bc607d723857f770cff258613b714980b255d7b0|
+|真实installed MRO|verification/actual-runtime-mro.json|bb81f26040e238208a291dd6aa134c89f288f426d3a3047757a392a95e121622|
+|原生15词提取/loaded中文|verification/translation-extraction.json|00b01f4b0a8505b573f9e61354da69024e00a00f71e1006ce356e38a4ed269eb|
+|native原件独立核|acceptance/native-qweb-mro-translations-independent.json|ebab8f8c8d8dadef1102a4116259bae9a0c3d0022d9ab60f7b73a695d4bc4cbd|
+|全部15实际client命令/source/exit|evidence/client-exit-index-v1.json|a70c939ae97febb4657a899f9f3b99bf4e206171916a8a19e7bc102c3941ebe6|
+|全部client逐原件独立核|acceptance/client-executions-independent.json|cea9896562602bbf1785d96ae2447f03d1f6a86e2b793e0b51d482088865fbf6|
+|字段/冻结/4旁路/文字对比独立|acceptance/fields-frozen-bypass-independent.json|9ce55ea06f02b3886ea3f1f440fd208dd19d88ec383104e6ff5b7a71ee1984aa|
+|原始offline差异FAIL|evidence/before-after-comparison-v1/result.json|c38ced8ec3c81e2e15740bfdd31aa4d3ef8d941540989ab4141ff9a00039cf0d|
+|修正分层offline54|evidence/before-after-comparison-v2/result.json|8cf2d7e2f1b0266419aa897558fdb20e4e5b71d54db236a5c203714613b5cb99|
+|Chromium两压力/无JS独立|acceptance/chromium-zoom-nojs-independent.json|d4c9ff090c9b3d2c168a58600b80ab75ec56a5ff5d9e00553b5cfaf31eccc1c6|
+|HTTP/焦点/AX独立|acceptance/http-focus-ax-independent.json|93ed1c0366de4aebaf7bf0fce98766db5057093c5d2c386adf7fa9001aadabe0|
+|WebKit新404当前正常同URL观察|verification/webkit-v2-current-public-resources.json|753dc62ae08ebc0ac701d0e750a0bb74c5dfe7dd2ed873609ad900057432cee2|
+|真实第二引擎合证独立|acceptance/second-engine-independent.json|0b1093a61a0689a9ba2d0727ecd5ebb3dff0440f7e0df3b0d06ec8bcf2f334af|
+|长值浏览器组件独立|acceptance/browser-fixture-independent.json|2861f5261e661e47abbed21c1d170d5f354a6996cceee12fc843885c1b3809ca|
+|最后单图独立核|acceptance/fixture-tail-independent.json|55f6d55703cf23a96ceecf729b11f420a09b678f20771f090e2579cf7b65c85d|
+|主控最终完整RO|verification/upgrade-final-protection-baseline.json|21660b079407fccb0c4624986c087c4c0f80c25d29a9770f0ee81e5b645d2752|
+|主控全阶段精确分类|verification/final-root-full-phase-classification.json|7cc21626950dc46132cf9312af7653dda9ebd6b228d03b30c92948b3e413e3f1|
+|独立新physical终态|acceptance/final-physical-snapshot.json|aaa1921058d2834f218f6fd5955d99563ab7b1b184cd851fa61c725de9e66de2|
+|全阶段最终独立保护|acceptance/final-protection-independent.json|db91f7261a2d3795768cc39445443f1512c58470d8e99332e148e5b088ada9ce|
+|实际最后owned退出|runs/20261025T111857Z-82afd15585b3/exit.json|a4f6dceb834d85c076e19c01ef00e50ba508304fd3cc4bc862a985c049f87d49|
+|主控最后静止实查|verification/final-quiescence.json|04adc1c962fafc69b24f1ba1d12e1f24c2e340d59ded2ca285ff0422bfc6baaf|
+|未实现者独立OS收尾|acceptance/final-quiescence-independent.json|d60822b9e6f9cbae07a483ae197e2c67c39ae8ae09bc5ec30f8e4cdd45bb91e7|
+|r2必要截图实际索引|evidence/S13-DL-P6-view-only-20261025-r2-screenshots.json|e9b0f4c77a422e4684a08dc963adc695d627b1db40afa23ad31e65e7f456f80d|
+|r2实际构造/读回|viewing/S13-DL-P6-view-only-20261025-r2-constructor-result.json|6c3053a67d93f7e81b3f3f76d3fb2adf8af1378906ab772207cde9d09135d7b9|
+|主控r2字节/PNG/privacy读回|viewing/root-r2-package-readback.json|4515e7e8ac1725bcbc3df9d73b8025663f3d259a67177152d377a35ef6f845e0|
+|r2全成员独立核|acceptance/package-independent.json|512acbe8569c3db4a406629be8b82ed605f4e980e755728d919e791e3301638e|
 
-剩余动态、原生MRO/翻译提取、最终完整保护、私有包和总验收材料在真实发生后补入。截图和附件hash不代权限、持久提交或数据库保护证明；旧P5包/失败/UNKNOWN继续承接。
+## 全部实际client（不冒整轮成功）
+
+除另注外真实role13/store1。初始539前态与aec后态、source/依赖/命令/PID/原响应/原图各自按execution归档；7×0/8×2，不反填缺失旧driver/native值。SOURCE/PURE或QWeb组件不冒HTTP/真实授权/业务。
+
+|label|实际child|原result状态/成功分项|实际result SHA256|
+|---|---|---|---|
+|after-v1|2|FAILED_NO_AUTOMATIC_REPLAY / 21分项|042275d4373d7e6dbe0f7b54974e72f86b22ef32e36a257b187d6909d2851237|
+|before-bypass-v1|2|FAILED_NO_AUTOMATIC_REPLAY / 6分项|e164e8ec42d863a38ab8ced6e5aa2c049ee7e9fa4c0d185dc6615656b8013bc2|
+|before-v1|2|FAILED_NO_AUTOMATIC_REPLAY / 12分项|314bbccc0cc3f44c9a076d707f03dfd626ddda6042375f5f2e9dfe069c482d6e|
+|core-v1|2|FAILED_NO_AUTOMATIC_REPLAY / 1分项|6f33390b3fff10bbef482df1480e6b4399ded64d04e9a530b083cb57b5288bd9|
+|core-v2|2|FAILED_NO_AUTOMATIC_REPLAY / 107分项|c139bfb744e38517fa486834272aadcf5409378f765b64a5bce0c481672d0a95|
+|fixture-tail-v1|0|P6_REAL_AFTER_FIXTURE-TAIL_PASSED / 2分项|5611a722fb742904358831cb9e059c6a31d1cc0c9d779b5125f2982e034c7af2|
+|fixture-v1|0|P6_REAL_AFTER_FIXTURES_PASSED / 268分项|bcb14d237a4097646ca8a1d4dfb28dde9fee8c91398521fddcddb86964198676|
+|focus-v1|0|P6_REAL_AFTER_FOCUS_PASSED / 4分项|65190fe5a7b524884682595d0deba27604e147ecd2de6e1aa66568a17563d0cc|
+|http-v1|0|P6_REAL_HTTP_READ_AUTHORIZATION_INPUTS_PASSED / 28分项|73ab1423c22e469fe4cc1b7f35b11c787468f0eca741521bc4ea0b93d101e407|
+|nojs-v1|0|P6_REAL_AFTER_NOJS_PASSED / 108分项|2334f8581af09155c7424b3220dd1ca43125a72334fdd421ff5543a8f61da617|
+|webkit-v1|2|FAILED_NO_AUTOMATIC_REPLAY / 88分项|1e43658209ed32fc4168356f1f09a84161e10fd1439a498902c6d05ec5063ea3|
+|webkit-v2|2|FAILED_NO_AUTOMATIC_REPLAY / 0分项|acea4c1cbbc0a98bbbe6fa1c131dcd23b38b40aed30b98c66513f07ca53c2aaa|
+|webkit-v3|2|FAILED_NO_AUTOMATIC_REPLAY / 23分项|e364e476bd4ba48f6a1746e65bee26c656f428088f0443a0dd5b6000e4cf9a5d|
+|webkit-zoom-v1|0|P6_REAL_WEBKIT_TARGETED_SEPARATE_ZOOM_PASSED / 39分项|586fb49e89198ae445981c27897f5a8c31efc4545e1a8fdd1f9c7ba8610c1338|
+|zoom-v1|0|P6_REAL_AFTER_ZOOM_PASSED / 41分项|f9bc71e51945cac24b7c27a32254c5b2053d68770c86cf5edd5e3b5da0c47648|
+
+## 证据复用与失败边界
+
+- SOURCE原13details/scan/header/error及backend/P1—P5不变；字段/行序/flags/URL原11查询/5视口严格比。隐藏closed样式不稳定的原comparison/core FAIL和真假保留；1440解析后全对象同＋5view可见读及3 CSS隔离实证，不称隐藏cold全文同或永久根因已修。
+- WebKit-v1四views/v3实际23正常链及320/targeted两压39合证，同产品且修订只工具等待/取景；旧v1/2/3实际2保留，left/bbox缺值UNKNOWN。v2原JS/font404与后来同URL200分列，Chromefixture初始CSS404同样保，不拿后来200反推旧因。
+- 真实3批次/50来源、30＋20页、仅done；没有当前incoming transfer。pending/observed/全flags/长值和分页边界明确COMPONENT/BROWSER_FIXTURE；0数据库造数、0装饰CSS、hidden仅内存等值bool。nativeQWeb PID235294是技术RO/RR，不是普通角色授权证据。
+- root全阶段分类首版读了不存在ydental_outcome键，None不是DB outcome；旧attempt另保，实际列ydental_result全部217 accepted。独立offline首期待inventory.source_view标签误写也留原失败，实际56为settlement.source_view；均未改原DB或旧时点。
+- 准备期错解释器/临时overlay源基线误采/clean启动拒绝/构造Path TypeError/首v1包缺WK320选择器均保存原记录。正常工具前向修，不放宽launcher、改旧scope/STOP、伪造review或重放已完成业务。
+
+## 新包及实际收尾
+
+r2 ZIP SHA b7db94f37dd540eedefac890863efa01d2fba0a7eef887cc5650d408f87eb430，2360375B/0400，38全成员/37非self manifest/33原PNG。全manifest/sourcebytes/PNG/privacy独立512acbe8…已实际完成；旧v1及P5两包原字节不覆盖。索引准确标after-only、COMPONENT、source-link focus crop与真正summary末端，不冒像素对齐。
+
+owned服务最后12:19:33.567280UTC正常0/signull/groupstopped，browser/profile/active/18411与12/其它target连接空；最终83文件/完整145与13/九区独立exact，原P5 1269和更早audit保，新217 accepted另列。新原件/PDF/打印/签署/发布/治疗/经济库存动作0。软件/保护/包实际分项成立；本地技术总签与远端候选/ref/全文/新一P6评论读回在真正发生后追加，不预签用户效果。
+
+
+## 实际本地总签
+
+|材料|私有相对路径|SHA256|
+|---|---|---|
+|实际未实现者14项本地总签|acceptance/technical-total-local.json|d5f60e25649e7d7aec71f13684f0c98c95717e12bc49ae864bcbc652b2d50ccc|
+
+12:42:06UTC实际LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING，无本地技术缺口，技术TECHNICALLY_COMPLETE/用户亲手效果待确认；T14远端后续真实读回，原签不改时补造。总签首次私有脚本对“用户效果/亲手”同义文字作过强字面assert的原失败也留档，仅校验同义文本修正，无软件/业务重测。
