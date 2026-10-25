@@ -1,3 +1,18 @@
+# DL-P3当前状态｜YD-S13-DL-P3 / 1.0
+
+## IN_PROGRESS / NOT_YET_SYNCED
+
+用户2026-10-25明确启用[完整P3计划](docs/execution/S13_DL_P3_IMPLEMENTATION_PLAN.md)，连续W0—W4；仅已保存原件列表、状态、只读追溯、查看/下载呈现、现有分页/空态。P1/P2原交付TECHNICALLY_COMPLETE/SYNCED保留，用户亲手效果仍待确认；P4—P6未启用，不合产品main、不部署。
+
+- 正常从实际合法P2报告HEAD `1d3fe088c029e0d9562325b2895a64ac31945b71`承接分支`codex/s13-dl-p3-documents-originals-r1`；开工工作树干净，incoming diff已私有保存；P2已同步旧GPT补记，未误称其仍未提交。远端main仅文档af0541bc，无未知新增量。
+- /root唯一主控：环境/运行/集成/报告；documents唯一4产品文件写者；tester私有工具/浏览器；acceptance未实现者独立验收。同OS共享，不冒隔离。实现写入等待前态采完。
+- 同一既有目标/filestore；运行前完整现态保护及fresh准入待核，83为承接数量而非硬编码结论。旧原件/金额/库存/审计/责任保护，不生成、不打印、不做经济库存动作。
+- 下一动作：源码字段映射、阶段运行适配、完整pre/独立核、同条件前态，再实现W1/W2；不重跑P1/P2历史全套。#37保持OPEN/#36 CLOSED，过程不发布Issue。
+
+---
+
+以下P2已交付记录完整保留为历史；其当时P3 NOT_AUTHORIZED仅由本次明确启用替代，其余边界不变。
+
 # DL-P2当前状态｜YD-S13-DL-P2 / 1.0
 
 ## TECHNICALLY_COMPLETE（限定P2软件）/ SYNCED
