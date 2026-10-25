@@ -2953,3 +2953,93 @@ msgstr "；确认 UTC"
 #: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
 msgid "Process intercompany stock transaction"
 msgstr "办理跨法人库存交易"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Search for a patient"
+msgstr "搜索患者"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Searching lists candidates only. Open a patient link to select a patient. Submitting a new search clears the previous selection."
+msgstr "搜索仅列出候选患者；点击患者链接后才会选中。重新提交搜索将清除原来的患者选择。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "An empty candidate result does not mean there are no fees or that bills are settled."
+msgstr "没有匹配候选，不代表没有费用或账单已经结清。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Patient lookup pages"
+msgstr "患者查询分页"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "First patient lookup page"
+msgstr "患者查询首页"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Patient lookup page:"
+msgstr "患者查询页："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "No later patient lookup page"
+msgstr "没有下一页患者"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Current fee overview scope"
+msgstr "当前费用概览范围"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Currently selected patient number:"
+msgstr "当前所选患者编号："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "No patient is currently selected."
+msgstr "当前未选择患者。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "The fee tables below cover the selected patient in the current store, including merged source records."
+msgstr "下方费用仅限当前门店的所选患者，包含已合并的来源记录。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "The fee tables below cover the current store. Searching candidates does not filter these fees."
+msgstr "下方费用为当前门店范围；搜索候选不会按搜索词筛选这些费用。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Unbilled fees are not receivables. Confirmed amounts are not receipts. These tables are not a balance or a total."
+msgstr "未出账费用不等于应收，确认金额不等于实收；这些表格不是余额或总额。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "No matching records on this page in the current fee scope."
+msgstr "当前费用范围的本页暂无对应记录。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Wide table: scroll sideways to read all columns. With the table focused, use the left and right arrow keys."
+msgstr "表格较宽时可左右滚动阅读全部列；聚焦表格后可使用左右方向键。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Today unbilled fee table"
+msgstr "今日未出账费用表格"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Other-date unbilled fee table"
+msgstr "历史未出账费用表格"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "Pending reconciliation fee table"
+msgstr "待核对费用表格"

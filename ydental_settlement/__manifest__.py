@@ -13,5 +13,10 @@
         'views/ydental_settlement_frontdesk.xml',
         'views/ydental_external_original_templates.xml',
     ],
+    'assets': {
+        'web.assets_frontend': [
+            'ydental_settlement/static/src/scss/settlement_lookup.scss',
+        ],
+    },
     'installable': True,
 }
