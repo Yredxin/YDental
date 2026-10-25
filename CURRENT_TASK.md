@@ -9,6 +9,10 @@
 
 - W3首产品93ad3846183dac1e705b83bcffa12bea4b6b79f0已限定print-u实际0/ERROR0/无Native；即时pre/post和新物理RO独立核，25原生access/group69仅write_date，技术8表769行时间及本页view1618 arch变化，全部83文件/业务事实保持。真实after首轮退出2：320选择helper被自动滚动触发既有P1取消；最小正常诊断确认显式滚动稳定后同键盘可用，仅修工具。另真实发现旧inline portal !important压新导航色，仅新header SCSS局部default/hover加同权声明修复。原失败和独立记录保留，不反签；不改P1选择器JS、不重复-u，待新最终候选资产/动态/保护复验。末首产品run20261024T234852Z-5239bd9b01cd已正常child0/signull/group stopped。
 
+- 最终产品/执行固定`a0b33c14c121f2a489fdcf7abc529999fd15c1dd`；最终真实11对前后/P1字段及内部样式/3旁路同PNG、Chromium core/JSoff/none已获实际0和未实现者独立核。14文字对比度最低5.613、5焦点最低7.061。iframe全文SHA因原有本次提取时间不可比，明确只签源/模板摘要/字段与实际可见正文，不伪称归一化全文相同。WebKit首轮normal-login超时、同入口GET-only诊断minimal JS404均原样保留，未发认证POST/native主进程0；同URL普通HTTP200/asset222文件存在，首因UNKNOWN。只正常owned stop/start同候选/目标/scope，新run20261025T000214Z-433665af424a，未改asset记录、全局控制或引擎，待同入口只读验证后补WebKit。Chrome不重复，P2仍IN_PROGRESS，最终保护/包/同步待完成。
+
+- WebKit旧404经同候选正常服务重启后同入口GET-only恢复minimal/lazyJS200和原生form ready；最终core-v2真实27.2/15项关键流程客户端及主进程0，无修改控制/引擎。主控已于2026-10-25T00:04:04UTC正常stop，other target connections=[]；首final RO为145业务/13技术/83文件不变，61正常新增审计、原生时间/本页arch另分类。未实现者亲看发现WebKit原生zoom的header locator截图clip错误（popup普通viewport图正常），该图不签视觉；正在安排最小正常登录/搜索后zoom viewport补图，不重放旧业务/全流程，P2仍IN_PROGRESS。
+
 ---
 
 以下为P1已结束交付及用户回传复核历史；历史P2未授权已被上述本轮明确启用替代，其余范围和保护事实保持。
