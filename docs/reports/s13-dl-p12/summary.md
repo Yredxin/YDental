@@ -113,3 +113,10 @@ P12交付后停止；#37保持OPEN/#36 CLOSED，P1—P11旧回执不改。main�
 |`acceptance/product4-house-guidelines-review.json`|`caa144925b550cfa618ebf6934e385c4a1650e2160007bd8193e5f5bd8c7e055`|
 
 本地文稿首固定e7924ad0b9df76c13b7fbf05e27ca1798242e373、main仅两文档路由准备ce52cb9065c06d7aaa27d51b33b4b018c1613ac2；当前还未正常push/回执/独立读回，故SYNC_PENDING。最终文字总项明确PARTIAL，固定正文独核与远端实际结果后续只登记已发生元数据，不循环自嵌未来hash，也不再打开服务/DB/browser。
+
+
+## 最终本地独立交付审计（仍为PARTIAL）
+
+未实现者审固定文稿 **e33c05f3f8ebce7599bbaf31d410f12b7b6b5a17**、工具a161aa3、main仅两路由ce52cb9，全部70实际客户端的700执行源/1003PNG/210收据和原命令/退出完整核。`final-all70-fullsource-integrity-independent.json` SHA **f4f569d646ab0fb66f52a8473d5d83fa21b96fbc243154152b8a80b5bdb365e7**。
+
+最终本地总项 `final-technical-partial.json` SHA **3d3d982f938ff5d0fec4db8f9e5a4fa6ca7a2e9a159ba8d7e4c18243ec4bbf88** 已实际接受PARTIAL交付记录：T08 FAIL/A04 OPEN，T02/T03/T07完整焦点子项PARTIAL，未签TECHNICALLY_COMPLETE。公开交付审查 **a5399dfd5ddd15426c04c476d38a473ee1e9b8b4a5503f4ff90c676fd66a530c**：全部56新可达Git blobs以正常获准provider秘密值仅在内存比对，0命中，无值或摘要输出；71个公开证据行的实际bytes/SHA已重核。后续只加入这些已发生元数据，最终refs/唯一回执和完整远端读回尚待真实操作；原SYNC_PENDING时点保留。

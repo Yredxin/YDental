@@ -28,3 +28,6 @@
 
 
 最终组件独核已实际完成：40字段/44Range批/22纯键超高/两engine四族四态/每engine24分页事件；额外压力/fault/empty两zoom另签。包核2e83a4b4a9104d19e2c8dc98f7d69866c24c1205665506c10389b8a205c0e6bd实际PASS，94成员/90原PNG/24测量，README PARTIAL/A04OPEN。T02/T03动作颜色与空间子层成立，T07/T08焦点不能无条件PASS；独立最终文字总项与同步仍待实际登记。
+
+
+未实现者最终本地总签 **3d3d982f938ff5d0fec4db8f9e5a4fa6ca7a2e9a159ba8d7e4c18243ec4bbf88** 已实际接受PARTIAL交付记录。T01/T04/T05/T06/T09/T10/T11适用子证据成立，T02/T03/T07完整焦点子项PARTIAL、T08 FAIL/A04OPEN，T12本地资料/包/保护/停止已成，远端同步待实际读回；不能签TECHNICALLY_COMPLETE。all70全原件独核f4f569d6…，公共文稿/新可达blobs审查a5399dfd…均保原结论。

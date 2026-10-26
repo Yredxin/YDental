@@ -195,3 +195,12 @@ SOURCE来自每process原始归档，code2不反签whole；状态/有效子层�
 |`acceptance/product4-house-guidelines-review.json`|5880|`caa144925b550cfa618ebf6934e385c4a1650e2160007bd8193e5f5bd8c7e055`|
 
 另全原图/执行源平铺清单 `.local/dl-p12/testing/raw-manifest-v1.json` / 591053B / SHA256 `b88bd033624e8704b31713c211260fe0195e49342a559cebdb6df1b801f150d7`，1913项=700source+1003PNG+70×3原收据，private不进入ZIP或Public。
+
+
+## 最终本地审计旁签
+
+|私有文件|bytes|SHA256|
+|---|---:|---|
+|`acceptance/final-all70-fullsource-integrity-independent.json`|304057|`f4f569d646ab0fb66f52a8473d5d83fa21b96fbc243154152b8a80b5bdb365e7`|
+|`acceptance/final-technical-partial.json`|9856|`3d3d982f938ff5d0fec4db8f9e5a4fa6ca7a2e9a159ba8d7e4c18243ec4bbf88`|
+|`acceptance/final-public-delivery-review-independent.json`|15315|`a5399dfd5ddd15426c04c476d38a473ee1e9b8b4a5503f4ff90c676fd66a530c`|

@@ -2,7 +2,7 @@
 
 ## PARTIAL（A04原生横向焦点未通过）/ SYNC_PENDING / STOPPED
 
-- 用户2026-10-26启用[限定P12计划](docs/execution/S13_DL_P12_IMPLEMENTATION_PLAN.md)，W0—W4连续实现/实测/普通修复/独立验收；[结果/动作SVG/间距责任/7步](docs/reports/s13-dl-p12/summary.md) · [T01—12矩阵](docs/reports/s13-dl-p12/acceptance-matrix.md) · [证据索引](docs/reports/s13-dl-p12/evidence-index.md)。P12技术仍PARTIAL，未实现者最终包/正文/同步核验待登记，不以SYNCED代技术通过。
+- 用户2026-10-26启用[限定P12计划](docs/execution/S13_DL_P12_IMPLEMENTATION_PLAN.md)，W0—W4连续实现/实测/普通修复/独立验收；[结果/动作SVG/间距责任/7步](docs/reports/s13-dl-p12/summary.md) · [T01—12矩阵](docs/reports/s13-dl-p12/acceptance-matrix.md) · [证据索引](docs/reports/s13-dl-p12/evidence-index.md)。P12技术仍PARTIAL，未实现者包/正文/完整原件已实际独核，远端同步待实际读回，不以SYNCED代技术通过。
 - clean P11最终bd0f73a99eb6f49c27d99a5db4cc6d4f8dedf008沿业务基线新建`codex/s13-dl-p12-settlement-readonly-actions-spacing-r1`，无reset/clean/强推/从main重建。最终产品 **ba3a5b0da4f3a8d2b27c3c5f84fbf533896f104f**；实际最后运行 **0f1deb837ed469deb9d5e2e8dcb819863ad59a0d**；工具发布 **a161aa3f956d16eb24dc4255955202db002f5857** 仅机械整合SOURCE/PURE，不冒70actual共同来源。
 - 仅3addon：lookup首bill前闭合，XML呈现class/span/SVG/三原生call opt-in、manifest单SCSS、局部动作/间距。全XML白名单还原C14N exact，main页头及首bill起完整后缀原bytes；原P5scss/sharedmixin/图标几何双许可/全部产品JS/后台/ACL/schema/财务库存不变。shared另4实际办理calls默认off；loaded288模式/两序列无flag泄漏、EN/CN全合同保。按钮/链接/summary语义与原GET/明确patient选择/三段费用/金额日期原因actor/独立分页不改。
 - A01窄trace折两行只收横padding至8，summary70→46/row103→79（原row70.594，cell12/列保）；A02空UL whitespace导致双16=32，只ULleading16单owner/空态margin0修成16；A03正常进入态fit原控件即时/settled原生完整，源改仅scroll-margin落点，两engineJSon/noJS各32/两200实证闭合。所有旧中间原件保，不倒签CSS单因或旧100ms持久根因。
@@ -11,12 +11,15 @@
 - 原目标synth/OID2171423/cluster7694897083368259627/原filestore与core f0c5a9b保持。唯一settlement-u于2df168f actual0/ERROR0/noNative，原生级联及完整即时pre/post已独审87ba1839…；以后CSS不-u。Store1实为UTC，16UTC不跨本店日，未改clock。当前真实未选27候选/today1-history26-pending0，选655为0/1/0，原值与权限/backend真实403/400保持，零临时grant。
 - 最终root ba64b9c6…，未实现者新physical683138 RO/RR/rollbackclosed全145业务/13技术/九区same；83引用/80真实路径/80SHA逐完整bytes/size/SHA及三共享保，独立 **4a38c2999f96af9b45548f29570f0d01d15d4ac7037e2a080cf2618ec7e39f63**。旧18818audit逐行保→25819，新7001正常auth/read；其余142业务same，ir_access20行与group id69仅唯一-u write_date/权限成员same、7技术表已分类。原身份作者价源/未完责任/config/schema/原件保。派生65仅CSS15833→15838，其余64metadata/实字节same，六deps同，非全库物理零差。经济库存/原件PDF/打印签署发布/扫码/CSV新增0。
 - 6owned全正常foreground0/child0/signull/groupstop，最终run20261026T162536Z-58003ecdb36a于 **2026-10-26T16:51:12.497554Z** stop。独立终态 **c148f336f2b0edeaa5e9ea3404f992c375c3d15de20e93a02afec57556290c3e**：knownPID/profile/marker/18411和12空，新RO683713其它targetconn[]/closed；共享主服务未动，不为报告/同步复开app/DB/browser。
-- 私有0400 r1 viewing ZIP **9949005B / SHA9ecdf42f3567a32bd2316f7c89e9b7f06ab4a442fb5fab5e6b08489122a7660a**，94成员/90原PNG，PARTIAL/A04OPEN/候选来源分层；独立包核已实际PASS2e83a4b4…，最终文本总项待独核。无秘密/session/profile/原请求/DB/PDF/font/program，不Public上传、旧包不覆盖。同OS不冒隔离；root唯一产品/报告/状态/路由写者，runtime_p12运行工具、testing_p12浏览器工具、acceptance_p12未实现者独核；capacity旧事实保、同团队同入口正常接续，无过程Issue审批。
+- 私有0400 r1 viewing ZIP **9949005B / SHA9ecdf42f3567a32bd2316f7c89e9b7f06ab4a442fb5fab5e6b08489122a7660a**，94成员/90原PNG，PARTIAL/A04OPEN/候选来源分层；独立包核已实际PASS2e83a4b4…，最终文本总项已接受PARTIAL交付3d3d982f…，未签技术全通过。无秘密/session/profile/原请求/DB/PDF/font/program，不Public上传、旧包不覆盖。同OS不冒隔离；root唯一产品/报告/状态/路由写者，runtime_p12运行工具、testing_p12浏览器工具、acceptance_p12未实现者独核；capacity旧事实保、同团队同入口正常接续，无过程Issue审批。
 - 交付后停止，不自动P13/结算办理美化/全站/完整S13/负载/备份恢复/实机/正式政策/S11组合扫码/真实患者资金外部通道/产品合并部署生产。#37只一份P12最终且OPEN，#36 CLOSED，旧13回执不改；正常同步和独立读回待实际登记。用户亲手效果待确认。P11产品613fb33/实际7b0601e/工具1fa0ac8/报告bd0f73a/唯一6414490185与P1—P11旧PARTIAL/失败/UNKNOWN全部保持。
 
 ---
 
 以下原文保留P11及更早全部历史；历史“P12未启用”仅由当前用户授权替代，不反签旧事实。
+
+
+本地最终独立记录：文稿e33c05f/工具a161/maince52已全文审，`final-technical-partial.json` SHA3d3d982f938ff5d0fec4db8f9e5a4fa6ca7a2e9a159ba8d7e4c18243ec4bbf88实际接受PARTIAL；all70全源/原图/原命令退出f4f569d6…，56新可达Git blobs秘密0hit/71证据行实物重核a5399dfd… 。后续只正常同步和直接独立读回，不预签未知refs/评论，不重开app/DB/browser。
 
 # DL-P11 当前状态｜YD-S13-DL-P11 / 1.0
 
