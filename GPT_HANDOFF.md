@@ -1,21 +1,21 @@
-# YDental / odoo-sd｜DL-P10交接
+# YDental / odoo-sd｜DL-P11交接
 
-用户已直接启用 **YD-S13-DL-P10 / 1.0**：经营报表主页面按钮、四种既有轻量SVG与层级间距。不是重开P9、不是全站，不推广source详情、结算或其它页面。先读main/AGENTS.md/CURRENT_TASK.md，再跟随活动分支同CURRENT、完整计划和三报告。main仅路由，不是产品基线；不从main重建产品、不合产品、不部署。
+用户已直接启用限定 **YD-S13-DL-P11 / 1.0**，经营报表来源钻取详情页的暖色动作、只读层次与间距整理。先读main/AGENTS.md/CURRENT_TASK.md，再读活动分支同CURRENT、用户完整计划及三报告。main仅文档路由，不是业务基线；锚点不是回退指令，保留未提交工作，不reset/clean/强推，不合产品、不部署。
 
-活动分支`codex/s13-dl-p10-report-actions-spacing-r1`从clean P9最终9ea71c63465ec3ab625f141dbbbe277edd436d90正常承接。最终产品/实际定向运行 **8a1547a14f5647d6a49555c8ab7f9ceb658511e3**；工具最终发布 **2c18d3271b49ab1ba2d6622e1755ed9678a97997**，实际36client各executed源单列，不冒发布合并CLI又重跑。原生XML两必要load913b7ab/b46c1e2各0完整pre/post，后CSS/工具/报告不-u。
+活动分支 `codex/s13-dl-p11-report-source-detail-r1`，从clean P10最终6d74bbe正常承接；[活动CURRENT](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p11-report-source-detail-r1/CURRENT_TASK.md) · [完整限定计划](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p11-report-source-detail-r1/docs/execution/S13_DL_P11_IMPLEMENTATION_PLAN.md) · [结果/7步复现](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p11-report-source-detail-r1/docs/reports/s13-dl-p11/summary.md) · [12项矩阵](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p11-report-source-detail-r1/docs/reports/s13-dl-p11/acceptance-matrix.md) · [完整SHA索引](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p11-report-source-detail-r1/docs/reports/s13-dl-p11/evidence-index.md)。未实现者本地最终总签 **53c9d259cac5f685338761c1e1cb7195dabccde247bde60f385e1f7e3e145330** 已实际PASS，限定P11 **TECHNICALLY_COMPLETE / SYNC_PENDING**；首发布报告 **b328c5f5b2cb7607a976b699fadeeba059061c47**。正常远端同步仍待，未代签用户效果。
 
-仅4addon：主XML/manifest/2局部SCSS。10动作定义逐族：2button/6a/2summary，复用共享纯mixin及原4SVG，scope main独有marker+元素optin；nav/scope仅两原生call局部参数、默认OFF，source/error不换样式。完整XML白名单还原C14N同P9/native术语86/74同；P4两产品JS、字段内部、原form/hidden/提交/草拟生效/指标/权限/CSV11列/后台及P7/P8/P9保持，不新增JS/业务/UI库。间距8/12/16/24/card24-16，source单独.25rem外缓冲防根字号32的原焦点12px被cell10px滚动边界裁；内部token/cell/列/overflow不动。
+最终产品 **613fb33bb4fecdb23eff3c46a2d3a1de2a4c1780**；首产品/唯一XML-u **f235c649df0f58403ae3ce50a666ec2c377787a2** 实际0/ERROR0/完整pre-post，后仅CSS/工具/文档不-u。实际最终运行 **7b0601effe6ee2b3cc670087589865b7528a3f18** / run20261026T100710Z-f7eda0f7b9af；公共工具 **1fa0ac89827bc0d4400fa53e45c7bd63e4c43d01** 仅SOURCE/PURE整合，私有actual源/命令/退出逐件固定，不冒最终CLI重跑全部。
 
-root唯一产品/状态/报告写者与调度，runtime_p10运行/保护，testing_p10测试/双真engine，复用未实现本次产品或相应工具的acceptance_p9独立核。shared OS不冒隔离。原A01 lazycall正文t-set不执行、A02根字号32来源focus裁2px均按锁定core/实际盒确证，普通最小修正和独立实测闭合；不回GPT逐包审批、不在Issue发过程进度。
+仅3addon：source/shared局部opt-in XML、manifest单资产、source独有SCSS。root唯一产品/状态/报告/路由写者和运行调度；runtime_p11工具/保护，testing_p11真实双engine/包，acceptance_p11未实现产品或相应工具者独立准入/原件/新physical/总签；同OS不冒隔离。容量错误时after3未启，用户“继续”后同入口原团队正常续行，新准入不改旧时间/STOP；实施中未向Issue发中间问题。
 
-两engine本轮before/final5view/各native200-root200、P4草拟生效/metricTab紧接Enter/多店每值一次/原required、真实busy同156.015625×46、scope/nav/完整族、两种CSV/full11列/权限、真noJS及明确long/文本覆盖/fault/loadedpager按层级合证。36actual=28Node0/8Node2，36native0，314原PNG路径/273SHA/318执行source档全部核，原失败不反签；旧24c两Node0漏族也不冒整页。真实一页不冒多页；320根Chrome346/WK332本轮same/根因UNKNOWN。WK无JS原form同次2346B decoded完整CSV正文严验，wireBOM/native下载文件未观测，结合Chrome两结构raw/BOM原文件满足本轮读取合同，不补字节/不冒OS下载。
+source独立marker+动作opt-in，共享nav/scope仅局部原生call参数；P10主分支/主页面和error/P4两JS/原过滤草拟生效/所有backend/指标/ACL/schema/CSV11列/字段与URL冻结。两处return_url原地址、两分摊原金额、日期币种状态facts/完整pre及默认跨店权限提示保。只复用原动作mixin及chevron_left/arrow_right/许可，无新JS/框架/CDN/字体/业务。间距8/12/16/24、卡桌24/窄16实测单owner。
 
-最终新physical496534 RO/RR/rollbackclosed完整145业务/13技术/九区与root同、4deps保；83refs/80真实路径/80不同SHA逐引用路径/bytes/size/SHA全保，3共享引用保持。独立0961969329266976a2f359f7b6f1aa4d465d7d7a612f26bc03772269b9c664b9 PASS；旧18017audit全保，新389accepted正常认证/读取含7CSV，拒绝只native emit_event不虚造DBdenied。其它144business/config/schema/附件同，技术仅两load5类/2deps/3arch+backup。原金额库存/身份作者价源/原件/未完成责任保持，新经济库存/原件PDF/打印签署发布/治疗扫码0。
+双engine5view/各真native200和独立root32/JSoff/普通source正负例/原生details与键盘、真实followup55跨店默认提示及原业务GET200当前StoreA空交集、两return原值与四loaded内存组件分层已核。38actual=32Node0/6Node2、38native0、277原PNG/196SHA/377执行源全件独核；旧whole失败不反签。A01仅滚动落点净空和真实完整键盘局部可达限定闭合：原生Tab在横读→缩窄后仍可能partial，Chrome3/WK2可信ArrowLeft可恢复原active链接全文与圈，不能冒自动全显。source Chrome390/320根393、WK390根390/320根377本轮前后same，原根因UNKNOWN不顺带修。
 
-4owned正常foreground/child0/groupstop，最终8a run20261026T041906Z-a460a85c90f1于 **2026-10-26T04:30:58.070478Z** 收尾；独立33c4bc4b…核36native/ownerportsprofilesknownPID空，freshRO496968其它targetconn[]/closed，共享主服务未动。以后不为纯报告同步复开DB/app/browser；正常效果复现须当前新有效窗口，不恢复旧scope/STOP或把localhost当远端用户入口。
+最终未实现者新physical588513 RO/RR/rollbackclosed完整145业务/13技术/九区+4deps与root逐值same、83引用/80实际路径/80不同SHA逐完整bytes/size/SHA及3共享保；独立5ad9a5df…PASS。旧18406audit逐行保，新412正常auth/read，其余144业务/身份作者价源/原件/未完责任/config/schema保持；技术仅已验单-u5表，派生CSS缓存15832→15833与83业务原件分列。经济库存/文书PDF/打印签署发布/治疗扫码/CSV新增0，不宣称全库物理零差。
 
-私有只读r1包4433215B/SHAfeddb5fab4c00e0a462dee6faba5e5d7e061e668a0d82a0f041676a21f791dba，56成员/52原PNG/38测量，独立f85d224a…逐源/字节/解码/隐私通过，无CSV/PDF/原请求/session/秘密/配置/DB/program/font，不Public上传，P9r2/P8r1原字节保持。
+5owned全部正常foreground/child0/groupstop，最终run于2026-10-26T10:35:51.660196Z收尾；38native/context全close。独立eb2c025c…核knownPID/profile/marker/18411和12空、新RO588563其它targetconn[]，共享主服务未动，不为报告/同步复开DB/app/browser。私有0400 r1包9328107B/SHA7e1c32e45aff99eb34613abf918378eb57401a9a869f1161dd183c7513c58773，87成员/83原PNG/6测量，完整包及隐私旁签e399ad93…/3b13e284…PASS，不Public上传；ZIP内构造PENDING保原字节，不循环回写未来签名。
 
-未实现者本地最终总签 **84420335db5e4948b7c74f4e59084ce22cfd313aaded7df4fe13f56f057479b8** 已实际PASS，main两路由4643da7d…亦已审；限定P10 **TECHNICALLY_COMPLETE / SYNCED**，原REMOTE_PENDING保；首业务6a0ac1a/main09d368a两ref/31FULL、[#37唯一P10回执6408631886](https://github.com/Yredxin/YDental/issues/37#issuecomment-6408631886)及旧11逐id/body/37OPEN36CLOSED/titlebody直接独立总签 **6682d0c377f049fffbbd79bc41453609c4ca4ffaedb7f95bd9bcdb95babca7e0** 实际PASS，T01—12适用项成立。最后6文本/ref/同评论metadata再正常实读，不复开软件DB包。报告自身hash不循环，最后同步metadata另实读，不重验软件/DB/包。用户亲手效果待确认。
+当前本地T01—11及T12本地适用项总签已实际PASS（53c9d259…），正常refs/全文/唯一P11回执同步仍待，不预签SYNCED。最终仅#37一份P11保持OPEN，旧12评论及#36 CLOSED保持。P10产品8a1547a/实际最后运行、工具2c18d32、报告6d74bbe/唯一6408631886，P1—P10旧原件/历史PARTIAL/失败/UNKNOWN保持在活动CURRENT及原报告。用户亲手效果仍待确认。
 
-P9产品5f8f154/实际7d02a16/最终9ea71c6/唯一6407140114，P1—P9/P5 PARTIAL/旧包/失败/UNKNOWN和不可重放事实在活动CURRENT/历史报告完整保留。#37只新增一份P10最终结果保持OPEN，旧11不改，#36 CLOSED。**P10交付后停止**：后续页面/完整S13/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/产品合并部署生产均未启用。GPT仅按用户请求总结/特别复核/业务变更介入，不恢复逐批审批链。
+P11完成立即停止；P12/结算其它岗位/全站/完整S13/50活动负载/备份恢复/实机/正式政策/S11组合扫码/真实患者资金/外部通道/产品合并与部署生产均未启用。GPT只按用户请求总结/特别复核/业务需求变化介入，不恢复逐包审批链。
