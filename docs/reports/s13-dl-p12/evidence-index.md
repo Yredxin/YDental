@@ -180,3 +180,18 @@ SOURCE来自每process原始归档，code2不反签whole；状态/有效子层�
 - `acceptance_physical.py --candidate 0f1deb8... --checkpoint ... --checkpoint-sha256 ... --label final-complete`：未实现者另新physical/原path真实bytes，RO/RR/rollbackclosed；从初始18818审计起全阶段分类，不伪造历史时点独立连接。
 
 原保护九区/投影、83ref→80path+三共享明细、所有原图/执行源/退出在上述完整private清单中；ZIP只90原PNG+README/有限measurements/manifest/SHA，不含程序/DB/原请求/字体/PDF。旧失败及UNKNOWN保，不把helper恢复、fixture或SYNCED冒技术全通过。最终本地总项/包核/远端ref与唯一回执旁签在后续元数据段列实际结果。
+
+
+## 清单截止后的已发生独立旁签
+
+|私有文件|bytes|SHA256|
+|---|---:|---|
+|`acceptance/final-component-sublayers-independent.json`|51171|`c928dcafb650ab466f1cb82bf602c25e4c3a768f795304f3b868449a7913694d`|
+|`acceptance/final-component-additional-layers-independent.json`|22969|`70e369be21d833f8f89022b708c728e7c7a1ce05614ffdbe45e2128dbf4726b1`|
+|`acceptance/final-viewing-package-independent.json`|46497|`2e83a4b4a9104d19e2c8dc98f7d69866c24c1205665506c10389b8a205c0e6bd`|
+|`acceptance/final-complete-protection-independent.json`|33276|`4a38c2999f96af9b45548f29570f0d01d15d4ac7037e2a080cf2618ec7e39f63`|
+|`acceptance/final-quiescence-independent.json`|23000|`c148f336f2b0edeaa5e9ea3404f992c375c3d15de20e93a02afec57556290c3e`|
+|`acceptance/finding-P12-A04-confirmed-unresolved.json`|8264|`8ed0e3040679b5dbaab1b4b6fa7c0d1dec92fad3b244283cfb8f08079ce1c89d`|
+|`acceptance/product4-house-guidelines-review.json`|5880|`caa144925b550cfa618ebf6934e385c4a1650e2160007bd8193e5f5bd8c7e055`|
+
+另全原图/执行源平铺清单 `.local/dl-p12/testing/raw-manifest-v1.json` / 591053B / SHA256 `b88bd033624e8704b31713c211260fe0195e49342a559cebdb6df1b801f150d7`，1913项=700source+1003PNG+70×3原收据，private不进入ZIP或Public。

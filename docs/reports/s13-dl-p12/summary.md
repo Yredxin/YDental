@@ -94,3 +94,22 @@ P12交付后停止；#37保持OPEN/#36 CLOSED，P1—P11旧回执不改。main�
 私有0400 `.local/dl-p12/viewing/S13-DL-P12-view-only-20261026-r1.zip`：**9,949,005B / SHA256 9ecdf42f3567a32bd2316f7c89e9b7f06ab4a442fb5fab5e6b08489122a7660a**，94成员/90原PNG，README首行PARTIAL/A04OPEN。before/精确复用布局/最终native/A04严格FAIL与可信恢复/超高分段/intermediate分层，全部原图不编辑。无凭据/session/profile/原请求/配置/DB/PDF/CSV/font/program，不上传Public；旧P11及更早包不覆盖。ZIP内部independent PENDING保构造时原字节，最终外部旁签另列，不循环回写自身hash。
 
 运行事实 `379a451517203852a6703a1e632376131fcd545536a1148aa2ebc94eb5ccf7f7`；完整客户端/PNG/执行源事实 `76e5a116be9ba6462b3b0e7749e1a06e989fb0bfe9c867f096d9ee03de579527`。SOURCE/PURE、loaded QWeb、内存组件、真实HTTP/BROWSER/AX、独立已提交physical RO与包核分别记录，不能互冒。最终本地独立交付总项与正常同步读回在后续已发生元数据段登记，不能把SYNCED代技术通过。
+
+
+## 已发生的独立组件与包核
+
+独立逐层核40字段场景、44首末Range批、22纯键超高分段、两engine四族×四态颜色阈值、每engine8分页×图字空白24可信事件；压力/fault8分支及empty两zoom均有实际记录（root32 empty gap32px，无before不补造）。普通fit native A04仍WK6/Chrome4个组件场景FAIL，overall保持COMPLETE_WITH_OPEN_A04/exit2，不能用各子层成功代总项。70actual的12 strict wholeFAIL中8个工具/准备/几何失败，4个实际A04门槛失败；另2个COMPLETE_WITH_OPEN_A04是独立层完整且A04未闭。
+
+私有r1包已实际全成员/sourcebytes/PNG/manifest92/SHA93/24有限measurements/隐私核PASS，旧P11ZIP原bytes/SHA保；该PASS不代表阶段通过。最终产品按odoo-review双pass和对应XML/manifest/SCSS/assets/稳定版/注释/core原生call与消费者复核，无open SOURCE finding；不冒全模块安全审计。用户限定计划优先于泛化stable/直接depends建议，未增审批。
+
+|独立旁签|SHA256|
+|---|---|
+|`acceptance/final-component-sublayers-independent.json`|`c928dcafb650ab466f1cb82bf602c25e4c3a768f795304f3b868449a7913694d`|
+|`acceptance/final-component-additional-layers-independent.json`|`70e369be21d833f8f89022b708c728e7c7a1ce05614ffdbe45e2128dbf4726b1`|
+|`acceptance/final-viewing-package-independent.json`|`2e83a4b4a9104d19e2c8dc98f7d69866c24c1205665506c10389b8a205c0e6bd`|
+|`acceptance/final-complete-protection-independent.json`|`4a38c2999f96af9b45548f29570f0d01d15d4ac7037e2a080cf2618ec7e39f63`|
+|`acceptance/final-quiescence-independent.json`|`c148f336f2b0edeaa5e9ea3404f992c375c3d15de20e93a02afec57556290c3e`|
+|`acceptance/finding-P12-A04-confirmed-unresolved.json`|`8ed0e3040679b5dbaab1b4b6fa7c0d1dec92fad3b244283cfb8f08079ce1c89d`|
+|`acceptance/product4-house-guidelines-review.json`|`caa144925b550cfa618ebf6934e385c4a1650e2160007bd8193e5f5bd8c7e055`|
+
+本地文稿首固定e7924ad0b9df76c13b7fbf05e27ca1798242e373、main仅两文档路由准备ce52cb9065c06d7aaa27d51b33b4b018c1613ac2；当前还未正常push/回执/独立读回，故SYNC_PENDING。最终文字总项明确PARTIAL，固定正文独核与远端实际结果后续只登记已发生元数据，不循环自嵌未来hash，也不再打开服务/DB/browser。
