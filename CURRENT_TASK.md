@@ -17,6 +17,9 @@
 - 第三窗口40d8cf实际两engine真实空态32→16（A02独立45cfa6a1…），8有限旁路exact，Chrome noJS-v5/WK noJS-v7及两engine keyboard-v7完整路径actual0。新第5wholeFAIL为WK v5 CtrlHome焦点在原table DIV，rootY3942不移、尚未q seed；原限制保，后普通same-patient GET新文档top0路径实证通过，不冒任意滚动自动归位。
 - 第三窗口20261026T152347Z-28b0848f07b9正常stop0/groupstopped；旧22625audit保→23955，新1330正常auth/read，其余144业务/13技术/九区和83引用保持。Chrome loaded组件v7前三分支与long前三view/390文字Range有效；第6wholeNode2/native0为长候选934px高于844viewport仍断言全圈同屏，原件保。超高控件须上下边/全文分段可信滚读，绝不缩字/截断/隐藏。
 - **P12-A03待分层实证**：连续Tab后100ms样本有Chrome14/WK21边界圈partial、方向键可达；旧无等同额外settled采样，不能冒持久裁切/UA根因或借P11背书。产品 **552212602270f3c3f7ec6ce377343552243bc4ee** 仅本scope action/disclosure/fee_scroll加.5rem scroll-margin-block，保DOM几何/共享mixin。新窗口保100ms即时/两帧+外部250mssettled/方向键三相；JSoff仅外部等待。不得把新成功因果倒签CSS单因修复。
+- 第四窗口0670010实际两engine32控件JS-on/noJS即100ms/settled全圈、方向键恢复0，两engine两zoom实际0，A03独立ea03048e…限定关闭；原P11/任意页底程序focus/CtrlHome限制与旧时序事实保。Store1实际UTC，16UTC不跨本店日，先前Shanghai推测纠正，未改clock。
+- **P12-A04 OPEN**：组件v9在768横读保36后，pending首列fit summary nativeSettled left26<clipLeft50，helper后local6可见不冒原生PASS。产品 **ba3a5b0da4f3a8d2b27c3c5f84fbf533896f104f** 只将scope三控件scroll-margin-block:.5rem补全scroll-margin:.5rem；新window先此明确状态诊断，不预签UA支持/不盲跑全组件。
+- 第四窗口20261026T155547Z-dab0bd4a4368正常stop0/groupstopped，旧23955audit保→24853，新898正常auth/read，其余144业务/13技术/九区/83引用same。新增第7wholeFAIL为Chrome超高诊断选closed trace不可见末字；第8为WK诊断先断言同Chrome超高、实际高度未先存(UNKNOWN)；后Chrome-v2/WK-v3已实际按几何分层通过。第9为组件v9上述真实fit祖先clip，不降门槛。完整组件/T07—08尚未全通过，SOURCE/已成子层各独保。
 - T01—12最终独立总验收尚未完成；无经济库存/原件PDF/打印签署发布/扫码提交。
 - W0—W4连续，完成适用T01—12及未实现者独立验收后才交TECHNICALLY_COMPLETE；同步另列。最终#37只一份P12且OPEN，#36 CLOSED，main仅文档路由，不合产品不部署。P12结束立即停止；用户亲手效果待确认。
 
