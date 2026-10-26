@@ -14,6 +14,9 @@
 - 新发现 **P12-A02**：原P5及本轮空候选说明→空态均32px，QWeb whitespace使:empty无效，未落实16px目标。只移除无效规则、让UL恒leading16为唯一owner、emptyDIVleading0，产品固定 **c61e060e5b6ce798e6b988ee0f658b1afa162170**。XML/manifest/业务/表格不变，不-u。须新窗口定向布局/空态及组件/键盘/noJS和有限旁路完成。
 - 第二窗口20261026T145913Z-2abc105bac6b正常stop0/groupstopped，完整145/13/83ref保持；旧20606audit保→22625，新2019正常auth/read，其余144业务/13技术/九区与loadpost同。
 - 工具旧失败全保：Chrome noJS-v1禁JS监听器无记录却断言trusted；keyboard-v1右移增量失败、旧起点offset UNKNOWN；Chrome noJS-v3固定24方向键实际0→442(max468)→24未达端；WK noJS-v4首显式q seed从页底focus y=-11、尚未开始自然Tab。均Node2/native0/正常close/零业务提交，不冒产品崩溃或whole PASS。私有v5保原业务/焦点强断言，真实方向键有界到两端、noJS trust NOT_OBSERVED、可信Ctrl+Home准备首seed；原源/退出/图/新源逐次保，不反签共同最终工具来源。
+- 第三窗口40d8cf实际两engine真实空态32→16（A02独立45cfa6a1…），8有限旁路exact，Chrome noJS-v5/WK noJS-v7及两engine keyboard-v7完整路径actual0。新第5wholeFAIL为WK v5 CtrlHome焦点在原table DIV，rootY3942不移、尚未q seed；原限制保，后普通same-patient GET新文档top0路径实证通过，不冒任意滚动自动归位。
+- 第三窗口20261026T152347Z-28b0848f07b9正常stop0/groupstopped；旧22625audit保→23955，新1330正常auth/read，其余144业务/13技术/九区和83引用保持。Chrome loaded组件v7前三分支与long前三view/390文字Range有效；第6wholeNode2/native0为长候选934px高于844viewport仍断言全圈同屏，原件保。超高控件须上下边/全文分段可信滚读，绝不缩字/截断/隐藏。
+- **P12-A03待分层实证**：连续Tab后100ms样本有Chrome14/WK21边界圈partial、方向键可达；旧无等同额外settled采样，不能冒持久裁切/UA根因或借P11背书。产品 **552212602270f3c3f7ec6ce377343552243bc4ee** 仅本scope action/disclosure/fee_scroll加.5rem scroll-margin-block，保DOM几何/共享mixin。新窗口保100ms即时/两帧+外部250mssettled/方向键三相；JSoff仅外部等待。不得把新成功因果倒签CSS单因修复。
 - T01—12最终独立总验收尚未完成；无经济库存/原件PDF/打印签署发布/扫码提交。
 - W0—W4连续，完成适用T01—12及未实现者独立验收后才交TECHNICALLY_COMPLETE；同步另列。最终#37只一份P12且OPEN，#36 CLOSED，main仅文档路由，不合产品不部署。P12结束立即停止；用户亲手效果待确认。
 
