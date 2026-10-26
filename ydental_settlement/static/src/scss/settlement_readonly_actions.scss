@@ -70,6 +70,12 @@
         margin-block-start: 0.75rem;
     }
 
+    // Keep the native marker and Chinese label on one line in the original
+    // trace column; shared minimum height and all table cell padding stay.
+    .o_ydental_settlement_disclosure[data-dl-actions="settlement-readonly-actions"] {
+        padding-inline: 0.5em;
+    }
+
     // Preserve room for the shared focus ring during local table navigation.
     .o_ydental_settlement_fee_scroll {
         scroll-padding: 0.375rem;
