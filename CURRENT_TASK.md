@@ -1,6 +1,6 @@
 # DL-P9 当前状态｜YD-S13-DL-P9 / 1.0
 
-## 本地分层技术已成，待最终正文总签 / SYNC_PENDING / 用户亲手效果待确认
+## TECHNICALLY_COMPLETE（限定P9本地软件）/ SYNC_PENDING / 用户亲手效果待确认
 
 - 用户直接启用[完整P9计划](docs/execution/S13_DL_P9_IMPLEMENTATION_PLAN.md)，W0—W4连续实施，仅文书主页面空间关系；继承三块只顶层外距；非重开P8/全站，不推广其它页面。[结果/间距责任表/7步复现](docs/reports/s13-dl-p9/summary.md) · [12项矩阵](docs/reports/s13-dl-p9/acceptance-matrix.md) · [完整脱敏索引](docs/reports/s13-dl-p9/evidence-index.md)。
 - 从clean P8报告756df60286d078a4243f87c885dc7a10de1f9b8b正常建立`codex/s13-dl-p9-documents-spacing-r1`。准备/before ee15b39（产品P8）；产品固定5f8f15416521486f156e2932dd0b577c25d970f9，实际唯一print-u/after7d02a16c429993e36971ce065bf78d56a4d72fb8仅多状态文档。P8产品bd8411d4/唯一6406133603、P1—P8、P5 PARTIAL、旧包/失败/UNKNOWN保持，不reset/clean/强推/从文档main重建。
@@ -10,7 +10,7 @@
 - 唯一既有synth OID2171423/cluster7694897083368259627/原filestore、core f0c5a9b保持，无新库/克隆/改名；新scope不改旧时间/STOP/guard。唯一print-u实际0/ERROR0/noNative，即时完整pre42fb99…/post183144…独立36b3a554…分类native日期/两arch，4依赖同，后续不重复-u。
 - 最终root23885cd…；未实现者独立新physical465527 RO/RR/rollbackidle/closed，完整145业务/13技术/九区same root，83refs/80真实路径/80不同SHA逐bytes/size/SHA全保，独立0e86f0a1411a260fe0bcc728a764c32aeb732e42b5d3fd6daa0dae3f397d2816。旧17812audit逐行保，新205=201accepted认证/读取+4none旧PDF读denied；原category export不冒bulk export。原件/金额库存/身份作者价源/责任/schema/config保持，新原件/PDF生成/打印/签署/模板创建审核发布/继承业务/经济库存0，无临时grant。
 - 最终私有0400r2包`.local/dl-p9/viewing/S13-DL-P9-view-only-20261026-r2.zip`5039889B/SHA9796854834e8a350d7ab618bb4a6c6d68a8a486dd82fe4bbe0499603f7e8529e，52members/48原PNG/152测量，独立ee3fc0c1…全核。r1说明before失败数误3保历史，r2修为2并补4窄屏popup/同active正常scroll环图，r1/P8旧字节不改。无秘密/session/PDF/DB/config/program/font，不上传Public。
-- after owned20261026T021012Z-d241867b77e3于2026-10-26T02:30:15.610853Z正常stop/foreground0/child0/signull/groupstopped；before亦0。独立7e5d6e7c…核2owned/34native0、owner/ports/profile/已知进程空，freshRO465768其它targetconn[]。不为报告复开、不动共享主服务。未实现者T01—11及T12本地层总索引9d6a2aa4f57b5a9bc961582228e6a30eaa0b0231c0cbedb298e46b326f638cc0，最终正文/状态和远端签另按实际补记。
+- after owned20261026T021012Z-d241867b77e3于2026-10-26T02:30:15.610853Z正常stop/foreground0/child0/signull/groupstopped；before亦0。独立7e5d6e7c…核2owned/34native0、owner/ports/profile/已知进程空，freshRO465768其它targetconn[]。不为报告复开、不动共享主服务。未实现者T01—11及T12本地层总索引9d6a2aa4f57b5a9bc961582228e6a30eaa0b0231c0cbedb298e46b326f638cc0，最终本地正文/状态/工具总签67f8af87eaf871b61ac54c7810fc644c50ccd8c7e00d0996e2c5db0bd4a6bc78已PASS（0ac54de/clean），原REMOTE_PENDING时点保；远端签另按实际补记。
 - 仅计划结束向#37新增一份P9最终结果、保持OPEN、旧10不改；#36CLOSED，main只必要路由，不合产品不部署。用户亲手效果待确认。P9交付后停止，后续页面/完整S13/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/生产未启用。
 
 ---

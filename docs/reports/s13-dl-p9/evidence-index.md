@@ -2,7 +2,7 @@
 
 YD-S13-DL-P9 / 1.0。产品5f8f15416521486f156e2932dd0b577c25d970f9，实际after/唯一加载7d02a16c429993e36971ce065bf78d56a4d72fb8；before ee15b39（产品P8）。私有根`.local/dl-p9/`。公共不上传原PNG、PDF副本、完整DB投影、provider、配置、session或原始日志/请求。hash/文件存在不是PASS，实际层级见[矩阵](acceptance-matrix.md)。
 
-本地适用软件总索引9d6a2aa4…已独立签T01—11及T12包/收尾；最终正文/状态与远端总签按实际补记，不提前声称SYNCED。用户亲手效果待确认。
+本地适用软件总索引9d6a2aa4…已独立签T01—11及T12包/收尾；最终本地正文/状态/工具总签 **67f8af87eaf871b61ac54c7810fc644c50ccd8c7e00d0996e2c5db0bd4a6bc78** 已PASS（0ac54de/clean），原REMOTE_PENDING时点保；远端另按实际补记，不提前声称SYNCED。用户亲手效果待确认。
 
 ## 独立收据（完整SHA256）
 
@@ -24,6 +24,7 @@ YD-S13-DL-P9 / 1.0。产品5f8f15416521486f156e2932dd0b577c25d970f9，实际afte
 |acceptance/final-physical-snapshot.json|41c08b040a5793f4878e7c8b555ec394dfbd4f220387ce77fca9b6264813c1f4|READONLY_PROTECTED_BASELINE_COMPLETE_NO_UPGRADE_AUTHORIZATION|
 |acceptance/final-protection-independent.json|0e86f0a1411a260fe0bcc728a764c32aeb732e42b5d3fd6daa0dae3f397d2816|P9_FINAL_FULL_STAGE_INDEPENDENT_NEW_PHYSICAL_PROTECTION_PASS|
 |acceptance/final-quiescence-independent.json|7e5d6e7c6bc63baaeb0639e28a74b24e8b93c436777b3bfce89c233fdbda0f4c|P9_OWNED_SERVICES_BROWSERS_TARGET_CONNECTIONS_QUIESCENCE_INDEPENDENT_PASS|
+|acceptance/local-technical-acceptance-independent.json|67f8af87eaf871b61ac54c7810fc644c50ccd8c7e00d0996e2c5db0bd4a6bc78|LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING|
 |acceptance/local-acceptance-index-independent.json|9d6a2aa4f57b5a9bc961582228e6a30eaa0b0231c0cbedb298e46b326f638cc0|P9_T01_TO_T11_AND_T12_ARTIFACT_STOP_LOCAL_INDEPENDENT_PASS_FINAL_REPORTS_AND_REMOTE_PENDING|
 |acceptance/narrow-finalsettlement-browser-integrity.json|3c98d1f7e5e6c67c2edaf9d12e189649a8af528b37a5575b6884bc790b647f7b|P9_INDEPENDENT_BROWSER_RAW_INTEGRITY_REVIEWED_NOT_ALL_T_ACCEPTANCE|
 |acceptance/native-loaded-QWeb-contracts-independent.json|26f0a55a4f09f87dd7b379cfe19cc2d3b3d05cc3d2c07236024779ac30f28e55|P9_NATIVE_LOADED_QWEB_MEMORY_CONTRACT_TRANSLATIONS_INDEPENDENT_PASS|
