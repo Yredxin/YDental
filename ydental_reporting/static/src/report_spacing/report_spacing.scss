@@ -1,5 +1,6 @@
 // DL-21--26. Each space has one owner; field and result internals stay native.
 main.o_ydental_reporting[data-dl-layout="report-actions-spacing"] {
+    --ydental-report-main__space-focus: 0.25rem;
     --ydental-report-main__space-label: 0.5rem;
     --ydental-report-main__space-group: 0.75rem;
     --ydental-report-main__space-field: 1rem;
@@ -99,5 +100,20 @@ main.o_ydental_reporting[data-dl-layout="report-actions-spacing"] {
     // space. Its wrapper owns that space; columns and cell insets stay native.
     .o_ydental_reporting_main_spacing_table > .table {
         margin-block: 0;
+    }
+
+    // A 200% root font also grows the shared focus ring and its offset.
+    // Keep a small external buffer inside the native horizontal scroll area;
+    // cell insets, column strategy and the action's internal tokens stay native.
+    .o_ydental_reporting_main_spacing_table {
+        .o_ydental_reporting_main_action_quiet[data-dl-actions="report-actions"] {
+            max-inline-size: calc(100% - var(--ydental-report-main__space-focus));
+            margin-inline-end: var(--ydental-report-main__space-focus);
+        }
+
+        tbody > tr:last-child
+            .o_ydental_reporting_main_action_quiet[data-dl-actions="report-actions"] {
+            margin-block-end: var(--ydental-report-main__space-focus);
+        }
     }
 }

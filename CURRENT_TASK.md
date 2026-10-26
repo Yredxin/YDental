@@ -1,6 +1,6 @@
 # DL-P10 当前状态｜YD-S13-DL-P10 / 1.0
 
-## W3 最终候选定向验证 / 未完成验收 / 未同步
+## W3 放大焦点微缓冲修复 / 未完成验收 / 未同步
 
 - 用户直接启用[完整P10计划](docs/execution/S13_DL_P10_IMPLEMENTATION_PLAN.md)，W0—W4连续实施，唯一目标经营报表主页面 `/ydental/reports` / `ydental_reporting.ydental_operating_report_page`。2提交button/6链接定义/2summary，复用原纯mixin及4既有SVG，局部8/12/16/24rem间距；不是重开P9或全站推广。
 - 从clean P9最终 `9ea71c63465ec3ab625f141dbbbe277edd436d90` 正常建立 `codex/s13-dl-p10-report-actions-spacing-r1`，实际origin/HEAD/工作树已核；P9产品5f8f154/实际after7d02a16/唯一6407140114、P1—P9/P5 PARTIAL、原包/失败/UNKNOWN完整保留，无reset/clean/强推/从文档main重建。
@@ -14,6 +14,9 @@
 - 已核锁定core ir_qweb.py2693 lazy t-call正文，片段不消费0，内部t-set未执行；原生2719支持非t-* call参数。仅main两call改成report_main_actions="True"，默认OFF片段/主CSSscope保持；逐族工具加精确nav3/scope1/其余动作条件断言。actual after run20261026T034221Z-83dea8bb9932于03:45:57.125024Z正常foreground0/child0/groupstop，完整windowpost已采，无经济业务。
 - 修复产品/主要工具/实际第二次加载与最终运行固定b46c1e272803b047e73489520682f0cd98d8ada4。第二次必要reporting-u immediate fullpre→actual0/ERROR0/noNative→post，145business/7区/4deps全同，仅原生5技术类/精确3arch_prev分类，独立8aad00d6…PASS。原生strict15组件12metric和完整逐族optin/图标/条件已独立bcc4dfdf…PASS；这仅native内存层，不代live/权限。两次-u均因实际XML，纯CSS/工具未重复-u。
 - 新owned最终run20261026T035135Z-657e49eb059e在独立当前准入及第二load分类通过后freshregistry启动，当前串行最终双engine逐族/空间/P4/CSV/无JS/zoom与pressure/有限旁路；真实样本与明确组件层分开，原24c0漏族轮保留分项/不倒签整轮。下一步适用T01—12/最终新physical完整独立保护/效果包/正常收尾。仅结束新增一份#37最终P10且OPEN，#36CLOSED，main仅必要路由；正常同步实读，缺证据PARTIAL，用户亲手效果待确认。
+- b46双engine逐族/五view、5完整JSON仅query_at分类、source/error隔离、P4草拟生效/metric自然Tab紧接Enter/0店/多店、真实busy156.015625×46不跳及2px文字净空、4变体全态、真实4CSV+Chrome无JS原文件、权限负例、长文/文本压力/三故障均已分层成。WK无JS完整原表单同次CSV2346B decoded正文全11列严验与Chrome真实BOM文件合证，不冒WK wireBOM/native下载；原两个Node2/native0保。doctor collections403是原无来源权限，未扩权/重试该角色。
+- rootfont32真实sourcequiet焦点外圈12px被table滚动边界裁2px（right1249+12=1261、clip1259），新目标缺口明确，不用旧UNKNOWN豁免。仅明细来源链接外部.25rem逻辑尾缓冲/max可用宽度扣同值，末行底部.25rem；共享focus/按钮内衬/单元10px/列策略/overflow保持，无wrapperpadding叠加。正常自然换行/行高变化获准，纯CSS不再-u。
+- b46运行已于04:16:24.772061Z正常foreground0/child0/groupstop；完整windowpost仅新增151正常审计（含7读取型导出），其它业务/技术/全部原件同。下一步固定CSS候选/新准入/freshregistry，只补最终布局、来源图字原GET、两engine双zoom/组件/三旁路，未影响数据CSV/P4等按固定源码精确复用；最后完整独立保护/包/正常收尾与同步，不重放经济原件。
 - P10交付后停止。详情页/结算/其它页、完整S13/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/合并部署生产未启用。
 
 ---
