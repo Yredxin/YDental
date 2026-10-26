@@ -16,8 +16,8 @@
     <template id="ydental_settlement_page_links">
         <nav t-if="page_counts[page_kind] &gt; 50" aria-label="分页">
             <span>共 <span t-out="page_counts[page_kind]"/> 条；第 <span t-out="pages[page_kind]"/> 页</span>
-            <a t-if="pages[page_kind] &gt; 1" t-att-href="page_url(page_kind, pages[page_kind] - 1)">上一页</a>
-            <a t-if="pages[page_kind] * 50 &lt; page_counts[page_kind]" t-att-href="page_url(page_kind, pages[page_kind] + 1)">下一页</a>
+            <a t-if="pages[page_kind] &gt; 1" t-att-href="page_url(page_kind, pages[page_kind] - 1)" t-att-class="'o_ydental_settlement_action o_ydental_settlement_action_secondary' if settlement_readonly_actions else None" t-att-data-dl-actions="'settlement-readonly-actions' if settlement_readonly_actions else None"><t t-if="settlement_readonly_actions"><t t-call="ydental_inventory.p7_icon_chevron_left"/><span class="o_ydental_settlement_action_label" t-translation="on">上一页</span></t><t t-else="">上一页</t></a>
+            <a t-if="pages[page_kind] * 50 &lt; page_counts[page_kind]" t-att-href="page_url(page_kind, pages[page_kind] + 1)" t-att-class="'o_ydental_settlement_action o_ydental_settlement_action_secondary' if settlement_readonly_actions else None" t-att-data-dl-actions="'settlement-readonly-actions' if settlement_readonly_actions else None"><t t-if="settlement_readonly_actions"><span class="o_ydental_settlement_action_label" t-translation="on">下一页</span><t t-call="ydental_inventory.p7_icon_chevron_right"/></t><t t-else="">下一页</t></a>
         </nav>
     </template>
 
@@ -37,13 +37,13 @@
                             <label class="o_ydental_settlement_search_label">Patient name or number
                                 <input name="q" maxlength="100" t-att-value="search_term" aria-describedby="ydental-settlement-search-help"/>
                             </label>
-                            <button type="submit" class="o_ydental_settlement_search_button">Search for a patient</button>
+                            <button type="submit" class="o_ydental_settlement_search_button o_ydental_settlement_action o_ydental_settlement_action_primary" data-dl-actions="settlement-readonly-actions"><t t-call="ydental_inventory.p7_icon_search"/><span class="o_ydental_settlement_action_label" t-translation="on">Search for a patient</span></button>
                         </form>
                         <p class="o_ydental_settlement_help">Only patients related to the current authorized store are listed. Names and patient numbers distinguish matching names.</p>
                         <p id="ydental-settlement-search-help" class="o_ydental_settlement_help">Searching lists candidates only. Open a patient link to select a patient. Submitting a new search clears the previous selection.</p>
                         <ul class="o_ydental_settlement_candidates">
                             <li t-foreach="patient_options['rows']" t-as="option">
-                                <a t-att-href="'/ydental/settlement?patient_id=%s' % option['id']"><span t-out="option['name']"/> · <span class="o_ydental_settlement_patient_number" t-out="option['number']"/></a>
+                                <a t-att-href="'/ydental/settlement?patient_id=%s' % option['id']" class="o_ydental_settlement_action o_ydental_settlement_action_quiet" data-dl-actions="settlement-readonly-actions"><span t-out="option['name']"/> · <span class="o_ydental_settlement_patient_number" t-out="option['number']"/></a>
                             </li>
                         </ul>
                         <div t-if="not patient_options['rows']" class="o_ydental_settlement_empty">
@@ -51,10 +51,10 @@
                             <p>An empty candidate result does not mean there are no fees or that bills are settled.</p>
                         </div>
                         <nav class="o_ydental_settlement_search_pager" aria-label="Patient lookup pages">
-                            <a t-if="patient_options['page'] &gt; 1" t-att-href="patient_search_url(patient_options['page'] - 1)">Previous search page</a>
+                            <a t-if="patient_options['page'] &gt; 1" t-att-href="patient_search_url(patient_options['page'] - 1)" class="o_ydental_settlement_action o_ydental_settlement_action_secondary" data-dl-actions="settlement-readonly-actions"><t t-call="ydental_inventory.p7_icon_chevron_left"/><span class="o_ydental_settlement_action_label" t-translation="on">Previous search page</span></a>
                             <span t-else="" class="o_ydental_settlement_page_boundary">First patient lookup page</span>
                             <span class="o_ydental_settlement_page_number"><t>Patient lookup page:</t> <t t-out="patient_options['page']"/></span>
-                            <a t-if="patient_options['has_more']" t-att-href="patient_search_url(patient_options['page'] + 1)">Next search page</a>
+                            <a t-if="patient_options['has_more']" t-att-href="patient_search_url(patient_options['page'] + 1)" class="o_ydental_settlement_action o_ydental_settlement_action_secondary" data-dl-actions="settlement-readonly-actions"><span class="o_ydental_settlement_action_label" t-translation="on">Next search page</span><t t-call="ydental_inventory.p7_icon_chevron_right"/></a>
                             <span t-else="" class="o_ydental_settlement_page_boundary">No later patient lookup page</span>
                         </nav>
                     </section>
@@ -64,7 +64,7 @@
                         <p t-if="patient">The fee tables below cover the selected patient in the current store, including merged source records.</p>
                         <p t-else="">The fee tables below cover the current store. Searching candidates does not filter these fees.</p>
                         <p class="o_ydental_settlement_help">Unbilled fees are not receivables. Confirmed amounts are not receipts. These tables are not a balance or a total.</p>
-                        <p t-if="patient" class="o_ydental_settlement_other_stores"><a t-att-href="'/ydental/settlement/other-stores/%s' % patient.id">查看其他门店欠款最小摘要</a></p>
+                        <p t-if="patient" class="o_ydental_settlement_other_stores"><a t-att-href="'/ydental/settlement/other-stores/%s' % patient.id" class="o_ydental_settlement_action o_ydental_settlement_action_quiet" data-dl-actions="settlement-readonly-actions"><span class="o_ydental_settlement_action_label" t-translation="on">查看其他门店欠款最小摘要</span><t t-call="ydental_inventory.p7_icon_arrow_right"/></a></p>
                     </section>
                     <div class="o_ydental_settlement_fee_overview" data-dl-region="fee-overview">
                         <section class="o_ydental_settlement_fee_section" data-fee-kind="today" aria-labelledby="ydental-settlement-today-heading">
@@ -74,9 +74,9 @@
                             <div t-if="today" class="o_ydental_access_scroll o_ydental_settlement_fee_scroll" tabindex="0" role="region" aria-label="Today unbilled fee table" aria-describedby="ydental-settlement-today-scroll-help">
                                 <table t-if="today" class="table o_ydental_settlement_fee_table"><thead><tr><th scope="col">Fee item</th><th scope="col">患者</th><th scope="col" class="o_ydental_settlement_amount">确认金额</th><th scope="col">业务日</th><th scope="col">Trace</th></tr></thead>
                                     <tbody><tr t-foreach="today" t-as="fee"><td t-out="fee.ydental_event_id.ydental_catalog_id.name"/><td t-out="fee.ydental_patient_id.ydental_number"/>
-                                        <td class="o_ydental_settlement_amount" t-out="money(fee.ydental_amount, fee.ydental_currency_id)"/><td t-out="fee.ydental_event_id.ydental_business_date"/><td><details><summary>Source trace</summary>Fee reference <t t-out="fee.id"/>; original name <t t-out="fee.name"/>; execution event <t t-out="fee.ydental_event_id.id"/></details></td></tr></tbody>
+                                        <td class="o_ydental_settlement_amount" t-out="money(fee.ydental_amount, fee.ydental_currency_id)"/><td t-out="fee.ydental_event_id.ydental_business_date"/><td><details><summary class="o_ydental_settlement_disclosure" data-dl-actions="settlement-readonly-actions">Source trace</summary><span class="o_ydental_settlement_trace_body">Fee reference <t t-out="fee.id"/>; original name <t t-out="fee.name"/>; execution event <t t-out="fee.ydental_event_id.id"/></span></details></td></tr></tbody>
                                 </table>
-                            </div><t t-set="page_kind" t-value="'today'"/><t t-call="ydental_settlement.ydental_settlement_page_links"/>
+                            </div><t t-set="page_kind" t-value="'today'"/><t t-call="ydental_settlement.ydental_settlement_page_links" settlement_readonly_actions="True"/>
                         </section>
                         <section class="o_ydental_settlement_fee_section" data-fee-kind="history" aria-labelledby="ydental-settlement-history-heading">
                             <h2 id="ydental-settlement-history-heading">历史未出账费用</h2>
@@ -85,8 +85,8 @@
                             <div t-if="history" class="o_ydental_access_scroll o_ydental_settlement_fee_scroll" tabindex="0" role="region" aria-label="Other-date unbilled fee table" aria-describedby="ydental-settlement-history-scroll-help">
                                 <table t-if="history" class="table o_ydental_settlement_fee_table"><thead><tr><th scope="col">Fee item</th><th scope="col">患者</th><th scope="col" class="o_ydental_settlement_amount">确认金额</th><th scope="col">业务日</th><th scope="col">Trace</th></tr></thead><tbody><tr t-foreach="history" t-as="fee">
                                     <td t-out="fee.ydental_event_id.ydental_catalog_id.name"/><td t-out="fee.ydental_patient_id.ydental_number"/><td class="o_ydental_settlement_amount" t-out="money(fee.ydental_amount, fee.ydental_currency_id)"/>
-                                    <td t-out="fee.ydental_event_id.ydental_business_date"/><td><details><summary>Source trace</summary>Fee reference <t t-out="fee.id"/>; original name <t t-out="fee.name"/>; execution event <t t-out="fee.ydental_event_id.id"/></details></td></tr></tbody></table>
-                            </div><t t-set="page_kind" t-value="'history'"/><t t-call="ydental_settlement.ydental_settlement_page_links"/>
+                                    <td t-out="fee.ydental_event_id.ydental_business_date"/><td><details><summary class="o_ydental_settlement_disclosure" data-dl-actions="settlement-readonly-actions">Source trace</summary><span class="o_ydental_settlement_trace_body">Fee reference <t t-out="fee.id"/>; original name <t t-out="fee.name"/>; execution event <t t-out="fee.ydental_event_id.id"/></span></details></td></tr></tbody></table>
+                            </div><t t-set="page_kind" t-value="'history'"/><t t-call="ydental_settlement.ydental_settlement_page_links" settlement_readonly_actions="True"/>
                         </section>
                         <section class="o_ydental_settlement_fee_section o_ydental_settlement_pending" data-fee-kind="pending" aria-labelledby="ydental-settlement-pending-heading">
                             <h2 id="ydental-settlement-pending-heading">待核对，禁止出账</h2>
@@ -95,10 +95,10 @@
                             <div t-if="pending" class="o_ydental_access_scroll o_ydental_settlement_fee_scroll" tabindex="0" role="region" aria-label="Pending reconciliation fee table" aria-describedby="ydental-settlement-pending-scroll-help">
                                 <table t-if="pending" class="table o_ydental_settlement_fee_table"><thead><tr><th scope="col">Item awaiting reconciliation</th><th scope="col">患者</th><th scope="col">业务日</th><th scope="col">实际执行人</th><th scope="col">待核对原因</th></tr></thead>
                                     <tbody><tr t-foreach="pending" t-as="event">
-                                        <td><t t-out="event.ydental_catalog_id.name"/><details><summary>Source trace</summary>Execution event <t t-out="event.id"/>; original name <t t-out="event.name"/></details></td><td t-out="event.ydental_patient_id.ydental_number"/>
+                                        <td><t t-out="event.ydental_catalog_id.name"/><details><summary class="o_ydental_settlement_disclosure" data-dl-actions="settlement-readonly-actions">Source trace</summary><span class="o_ydental_settlement_trace_body">Execution event <t t-out="event.id"/>; original name <t t-out="event.name"/></span></details></td><td t-out="event.ydental_patient_id.ydental_number"/>
                                         <td t-out="event.ydental_business_date"/><td t-out="event.ydental_actor_id.name"/>
                                         <td t-out="event.ydental_pending_reason or '待核对'"/></tr></tbody></table>
-                            </div><t t-set="page_kind" t-value="'pending'"/><t t-call="ydental_settlement.ydental_settlement_page_links"/>
+                            </div><t t-set="page_kind" t-value="'pending'"/><t t-call="ydental_settlement.ydental_settlement_page_links" settlement_readonly_actions="True"/>
                         </section>
                     </div>
                 </div>

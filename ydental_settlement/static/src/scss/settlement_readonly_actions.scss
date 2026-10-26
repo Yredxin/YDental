@@ -1,0 +1,77 @@
+// DL-P12: only existing lookup actions and their spacing opt in.
+.o_ydental_settlement_lookup[data-dl-scope="settlement-lookup"] {
+    @include o-ydental-actions("o_ydental_settlement",
+        "settlement-readonly-actions", ".o_ydental_settlement_heading");
+
+    // The existing frontend shell gives links an important color declaration.
+    a.o_ydental_settlement_action[data-dl-actions="settlement-readonly-actions"] {
+        color: var(--ydental-action__text-color) !important;
+
+        @media (forced-colors: active) {
+            color: ButtonText !important;
+        }
+    }
+
+    .o_ydental_settlement_search_form {
+        margin-block-end: 0.75rem;
+    }
+
+    .o_ydental_settlement_search > .o_ydental_settlement_help,
+    .o_ydental_settlement_context > p {
+        margin-block: 0;
+    }
+
+    .o_ydental_settlement_search > .o_ydental_settlement_help
+        + .o_ydental_settlement_help,
+    .o_ydental_settlement_context > p + p {
+        margin-block-start: 0.75rem;
+    }
+
+    .o_ydental_settlement_candidates {
+        margin-block: 1rem 0;
+
+        a.o_ydental_settlement_action[data-dl-actions="settlement-readonly-actions"] {
+            display: block;
+        }
+
+        &:empty {
+            margin-block: 0;
+        }
+    }
+
+    .o_ydental_settlement_search > .o_ydental_settlement_empty {
+        margin-block: 1rem 0;
+    }
+
+    .o_ydental_settlement_search_pager {
+        align-items: center;
+    }
+
+    // Grid owns each visible title/help/table-or-empty/pager relationship.
+    // Existing outer task gaps, section border/padding and table cells stay.
+    .o_ydental_settlement_fee_section {
+        display: grid;
+        gap: 0.75rem;
+
+        > h2,
+        > p,
+        > .o_ydental_settlement_fee_scroll,
+        > nav {
+            margin-block: 0;
+        }
+
+        > nav {
+            align-items: center;
+        }
+    }
+
+    .o_ydental_settlement_trace_body {
+        display: block;
+        margin-block-start: 0.75rem;
+    }
+
+    // Preserve room for the shared focus ring during local table navigation.
+    .o_ydental_settlement_fee_scroll {
+        scroll-padding: 0.375rem;
+    }
+}
