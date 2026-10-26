@@ -10,7 +10,11 @@
 - 新独立fresh准入/physical已核原目标145业务/13技术/83ref/80实际路径/80SHA/3共享保持。before末完整保护旧18818audit逐行保→19478，新660正常认证读取，其它业务/技术/九区same。为继续完整保护原生日志，只把该审计表采集上限20k提高100k，其它20k不变，不删行/不清账/不省投影；工具差异须独核。
 - 唯一必要settlement-u于2df168f已实际native0/ERROR0/noNative；Odoo原生级联下游模块，独立87ba1839…核143业务含19478旧audit same、ir_access20/res_groups69仅write_date/权限成员原值same、7技术表逐ID分类，83ref/80物理及config/schema保持。loaded EN/CN/4内存组件和288共享pager分支、两序列局部call不泄漏已独核a404dfd5…；以后纯CSS不-u。
 - 首after2df168f四客户端Node0/native0，但发现 **P12-A01**：原Trace列内shared横16使summary折2行，窄屏行70.594→103px。原件保留，不冒T03 PASS。root仅把该scope summary横padding改.5em，产品固定 **4cf0b15809494ab8ef108eb4d384a14dbb550df2**；其它共享token/min44/列宽/cell内衬保持。候选文字点击工具由整体span中心改首字Range中心，旧hit_tag=A不反签真实字形点击。
-- 首after owned20261026T144715Z-51fc103732c8已正常stop0/groupstopped，完整保护旧19478audit逐行保→20606，新1128正常auth/read，其余144业务/13技术与loadpost同，文件保持。最终CSS候选须新窗口回归/独立关闭A01及T01—12，尚未技术完成；无经济库存/原件PDF/打印签署发布/扫码提交。
+- 首after owned20261026T144715Z-51fc103732c8已正常stop0/groupstopped，旧19478audit逐行保→20606，新1128正常auth/read，其余144业务/13技术与loadpost同，文件保持。第二窗口6cc8d63实际双engine五view/两zoom关闭A01（51f61cff…），修后glyph事件/真实权限通过。
+- 新发现 **P12-A02**：原P5及本轮空候选说明→空态均32px，QWeb whitespace使:empty无效，未落实16px目标。只移除无效规则、让UL恒leading16为唯一owner、emptyDIVleading0，产品固定 **c61e060e5b6ce798e6b988ee0f658b1afa162170**。XML/manifest/业务/表格不变，不-u。须新窗口定向布局/空态及组件/键盘/noJS和有限旁路完成。
+- 第二窗口20261026T145913Z-2abc105bac6b正常stop0/groupstopped，完整145/13/83ref保持；旧20606audit保→22625，新2019正常auth/read，其余144业务/13技术/九区与loadpost同。
+- 工具旧失败全保：Chrome noJS-v1禁JS监听器无记录却断言trusted；keyboard-v1右移增量失败、旧起点offset UNKNOWN；Chrome noJS-v3固定24方向键实际0→442(max468)→24未达端；WK noJS-v4首显式q seed从页底focus y=-11、尚未开始自然Tab。均Node2/native0/正常close/零业务提交，不冒产品崩溃或whole PASS。私有v5保原业务/焦点强断言，真实方向键有界到两端、noJS trust NOT_OBSERVED、可信Ctrl+Home准备首seed；原源/退出/图/新源逐次保，不反签共同最终工具来源。
+- T01—12最终独立总验收尚未完成；无经济库存/原件PDF/打印签署发布/扫码提交。
 - W0—W4连续，完成适用T01—12及未实现者独立验收后才交TECHNICALLY_COMPLETE；同步另列。最终#37只一份P12且OPEN，#36 CLOSED，main仅文档路由，不合产品不部署。P12结束立即停止；用户亲手效果待确认。
 
 ---
