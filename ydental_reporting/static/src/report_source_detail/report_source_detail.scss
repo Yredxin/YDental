@@ -126,6 +126,8 @@ main.o_ydental_reporting_source[data-dl-layout="report-source-detail"] {
         margin-block: var(--ydental-report-source__space-field) 0;
         border: 0.0625rem solid var(--ydental-report-source__divider-color);
         border-radius: 0.375rem;
+        // Keep the shared outline plus offset inside the local scroll landing.
+        scroll-padding-inline: 0.375rem;
 
         > .table {
             margin-block: 0;
