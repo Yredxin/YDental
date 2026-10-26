@@ -48,7 +48,9 @@ exports.semantic = value => {
     const copy=structuredClone(value);
     delete copy.layout; delete copy.markers;
     // Third scope paragraph is exactly the native query_at_utc field.
-    copy.scope[2]=copy.scope[2].replace(/\d{4}-\d\d-\d\d \d\d:\d\d:\d\d/,'<NATIVE_QUERY_AT_UTC>');
+    const matches=copy.scope[2].match(/\d{4}-\d\d-\d\d \d\d:\d\d:\d\d/g);
+    if(matches?.length!==1)throw Error('Unique typed native UTC field required');
+    copy.scope[2]=copy.scope[2].replace(matches[0],'<NATIVE_QUERY_AT_UTC>');
     copy.details.forEach(x=>delete x.open);
     return copy;
 };

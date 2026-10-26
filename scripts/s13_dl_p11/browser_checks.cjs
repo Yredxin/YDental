@@ -141,6 +141,7 @@ async function sourceStates() {
 async function isolationSnap(name,path) {
     const response=await page.goto(base+path,{waitUntil:'domcontentloaded'});await settle();
     const value=await page.locator('main').evaluate(m=>({html:m.outerHTML,
+        queryAt:m.querySelector('.o_ydental_reporting_scope > p:nth-child(3)')?.textContent,
         p11:[...m.querySelectorAll('[data-dl-actions="report-source-actions"],[data-dl-layout="report-source-detail"]')].length,
         fields:[...m.querySelectorAll('input,select,button')].map(e=>({tag:e.tagName,name:e.name,value:['csrf_token','revision'].includes(e.name)?'<PRIVATE_BINDING>':e.value})),
         computed:[...m.querySelectorAll('a,summary,input,select,button,h1,h2,th,td')].map(e=>({
@@ -158,9 +159,9 @@ async function isolationSnap(name,path) {
             assert.deepEqual(value.fields,old.fields,'Unchanged '+name+' fields');
             assert.equal(value.status,old.status);
             // Native report UTC is the sole allowed source-dependent timestamp.
-            const normal=s=>s.replace(/\d{4}-\d\d-\d\d \d\d:\d\d:\d\d/g,'<UTC>');
+            const normal=v=>{assert(v.queryAt);const matches=v.queryAt.match(/\d{4}-\d\d-\d\d \d\d:\d\d:\d\d/g);assert.equal(matches?.length,1);assert.equal(v.html.split(v.queryAt).length,2);return v.html.replace(v.queryAt,v.queryAt.replace(matches[0],'<NATIVE_QUERY_AT_UTC>'))};
             if(name==='error')assert.equal(value.html,old.html,'Whole native error main exact');
-            if(name==='main')assert.equal(normal(value.html),normal(old.html),'Whole P10 main except native query time');
+            if(name==='main')assert.equal(normal(value),normal(old),'Whole P10 main except native query time');
             check('same-engine-isolated-'+name);
         }
     }
