@@ -5,18 +5,18 @@
     </record>
     <menuitem id="ydental_operating_report_menu" name="Operating reports and source documents" action="ydental_operating_report_action" groups="ydental_base.ydental_base_group_user"/>
     <template id="ydental_operating_report_navigation" name="Operating report navigation">
-        <nav class="o_ydental_reporting_navigation" aria-label="Business navigation">
-            <a href="/ydental/access">Current store and permissions</a>
-            <a href="/ydental/documents">Document originals</a>
-            <a href="/ydental/settlement">Settlement workbench</a>
+        <nav aria-label="Business navigation" t-att-class="'o_ydental_reporting_navigation o_ydental_reporting_main_spacing_navigation' if report_main_actions else 'o_ydental_reporting_navigation'">
+            <a href="/ydental/access" t-att-class="'o_ydental_reporting_main_action o_ydental_reporting_main_action_quiet' if report_main_actions else None" t-att-data-dl-actions="'report-actions' if report_main_actions else None">Current store and permissions</a>
+            <a href="/ydental/documents" t-att-class="'o_ydental_reporting_main_action o_ydental_reporting_main_action_quiet' if report_main_actions else None" t-att-data-dl-actions="'report-actions' if report_main_actions else None">Document originals</a>
+            <a href="/ydental/settlement" t-att-class="'o_ydental_reporting_main_action o_ydental_reporting_main_action_quiet' if report_main_actions else None" t-att-data-dl-actions="'report-actions' if report_main_actions else None">Settlement workbench</a>
         </nav>
     </template>
     <template id="ydental_operating_report_scope" name="Effective report scope">
-        <div class="o_ydental_reporting_scope">
+        <div t-att-class="'o_ydental_reporting_scope o_ydental_reporting_main_spacing_scope' if report_main_actions else 'o_ydental_reporting_scope'">
             <p><strong>Authorized report scope:</strong> <t t-out="display['scope']"/> · <t t-out="display['companies']"/></p>
             <p><strong>Local source dates:</strong> <t t-out="report['filters']['date_from']"/> — <t t-out="report['filters']['date_to']"/> · <t t-out="display['currency']"/> · <t t-out="display['state_label']"/></p>
             <p><strong>Queried at (UTC):</strong> <t t-out="report['filters']['query_at_utc']"/></p>
-            <details><summary>Store timezones and effective UTC boundaries</summary>
+            <details><summary t-att-class="'o_ydental_reporting_main_disclosure' if report_main_actions else None" t-att-data-dl-actions="'report-actions' if report_main_actions else None">Store timezones and effective UTC boundaries</summary>
                 <ul><li t-foreach="display['bounds']" t-as="bound"><t t-out="bound['label']"/> · <t t-out="bound['timezone']"/>:
                     <t t-out="bound['start_utc']"/> ≤ UTC &lt; <t t-out="bound['end_exclusive_utc']"/>
                 </li></ul>
@@ -58,10 +58,10 @@
     <template id="ydental_operating_report_page" name="Source-backed operating reports">
         <t t-call="web.frontend_layout">
             <t t-set="no_header" t-value="True"/><t t-set="no_footer" t-value="True"/>
-            <main class="container o_ydental_reporting">
-                <t t-call="ydental_reporting.ydental_operating_report_navigation"/>
-                <h1>Operating reports and source documents</h1>
-                <p class="o_ydental_reporting_notice">Synthetic software definitions await business review. Collections are not revenue; credit notes are not cash refunds. Currencies and units are reported separately.</p>
+            <main class="container o_ydental_reporting" data-dl-layout="report-actions-spacing">
+                <t t-call="ydental_reporting.ydental_operating_report_navigation"><t t-set="report_main_actions" t-value="True"/></t>
+                <h1 class="o_ydental_reporting_main_spacing_title">Operating reports and source documents</h1>
+                <p class="o_ydental_reporting_notice o_ydental_reporting_main_spacing_intro">Synthetic software definitions await business review. Collections are not revenue; credit notes are not cash refunds. Currencies and units are reported separately.</p>
                 <form action="/ydental/reports" method="get" class="o_ydental_reporting_filters o_ydental_reporting_filter_scope" data-dl-scope="report-filters">
                     <input type="hidden" name="revision" t-att-value="revision"/>
                     <div class="o_ydental_reporting_filter_dates">
@@ -102,42 +102,42 @@
                         </div>
                     </div>
                     <div class="o_ydental_reporting_filter_actions">
-                        <button type="submit" class="o_ydental_reporting_filter_button">Query authorized sources</button>
+                        <button type="submit" class="o_ydental_reporting_filter_button o_ydental_reporting_main_action o_ydental_reporting_main_action_primary" data-dl-actions="report-actions"><t t-call="ydental_inventory.p7_icon_search"/><span class="o_ydental_reporting_main_action_label" t-translation="on">Query authorized sources</span></button>
                         <p id="ydental-report-metric-help" class="o_ydental_reporting_filter_help">Changing the metric queries again, keeps the dates, restores the current store and clears entity, currency and state filters.</p>
                         <p class="o_ydental_reporting_filter_help">After changing other filters, select Query. Results, exports and source links use the last applied filters.</p>
                         <p class="o_ydental_reporting_filter_status" data-report-filter-busy="true" role="status" hidden="hidden">Querying authorized sources...</p>
                     </div>
                     <p data-report-filter-message="required" hidden="hidden">Select an available option.</p>
                 </form>
-                <h2 t-out="display['title']"/>
-                <p t-if="report['filters']['metric'] == 'receivables'" class="o_ydental_reporting_notice">Current receivable for the selected original bill date range. Dates do not represent a historical balance cutoff.</p>
-                <p t-elif="report['filters']['period_or_snapshot'] == 'snapshot'" class="o_ydental_reporting_notice">Current responsibility or pending amount at query time; dates select the source records.</p>
-                <p t-else="" class="o_ydental_reporting_notice">Actual events within the selected local business dates.</p>
-                <t t-call="ydental_reporting.ydental_operating_report_scope"/>
-                <div class="o_ydental_reporting_totals" aria-label="Totals by currency or unit">
+                <h2 t-out="display['title']" class="o_ydental_reporting_main_spacing_result_title"/>
+                <p t-if="report['filters']['metric'] == 'receivables'" class="o_ydental_reporting_notice o_ydental_reporting_main_spacing_result_notice">Current receivable for the selected original bill date range. Dates do not represent a historical balance cutoff.</p>
+                <p t-elif="report['filters']['period_or_snapshot'] == 'snapshot'" class="o_ydental_reporting_notice o_ydental_reporting_main_spacing_result_notice">Current responsibility or pending amount at query time; dates select the source records.</p>
+                <p t-else="" class="o_ydental_reporting_notice o_ydental_reporting_main_spacing_result_notice">Actual events within the selected local business dates.</p>
+                <t t-call="ydental_reporting.ydental_operating_report_scope"><t t-set="report_main_actions" t-value="True"/></t>
+                <div class="o_ydental_reporting_totals o_ydental_reporting_main_spacing_totals" aria-label="Totals by currency or unit">
                     <article t-foreach="display['totals']" t-as="total"><strong t-out="total['value']"/><span t-out="total['label']"/><small t-if="total['events'] is not None"><t t-out="total['events']"/> source events</small></article>
                 </div>
-                <p t-if="not display['rows']" class="o_ydental_reporting_notice">No applicable sources match these authorized filters. Adjust the dates, stores or applicable state.</p>
-                <p t-if="report['filters']['metric'] == 'unique_patients'">The combined patient total is deduplicated across the selected stores; store patient counts must not be added together.</p>
-                <details t-if="display['store_totals']"><summary>Totals by authorized store</summary><ul><li t-foreach="display['store_totals']" t-as="store"><strong t-out="store['label']"/><ul><li t-foreach="store['totals']" t-as="total"><t t-out="total['label']"/>: <t t-out="total['value']"/></li></ul></li></ul></details>
+                <p t-if="not display['rows']" class="o_ydental_reporting_notice o_ydental_reporting_main_spacing_note">No applicable sources match these authorized filters. Adjust the dates, stores or applicable state.</p>
+                <p t-if="report['filters']['metric'] == 'unique_patients'" class="o_ydental_reporting_main_spacing_note">The combined patient total is deduplicated across the selected stores; store patient counts must not be added together.</p>
+                <details t-if="display['store_totals']" class="o_ydental_reporting_main_spacing_store_totals"><summary class="o_ydental_reporting_main_disclosure" data-dl-actions="report-actions">Totals by authorized store</summary><ul><li t-foreach="display['store_totals']" t-as="store"><strong t-out="store['label']"/><ul><li t-foreach="store['totals']" t-as="total"><t t-out="total['label']"/>: <t t-out="total['value']"/></li></ul></li></ul></details>
                 <form action="/ydental/reports/export" method="post" class="o_ydental_reporting_export">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                     <input type="hidden" name="revision" t-att-value="revision"/>
                     <input t-foreach="['metric','date_from','date_to','store_ids','company_id','currency_id','state']" t-as="field_name" type="hidden" t-att-name="field_name" t-att-value="values.get(field_name,'')"/>
-                    <button type="submit" class="btn btn-outline-secondary">Export all matching sources (store export permission required)</button>
+                    <button type="submit" class="btn btn-outline-secondary o_ydental_reporting_main_action o_ydental_reporting_main_action_secondary" data-dl-actions="report-actions"><span class="o_ydental_reporting_main_action_label" t-translation="on">Export all matching sources (store export permission required)</span></button>
                 </form>
-                <div class="o_ydental_reporting_table_wrap" tabindex="0" role="region" aria-label="Authorized source details">
+                <div class="o_ydental_reporting_table_wrap o_ydental_reporting_main_spacing_table" tabindex="0" role="region" aria-label="Authorized source details">
                     <table class="table"><thead><tr><th>Store / legal entity</th><th>Business document / patient</th><th>Business date / source time</th><th>Business state</th><th>Amount / quantity</th><th>Source details</th></tr></thead><tbody>
                         <tr t-foreach="display['rows']" t-as="row">
                             <td><t t-out="row['store_label']"/><small t-out="row['company_label']"/></td>
                             <td><strong t-out="row['source_label']"/><small t-out="row['patient_label']"/></td>
                             <td t-out="row['event_label']"/><td t-out="row['state_label']"/>
                             <td><strong t-out="row['quantity']['value']"/><small t-out="row['quantity']['label']"/></td>
-                            <td><a t-att-href="row['source_url']">View source and allocations</a></td>
+                            <td><a t-att-href="row['source_url']" class="o_ydental_reporting_main_action o_ydental_reporting_main_action_quiet" data-dl-actions="report-actions"><span class="o_ydental_reporting_main_action_label" t-translation="on">View source and allocations</span><t t-call="ydental_inventory.p7_icon_arrow_right"/></a></td>
                         </tr>
                     </tbody></table>
                 </div>
-                <nav class="o_ydental_reporting_navigation" aria-label="Source pages"><a t-if="report['page'] > 1" t-att-href="previous_url">Previous page</a><span>Page <t t-out="report['page']"/> · <t t-out="report['source_row_count']"/> matching source records</span><a t-if="report['page'] * report['page_size'] &lt; report['source_row_count']" t-att-href="next_url">Next page</a></nav>
+                <nav class="o_ydental_reporting_navigation o_ydental_reporting_main_spacing_navigation o_ydental_reporting_main_spacing_pagination" aria-label="Source pages"><a t-if="report['page'] &gt; 1" t-att-href="previous_url" class="o_ydental_reporting_main_action o_ydental_reporting_main_action_secondary" data-dl-actions="report-actions"><t t-call="ydental_inventory.p7_icon_chevron_left"/><span class="o_ydental_reporting_main_action_label" t-translation="on">Previous page</span></a><span>Page <t t-out="report['page']"/> · <t t-out="report['source_row_count']"/> matching source records</span><a t-if="report['page'] * report['page_size'] &lt; report['source_row_count']" t-att-href="next_url" class="o_ydental_reporting_main_action o_ydental_reporting_main_action_secondary" data-dl-actions="report-actions"><span class="o_ydental_reporting_main_action_label" t-translation="on">Next page</span><t t-call="ydental_inventory.p7_icon_chevron_right"/></a></nav>
             </main>
         </t>
     </template>

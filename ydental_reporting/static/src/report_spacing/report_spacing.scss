@@ -1,0 +1,97 @@
+// DL-21--26. Each space has one owner; field and result internals stay native.
+main.o_ydental_reporting[data-dl-layout="report-actions-spacing"] {
+    --ydental-report-main__space-label: 0.5rem;
+    --ydental-report-main__space-group: 0.75rem;
+    --ydental-report-main__space-field: 1rem;
+    --ydental-report-main__space-task: 1.5rem;
+
+    .o_ydental_reporting_main_spacing_navigation {
+        gap: var(--ydental-report-main__space-group);
+        align-items: center;
+        margin: 0;
+    }
+
+    .o_ydental_reporting_main_spacing_title {
+        margin-block: var(--ydental-report-main__space-field)
+            var(--ydental-report-main__space-group);
+    }
+
+    .o_ydental_reporting_main_spacing_intro,
+    .o_ydental_reporting_main_spacing_result_notice {
+        margin-block: 0;
+    }
+
+    .o_ydental_reporting_filters[data-dl-scope="report-filters"] {
+        row-gap: 0;
+        margin-block: var(--ydental-report-main__space-task) 0;
+
+        > .o_ydental_reporting_filter_range {
+            margin-block-start: var(--ydental-report-main__space-task);
+        }
+
+        > .o_ydental_reporting_filter_actions {
+            margin-block-start: var(--ydental-report-main__space-field);
+        }
+
+        .o_ydental_reporting_filter_field {
+            gap: var(--ydental-report-main__space-label);
+        }
+
+        .o_ydental_reporting_filter_stores > legend {
+            margin-block-end: var(--ydental-report-main__space-label);
+        }
+    }
+
+    .o_ydental_reporting_main_spacing_result_title {
+        margin-block: var(--ydental-report-main__space-task)
+            var(--ydental-report-main__space-group);
+    }
+
+    .o_ydental_reporting_main_spacing_scope {
+        margin-block: var(--ydental-report-main__space-field) 0;
+
+        > p {
+            margin-block: 0;
+        }
+
+        > p + p,
+        > details {
+            margin-block: var(--ydental-report-main__space-group) 0;
+        }
+
+        > details > ul,
+        > details > p {
+            margin-block: var(--ydental-report-main__space-group) 0;
+        }
+    }
+
+    .o_ydental_reporting_main_spacing_totals {
+        margin-block: 0;
+
+        &:has(> article) {
+            margin-block-start: var(--ydental-report-main__space-task);
+        }
+    }
+
+    .o_ydental_reporting_main_spacing_note {
+        margin-block: var(--ydental-report-main__space-field) 0;
+    }
+
+    .o_ydental_reporting_main_spacing_note.o_ydental_reporting_notice {
+        margin-block-start: var(--ydental-report-main__space-task);
+    }
+
+    .o_ydental_reporting_main_spacing_store_totals {
+        margin-block: var(--ydental-report-main__space-task) 0;
+
+        > ul {
+            margin-block: var(--ydental-report-main__space-group) 0;
+        }
+    }
+
+    .o_ydental_reporting_export,
+    .o_ydental_reporting_main_spacing_table,
+    .o_ydental_reporting_main_spacing_pagination {
+        margin-block: var(--ydental-report-main__space-task) 0;
+    }
+}

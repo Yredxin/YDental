@@ -1,0 +1,40 @@
+// Main report only. The shared mixin and every existing caller stay unchanged.
+main.o_ydental_reporting[data-dl-layout="report-actions-spacing"] {
+    @include o-ydental-actions("o_ydental_reporting_main", "report-actions",
+        ".o_ydental_reporting_main_action_heading");
+
+    // The frontend shell declares an important anchor color.
+    a.o_ydental_reporting_main_action[data-dl-actions="report-actions"] {
+        color: var(--ydental-action__text-color) !important;
+
+        @media (forced-colors: active) {
+            color: ButtonText !important;
+        }
+    }
+
+    // Keep the original addLoadingEffect and restoration. Its spinner fits
+    // inside the existing end padding without moving the label or button box.
+    .o_ydental_reporting_main_action.o_btn_loading[data-dl-actions="report-actions"] {
+        position: relative;
+        opacity: 1;
+
+        .o_btn_loading_spinner {
+            position: absolute;
+            inset: 0 auto;
+            inset-inline-end: 0.125em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            inline-size: 0.75em;
+            margin: 0;
+            background: transparent;
+            pointer-events: none;
+
+            > .spinner-border {
+                inline-size: 0.75em;
+                block-size: 0.75em;
+                border-width: 0.125em;
+            }
+        }
+    }
+}

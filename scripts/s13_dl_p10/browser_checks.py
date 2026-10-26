@@ -24,7 +24,7 @@ def main():
     parser.add_argument('--run-id', required=True)
     parser.add_argument('--engine', choices=('chromium', 'webkit'), required=True)
     parser.add_argument('--stage', choices=('before', 'after'), required=True)
-    parser.add_argument('--mode', choices=('baseline','layout','core','csv','permissions','zoom','nojs','stress','bypass'), default='layout')
+    parser.add_argument('--mode', choices=('baseline','layout','core','csv','permissions','zoom','nojs','stress','bypass','components'), default='layout')
     parser.add_argument('--sample-file', default='.local/dl-p10/testing/sample.json')
     parser.add_argument('--timeout', type=int, default=600)
     parser.add_argument('--fixture-file')
@@ -53,7 +53,7 @@ def main():
     if args.fixture_file:
         command.extend(['--fixture-file', args.fixture_file])
     dependencies = [Path(__file__), source,
-                    ROOT / 'scripts/s13/browser_client.py', ROOT / 'scripts/s13_dl_p10/http_client.py', ROOT / 'scripts/s13_dl_p10/admission_probe.py', ROOT / 'scripts/s13_dl_p10/launcher.py',
+                    ROOT / 'scripts/s13/browser_client.py', ROOT / 'scripts/s13_dl_p10/browser_contracts.py', ROOT / 'scripts/s13_dl_p10/http_client.py', ROOT / 'scripts/s13_dl_p10/admission_probe.py', ROOT / 'scripts/s13_dl_p10/launcher.py',
                     ROOT / '.local/dl-p3/tools/webkit_finite_zoom_bridge.cjs',
                     ROOT / '.local/dl-p3/verification/webkit_plugins_environment.cjs']
     for index, item in enumerate(dependencies):

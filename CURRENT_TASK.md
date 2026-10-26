@@ -1,14 +1,16 @@
 # DL-P10 当前状态｜YD-S13-DL-P10 / 1.0
 
-## W0 接管与准备 / 未验收 / 未同步
+## W1—W2 产品候选准备 / 未验收 / 未同步
 
 - 用户直接启用[完整P10计划](docs/execution/S13_DL_P10_IMPLEMENTATION_PLAN.md)，W0—W4连续实施，唯一目标经营报表主页面 `/ydental/reports` / `ydental_reporting.ydental_operating_report_page`。2提交button/6链接定义/2summary，复用原纯mixin及4既有SVG，局部8/12/16/24rem间距；不是重开P9或全站推广。
 - 从clean P9最终 `9ea71c63465ec3ab625f141dbbbe277edd436d90` 正常建立 `codex/s13-dl-p10-report-actions-spacing-r1`，实际origin/HEAD/工作树已核；P9产品5f8f154/实际after7d02a16/唯一6407140114、P1—P9/P5 PARTIAL、原包/失败/UNKNOWN完整保留，无reset/clean/强推/从文档main重建。
-- root唯一产品/状态/报告写者及运行调度；runtime_p10运行/保护工具，testing_p10浏览器/合同工具，复用未参与本次实现的acceptance_p9独立验收，同OS不冒隔离。先工具/候选/独立ready后必要窗口；尚未启服务/加载/业务操作。
+- root唯一产品/状态/报告写者及运行调度；runtime_p10运行/保护工具，testing_p10浏览器/合同工具，复用未参与本次实现的acceptance_p9独立验收，同OS不冒隔离。准备/before固定74d57eb；实际原生主/source/error/nav/scope5视图1622—1626无继承扩展，两语言完整读取。
 - 运行只既有synth OID2171423/cluster7694897083368259627/原filestore、锁定core f0c5a9b；runtime新physical477597 RO/RR正常退出核身份/旧audit18017/其它连接空、owner/18411和12空。原uid5门店1/2 exportWRITE、reader16有源exportREAD、doctor9/none17原权限，无grant。新scope不改旧时间/STOP/guard。
 - 主页面独有标记及元素opt-in，shared nav/scope调用参数只在main内默认关；source/error/P7/P8/P9/结算冻结。两reporting产品JS、原字段/form边界/GET/POST/CSRF/revision/草拟与生效范围、指标三参数唯一导航、公式/权限/CSV11列/后端不改。
 - 允许正常GET/query/page/source及有源+exportWRITE普通角色原POST读取既有CSV；原请求/CSV只私有不效果包。经济库存/文书原件PDF/打印签署发布扫码0，不执行。83附件引用/80物理文件及共享引用、旧金额库存/身份作者价源/审计/责任按现场完整清单独立逐bytes/SHA保全。
-- 当前下一步：固定准备候选，独立当前准入及完整before保护/合成视图，双engine本轮before；随后最小实现/必要加载/定向T01—12/独立交付与正常收尾。只在计划结束新增一份#37最终P10且OPEN，#36CLOSED，main仅必要路由；正常同步实读，缺证据PARTIAL，用户亲手效果待确认。
+- before真实Chromium156.0.8078.4/WebKit27.2各五view/实收实退应收唯一患者lab_pending完整HTML/JSON/来源/错误/summary正常0；本轮320根346/332，不套旧值。三旁路GET有效0；文书first工具双main定位失败Node2/native0原件保，精确定位v2补齐。before owned20261026T032700Z-967020d455f9于03:31:54.313686Z正常foreground0/child0/signull/groupstop；完整before-window-post仅新增91正常读取认证审计、旧18017保持，技术/其它区同。
+- 4addon产品文件：主XML/manifest/两局部SCSS，main唯一marker+元素opt-in、nav/scope局部参数默认关，无wrapper/产品JS/后端改动。SOURCE还原完整XML C14N exact，原生提取86occ/74unique全序全文同；P4两JS两SCSS/sharedmixin/P7/P8/P9原字节保持。manifest追加实际直接access/inventory依赖与两末尾资产；单owner标签8/range24/actions16/展开12等，空totals无外距洞。尚未实际加载或after实测，不预签。
+- 当前下一步：固定产品/after工具候选→独立当前准入→必要唯一reporting-u即时完整pre/真实退出/post→定向T01—12/独立交付与正常收尾。只在计划结束新增一份#37最终P10且OPEN，#36CLOSED，main仅必要路由；正常同步实读，缺证据PARTIAL，用户亲手效果待确认。
 - P10交付后停止。详情页/结算/其它页、完整S13/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/合并部署生产未启用。
 
 ---
