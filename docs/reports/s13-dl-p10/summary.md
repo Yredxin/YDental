@@ -3,7 +3,7 @@
 [CODEX-FINAL] YD-S13-DL-P10 / 1.0
 
 技术：TECHNICALLY_COMPLETE（限定P10软件；本地未实现者最终总签已实际完成）
-同步：SYNC_PENDING（尚未推送本阶段最终结果，不冒远端成功）
+同步：SYNCED（首两ref/31完整正文/唯一P10回执及旧11/Issue状态已直接独立实读；末元数据另有界读回）
 用户亲手效果：待确认
 完成范围：仅经营报表主页面动作控件、四种既有SVG及层级间距；非全站
 后续页面、完整S13、合并部署生产：未启用
@@ -20,7 +20,7 @@
 |最终工具发布|**`2c18d3271b49ab1ba2d6622e1755ed9678a97997`**；机械整合实际执行的私有函数，最终合并CLI只作PURE检查，不冒36客户端皆用此源|
 |实际XML加载|首次`913b7ab92d48b6e08bcaaeb2cb34c3c2afb61ce5`；原生call参数修复后第二次 **`b46c1e272803b047e73489520682f0cd98d8ada4`**；之后CSS/工具/报告均未再-u|
 |实际最终运行|**8a1547a** / `20261026T041906Z-a460a85c90f1`；b46中间运行的数据/CSV/P4及未改压力区按精确影响面复用|
-|报告|本目录三报告及同CURRENT；本地最终总签、首技术报告和最后同步元数据的真实ref另分列，不循环自嵌未来自身hash|
+|报告|首技术报告`6a0ac1a44687e89cd3d85c9472ce431097de98d1`/main仅路由`09d368a8c42adbfaae0c57d21894e5e7c720bd3f`已实际读回；末同步元数据ref另读，不循环自身未来hash|
 |锁定核心/目标|core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`；既有synth OID2171423 / cluster7694897083368259627 / 原filestore，不建库/复制/改名|
 
 产品仅4个addon文件：主XML、manifest、`report_actions.scss`、`report_spacing.scss`。主模板唯一`data-dl-layout="report-actions-spacing"`，动作逐元素opt-in；共享nav/scope仅主模板两处原生call局部参数，默认关。不新增wrapper/产品JS/后端/权限/schema/指标或主题；manifest恰新增直接access/inventory依赖及两末尾资产。实际五个原生主视图1622—1626、EN/CN均无已安装继承扩展，非只猜基模板。
@@ -116,6 +116,8 @@ A01原call正文lazy t-set不执行：按锁定core原生call局部属性修，�
 
 ## 同步与停止
 
-未实现者本地最终总签 **84420335db5e4948b7c74f4e59084ce22cfd313aaded7df4fe13f56f057479b8** 已实际PASS（LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING）：T01—11及T12本地软件/完整保护/包/收尾/三报告CURRENT/最终工具源均成立。原草稿PARTIAL待本文总签时点与原签REMOTE_PENDING不改；本次只记录已发生技术完成。远端尚未推送，不预签SYNCED。只在plan结束正常push/ref/全文/唯一新P10回执/旧11评论及#37 OPEN/#36 CLOSED实际读回后记录SYNCED；main仅必要两路由，不合产品、不部署，不循环自身未来hash。用户亲手效果始终待确认。
+未实现者本地最终总签 **84420335db5e4948b7c74f4e59084ce22cfd313aaded7df4fe13f56f057479b8** 实际PASS，原LOCAL_REMOTE_PENDING时点保。首技术报告6a0ac1a/main仅两路由09d368a正常push；未实现者直接正常connector读两ref/31 FULL UTF8 bytes/SHA/Gitblob、[#37唯一P10回执6408631886](https://github.com/Yredxin/YDental/issues/37#issuecomment-6408631886)全文及旧11逐id/body/37OPEN36CLOSED/titlebody全exact，远端独立总签 **6682d0c377f049fffbbd79bc41453609c4ca4ffaedb7f95bd9bcdb95babca7e0** 已实际PASS。T01—12适用项成立，限定P10 **TECHNICALLY_COMPLETE / SYNCED**，用户亲手效果待确认。
+
+本次仅记录已发生的SYNCED/停止元数据；最后4业务报告状态文档+2main路由以及同一own评论增量再正常读回，不循环自嵌未知自身hash、不重验软件/DB/包、不复开服务。未实现者最后metadata收据独立保本机，不以旧签预签未知未来。
 
 P10交付后停止。详情页、结算/其它页面推广、完整S13、负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/合并部署生产均未启用。

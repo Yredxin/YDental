@@ -2,7 +2,7 @@
 
 YD-S13-DL-P10 / 1.0。最终产品/最终定向运行8a1547a14f5647d6a49555c8ab7f9ceb658511e3；最终工具发布2c18d3271b49ab1ba2d6622e1755ed9678a97997；实际XML两load913b7ab/b46c1e2。before74d57eb产品仍P9。私有根`.local/dl-p10/`，公共仅源码、计划、脱敏报告/索引，不上传PNG/CSV/PDF/完整DB/provider/配置/session/原始请求。
 
-SOURCE/PURE、loaded QWeb内存、明确browser组件、真实HTTP/BROWSER、独立新physical分别见[矩阵](acceptance-matrix.md)。hash/路径存在不是PASS，失败整client不反签，适用复用按实际CSS作用域。用户亲手效果待确认；本地最终总签 **84420335db5e4948b7c74f4e59084ce22cfd313aaded7df4fe13f56f057479b8** 已实际PASS，限定软件TECHNICALLY_COMPLETE，当前SYNC_PENDING；不预签远端。
+SOURCE/PURE、loaded QWeb内存、明确browser组件、真实HTTP/BROWSER、独立新physical分别见[矩阵](acceptance-matrix.md)。hash/路径存在不是PASS，失败整client不反签，适用复用按实际CSS作用域。用户亲手效果待确认；本地84420335…与首远端独立 **6682d0c377f049fffbbd79bc41453609c4ca4ffaedb7f95bd9bcdb95babca7e0** 已实际PASS，T01—12适用项成立，TECHNICALLY_COMPLETE / SYNCED；原REMOTE_PENDING保，最后metadata另实读，不预签未来。
 
 ## 独立收据（实际完整SHA256）
 
@@ -61,6 +61,7 @@ SOURCE/PURE、loaded QWeb内存、明确browser组件、真实HTTP/BROWSER、独
 |acceptance/webkit-nojs-full-body-independent.json|f9c7b688b91f9ef8e714cd40a44059b17eb694ccfccb00eb9f78847d2e410d4f|P10_WEBKIT_NOJS_ORIGINAL_FORM_SAME_RESPONSE_FULL_CSV_DECODED_BODY_CONTRACT_INDEPENDENT_PASS|
 |acceptance/local-final-acceptance.json|84420335db5e4948b7c74f4e59084ce22cfd313aaded7df4fe13f56f057479b8|LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING|
 |acceptance/main-route-local-review.json|4643da7d43bbabae220f0c141a410763f544109d0cc72891b2ab13ae1b9a5f48|MAIN_ROUTE_LOCAL_REVIEW_PASS_REMOTE_PENDING|
+|acceptance/remote-first-independent.json|6682d0c377f049fffbbd79bc41453609c4ca4ffaedb7f95bd9bcdb95babca7e0|INITIAL_REMOTE_REFS_31_FULL_FILES_SOLE_RECEIPT_OLD11_ISSUE_STATES_INDEPENDENT_PASS|
 
 原A01/A02 finding与closed均保原文件：lazy call正文参数/32px根字号2px焦点裁切均由具体core/盒/实际规则证实并修复，旧工具PASSED状态不外推整页。WK无JS只读CSV2346B为同原form浏览器decoded表示，不是wire BOM/native文件；f9c7b688…对完整11列正文独立重算，与Chrome两结构raw/BOM文件分层合证。
 
@@ -155,4 +156,6 @@ SOURCE/PURE、loaded QWeb内存、明确browser组件、真实HTTP/BROWSER、独
 
 ## 最终正文与正常同步
 
-未实现者本地最终总签84420335…已实际PASS：79索引原件/36client表/完整旧CURRENT后缀/三报告/最终工具源与适用层级全核；main两路由独立4643da7d…亦已审。原REMOTE_PENDING保，本次仅记录已发生技术完成，远端仍SYNC_PENDING。随后正常push两ref、全文、#37唯一新P10回执及旧11 id/body/titlebody/37OPEN36CLOSED实读，真实同步与最后metadata另留收据，不循环自嵌未来hash，不复开软件/DB/浏览器。
+未实现者本地最终总签84420335…已实际PASS：79索引原件/36client表/完整旧CURRENT后缀/三报告/最终工具源与适用层级全核；main两路由独立4643da7d…亦已审。原REMOTE_PENDING保；首业务6a0ac1a/main09d368a/31FULL及唯一6408631886全文/旧11逐idbody/titlebody/37OPEN36CLOSED已直接独立正常connector实读6682d0c3…PASS。当前只记录实际SYNCED，末4业务doc+2main路由/同评论metadata另正常readback；不循环未知自身hash，不复开软件/DB/浏览器。
+
+首root正常全文读回31文件比较：verification/remote-first-file-comparison.json / **161641c8fb1db0b8c455532b6548373a3ff491c2c5b791d0a6f3b7d82c6a5363**；sole评论/old11/Issue状态：github-first-comment-and-states-readback.json / **48cc374a9a8752e3970a7b0a3f1e255239817c7bcb50473d0582113cea1f026f**；公开前15秘密值/47新blob+6文本/3强模式0hit：public-scan-before-first-push.json / **20bbd68c2c9a58703adad554f82378a17e8c77ca675ab8025b2c97862547bd36**。最后metadata实际ref/全文/同评论收据另留，不反签未知未来。

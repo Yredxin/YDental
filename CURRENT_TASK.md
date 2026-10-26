@@ -1,6 +1,6 @@
 # DL-P10 当前状态｜YD-S13-DL-P10 / 1.0
 
-## TECHNICALLY_COMPLETE（限定P10软件）/ SYNC_PENDING / 用户亲手效果待确认
+## TECHNICALLY_COMPLETE（限定P10软件）/ SYNCED / 用户亲手效果待确认
 
 - 用户直接启用[完整P10计划](docs/execution/S13_DL_P10_IMPLEMENTATION_PLAN.md)，W0—W4连续实施；唯一产品范围经营报表主页面动作/四种既有SVG/层级间距，非重开P9/全站。[结果/10定义/责任表/7步复现](docs/reports/s13-dl-p10/summary.md) · [12项矩阵](docs/reports/s13-dl-p10/acceptance-matrix.md) · [完整脱敏证据索引](docs/reports/s13-dl-p10/evidence-index.md)。
 - 从clean P9最终9ea71c63465ec3ab625f141dbbbe277edd436d90正常建立`codex/s13-dl-p10-report-actions-spacing-r1`。before74d57eb（产品P9）；最终产品/实际最后运行 **8a1547a14f5647d6a49555c8ab7f9ceb658511e3**；工具最终发布 **2c18d3271b49ab1ba2d6622e1755ed9678a97997**，机械整合只PURE检查，不冒36历史客户端同源。两必要XML加载913b7ab/b46c1e2实际0/ERROR0/noNative；后纯CSS/工具/报告未再-u，详细pre/post/独立分类在报告。
@@ -13,7 +13,7 @@
 - 旧18017audit逐行保、最终18406；新389accepted正常认证/查询/钻取/7读取型CSV/有限旁路，拒绝原native log不虚造DBdenied。其它144business/配置/schema/附件同，技术仅两必要load已分类5表/2直接deps/3arch及backup；原金额库存/身份作者价源/未完成责任保持，新经济库存/文书原件PDF/打印签署发布/治疗扫码0。
 - 4owned窗口全正常foreground/child0/groupstop；最终run20261026T041906Z-a460a85c90f1于 **2026-10-26T04:30:58.070478Z** 正常收尾。独立OS **33c4bc4b32d098a73569031061819ba5fe7e5a81381b5823078fb97fa396636e** 核owner/18411和12/knownPID/profile空，freshRO496968其它target连接[]/closed。共享主服务未动，之后不为工具/报告/同步复开DB/app/browser。
 - 最终私有0400 r1 `.local/dl-p10/viewing/S13-DL-P10-view-only-20261026-r1.zip` **4433215B/SHA feddb5fab4c00e0a462dee6faba5e5d7e061e668a0d82a0f041676a21f791dba**，56成员/52原PNG/38测量；独立 **f85d224a4ef5c2fcc137bcb5c3a86818b4df63c797c0d72a3eada14486ced971** 每成员/sourcebytes/解码/隐私通过，无CSV/PDF/原请求/session/配置/DB/program/font，不Public上传。P9r2/P8r1原ZIP同旧bytes/SHA。
-- 本地最终正文/工具总签 **84420335db5e4948b7c74f4e59084ce22cfd313aaded7df4fe13f56f057479b8** 已实际PASS（LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING），T01—11及T12本地适用项成立；原签REMOTE_PENDING保。main两路由4643da7d…亦已独立审。GitHub尚SYNC_PENDING，不预签。只plan结束正常push/两ref/正文/唯一新P10回执/旧11评论及37OPEN36CLOSED实际读回后写SYNCED；main仅两必要路由，不合产品/部署，不循环自身未来hash。
+- 本地最终正文/工具总签 **84420335db5e4948b7c74f4e59084ce22cfd313aaded7df4fe13f56f057479b8** 已实际PASS（LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING），T01—11及T12本地适用项成立；原签REMOTE_PENDING保。main两路由4643da7d…亦已独立审。首业务6a0ac1a/main仅两路由09d368a、31FULL及[#37唯一P10回执6408631886](https://github.com/Yredxin/YDental/issues/37#issuecomment-6408631886)/旧11/titlebody/37OPEN36CLOSED已直接独立实读 **6682d0c377f049fffbbd79bc41453609c4ca4ffaedb7f95bd9bcdb95babca7e0** PASS，T01—12适用项成立、TECHNICALLY_COMPLETE / SYNCED。只追加已发生metadata，最后ref/6文本/同评论另正常实读；main仅路由，不合产品/部署，不循环自身未来hash。
 - P9产品5f8f154/实际7d02/最终9ea/唯一6407140114、P1—P9/P5 PARTIAL/旧包/失败/UNKNOWN保持。用户亲手效果待确认。**P10交付后停止**；详情页/结算/其它页、完整S13/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/合并部署生产未启用。
 
 ---
