@@ -25,7 +25,6 @@
     overflow-wrap: anywhere;
 
     &:not([data-dl-portal]) {
-        margin-block: 1rem;
         padding: 1.5rem;
         border: 1px solid var(--ydental-dl__divider-color);
         border-radius: 0.625rem;
@@ -60,7 +59,6 @@
     .o_ydental_print_query_field {
         display: flex;
         flex-direction: column;
-        gap: 0.375rem;
         min-inline-size: 0;
         margin: 0;
     }
@@ -161,7 +159,6 @@
     .o_ydental_print_query_note,
     .o_ydental_print_query_help,
     .o_ydental_print_query_status {
-        margin-block: 0.75rem;
         color: var(--ydental-dl__muted-color);
         font-size: 0.875rem;
         line-height: 1.6;

@@ -1,0 +1,124 @@
+// P9 owns external spacing only. Button, selector and table internals stay native.
+.o_ydental_document[data-dl-layout="documents-spacing"] {
+    --ydental-spacing__label-gap: 0.5rem;
+    --ydental-spacing__related-gap: 0.75rem;
+    --ydental-spacing__group-gap: 1rem;
+    --ydental-spacing__module-gap: 1.5rem;
+    --ydental-spacing__key-gap: 0.25rem;
+
+    // The following module alone owns its leading gap, including inherited ones.
+    > .o_ydental_print_spacing_module {
+        margin-block: var(--ydental-spacing__module-gap) 0;
+    }
+
+    > .o_ydental_print_header {
+        margin-block-start: 1rem;
+    }
+
+    .o_ydental_access_search + .o_ydental_print_query_preview {
+        margin-block-start: var(--ydental-spacing__module-gap);
+    }
+
+    .o_ydental_print_query_field {
+        gap: var(--ydental-spacing__label-gap);
+    }
+
+    .o_ydental_print_query_note,
+    .o_ydental_print_query_help,
+    .o_ydental_print_query_status {
+        margin-block: var(--ydental-spacing__related-gap) 0;
+    }
+
+    // Explicit containers only: hidden helpers never become extra grid rows.
+    .o_ydental_print_spacing_preview,
+    .o_ydental_print_spacing_form {
+        display: flex;
+        flex-direction: column;
+        gap: var(--ydental-spacing__group-gap);
+        align-items: start;
+        min-inline-size: 0;
+    }
+
+    .o_ydental_print_spacing_preview > .o_ydental_print_spacing_heading,
+    .o_ydental_print_spacing_preview > .o_ydental_print_spacing_trace,
+    .o_ydental_print_spacing_form {
+        margin: 0;
+    }
+
+    .o_ydental_print_spacing_preview > iframe {
+        display: block;
+        align-self: stretch;
+        margin: 0;
+    }
+
+    .o_ydental_print_spacing_generate {
+        align-self: stretch;
+    }
+
+    .o_ydental_print_spacing_field {
+        display: flex;
+        flex-direction: column;
+        gap: var(--ydental-spacing__label-gap);
+        align-self: stretch;
+        min-inline-size: 0;
+        max-inline-size: 100%;
+        margin: 0;
+
+        > input,
+        > select,
+        > textarea {
+            min-inline-size: 0;
+            max-inline-size: 100%;
+        }
+    }
+
+    .o_ydental_print_spacing_check {
+        display: flex;
+        gap: var(--ydental-spacing__label-gap);
+        align-items: baseline;
+        margin: 0;
+    }
+
+    .o_ydental_print_spacing_trace > .o_ydental_print_spacing_body,
+    .o_ydental_print_spacing_management > .o_ydental_print_spacing_body {
+        margin-block: var(--ydental-spacing__related-gap) 0;
+        overflow-wrap: anywhere;
+    }
+
+    .o_ydental_print_spacing_result_body {
+        white-space: pre-wrap;
+    }
+
+    .o_ydental_print_spacing_print,
+    > .o_ydental_print_spacing_result_trace {
+        margin-block: var(--ydental-spacing__related-gap) 0;
+    }
+
+    .o_ydental_print_spacing_print > .o_ydental_print_spacing_body {
+        margin-block-end: var(--ydental-spacing__related-gap);
+    }
+
+    .o_ydental_print_original_trace_values {
+        gap: 0;
+    }
+
+    .o_ydental_print_original_trace_key {
+        margin-block-start: var(--ydental-spacing__related-gap);
+
+        &:first-child {
+            margin-block-start: 0;
+        }
+    }
+
+    .o_ydental_print_original_trace_value {
+        margin-block-start: var(--ydental-spacing__key-gap);
+    }
+
+    .o_ydental_print_spacing_management > .o_ydental_print_spacing_form {
+        margin-block-start: var(--ydental-spacing__group-gap);
+
+        + .o_ydental_print_spacing_form {
+            margin-block-start: var(--ydental-spacing__module-gap);
+        }
+    }
+}

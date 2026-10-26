@@ -1,19 +1,19 @@
 <odoo>
     <template id="ydental_document_consent_page" inherit_id="ydental_print.ydental_document_page" name="Consent evidence and explicit clinical scope">
         <xpath expr="//details[@name='document_template_review']" position="before">
-            <details><summary>Explicit clinical source collection</summary><p>List every intended source. Complete mode refuses any unconfirmed selected source. An excerpt requires a published policy for this store; unconfirmed selected sources remain explicitly listed as excluded.</p>
+            <details class="o_ydental_print_spacing_module o_ydental_print_spacing_inherited"><summary>Explicit clinical source collection</summary><p>List every intended source. Complete mode refuses any unconfirmed selected source. An excerpt requires a published policy for this store; unconfirmed selected sources remain explicitly listed as excluded.</p>
                 <form action="/ydental/documents/selection" method="post"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/>
                     <label>Clinical document IDs, separated by commas <input name="document_ids" required="required" maxlength="400"/></label>
                     <label>Mode <select name="mode"><option value="complete">Complete within all listed sources</option><option value="draft">Incomplete source collection</option><option value="excerpt">Confirmed excerpt under published policy</option></select></label>
                     <label>Published clinical_summary template / policy ID <input name="template_id" type="number" min="1"/></label><button>Select source collection</button>
                 </form>
             </details>
-            <details name="document_simulated_device_failure"><summary>Controlled device failure demonstration</summary>
+            <details name="document_simulated_device_failure" class="o_ydental_print_spacing_module o_ydental_print_spacing_inherited"><summary>Controlled device failure demonstration</summary>
                 <p>This records a simulated failure linked to your earlier print request. It does not connect to a physical printer or verify paper output.</p>
                 <ul><li t-foreach="print_requests" t-as="print_request">Request audit #<t t-out="print_request['audit_id']"/> / original #<t t-out="print_request['original_id']"/> / UTC <t t-out="print_request['requested_at']"/></li></ul>
                 <form action="/ydental/documents/action" method="post"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="print_failure"/><label>Request audit ID <input name="request_audit_id" type="number" min="1" required="required"/></label><label>Simulated failure reason <input name="reason" required="required" maxlength="500"/></label><button>Record explicitly simulated device failure</button></form>
             </details>
-            <details><summary>Consent upload and verification</summary><p>A generated consent is awaiting signature. Uploading a file records pending evidence; it never marks a signature as verified. Synthetic verification is only a software test and does not establish a real clinical signature.</p>
+            <details class="o_ydental_print_spacing_module o_ydental_print_spacing_inherited"><summary>Consent upload and verification</summary><p>A generated consent is awaiting signature. Uploading a file records pending evidence; it never marks a signature as verified. Synthetic verification is only a software test and does not establish a real clinical signature.</p>
                 <form action="/ydental/documents/consent" method="post" enctype="multipart/form-data"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="consent_upload"/>
                     <label>Consent original ID <input name="original_id" type="number" min="1" required="required"/></label><label>PDF evidence <input name="file" type="file" accept="application/pdf" required="required"/></label><button>Upload as awaiting verification</button>
                 </form>
