@@ -1,12 +1,12 @@
 # YDental 当前任务路由
 
-YD-COLLAB-V2.0 / WORKFLOW-V3。main仅规则与文档路由，不是产品起点；不从main重建、不合产品、不部署。
+YD-COLLAB-V2.0 / WORKFLOW-V3。main仅规则与文档路由，不是产品基线；不从main重建产品、不合产品、不部署。
 
-- 当前限定交付：**YD-S13-DL-P7 / 1.0，统一按钮语言与轻量SVG——仓库页面试点**。仅 `/ydental/inventory`，非全站、非重开P6。最终技术/独立总签/同步事实以活动CURRENT和#37唯一P7最终回执的实际读回为准。用户亲手效果待确认。
-- 活动分支 `codex/s13-dl-p7-inventory-actions-icons-r1`：[活动CURRENT](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p7-inventory-actions-icons-r1/CURRENT_TASK.md) · [完整P7计划](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p7-inventory-actions-icons-r1/docs/execution/S13_DL_P7_IMPLEMENTATION_PLAN.md) · [结果与7步复现](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p7-inventory-actions-icons-r1/docs/reports/s13-dl-p7/summary.md) · [12项矩阵](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p7-inventory-actions-icons-r1/docs/reports/s13-dl-p7/acceptance-matrix.md) · [证据索引](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p7-inventory-actions-icons-r1/docs/reports/s13-dl-p7/evidence-index.md)。
-- 最终产品/实际运行 **52d5422fa0083bf88cec4442ffcd45d35d27e9f7**；前态29bccc4，产品仍P6。各actual工具源/command/退出单独固定，22client=13×0/7×2/2×130，失败不反签。core f0c5a9b及既有原合成目标/OID2171423/cluster7694897083368259627/filestore不变。
-- 43目标呈现节点/13办理模板族/四按钮变体/七Lucide静态图，精确path元素opt-in；原表单字段、提交/权限/顺序及业务保持，无产品JS、全局主题、输入/表格重做。实际双引擎五view、两native/root压力、真实JSoff、控件/组件/故障与有限旁路按层级合证；WebKit自然Tab与矩阵键盘模态焦点分列，不冒屏读/实机或重新办理成功。
-- 全阶段独立新physical288600：145业务/13技术与root九区exact，**83受保护附件引用/80唯一路径及80不同SHA**（3既有共享引用，全部保全，不改旧P6原回执）。旧17431audit保、新200accepted认证/读取另列，两次必要XML-u的原生技术变化精确分类；原件/PDF/打印/scan/经济库存新增0。
-- 私有0400效果包 `S13-DL-P7-view-only-20261025-r1.zip`：2396745B/SHA6ddf2df5e54df61e898ea21fa553d125059c7a0366e43e30cdc1daa6cb356df6，37members/34原PNG/33不同SHA，完整独立核以报告为准。无秘密/session/profile/raw请求/配置/完整DB/原件PDF/程序字体，不上传Public。旧P6/P5包保持，未把包或截图当用户亲手验收。
-- 最后owned服务2026-10-25T14:48:28.068882Z正常child0/signull/groupstopped，独立OS/browser/node/profile/active/端口/其它target连接空，无临时权限，未动共享主服务，不为报告复开。
-- P1—P6原技术交付、P5 PARTIAL续办历史与旧回执保持；P6锚点e31ea56/产品aec20359/工具539d147及#37评论6397824653不改。#37 OPEN，只一份P7最终结果；#36 CLOSED。**P7完成后停止**，后续页面、完整S13/50活动会话/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/产品合并部署生产均未启用。
+- 用户本轮明确启用限定计划 **YD-S13-DL-P8 / 1.0，文书主页面动作控件／轻量SVG推广**。仅`ydental_document_page`的9button/7summary/7a/2标题及P7纯样式复用；不重开P7，不自动推广报表/结算或其它页面。用户亲手效果待确认。
+- 活动分支`codex/s13-dl-p8-documents-actions-icons-r1`：[同一个活动CURRENT](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p8-documents-actions-icons-r1/CURRENT_TASK.md) · [完整计划](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p8-documents-actions-icons-r1/docs/execution/S13_DL_P8_IMPLEMENTATION_PLAN.md) · [结果与7步复现](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p8-documents-actions-icons-r1/docs/reports/s13-dl-p8/summary.md) · [12项矩阵](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p8-documents-actions-icons-r1/docs/reports/s13-dl-p8/acceptance-matrix.md) · [原件SHA索引](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p8-documents-actions-icons-r1/docs/reports/s13-dl-p8/evidence-index.md)。最终技术、独立验收及同步以这些实际固定结果与#37唯一P8最终回执的读回为准，不预签。
+- 最终产品/实际运行`bd8411d4ef50014caddff7128f0c9cf4fe42f122`；首产品/唯一必要print加载a262238、原生资产注册修复e81f65d及最终busy局部CSS修复分别保留。core f0c5a9b及原合成目标/OID2171423/cluster7694897083368259627/filestore保持，无新库/克隆/改名。P1—P7原结果、P5 PARTIAL与旧包/失败/UNKNOWN不改，P7锚点9f5ce462/产品52d5422/唯一回执6399387525保持。
+- 两入口按元素opt-in，P1两combobox及原JS、继承同意区、全部字段/submitter/权限/顺序/PDF/backend不改。共享partial仅mixin，由原生assets依赖先声明；P7选择器与样式保持。五种既有Lucide片段/完整ISC及适用MIT不改，无新框架/图标runtime/CDN/字体。允许原GET、HTML preview及旧PDF view/download；生成/打印/模板管理/导出及经济库存扫码均未live提交。
+- 真双引擎五view、各native200/root200、真实JSoff、busy/默认四状态、原件bytes及组件/旁路分层。27client=21×0/5×2/1×130、27native均0；旧asset错误/busy+32/白图/130不反签，Chrome native200有真正CDP补图。Chrome320 root345前后同，WK当前333但其before与整根元凶UNKNOWN，目标无新增spill不冒全页零溢出。
+- 最终独立新physical440896完整145/13/九区与主控same，83附件引用对应80唯一路径/80不同SHA逐项保全；旧17631audit全保、新181正常验证（177accepted+4旧PDF读拒绝）另列。唯一-u的原生技术日期/主1618 arch与2依赖精确分类，新原件/PDF生成/打印/模板发布/经济库存扫码0，不冒全库物理零diff。
+- 最后owned run20261026T002818Z-c952a86a2576于2026-10-26T00:53:00.708240Z正常child0/signull/groupstopped，浏览器/端口/owner按最终独立收尾核，不为报告复开。私有原图/效果包只用户授权会话查看，不上传Public，不含凭据/session/profile/raw请求/配置/完整DB/原件PDF/程序字体，旧包保持。
+- #37保持OPEN，仅新增一份P8最终结果、旧9评论不改，#36保持CLOSED。**P8交付后停止**；后续页面/完整S13/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/产品合并部署生产均未启用。
