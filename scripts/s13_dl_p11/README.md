@@ -32,3 +32,19 @@ loaded QWeb 组件首视口的原字体 Range；首尾全文端点先保存原�
 ring / clip 和三张未编辑现场图，用于区分原生滚动与收集器影响。
 先前实际私有小测试的 exact executed 源与退出独立保留；最终公开函数整合
 不反签此前失败、不同候选或未运行模式。
+
+`allocation-keyboard` 机械整合实际私有 source8 补层：原导航可信 Tab/ShiftTab，
+再在390视口测root16/root32的原生局部 ArrowRight / Tab / 必要 ArrowLeft、
+实际scrollpadding 6/12px与完整原焦点。该具体组合实际Chrome运行，不能冒
+未运行组合。`allocation-resize-keyboard` 机械整合双engine实际补层：真实
+原2分摊 source 从768局部横读到92再变390，保原生Tab部分可见起点，
+使用真实 ArrowLeft 恢复原链接完整外圈；不用anchor scroll helper替代键盘。
+Chrome需3键到0，WebKit本场2键到2。正常Tab自动全显不在已证明结论内。
+最终公开CLI整合仅SOURCE/PURE复核；各私有实际executed源/参数/退出/原图
+仍逐SHA保留，不倒签为最终工具同源。
+
+效果包manifest白名单保每图actual capture candidate、actor uid/alias、真实
+viewport/rootFont/DPR/scroll坐标与明确scenario；measurements.json仅包含
+原native200/独立root32及局部键盘观察的有限说明，不含请求、Cookie、
+配置或完整数据库投影。partial原生Tab与实际ArrowLeft后原图同留，不只选
+干净helper图；ZIP独占构造、0400、待未实现者逐成员独立验收，严禁Public上传。

@@ -9,6 +9,7 @@ import hashlib
 import io
 import json
 import os
+import re
 from pathlib import Path
 import zipfile
 
@@ -32,9 +33,33 @@ def main():
     manifest = {'plan_id': 'YD-S13-DL-P11 / 1.0', 'layer': 'VIEW_ONLY_ORIGINAL_BROWSER_IMAGES',
                 'user_hand_effect': 'PENDING', 'members': [], 'independent_review': 'PENDING'}
     for item in selection['images']:
+        assert re.fullmatch(r'[0-9a-f]{40}', item['candidate'])
+        assert set(item['actor']) == {'alias', 'uid'} and item['actor'] == {'alias': 'group_manager', 'uid': 5}
+        assert set(item['viewport']) <= {'width', 'height', 'rootFont', 'dpr', 'scrollX', 'scrollY', 'rootClient', 'rootScroll'}
+        assert {'width', 'height', 'rootFont', 'dpr', 'scrollX', 'scrollY'} <= set(item['viewport'])
+        scene = item['scenario']
+        allowed_scenarios = {
+            'ACTUAL_PRIMARY_SOURCE_DETAIL': {'kind', 'metric', 'source_id', 'applied_filters'},
+            'ACTUAL_CROSS_STORE_NOTICE': {'kind', 'metric', 'source_id', 'explicit_default_notice'},
+            'LOADED_QWEB_MEMORY_COMPONENT': {'kind', 'fixture_file', 'fixture_sha256', 'ordinary_actor_is_browser_context_only_not_fixture_authorization'},
+        }
+        assert set(scene) == allowed_scenarios[scene['kind']]
+        if scene['kind'] == 'ACTUAL_PRIMARY_SOURCE_DETAIL':
+            assert scene['metric'] == 'collections' and scene['source_id'] == 8
+            assert set(scene['applied_filters']) <= {'date_from', 'date_to', 'store_ids', 'company_id', 'currency_id', 'state', 'page'}
+        source_result = ROOT / item['source_result']
+        assert PRIVATE in source_result.resolve().parents and not source_result.is_symlink()
+        result_raw = source_result.read_bytes()
+        assert hashlib.sha256(result_raw).hexdigest() == item['source_result_sha256']
+        original_result = json.loads(result_raw)
+        original_shot = next(x for x in original_result['screenshots'] if x['file'] == item['source'])
+        assert original_result['actor'] == item['actor'] and original_shot['candidate'] == item['candidate']
+        assert {key: original_shot['viewport'][key] for key in item['viewport']} == item['viewport']
         source = ROOT / item['source']
         assert PRIVATE in source.resolve().parents and source.suffix == '.png' and not source.is_symlink()
         raw = source.read_bytes()
+        assert hashlib.sha256(raw).hexdigest() == original_shot['sha256'] and len(raw) == original_shot['bytes']
+        assert original_shot['image_pixels_edited'] is False
         with Image.open(io.BytesIO(raw)) as image:
             image.verify()
         with Image.open(io.BytesIO(raw)) as image:
@@ -46,8 +71,18 @@ def main():
         manifest['members'].append({'path': name, 'source': str(source.relative_to(ROOT)),
             'bytes': len(raw), 'sha256': hashlib.sha256(raw).hexdigest(),
             'width': width, 'height': height, 'pixels_edited': False,
+            'actual_capture_candidate': item['candidate'], 'actor': item['actor'],
+            'viewport': item['viewport'], 'scenario': item['scenario'],
+            'original_client_status': item['client_status'],
+            'source_result': item['source_result'], 'source_result_sha256': item['source_result_sha256'],
             'layer': item['layer'], 'stage': item['stage'], 'engine': item['engine'],
             'description': item['description']})
+    assert re.fullmatch(r'[0-9a-f]{40}', selection['product_candidate'])
+    manifest['final_product_candidate'] = selection['product_candidate']
+    measurements = json.dumps(selection['measurements'], ensure_ascii=False, indent=2).encode()
+    members['measurements.json'] = measurements
+    manifest['members'].append({'path': 'measurements.json', 'bytes': len(measurements),
+        'sha256': hashlib.sha256(measurements).hexdigest()})
     readme = selection['readme'].encode()
     members['README.txt'] = readme
     manifest['members'].append({'path': 'README.txt', 'bytes': len(readme),
