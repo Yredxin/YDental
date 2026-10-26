@@ -212,3 +212,22 @@ DL-15—20的唯一通用规范源机械提取到`ydental_access/static/src/scss
 文书查询secondary、预览primary，查看原件及五工作区链接quiet，下载/打印请求/导出/分页secondary，生成/各管理表单提交primary，summary为原生disclosure。强调不表示已经生成、审核或签署；生成、打印、模板创建审核发布、导出本轮不live提交。允许原preview读取HTML、pdf_view/download读旧bytes；源码/内存合同和真实读取分层。
 
 只直接复用P7已固定`ydental_inventory.p7_icon_search/arrow_right/chevron_left/chevron_right/list`五种QWeb片段，原SVG几何/SHA/完整ISC及适用Feather MIT/SOURCE不动。print明确声明access/inventory依赖；新图标类适配仅在文书元素opt-in内，标题最多两个list。原中文用`span t-translation="on"`保持原生术语，实际loaded中文/名称另验证，不靠PO存在断言通过。
+
+## 14. DL-P9 新增间距规范（2026-10-26用户启用）
+
+本节是用户新增要求，仅适用于`ydental_document_page`空间关系，完整边界见[本批完整计划](../execution/S13_DL_P9_IMPLEMENTATION_PLAN.md)。P8技术完成、P1—P8历史及用户效果待确认保持，不追溯以P9新尺度倒判旧包。继承临床集合、模拟设备失败、同意证据三块仅顶层外距；报表、结算、库存及其它页面没有启用。
+
+|编号|术语与执行定义|
+|---|---|
+|DL-21 层级化间距系统|少量命名尺度表达组内、任务、模块层级；用rem，不改根字号。|
+|DL-22 内外间距分工|padding管既有卡片内衬、margin管独立块外缘、gap管同组兄弟项；按钮内部与按钮之间分开。|
+|DL-23 邻近性分组|标签靠近自己的字段；搜索和来源选择是不同任务，明确拉开。|
+|DL-24 垂直节奏|标题、说明、字段、动作和追溯正文形成重复节奏；自然高度，不要求塞进首屏。|
+|DL-25 响应式安全留白|窄屏缩非必要边缘，保留控件和焦点缓冲；用换行，不缩字/隐藏内容。|
+|DL-26 密度平衡与单一间距归属|同一空隙一个负责人，不叠gap/margin/padding；长表保持密度，不变逐行卡片。|
+
+尺度为0/.25/.5/.75/1/1.5/2rem，16px根时0/4/8/12/16/24/32px。默认标签→字段.5rem、同行动作.75rem、并列字段/字段到动作1rem、搜索任务到来源选择1.5rem、summary展开正文.75rem、模块1.5rem、既有卡片内衬桌面1.5rem/45rem及以下1rem。标题到内容.75—1rem；同键值.25—.5rem、下一键组约.75rem。已有合格部分保持，具体负责人和例外记本批间距责任表。
+
+P8按钮padding `.625em 1em`、图文gap `.5em`、圆角/颜色/最小高度/焦点/busy spinner及P1 JS/触发器/浮层内部保持。表格列/单元格padding、原form/label/字段顺序/提交合同、iframe正文/PDF冻结。仅模板根`documents-spacing`及显式目标class启用，不按GET pathname门控，preview POST回页同样有效；不改共享_actions.scss、全局主题或网站页头。
+
+关闭details及无preview/result无空占位，hidden helper不参与布局。文本间距用户覆盖压力（行高至少1.5且不降低既有1.6、段后2em、字距.12em、词距.16em）仅测试；不得变默认或注入额外修复CSS冒产品通过。双引擎五视口、两种放大、自然键盘及真实读取/独立完整保护按P9-T01—12验收，不声明整站WCAG认证。
