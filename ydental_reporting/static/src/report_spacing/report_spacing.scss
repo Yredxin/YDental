@@ -94,4 +94,10 @@ main.o_ydental_reporting[data-dl-layout="report-actions-spacing"] {
     .o_ydental_reporting_main_spacing_pagination {
         margin-block: var(--ydental-report-main__space-task) 0;
     }
+
+    // The table's native trailing outer margin would add to the pager task
+    // space. Its wrapper owns that space; columns and cell insets stay native.
+    .o_ydental_reporting_main_spacing_table > .table {
+        margin-block: 0;
+    }
 }
