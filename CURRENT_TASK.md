@@ -1,31 +1,22 @@
 # DL-P12 当前状态｜YD-S13-DL-P12 / 1.0
 
-## IN_PROGRESS / W1—W2 产品固定，W3加载与定向验收准备
+## PARTIAL（A04原生横向焦点未通过）/ SYNC_PENDING / STOPPED
 
-- 用户2026-10-26明确启用限定P12，交付完整计划与“继续”；[实施计划](docs/execution/S13_DL_P12_IMPLEMENTATION_PLAN.md)。仅结算既有`settlement-lookup`根，首出账details前闭合；不重开P11、不美化办理区或全站。
-- clean P11最终`bd0f73a99eb6f49c27d99a5db4cc6d4f8dedf008`承接分支`codex/s13-dl-p12-settlement-readonly-actions-spacing-r1`，无reset/clean/强推/从main重建。P11产品613fb33/实际7b0601e/工具1fa0ac8/唯一#37 6414490185全部保留。
-- root唯一产品/计划/报告/状态/路由写者与运行调度；runtime_p12运行工具及加载、testing_p12合同/浏览器/包工具、acceptance_p12未实现产品或对应工具者独立准入/physical RO/总验收。同OS不冒隔离。主控和runtime曾发生capacity，原私有中间收据保留；本次同线程正常恢复，不换模型/账号/入口。
-- 前态实际候选0558abe9bdb5f1f90489934e2f247e6d2be67d8d，12客户端/102原PNG，双engine五view/各native200与root32、有限四旁路均Node0/native0/context关闭。before owned20261026T142243Z-171a760b4d3d于14:35:58.388151Z正常stop/child0/signull/groupstopped；不是只用active标记缺席冒退出。
-- 产品固定 **7c3e2fe89e402c1e4f7b6d0534cfae07bfd0fc6e**，仅XML/manifest/局部SCSS三addon文件；旧P5 SCSS/共享mixin/图标/后台字节保。全XML仅剥class/span/SVG/三原生call opt-in后C14N exact，原页头与首bill起完整后缀原字节exact；native terms231→233仅两个共享重复标签、unique set不变。真实loaded/新按钮/间距/权限尚待after。
-- 新独立fresh准入/physical已核原目标145业务/13技术/83ref/80实际路径/80SHA/3共享保持。before末完整保护旧18818audit逐行保→19478，新660正常认证读取，其它业务/技术/九区same。为继续完整保护原生日志，只把该审计表采集上限20k提高100k，其它20k不变，不删行/不清账/不省投影；工具差异须独核。
-- 唯一必要settlement-u于2df168f已实际native0/ERROR0/noNative；Odoo原生级联下游模块，独立87ba1839…核143业务含19478旧audit same、ir_access20/res_groups69仅write_date/权限成员原值same、7技术表逐ID分类，83ref/80物理及config/schema保持。loaded EN/CN/4内存组件和288共享pager分支、两序列局部call不泄漏已独核a404dfd5…；以后纯CSS不-u。
-- 首after2df168f四客户端Node0/native0，但发现 **P12-A01**：原Trace列内shared横16使summary折2行，窄屏行70.594→103px。原件保留，不冒T03 PASS。root仅把该scope summary横padding改.5em，产品固定 **4cf0b15809494ab8ef108eb4d384a14dbb550df2**；其它共享token/min44/列宽/cell内衬保持。候选文字点击工具由整体span中心改首字Range中心，旧hit_tag=A不反签真实字形点击。
-- 首after owned20261026T144715Z-51fc103732c8已正常stop0/groupstopped，旧19478audit逐行保→20606，新1128正常auth/read，其余144业务/13技术与loadpost同，文件保持。第二窗口6cc8d63实际双engine五view/两zoom关闭A01（51f61cff…），修后glyph事件/真实权限通过。
-- 新发现 **P12-A02**：原P5及本轮空候选说明→空态均32px，QWeb whitespace使:empty无效，未落实16px目标。只移除无效规则、让UL恒leading16为唯一owner、emptyDIVleading0，产品固定 **c61e060e5b6ce798e6b988ee0f658b1afa162170**。XML/manifest/业务/表格不变，不-u。须新窗口定向布局/空态及组件/键盘/noJS和有限旁路完成。
-- 第二窗口20261026T145913Z-2abc105bac6b正常stop0/groupstopped，完整145/13/83ref保持；旧20606audit保→22625，新2019正常auth/read，其余144业务/13技术/九区与loadpost同。
-- 工具旧失败全保：Chrome noJS-v1禁JS监听器无记录却断言trusted；keyboard-v1右移增量失败、旧起点offset UNKNOWN；Chrome noJS-v3固定24方向键实际0→442(max468)→24未达端；WK noJS-v4首显式q seed从页底focus y=-11、尚未开始自然Tab。均Node2/native0/正常close/零业务提交，不冒产品崩溃或whole PASS。私有v5保原业务/焦点强断言，真实方向键有界到两端、noJS trust NOT_OBSERVED、可信Ctrl+Home准备首seed；原源/退出/图/新源逐次保，不反签共同最终工具来源。
-- 第三窗口40d8cf实际两engine真实空态32→16（A02独立45cfa6a1…），8有限旁路exact，Chrome noJS-v5/WK noJS-v7及两engine keyboard-v7完整路径actual0。新第5wholeFAIL为WK v5 CtrlHome焦点在原table DIV，rootY3942不移、尚未q seed；原限制保，后普通same-patient GET新文档top0路径实证通过，不冒任意滚动自动归位。
-- 第三窗口20261026T152347Z-28b0848f07b9正常stop0/groupstopped；旧22625audit保→23955，新1330正常auth/read，其余144业务/13技术/九区和83引用保持。Chrome loaded组件v7前三分支与long前三view/390文字Range有效；第6wholeNode2/native0为长候选934px高于844viewport仍断言全圈同屏，原件保。超高控件须上下边/全文分段可信滚读，绝不缩字/截断/隐藏。
-- **P12-A03待分层实证**：连续Tab后100ms样本有Chrome14/WK21边界圈partial、方向键可达；旧无等同额外settled采样，不能冒持久裁切/UA根因或借P11背书。产品 **552212602270f3c3f7ec6ce377343552243bc4ee** 仅本scope action/disclosure/fee_scroll加.5rem scroll-margin-block，保DOM几何/共享mixin。新窗口保100ms即时/两帧+外部250mssettled/方向键三相；JSoff仅外部等待。不得把新成功因果倒签CSS单因修复。
-- 第四窗口0670010实际两engine32控件JS-on/noJS即100ms/settled全圈、方向键恢复0，两engine两zoom实际0，A03独立ea03048e…限定关闭；原P11/任意页底程序focus/CtrlHome限制与旧时序事实保。Store1实际UTC，16UTC不跨本店日，先前Shanghai推测纠正，未改clock。
-- **P12-A04 OPEN**：组件v9在768横读保36后，pending首列fit summary nativeSettled left26<clipLeft50，helper后local6可见不冒原生PASS。产品 **ba3a5b0da4f3a8d2b27c3c5f84fbf533896f104f** 只将scope三控件scroll-margin-block:.5rem补全scroll-margin:.5rem；新window先此明确状态诊断，不预签UA支持/不盲跑全组件。
-- 第四窗口20261026T155547Z-dab0bd4a4368正常stop0/groupstopped，旧23955audit保→24853，新898正常auth/read，其余144业务/13技术/九区/83引用same。新增第7wholeFAIL为Chrome超高诊断选closed trace不可见末字；第8为WK诊断先断言同Chrome超高、实际高度未先存(UNKNOWN)；后Chrome-v2/WK-v3已实际按几何分层通过。第9为组件v9上述真实fit祖先clip，不降门槛。完整组件/T07—08尚未全通过，SOURCE/已成子层各独保。
-- T01—12最终独立总验收尚未完成；无经济库存/原件PDF/打印签署发布/扫码提交。
-- W0—W4连续，完成适用T01—12及未实现者独立验收后才交TECHNICALLY_COMPLETE；同步另列。最终#37只一份P12且OPEN，#36 CLOSED，main仅文档路由，不合产品不部署。P12结束立即停止；用户亲手效果待确认。
+- 用户2026-10-26启用[限定P12计划](docs/execution/S13_DL_P12_IMPLEMENTATION_PLAN.md)，W0—W4连续实现/实测/普通修复/独立验收；[结果/动作SVG/间距责任/7步](docs/reports/s13-dl-p12/summary.md) · [T01—12矩阵](docs/reports/s13-dl-p12/acceptance-matrix.md) · [证据索引](docs/reports/s13-dl-p12/evidence-index.md)。P12技术仍PARTIAL，未实现者最终包/正文/同步核验待登记，不以SYNCED代技术通过。
+- clean P11最终bd0f73a99eb6f49c27d99a5db4cc6d4f8dedf008沿业务基线新建`codex/s13-dl-p12-settlement-readonly-actions-spacing-r1`，无reset/clean/强推/从main重建。最终产品 **ba3a5b0da4f3a8d2b27c3c5f84fbf533896f104f**；实际最后运行 **0f1deb837ed469deb9d5e2e8dcb819863ad59a0d**；工具发布 **a161aa3f956d16eb24dc4255955202db002f5857** 仅机械整合SOURCE/PURE，不冒70actual共同来源。
+- 仅3addon：lookup首bill前闭合，XML呈现class/span/SVG/三原生call opt-in、manifest单SCSS、局部动作/间距。全XML白名单还原C14N exact，main页头及首bill起完整后缀原bytes；原P5scss/sharedmixin/图标几何双许可/全部产品JS/后台/ACL/schema/财务库存不变。shared另4实际办理calls默认off；loaded288模式/两序列无flag泄漏、EN/CN全合同保。按钮/链接/summary语义与原GET/明确patient选择/三段费用/金额日期原因actor/独立分页不改。
+- A01窄trace折两行只收横padding至8，summary70→46/row103→79（原row70.594，cell12/列保）；A02空UL whitespace导致双16=32，只ULleading16单owner/空态margin0修成16；A03正常进入态fit原控件即时/settled原生完整，源改仅scroll-margin落点，两engineJSon/noJS各32/两200实证闭合。所有旧中间原件保，不倒签CSS单因或旧100ms持久根因。
+- **A04仍OPEN/FAIL**：明确loaded pending组件768×1024，可信右横读保36→Tab首列summary，双engine当前双轴8px正常CSS充分settled仍left26<clip50；严格原生标签/圈完整门槛失败。一次可信ArrowLeft各回local1/0恢复原active全文/圈/rootX0，但不代nativePASS，不借P11豁免。同序before未观测不冒新回归。最终T07焦点子项/T08缺口，不能TECHNICALLY_COMPLETE；不引JS/不改表策略/不削门槛。
+- 70actual=56Node0/14Node2，70native0/context正常关闭，1003PNG路径/607SHA、700执行源路径/29SHA逐次保。12strict wholeFAIL及2COMPLETE_WITH_OPEN_A04不反签：禁JS监听器、固定24键不足、旧起点offsetUNKNOWN、页底程序focus/CtrlHome、超高同屏/closed trace/WK几何前置及A04均保；新普通GET顶端/方向键/Range helper各层分清。真实before/fiveview末次40d，仅后focusmargin源差精确复用；最终ba3实际键盘/noJS/两zoom/组件5view、long/empty/states/pager/fault齐，A04仍未过。
+- 原目标synth/OID2171423/cluster7694897083368259627/原filestore与core f0c5a9b保持。唯一settlement-u于2df168f actual0/ERROR0/noNative，原生级联及完整即时pre/post已独审87ba1839…；以后CSS不-u。Store1实为UTC，16UTC不跨本店日，未改clock。当前真实未选27候选/today1-history26-pending0，选655为0/1/0，原值与权限/backend真实403/400保持，零临时grant。
+- 最终root ba64b9c6…，未实现者新physical683138 RO/RR/rollbackclosed全145业务/13技术/九区same；83引用/80真实路径/80SHA逐完整bytes/size/SHA及三共享保，独立 **4a38c2999f96af9b45548f29570f0d01d15d4ac7037e2a080cf2618ec7e39f63**。旧18818audit逐行保→25819，新7001正常auth/read；其余142业务same，ir_access20行与group id69仅唯一-u write_date/权限成员same、7技术表已分类。原身份作者价源/未完责任/config/schema/原件保。派生65仅CSS15833→15838，其余64metadata/实字节same，六deps同，非全库物理零差。经济库存/原件PDF/打印签署发布/扫码/CSV新增0。
+- 6owned全正常foreground0/child0/signull/groupstop，最终run20261026T162536Z-58003ecdb36a于 **2026-10-26T16:51:12.497554Z** stop。独立终态 **c148f336f2b0edeaa5e9ea3404f992c375c3d15de20e93a02afec57556290c3e**：knownPID/profile/marker/18411和12空，新RO683713其它targetconn[]/closed；共享主服务未动，不为报告/同步复开app/DB/browser。
+- 私有0400 r1 viewing ZIP **9949005B / SHA9ecdf42f3567a32bd2316f7c89e9b7f06ab4a442fb5fab5e6b08489122a7660a**，94成员/90原PNG，PARTIAL/A04OPEN/候选来源分层；独立包核待实际签。无秘密/session/profile/原请求/DB/PDF/font/program，不Public上传、旧包不覆盖。同OS不冒隔离；root唯一产品/报告/状态/路由写者，runtime_p12运行工具、testing_p12浏览器工具、acceptance_p12未实现者独核；capacity旧事实保、同团队同入口正常接续，无过程Issue审批。
+- 交付后停止，不自动P13/结算办理美化/全站/完整S13/负载/备份恢复/实机/正式政策/S11组合扫码/真实患者资金外部通道/产品合并部署生产。#37只一份P12最终且OPEN，#36 CLOSED，旧13回执不改；正常同步和独立读回待实际登记。用户亲手效果待确认。P11产品613fb33/实际7b0601e/工具1fa0ac8/报告bd0f73a/唯一6414490185与P1—P11旧PARTIAL/失败/UNKNOWN全部保持。
 
 ---
 
-以下原文保留P11及更早全部历史；历史“P12未启用”仅由当前授权替代，不反签旧事实。
+以下原文保留P11及更早全部历史；历史“P12未启用”仅由当前用户授权替代，不反签旧事实。
 
 # DL-P11 当前状态｜YD-S13-DL-P11 / 1.0
 
