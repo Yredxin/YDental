@@ -125,7 +125,14 @@ def main():
         xml_translate(lambda value: values.append(value) or value,
                       etree.tostring(tree, encoding='unicode'))
         return values
-    assert terms(old) == terms(etree.fromstring(raw)), 'Native translation occurrences/order differ'
+    old_terms=terms(old);new_terms=terms(etree.fromstring(raw))
+    business='Open the source business page'
+    native='Native source document (permissions checked again)'
+    assert old_terms.count(business)==new_terms.count(business)==1
+    i=old_terms.index(business)
+    assert old_terms[i:i+3]==[business,'·',native]
+    expected=old_terms[:i+1]+old_terms[i+2:]
+    assert expected==new_terms, 'Only the single adjacent decorative business/native dot term may differ'
     print(json.dumps({'status': 'P11_FULL_CANONICAL_SOURCE_MANIFEST_FROZEN_NATIVE_TERMS_PASS',
         'base': BASE, 'candidate': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
         'layer': 'SOURCE_PURE_NOT_LOADED_BROWSER', 'canonical_sha256': hashlib.sha256(canonical(new)).hexdigest(),

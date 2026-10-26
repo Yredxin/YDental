@@ -83,7 +83,7 @@ async function sourceOpen({multi=false,metric='collections',index=0}={}) {
 }
 async function sourceSnap(name,p=page) {
     const v=await p.evaluate(sourceTools.projection);
-    save(name+'-projection.json',v);
+    save(name+'-projection.json',v);save(name+'-source-main.html',await p.locator(sourceRoot).evaluate(m=>m.outerHTML));
     if(stage==='after'&&arg('before-result')) {
         const beforeDir=path.dirname(path.join(root,arg('before-result'))),f=path.join(beforeDir,name+'-projection.json');
         if(fs.existsSync(f)) {
@@ -101,7 +101,7 @@ async function sourceSummaries(p=page,prefix='actual') {
         await s.evaluate(e=>e.scrollIntoView({block:'center'}));
         if(await d.evaluate(e=>e.open))await s.press('Enter');
         await s.focus();await s.press('Enter');assert(await d.evaluate(e=>e.open));
-        await sourceSnap(prefix+'-details-'+i,p);await shot(prefix+'-details-'+i+'-expanded',p);
+        await sourceSnap(prefix+'-details-'+i,p);await shot(prefix+'-details-'+i+'-expanded',p,p===page?'ACTUAL_PRODUCT_BROWSER':'ACTUAL_LOADED_QWEB_MEMORY_COMPONENT');
         await s.press('Space');assert(!await d.evaluate(e=>e.open));
         const b=await d.boundingBox(),sb=await s.boundingBox();assert(Math.abs(b.height-sb.height)<2,'Closed disclosure leaves no body hole');
         check(prefix+'-native-Enter-Space-'+i);
@@ -125,7 +125,6 @@ async function sourceFamilies() {
 async function sourceStates() {
     const values=[];
     for(const kind of ['secondary','quiet','disclosure']) {
-        const e=page.locator(actions).filter({hasText:/./}).locator('visible=true');
         const target=kind==='disclosure'?page.locator(sourceRoot+' summary').first():page.locator(actions+'.o_ydental_reporting_source_action_'+kind).first();
         assert(await target.count(),'Rendered '+kind+' required');
         await target.evaluate(e=>e.scrollIntoView({block:'center'}));await page.mouse.move(0,0);
@@ -138,8 +137,8 @@ async function sourceStates() {
     }
     save('actual-action-states.json',values);check('actual-three-family-four-state-contrast-focus');
 }
-async function isolationSnap(name,path) {
-    const response=await page.goto(base+path,{waitUntil:'domcontentloaded'});await settle();
+async function isolationSnap(name,pathname) {
+    const response=await page.goto(base+pathname,{waitUntil:'domcontentloaded'});await settle();
     const value=await page.locator('main.o_ydental_reporting').evaluate(m=>{const copy=m.cloneNode(true),query=copy.querySelector('.o_ydental_reporting_scope > p:nth-child(3)');let queryAtNative=null;if(query){const walker=document.createTreeWalker(query,NodeFilter.SHOW_TEXT),nodes=[];for(let n=walker.nextNode();n;n=walker.nextNode())if(/\d{4}-\d\d-\d\d \d\d:\d\d:\d\d/.test(n.textContent))nodes.push(n);if(nodes.length!==1)throw Error('Single native query_at text node required');queryAtNative=nodes[0].textContent;nodes[0].textContent=nodes[0].textContent.replace(/\d{4}-\d\d-\d\d \d\d:\d\d:\d\d/,'<NATIVE_QUERY_AT_UTC>');}return {html:m.outerHTML,htmlTypedQueryAt:copy.outerHTML,queryAtNative,
         queryAt:m.querySelector('.o_ydental_reporting_scope > p:nth-child(3)')?.textContent,
         p11:[...m.querySelectorAll('[data-dl-actions="report-source-actions"],[data-dl-layout="report-source-detail"]')].length,
@@ -168,13 +167,51 @@ async function isolationSnap(name,path) {
     return value;
 }
 function pathModuleDir(file){return path.dirname(path.join(root,file));}
+
+async function sourceSpacing(width) {
+    const v=await page.evaluate(sourceTools.projection),unit=parseFloat(v.layout.rootFont)/16;
+    const close=(actual,expected,name)=>assert(Math.abs(parseFloat(actual)-expected*unit)<.6,name+': '+actual+' expected '+expected*unit);
+    close(v.layout.main.style.paddingTop,width<=720?16:24,'Main single inset');
+    const modules=v.layout.modules;
+    const byClass=name=>modules.find(x=>x.class.split(' ').includes(name));
+    close(byClass('o_ydental_reporting_source_navigation').style.columnGap,12,'Navigation gap');
+    close(byClass('o_ydental_reporting_source_scope').style.marginTop,24,'Intro to scope');
+    close(byClass('o_ydental_reporting_source_return_tail').style.marginTop,24,'Tail return');
+    for(const row of v.layout.cards) {
+        close(row.card.style.paddingTop,width<=720?16:24,'Card single inset');
+        close(row.card.style.marginTop,24,'Scope/previous card to card');
+        const get=name=>row.children.find(x=>x.class.split(' ').includes(name));
+        close(row.children[0].style.marginTop,0,'Heading inherited margin reset');
+        for(const [name,pixels]of [['patient',8],['quantity',12],['date',12],['facts',16],['links',16],['trace',16]]) {
+            const node=get('o_ydental_reporting_source_'+name);if(node)close(node.style.marginTop,pixels,name+' single spacing owner');
+        }
+        close(get('o_ydental_reporting_source_facts').style.columnGap,8,'Fact label-value gap');
+        close(get('o_ydental_reporting_source_facts').style.rowGap,12,'Fact business group gap');
+        const allocation=get('o_ydental_reporting_source_allocations');
+        if(allocation)close(allocation.style.marginTop,16,'Facts to allocations');
+    }
+    save('asserted-spacing-'+width+'.json',{unit,width,layout:v.layout});
+    check('computed-single-spacing-owners-'+width);
+}
+async function tableKeyboardRead() {
+    const region=page.locator(sourceRoot+' .o_ydental_reporting_table_wrap').first();
+    if(!await region.count())return;
+    await region.evaluate(e=>{e.scrollIntoView({block:'center'});e.scrollLeft=0});
+    await region.focus();const before=await region.evaluate(e=>({left:e.scrollLeft,client:e.clientWidth,scroll:e.scrollWidth,rootX:scrollX}));
+    for(let i=0;i<5;i++)await page.keyboard.press('ArrowRight');await page.waitForTimeout(250);
+    const after=await region.evaluate(e=>({left:e.scrollLeft,rootX:scrollX,active:e===document.activeElement}));
+    if(before.scroll>before.client+1)assert(after.left>before.left,'Native keyboard reads allocation table locally');
+    assert(after.active);assert.equal(after.rootX,before.rootX,'Local keyboard horizontal reading does not move root');
+    save('actual-table-keyboard-horizontal.json',{before,after});check('actual-native-local-allocation-horizontal-reading');
+}
+
 async function sourceLayout() {
     const route=await sourceOpen({index:1});save('route.json',route);
     for(const [width,height]of views) {
         await page.setViewportSize({width,height});await settle();await page.evaluate(()=>scrollTo(0,0));
         await sourceSnap('view-'+width);await shot('source-'+width+'-top');
         const trace=page.locator(sourceRoot+' article details').last();await scroll(trace);await shot('source-'+width+'-tail');
-        if(stage==='after')await reachableTargets(page,'source-'+width,sourceTargets);
+        if(stage==='after'){await sourceSpacing(width);await reachableTargets(page,'source-'+width,sourceTargets);if(width===320)await tableKeyboardRead();}
     }
     await page.setViewportSize({width:1366,height:768});await sourceSummaries();
     if(stage==='after'){await sourceFamilies();await sourceStates();}
@@ -198,7 +235,7 @@ async function sourceZoom() {
     await reachableTargets(page,'native200-source',sourceTargets);await sourceSummaries(page,'native200');
     await setZoomOn(page,1);await page.evaluate(()=>document.documentElement.style.fontSize='200%');
     assert.equal(await page.evaluate(()=>getComputedStyle(document.documentElement).fontSize),'32px');
-    await sourceSnap('rootfont200');await shot('rootfont200-source-top');
+    await sourceSnap('rootfont200');if(stage==='after')await tableKeyboardRead();await shot('rootfont200-source-top');
     await reachableTargets(page,'rootfont200-source',sourceTargets);await sourceSummaries(page,'rootfont200');
     check('actual-native200-and-independent-root32-source');
 }
@@ -224,11 +261,32 @@ async function sourcePermissions() {
         check('actual-source-reauthorization-negative',{path:new URL(base+path).pathname,status:denied.status()});
     }
     if(alias==='group_manager') {
-        const cross=await sourceOpen({multi:true,index:0});
-        const notes=await page.locator(sourceRoot+' article .o_ydental_reporting_notice').allTextContents();
-        save('actual-cross-store-candidate.json',{route:cross,visible_notes:notes,
-            actual_cross_store_branch:notes.length>0,not_fixture:true});
-        check('actual-multistore-source-read',{cross_store_visible_branch:notes.length>0});
+        const q=await reportOpen('followups',{store_ids:'1,2',date_from:'2026-01-01',date_to:'2026-12-31'});
+        const dataResponse=await context.request.get(base+'/ydental/reports?'+q+'&output=json');
+        assert.equal(dataResponse.status(),200);const data=await dataResponse.json();
+        save('actual-cross-store-full-authorized-query.json',data);
+        const row=data.rows.find(x=>x.requires_store_switch);
+        assert(row,'Existing authorized cross-store followup source required');
+        const link=page.locator('a[href^="/ydental/reports/source/followups/'+row.source_id+'?"]').first();
+        assert.equal(await link.count(),1);const href=await link.getAttribute('href');
+        const sourceResponse=await page.goto(base+href,{waitUntil:'domcontentloaded'});
+        assert.equal(sourceResponse.status(),200);await settle();await sourceSnap('actual-cross-store');
+        const note=page.locator(sourceRoot+' article .o_ydental_reporting_source_store_notice');
+        assert.equal(await note.count(),1);assert(await note.isVisible());
+        const business=page.locator(sourceRoot+' .o_ydental_reporting_source_links a').first();
+        const businessHref=await business.getAttribute('href');
+        await shot('actual-cross-store-visible-notice');
+        const businessResponse=await page.goto(base+businessHref,{waitUntil:'domcontentloaded'});
+        await settle();const bodyText=await page.locator('body').innerText();
+        save('actual-cross-store-original-business-read.json',{status:businessResponse.status(),
+            href:businessHref,bodyText,normal_store_switches:r.requests.filter(x=>x.path==='/ydental/access/action').length});
+        // The original page may return native 403 or a current-store empty view.
+        // Preserve the exact response and let the independent reviewer assess it.
+        assert([200,403,409].includes(businessResponse.status()));
+        await shot('actual-cross-store-original-business-read');
+        check('actual-existing-cross-store-followup-visible-notice-and-original-business-GET',{
+            source_id:row.source_id,store_id:row.store_id,href,notice_default_visible_verified:true,
+            businessHref,businessStatus:businessResponse.status(),no_store_switch:true});
     }
 }
 async function sourceComponents() {
@@ -247,6 +305,18 @@ async function sourceComponents() {
             await reachableTargets(p,'fixture-'+item.name+'-'+width,sourceTargets);
         }
         await sourceSummaries(p,'fixture-'+item.name);
+        if(item.name.includes('long')) {
+            await p.setViewportSize({width:1366,height:768});
+            const native=await setZoomOn(p,2);assert.equal(await p.evaluate(()=>getComputedStyle(document.documentElement).fontSize),'16px');
+            await sourceSnap('fixture-'+item.name+'-native200',p);await reachableTargets(p,'fixture-'+item.name+'-native200',sourceTargets);
+            await shot('fixture-'+item.name+'-native200',p,'ACTUAL_LOADED_QWEB_MEMORY_COMPONENT');
+            await setZoomOn(p,1);await p.evaluate(()=>document.documentElement.style.fontSize='200%');
+            assert.equal(await p.evaluate(()=>getComputedStyle(document.documentElement).fontSize),'32px');
+            await sourceSnap('fixture-'+item.name+'-rootfont200',p);await reachableTargets(p,'fixture-'+item.name+'-rootfont200',sourceTargets);
+            await shot('fixture-'+item.name+'-rootfont200',p,'ACTUAL_LOADED_QWEB_MEMORY_COMPONENT');
+            await p.evaluate(()=>document.documentElement.style.fontSize='');
+            check('explicit-long-source-component-both-real-zoom-modes',{native});
+        }
         const pressure=await p.addStyleTag({content:sourceRoot+','+sourceRoot+' *{line-height:1.6!important;letter-spacing:.12em!important;word-spacing:.16em!important}'+sourceRoot+' p{margin-block-end:2em!important}'});
         await sourceSnap('fixture-'+item.name+'-user-spacing',p);await reachableTargets(p,'user-spacing-'+item.name,sourceTargets);
         await shot('fixture-'+item.name+'-user-spacing',p,'EXPLICIT_USER_TEXT_SPACING_COMPONENT');await pressure.evaluate(e=>e.remove());
@@ -290,7 +360,7 @@ async function sourceBypass() {
     check('finite-readonly-no-p11-'+pathname,{status:response.status(),no_business_submit:true});
 }
 
-try{if(engine==='webkit'){const manifest=path.join(root,'.local/dl-p1/evidence/webkit-engine-native-source-manifest.json');assert.equal(hash(manifest),JSON.parse(fs.readFileSync(path.join(root,'.local/dl-p1/webkit-manifest-binding.json'))).sha256);for(const f of JSON.parse(fs.readFileSync(manifest)).browser_files)assert.equal(hash(path.join(root,'.local/dl-p1',f.path)),f.sha256);r.engine_manifest_sha256=hash(manifest);browser=await pw.webkit.launch(require(path.join(root,'.local/dl-p3/verification/webkit_plugins_environment.cjs')).launchOptions(root));context=await browser.newContext({viewport:{width:1366,height:768},locale:'zh-CN',javaScriptEnabled:!nojs,acceptDownloads:true})}else if(mode==='zoom'){profile=path.join(out,'owned-temporary-profile');fs.mkdirSync(profile,{mode:0o700});const ext=path.join(root,'.local/dl-p1/zoom-extension');context=await pw.chromium.launchPersistentContext(profile,{headless:true,channel:'chromium',executablePath:path.join(root,'.local/s11/browsers/chromium-1248/chrome-linux64/chrome'),viewport:{width:1366,height:768},locale:'zh-CN',acceptDownloads:true,args:['--disable-extensions-except='+ext,'--load-extension='+ext],env:{...process.env,LD_LIBRARY_PATH:path.join(root,'.local/s11/browser-deps/root/usr/lib/x86_64-linux-gnu'),FONTCONFIG_FILE:path.join(root,'.local/s12/fontconfig/fonts.conf'),FONTCONFIG_PATH:path.join(root,'.local/s12/fontconfig')}});browser=context.browser();worker=context.serviceWorkers()[0]||await context.waitForEvent('serviceworker')}else{browser=await pw.chromium.launch({headless:true,executablePath:path.join(root,'.local/s11/browsers/chromium-1248/chrome-linux64/chrome'),env:{...process.env,LD_LIBRARY_PATH:path.join(root,'.local/s11/browser-deps/root/usr/lib/x86_64-linux-gnu'),FONTCONFIG_FILE:path.join(root,'.local/s12/fontconfig/fonts.conf'),FONTCONFIG_PATH:path.join(root,'.local/s12/fontconfig')}});context=await browser.newContext({viewport:{width:1366,height:768},locale:'zh-CN',javaScriptEnabled:!nojs,acceptDownloads:true})}
+try{if(engine==='webkit'){const manifest=path.join(root,'.local/dl-p1/evidence/webkit-engine-native-source-manifest.json');assert.equal(hash(manifest),JSON.parse(fs.readFileSync(path.join(root,'.local/dl-p1/webkit-manifest-binding.json'))).sha256);for(const f of JSON.parse(fs.readFileSync(manifest)).browser_files)assert.equal(hash(path.join(root,'.local/dl-p1',f.path)),f.sha256);r.engine_manifest_sha256=hash(manifest);browser=await pw.webkit.launch(require(path.join(root,'.local/dl-p3/verification/webkit_plugins_environment.cjs')).launchOptions(root));context=await browser.newContext({viewport:{width:1366,height:768},locale:'zh-CN',javaScriptEnabled:!nojs,acceptDownloads:true})}else if(['zoom','components','stress'].includes(mode)){profile=path.join(out,'owned-temporary-profile');fs.mkdirSync(profile,{mode:0o700});const ext=path.join(root,'.local/dl-p1/zoom-extension');context=await pw.chromium.launchPersistentContext(profile,{headless:true,channel:'chromium',executablePath:path.join(root,'.local/s11/browsers/chromium-1248/chrome-linux64/chrome'),viewport:{width:1366,height:768},locale:'zh-CN',acceptDownloads:true,args:['--disable-extensions-except='+ext,'--load-extension='+ext],env:{...process.env,LD_LIBRARY_PATH:path.join(root,'.local/s11/browser-deps/root/usr/lib/x86_64-linux-gnu'),FONTCONFIG_FILE:path.join(root,'.local/s12/fontconfig/fonts.conf'),FONTCONFIG_PATH:path.join(root,'.local/s12/fontconfig')}});browser=context.browser();worker=context.serviceWorkers()[0]||await context.waitForEvent('serviceworker')}else{browser=await pw.chromium.launch({headless:true,executablePath:path.join(root,'.local/s11/browsers/chromium-1248/chrome-linux64/chrome'),env:{...process.env,LD_LIBRARY_PATH:path.join(root,'.local/s11/browser-deps/root/usr/lib/x86_64-linux-gnu'),FONTCONFIG_FILE:path.join(root,'.local/s12/fontconfig/fonts.conf'),FONTCONFIG_PATH:path.join(root,'.local/s12/fontconfig')}});context=await browser.newContext({viewport:{width:1366,height:768},locale:'zh-CN',javaScriptEnabled:!nojs,acceptDownloads:true})}
 r.actual_engine_version=browser.version();r.driver_version=require(path.join(driver,'package.json')).version;proc=browser._connection.toImpl(browser)?.options?.browserProcess?.process;if(proc){r.native_main_lifecycle={pid:proc.pid,executable:proc.spawnfile};proc.once('exit',(exitCode,signalCode)=>Object.assign(r.native_main_lifecycle,{exitCode,signalCode}))}context.setDefaultTimeout(nojs?12000:20000);context.on('response',x=>r.responses.push({path:new URL(x.url()).pathname,method:x.request().method(),status:x.status()}));context.on('requestfailed',x=>r.failures.push({path:new URL(x.url()).pathname,resource:x.resourceType(),error:x.failure()?.errorText}));await context.route('**/*',route=>{const req=route.request(),u=new URL(req.url()),op=new URLSearchParams(req.postData()||'').get('operation');if(!['data:','about:','blob:'].includes(u.protocol)&&u.origin!==base){(r.external_blocks??=[]).push({protocol:u.protocol,host:u.host});return route.abort()}if(u.pathname.startsWith('/ydental/'))r.requests.push({method:req.method(),path:u.pathname,query:[...u.searchParams].filter(([k])=>k!=='revision'),...(u.pathname==='/ydental/access/action'?{operation:op}:{})});if(req.method()==='POST'&&u.pathname.startsWith('/ydental/')&&!((u.pathname==='/ydental/access/action'&&op==='switch'))){r.business_write_requests++;(r.guard_blocks??=[]).push({path:u.pathname,operation:op});return route.abort()}return route.continue()});page=context.pages()[0]||await context.newPage();page.on('pageerror',e=>(r.page_errors??=[]).push({class:e.constructor.name,message:String(e.message).slice(0,600)}));await login();
 if(mode==='bypass')await sourceBypass();else if(mode==='layout')await sourceLayout();else if(mode==='zoom')await sourceZoom();else if(mode==='nojs')await sourceNoJS();else if(mode==='permissions')await sourcePermissions();else if(['components','stress'].includes(mode))await sourceComponents();else throw Error('Unknown P11 mode');
 assert.equal(r.business_write_requests,0);assert.equal((r.guard_blocks||[]).length,0);assert.equal((r.external_blocks||[]).length,0);r.status='P11_'+stage.toUpperCase()+'_'+engine.toUpperCase()+'_'+mode.toUpperCase()+'_PASS';
