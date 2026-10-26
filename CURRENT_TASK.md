@@ -4,8 +4,8 @@
 
 - 用户2026-10-26直接启用[完整P9计划](docs/execution/S13_DL_P9_IMPLEMENTATION_PLAN.md)，W0—W4连续实施，仅文书主页面空间关系；P8技术交付保持，非重开P8或全站改造，完成后停止。
 - 从clean P8报告756df60286d078a4243f87c885dc7a10de1f9b8b正常建立`codex/s13-dl-p9-documents-spacing-r1`；产品bd8411d4/唯一回执6406133603及P1—P8、P5 PARTIAL、旧包/失败/UNKNOWN保持，不reset/clean/强推/从main重建。
-- root唯一产品/文档/状态写者和调度；runtime_p9负责运行工具/保护，testing_p9测试工具/实际双引擎，acceptance_p9未实现者独立验收。同OS不冒隔离。三agent均真实响应；尚未启动P9服务或加载产品XML。
-- W0核源码/实际合成视图与继承XPath、完整保护和本轮双引擎前态。仅既有synth OID2171423/cluster7694897083368259627及原filestore；新scope不修改旧到期/STOP/guard。现场完整清单83引用/80唯一路径/80不同SHA，独立before新physical454445全部真实字节SHA保持；不删共享引用。
+- root唯一产品/文档/状态写者和调度；runtime_p9负责运行工具/保护，testing_p9测试工具/实际双引擎，acceptance_p9未实现者独立验收。同OS不冒隔离。三agent均真实响应；测试协作者后于before完成返回新的模型capacity限制，未更换模型/agent/入口；主控接续其已准备工具，独立验收者不参与实现。
+- W0完成：原生1618+1621合成视图/XPath已固定；本轮Chromium/WebKit各五view前态实际完成39checks/19原图，320根分别345/333。before服务正常stop/child0，唯一58正常accepted审计、其余业务/技术/原文件保持。W1/W2产品冻结5f8f154（7addon文件），当前待必要print-only XML加载及after定向验证，未签技术完成。仅既有synth OID2171423/cluster7694897083368259627及原filestore；新scope不修改旧到期/STOP/guard。现场完整清单83引用/80唯一路径/80不同SHA，独立before新physical454445全部真实字节SHA保持；不删共享引用。
 - 允许原GET、HTML preview、旧pdf_view/download；禁止live生成/打印/模板创建审核发布/导出/继承三块业务/经济库存重放。P8按钮和P1JS/内部控件、iframe/PDF、原合同冻结；继承三块仅顶层外距。
 - 只在计划结束向#37新增一份最终结果，保持OPEN，旧10评论不改；#36 CLOSED。main只必要路由，不合产品不部署。完整S13/后续页面/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/生产未启用。
 
