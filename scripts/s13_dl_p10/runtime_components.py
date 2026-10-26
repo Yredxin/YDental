@@ -86,9 +86,9 @@ for key in METRICS:
 empty=render('empty','collections',empty=True)
 assert len(empty.xpath('.//summary'))==1
 both=render('page-both','collections',page=2,count=201)
-assert len(both.xpath('.//nav[@aria-label="Source pages"]/a'))==2
+assert len(both.xpath(".//nav[contains(concat(' ',normalize-space(@class),' '),' o_ydental_reporting_main_spacing_pagination ')]/a"))==2
 last=render('page-last','collections',page=3,count=201)
-assert len(last.xpath('.//nav[@aria-label="Source pages"]/a'))==1
+assert len(last.xpath(".//nav[contains(concat(' ',normalize-space(@class),' '),' o_ydental_reporting_main_spacing_pagination ')]/a"))==1
 assert len(both.xpath('.//button'))==2 and len(both.xpath('.//summary'))==2 and len(both.xpath('.//a'))==6
 
 labels=['Query authorized sources','Export all matching sources (store export permission required)',
