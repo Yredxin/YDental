@@ -1,6 +1,6 @@
 # DL-P11 验收矩阵
 
-计划 **YD-S13-DL-P11 / 1.0**。本地最终总签已实际PASS / TECHNICALLY_COMPLETE（限定P11本地软件）/ SYNC_PENDING，用户亲手效果待确认。[结果/控件SVG与空间责任](summary.md) · [全部原件SHA/38client索引](evidence-index.md)。
+计划 **YD-S13-DL-P11 / 1.0**。TECHNICALLY_COMPLETE（限定P11软件）/ SYNCED（首远端独立总签已实际PASS；最后元数据另正常核），用户亲手效果待确认。[结果/控件SVG与空间责任](summary.md) · [全部原件SHA/38client索引](evidence-index.md)。
 
 基线P10 `6d74bbe`；产品 `613fb33bb4fecdb23eff3c46a2d3a1de2a4c1780`；唯一XML加载 `f235c649`；实际最终运行 `7b0601e`；公共工具发布 `1fa0ac8`（机械整合仅SOURCE/PURE，actual私有源逐SHA）。未实现者 `/root/acceptance_p11` 独立核源码/原件/新physical/包，同OS不冒隔离。
 
@@ -17,8 +17,10 @@
 |**T09 键盘/无JS/降级**|自然Tab/ShiftTab/Enter/Space、原summary与链接，正常登录JSoff；缺CSS/SVG仍中文/原href，AX不冒屏读|[原生details/source](../../../ydental_reporting/views/ydental_reporting_templates.xml#L49)、[actual工具](../../../scripts/s13_dl_p11/browser_checks.cjs)|两engine真实trusted Tab→ShiftTab补层，Enter开/Space关；同禁JScontext正常CSRF密码认证，原生details/return/自然焦点有效。JSoff原合同按仅scrollpadding变化精确复用；新613实际局部原生ArrowRight→resize保92→Tab→Chrome3/WK2 ArrowLeft保active/href/rootX0与全圈，未helper恢复。fault/文字间距仅明确组件|**PASS（非自动归位承诺）**；final-real-noJS-keyboard、product2-native-local-keyboard、双组件/原PNG。无屏读/实机/Safari/iOS声称|
 |**T10 P10/其它页冻结**|main草拟/生效/P4/CSV格式SOURCE不动，error与有限文书/库存/结算不染色，不跑经济链|[main/error/shared](../../../ydental_reporting/views/ydental_reporting_templates.xml#L57)、[P4 JS](../../../ydental_reporting/static/src/report_filters/report_filters.js)|两engine原main全DOM仅唯一query_at文本差、error整个main exact；其它computed/fields/statussame。compiled55条新rule都以source root限定；最终CSS仅scrollpadding差之外逐字节same前P11 bundle。3有限旁路持久JSON全same，结算仅pay.actual_utc原now单字段分类。原CSV11列/防公式/接口SOURCE复用P10未重导|**PASS**；final-*-isolation、product2-compiled-css-exact-delta、finite-bypass-json-comparison；6旧Node2保|
 |**T11 完整保全**|必要pre→exit→post；未实现者新physical完整145/13/83refs80文件逐bytes/size/SHA，原金额库存身份价源审计责任保持，技术分类|[完整保护工具](../../../scripts/s13_dl_p11/protected_snapshot.py)、[派生assets](../../../scripts/s13_dl_p11/runtime_assets.py)|唯一f235 reporting-u0/ERROR0/noNative即时完整前后；最终独立新physical588513 RO/RR/rollbackclosed全145/13/九区+4deps同root。83引用/80实际路径/80不同SHA/3共享逐实字节全保；旧18406audit保→18818新增412正常auth/read。其它144业务/config/schema同；技术仅既有5表-u；派生65asset仅CSS15832→15833缓存替换单列。经济库存/原件PDF/打印签署发布/治疗扫码/CSV新增0|**PASS**；final-complete-protection-independent **5ad9a5df…**；不冒全库物理零差|
-|**T12 独立交付/同步/停**|固定产品/工具/运行/报告、完整原PNG包与SHA/7步/失败限度；唯一回执/完整远端读回；owned正常收尾|[summary](summary.md)、[全SHA索引](evidence-index.md)、同CURRENT|5owned/38native0全收尾、新physical588563其它targetconn[]；r1 ZIP9328107B/7e1c32e4…，87成员/83原PNG/6测量，manifest85/SHA86全件/sourcebytes/metadata/privacy独核。工具1fa仅PURE整合，实际变体源独立保。本文/同CURRENT66817本地最终总签53c9d259…已实际PASS；正常refs/全文/唯一P11回执/旧12/37OPEN36CLOSED读回待，不预签同步|**本地PASS / 远端待**；包e399ad93…/privacy3b13e284…、quiescenceeb2c025c…分项已PASS；SYNC_PENDING|
+|**T12 独立交付/同步/停**|固定产品/工具/运行/报告、完整原PNG包与SHA/7步/失败限度；唯一回执/完整远端读回；owned正常收尾|[summary](summary.md)、[全SHA索引](evidence-index.md)、同CURRENT|5owned/38native0全收尾、新physical588563其它targetconn[]；r1 ZIP9328107B/7e1c32e4…，87成员/83原PNG/6测量，manifest85/SHA86全件/sourcebytes/metadata/privacy独核。工具1fa仅PURE整合，实际变体源独立保。本文/同CURRENT66817本地最终总签53c9d259…已实际PASS；首正常refs b328/8fb、30完整UTF8/bytes/SHA/Gitblob、唯一P11 6414490185全文/旧12 idbody/37OPEN36CLOSED与titlebody已独立实际读回PASS，远端总签87db0b06…；最后元数据增量另核|**PASS / SYNCED**；包e399ad93…/privacy3b13e284…、quiescenceeb2c025c…分项已PASS；原SYNC_PENDING时点保|
 
 测试次数、原图或角色数量不是完成门槛。38actual=32Node0/6Node2、38native0、277原PNG/377执行源全核；原失败whole不反签。P11-A01只限定关闭滚动净空与真实完整键盘可达，**native Tab不保证自动完整显现**；相同原横滚状态的手动方向键恢复原件与helper图分开。软件、同步、用户效果分别记，不放宽原后台权限或业务合同。
 
-未实现者本地总签 `53c9d259cac5f685338761c1e1cb7195dabccde247bde60f385e1f7e3e145330` 已发生，原REMOTE_PENDING时点保持；远端T12子项只在正常实际读回后追加，不复开软件/数据库/浏览器。
+未实现者本地总签 `53c9d259cac5f685338761c1e1cb7195dabccde247bde60f385e1f7e3e145330` 已发生，原REMOTE_PENDING时点保持；远端T12子项现已正常实际读回，独立 `87db0b06012510e66fcefbcaa4691e934c837b24e2d5393020abbcd96f23122e` PASS；原REMOTE_PENDING保。最后6文档/ref/同评论元数据另正常核，不复开软件/数据库/浏览器。
+
+API评论真实created/updated时间未观测（全null），未将空字段相等冒真实时间保持；澄清原件e193ff5e…，不影响旧12 id/body及必需同步断言。

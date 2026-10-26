@@ -1,6 +1,6 @@
 # DL-P11 脱敏证据索引
 
-当前本地最终交付总签已实际PASS / TECHNICALLY_COMPLETE（限定P11本地软件）/ SYNC_PENDING；用户亲手效果待确认。原始数据/日志/会话与未编辑原PNG仅保本机忽略目录 `.local/dl-p11/`，不上传Public。本文只列固定候选、实际层级与原件SHA，不代替原实测。
+当前TECHNICALLY_COMPLETE（限定P11软件）/ SYNCED；首远端独立总签已实际PASS，最后元数据另正常核；用户亲手效果待确认。原始数据/日志/会话与未编辑原PNG仅保本机忽略目录 `.local/dl-p11/`，不上传Public。本文只列固定候选、实际层级与原件SHA，不代替原实测。
 
 产品最终 **613fb33bb4fecdb23eff3c46a2d3a1de2a4c1780**；唯一XML加载 **f235c649df0f58403ae3ce50a666ec2c377787a2**；实际最终运行 **7b0601effe6ee2b3cc670087589865b7528a3f18**；公共工具最终发布 **1fa0ac89827bc0d4400fa53e45c7bd63e4c43d01**（机械整合仅SOURCE/PURE，不冒所有actual client同源）。各实际私有变体均保exact executed源/参数/退出/原PNG，不反签旧失败。
 
@@ -196,9 +196,18 @@
 
 ## 正常同步
 
-本地最终总签已实际PASS；main两文档路由及远端ref/完整正文/唯一P11回执/旧12评论/Issue状态将在实际完成后追加，不预签未来自身SHA，不为同步复开DB/服务/浏览器。
+本地53c9…及首远端87db…总签均已实际PASS：首两ref b328/8fb、30完整正文、唯一P11 6414490185全文/旧12 idbody/37OPEN36CLOSED/titlebody exact。最后6文档/ref/同评论增量另实际读回，不循环未来自身SHA，不为同步复开DB/服务/浏览器。
 
 |实际新增独立收据|SHA256|结论|
 |---|---|---|
 |acceptance/final-local-technical-acceptance.json|53c9d259cac5f685338761c1e1cb7195dabccde247bde60f385e1f7e3e145330|66817本地T01—11/T12本地全件总签PASS，REMOTE_PENDING保|
 |acceptance/final-public-candidate-secret-scan-independent.json|24e551cc06b1693c3e2d0def971b92602c5b40d6e2f049784505da30e30e2467|28公开Git blob秘密精确扫描0hit，不含.local|
+
+|实际新增同步原件（私有）|SHA256|结论|
+|---|---|---|
+|acceptance/publish-candidates-independent.json|1241f422d0b6d6987dcb69f0985d0fa4374ca61d9d7cedee9bfed9b06a1b2c84|首b328/8fb纯文档发布增量已独立核|
+|verification/root-remote-first-comparison.json|550f3dccfceba83a5269546207dfc48beb3ec5dfdc270e21695b893d40bd8824|root正常插件30完整文件比对exact，非独立总签|
+|verification/github-first-comment-and-states-readback.json|86a20fe26f4cf63ef203b2850d88f52574b81b41935b11b1deb0d89b12207110|root唯一6414490185/旧12/Issue状态全文exact|
+|acceptance/remote-first-independent.json|87db0b06012510e66fcefbcaa4691e934c837b24e2d5393020abbcd96f23122e|未实现者正常插件两refs/30 FULL/唯一回执全文/旧12 idbody与Issue状态PASS|
+|acceptance/remote-first-timestamp-clarification.json|e193ff5e5cb8ec52a5b1ea9792b947bac119e2dd00bc0112d6494a91685af5bb|旧评论API created/updated全null；真实时间NOT_OBSERVED，原字段空相等不冒时间实测|
+|verification/public-scan-20261026T110410540336.json|bc9b20301bd8b812dc0784e482f2543925ee83569cea186a420d26eabbf5547f|60新reachable blob/31当前文件含main两路由/回执，15正常provider秘密/3强模式0hit；无秘密值或其摘要|

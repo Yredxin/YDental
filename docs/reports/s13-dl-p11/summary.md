@@ -2,9 +2,9 @@
 
 [CODEX-FINAL] YD-S13-DL-P11 / 1.0
 
-技术：TECHNICALLY_COMPLETE（限定P11本地软件；未实现者最终本地总签已实际完成）
+技术：TECHNICALLY_COMPLETE（限定P11软件；T01—12适用项和独立验收已实际完成）
 
-同步：SYNC_PENDING  
+同步：SYNCED（首两ref/30完整正文/唯一回执及Issue状态已实际独立读回；最终元数据增量另正常核）
 用户亲手效果：待确认  
 范围：仅 `/ydental/reports/source/<metric>/<source_id>` 正常 GET 的来源详情呈现。
 
@@ -98,4 +98,6 @@ P11-A01在分摊组件横读→缩窄后实证：native Tab等待两帧+250ms仍
 
 ## 同步与停止
 
-未实现者本地最终总签 **53c9d259cac5f685338761c1e1cb7195dabccde247bde60f385e1f7e3e145330** 已实际PASS（LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING，66817固定审查候选）；T01—11及T12本地适用项成立，限定P11软件 **TECHNICALLY_COMPLETE / SYNC_PENDING**。本次只记录已发生的总签与精确版本/退出时刻，正常远端refs/完整正文/本唯一回执与状态尚待，不预签SYNCED。最终仅#37一份P11回执，保持OPEN；#36 CLOSED，旧12评论不改。main仅必要文档路由，不合产品、不部署。P11完成立即停止；P12/其它页面、完整S13/50活动负载/备份恢复/实机/正式政策/S11组合扫码/真实患者资金和外部通道/生产均未启用。用户亲手效果继续待确认。
+未实现者本地最终总签 **53c9d259cac5f685338761c1e1cb7195dabccde247bde60f385e1f7e3e145330** 已实际PASS（LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING，66817固定审查候选）；T01—11及T12本地适用项成立，原REMOTE_PENDING时点保持。首报告 **b328c5f5b2cb7607a976b699fadeeba059061c47** / main仅两文档路由 **8fb40bd3e2ee82197007f460ecf7d2bd11efede3** 正常push0；未实现者直接正常GitHub插件读取两ref、30完整UTF8/bytes/SHA/Gitblob及[#37唯一P11回执6414490185](https://github.com/Yredxin/YDental/issues/37#issuecomment-6414490185)全文，旧12 id/body、37OPEN/36CLOSED及title/body均exact。首远端独立总签 **87db0b06012510e66fcefbcaa4691e934c837b24e2d5393020abbcd96f23122e** 已实际PASS，T01—12适用项成立，限定P11 **TECHNICALLY_COMPLETE / SYNCED**。最终仅#37一份P11回执，保持OPEN；#36 CLOSED，旧12评论不改。main仅必要文档路由，不合产品、不部署。P11交付已停止；P12/其它页面、完整S13/50活动负载/备份恢复/实机/正式政策/S11组合扫码/真实患者资金和外部通道/生产均未启用。用户亲手效果继续待确认。
+
+本次最后提交只记录已发生的SYNCED/停止元数据，最后4业务文档+2main路由与同一P11评论增量另正常读回；报告自身SHA不循环，不复开软件/DB/包。旧评论created_at/updated_at在API均为null，真实时间NOT_OBSERVED；只声明旧id/body保持，澄清收据 `e193ff5e5cb8ec52a5b1ea9792b947bac119e2dd00bc0112d6494a91685af5bb` 保留首原件。P11交付已停止，用户亲手效果待确认。
