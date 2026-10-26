@@ -1,6 +1,6 @@
 # DL-P10 当前状态｜YD-S13-DL-P10 / 1.0
 
-## W3 实页缺口普通修复 / 未验收 / 未同步
+## W3 最终候选定向验证 / 未完成验收 / 未同步
 
 - 用户直接启用[完整P10计划](docs/execution/S13_DL_P10_IMPLEMENTATION_PLAN.md)，W0—W4连续实施，唯一目标经营报表主页面 `/ydental/reports` / `ydental_reporting.ydental_operating_report_page`。2提交button/6链接定义/2summary，复用原纯mixin及4既有SVG，局部8/12/16/24rem间距；不是重开P9或全站推广。
 - 从clean P9最终 `9ea71c63465ec3ab625f141dbbbe277edd436d90` 正常建立 `codex/s13-dl-p10-report-actions-spacing-r1`，实际origin/HEAD/工作树已核；P9产品5f8f154/实际after7d02a16/唯一6407140114、P1—P9/P5 PARTIAL、原包/失败/UNKNOWN完整保留，无reset/clean/强推/从文档main重建。
@@ -12,7 +12,8 @@
 - 4addon产品文件：主XML/manifest/两局部SCSS，main唯一marker+元素opt-in、nav/scope局部参数默认关，无wrapper/产品JS/后端改动。初产品d2deb2c、纯CSS表格外距唯一归属修68e4cda；SOURCE还原完整XML C14N exact，原生提取86occ/74unique全序全文同；P4两JS两SCSS/sharedmixin/P7/P8/P9原字节保持。manifest追加实际直接access/inventory依赖与两末尾资产；单owner标签8/range24/actions16/展开12等，空totals无外距洞。
 - 首次必要reporting-u实际运行913b7ab pre→exit0/ERROR0/noNative→post，145业务/全部原文件不变，原生技术5类/新增直接依赖2分类，独立22a3ef79…PASS仅此加载层。actual after24c0edc freshregistry两engine5metric/5view/源/错误分项0，原JSON除精确query_at同，320根346/332同；但主控实看PNG/DOM发现nav3与scope-summary无optin，原测试总数阈值被rows凑足漏族，不能签整页通过。独立finding P10-A01/原证据保留。
 - 已核锁定core ir_qweb.py2693 lazy t-call正文，片段不消费0，内部t-set未执行；原生2719支持非t-* call参数。仅main两call改成report_main_actions="True"，默认OFF片段/主CSSscope保持；逐族工具加精确nav3/scope1/其余动作条件断言。actual after run20261026T034221Z-83dea8bb9932于03:45:57.125024Z正常foreground0/child0/groupstop，完整windowpost已采，无经济业务。
-- 当前下一步：固定XML修复/精确族工具→独立当前准入→第二次必要reporting-u即时完整pre/真实退出/post（XML改变所需；不为CSS/工具重复-u）→受影响族/空间及P4/CSV等定向T01—12→独立交付正常收尾。只在计划结束新增一份#37最终P10且OPEN，#36CLOSED，main仅必要路由；正常同步实读，缺证据PARTIAL，用户亲手效果待确认。
+- 修复产品/主要工具/实际第二次加载与最终运行固定b46c1e272803b047e73489520682f0cd98d8ada4。第二次必要reporting-u immediate fullpre→actual0/ERROR0/noNative→post，145business/7区/4deps全同，仅原生5技术类/精确3arch_prev分类，独立8aad00d6…PASS。原生strict15组件12metric和完整逐族optin/图标/条件已独立bcc4dfdf…PASS；这仅native内存层，不代live/权限。两次-u均因实际XML，纯CSS/工具未重复-u。
+- 新owned最终run20261026T035135Z-657e49eb059e在独立当前准入及第二load分类通过后freshregistry启动，当前串行最终双engine逐族/空间/P4/CSV/无JS/zoom与pressure/有限旁路；真实样本与明确组件层分开，原24c0漏族轮保留分项/不倒签整轮。下一步适用T01—12/最终新physical完整独立保护/效果包/正常收尾。仅结束新增一份#37最终P10且OPEN，#36CLOSED，main仅必要路由；正常同步实读，缺证据PARTIAL，用户亲手效果待确认。
 - P10交付后停止。详情页/结算/其它页、完整S13/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/合并部署生产未启用。
 
 ---
