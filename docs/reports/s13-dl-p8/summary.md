@@ -26,4 +26,4 @@ YD-S13-DL-P8 / 1.0；当前实施中，必需动态与独立验收尚未完成�
 
 ## 实施与验证进度
 
-工具准备01590374c6306f66e03b2d2449971b363b2dd44c，产品仍P7。全新scope与独立pre已实际采成；产品暂存在私有目录等待before补采。最终固定候选、适用12项、原件读取字节、完整独立保护、私有包、正常收尾和远端读回将按实际结果补入。
+工具准备01590374c6306f66e03b2d2449971b363b2dd44c，产品仍P7。真实前态6clients按有效分项采齐后正常收尾；首产品a262238及一次print-u/loaded QWeb合同与25中文已通过独立核。实际bundle暴露Odoo import过滤层错误（200是旧CSS而非新样式），原失败保留。修复e81f65d按access原生asset清单先声明purepartial、caller去本地import，独立源码/新准入已核，freshregistry不重复-u；XML/loaded合同未变精确复用。当前新ownedrun执行实际bundle/双引擎影响验证，适用12项、旧文件bytes、全阶段final保护、包、正常收尾和远端读回仍待实际完成。

@@ -12,3 +12,28 @@ a.o_ydental_print_document_action[data-dl-actions="documents-actions"] {
         color: ButtonText !important;
     }
 }
+
+// Preserve P1's native loader and all submit/recovery behavior. Its spinner
+// occupies the existing end padding, so busy never changes button geometry.
+.o_ydental_print_document_action.o_ydental_print_query_button.o_btn_loading[data-dl-actions="documents-actions"] {
+    position: relative;
+
+    .o_btn_loading_spinner {
+        position: absolute;
+        inset: 0 auto;
+        inset-inline-end: 0.125em;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        inline-size: 0.75em;
+        margin: 0;
+        background: transparent;
+        pointer-events: none;
+
+        > .spinner-border {
+            inline-size: 0.75em;
+            block-size: 0.75em;
+            border-width: 0.125em;
+        }
+    }
+}
