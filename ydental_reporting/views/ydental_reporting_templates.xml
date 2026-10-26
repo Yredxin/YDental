@@ -59,7 +59,7 @@
         <t t-call="web.frontend_layout">
             <t t-set="no_header" t-value="True"/><t t-set="no_footer" t-value="True"/>
             <main class="container o_ydental_reporting" data-dl-layout="report-actions-spacing">
-                <t t-call="ydental_reporting.ydental_operating_report_navigation"><t t-set="report_main_actions" t-value="True"/></t>
+                <t t-call="ydental_reporting.ydental_operating_report_navigation" report_main_actions="True"/>
                 <h1 class="o_ydental_reporting_main_spacing_title">Operating reports and source documents</h1>
                 <p class="o_ydental_reporting_notice o_ydental_reporting_main_spacing_intro">Synthetic software definitions await business review. Collections are not revenue; credit notes are not cash refunds. Currencies and units are reported separately.</p>
                 <form action="/ydental/reports" method="get" class="o_ydental_reporting_filters o_ydental_reporting_filter_scope" data-dl-scope="report-filters">
@@ -113,7 +113,7 @@
                 <p t-if="report['filters']['metric'] == 'receivables'" class="o_ydental_reporting_notice o_ydental_reporting_main_spacing_result_notice">Current receivable for the selected original bill date range. Dates do not represent a historical balance cutoff.</p>
                 <p t-elif="report['filters']['period_or_snapshot'] == 'snapshot'" class="o_ydental_reporting_notice o_ydental_reporting_main_spacing_result_notice">Current responsibility or pending amount at query time; dates select the source records.</p>
                 <p t-else="" class="o_ydental_reporting_notice o_ydental_reporting_main_spacing_result_notice">Actual events within the selected local business dates.</p>
-                <t t-call="ydental_reporting.ydental_operating_report_scope"><t t-set="report_main_actions" t-value="True"/></t>
+                <t t-call="ydental_reporting.ydental_operating_report_scope" report_main_actions="True"/>
                 <div class="o_ydental_reporting_totals o_ydental_reporting_main_spacing_totals" aria-label="Totals by currency or unit">
                     <article t-foreach="display['totals']" t-as="total"><strong t-out="total['value']"/><span t-out="total['label']"/><small t-if="total['events'] is not None"><t t-out="total['events']"/> source events</small></article>
                 </div>

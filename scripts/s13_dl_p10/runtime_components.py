@@ -73,10 +73,40 @@ def render(name,metric,empty=False,page=1,count=1):
  assert len(fragment.xpath('.//select[@name="metric"]/option'))==12
  assert len(fragment.xpath('.//form[@action="/ydental/reports/export"]'))==1
  assert not fragment.xpath('.//form//form')
+ def classes(node):return set(node.get('class','').split())
+ def marked(node,variant):
+  assert node.get('data-dl-actions')=='report-actions',(name,node.tag,dict(node.attrib))
+  expected='o_ydental_reporting_main_disclosure' if variant=='disclosure' else 'o_ydental_reporting_main_action_'+variant
+  assert expected in classes(node),(name,expected,dict(node.attrib))
+ def svg_count(node):return len(node.xpath('.//*[local-name()="svg"]'))
+ navigation=fragment.xpath('.//nav')[0]
+ nav_links=navigation.xpath('./a')
+ assert [n.get('href') for n in nav_links]==['/ydental/access','/ydental/documents','/ydental/settlement']
+ assert 'o_ydental_reporting_main_spacing_navigation' in classes(navigation)
+ for node in nav_links:marked(node,'quiet');assert svg_count(node)==0
+ scope=fragment.xpath(".//div[contains(concat(' ',normalize-space(@class),' '),' o_ydental_reporting_scope ')]")
+ assert len(scope)==1 and 'o_ydental_reporting_main_spacing_scope' in classes(scope[0])
+ scope_summary=scope[0].xpath('.//details/summary');assert len(scope_summary)==1
+ marked(scope_summary[0],'disclosure');assert svg_count(scope_summary[0])==0
+ query=fragment.xpath('.//form[@action="/ydental/reports"]//button');assert len(query)==1
+ marked(query[0],'primary');assert svg_count(query[0])==1
+ export=fragment.xpath('.//form[@action="/ydental/reports/export"]//button');assert len(export)==1
+ marked(export[0],'secondary');assert svg_count(export[0])==0
+ row_links=fragment.xpath('.//table/tbody/tr/td/a');assert len(row_links)==(0 if empty else 1)
+ for node in row_links:marked(node,'quiet');assert svg_count(node)==1
+ pager_links=fragment.xpath(".//nav[contains(concat(' ',normalize-space(@class),' '),' o_ydental_reporting_main_spacing_pagination ')]/a")
+ assert len(pager_links)==int(page>1)+int(page*100<report['source_row_count'])
+ for node in pager_links:marked(node,'secondary');assert svg_count(node)==1
+ store_summary=fragment.xpath(".//details[contains(concat(' ',normalize-space(@class),' '),' o_ydental_reporting_main_spacing_store_totals ')]/summary")
+ assert len(store_summary)==(0 if empty else 1)
+ for node in store_summary:marked(node,'disclosure');assert svg_count(node)==0
  components.append({'name':name,'metric':metric,'html':rendered,
   'layer':'ACTUAL_LOADED_QWEB_EXPLICIT_MEMORY_COMPONENT_NOT_REAL_ROLE_SOURCE_OR_BUSINESS',
   'money':money,'state_keys':states,'page':page,'source_row_count':report['source_row_count'],
   'empty':empty,'rendered_controls':{tag:len(fragment.xpath('.//'+tag)) for tag in ('button','a','summary')},
+  'control_family_checks':{'navigation_quiet_no_svg':len(nav_links),'scope_native_disclosure_no_svg':len(scope_summary),
+   'query_primary_search':len(query),'export_secondary_no_svg':len(export),'source_quiet_arrow':len(row_links),
+   'pager_secondary_chevrons':len(pager_links),'store_native_disclosure_no_svg':len(store_summary)},
   'html_sha256':hashlib.sha256(rendered.encode()).hexdigest()})
  return fragment
 

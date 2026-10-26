@@ -1,6 +1,6 @@
 # DL-P10 当前状态｜YD-S13-DL-P10 / 1.0
 
-## W1—W2 产品候选准备 / 未验收 / 未同步
+## W3 实页缺口普通修复 / 未验收 / 未同步
 
 - 用户直接启用[完整P10计划](docs/execution/S13_DL_P10_IMPLEMENTATION_PLAN.md)，W0—W4连续实施，唯一目标经营报表主页面 `/ydental/reports` / `ydental_reporting.ydental_operating_report_page`。2提交button/6链接定义/2summary，复用原纯mixin及4既有SVG，局部8/12/16/24rem间距；不是重开P9或全站推广。
 - 从clean P9最终 `9ea71c63465ec3ab625f141dbbbe277edd436d90` 正常建立 `codex/s13-dl-p10-report-actions-spacing-r1`，实际origin/HEAD/工作树已核；P9产品5f8f154/实际after7d02a16/唯一6407140114、P1—P9/P5 PARTIAL、原包/失败/UNKNOWN完整保留，无reset/clean/强推/从文档main重建。
@@ -9,8 +9,10 @@
 - 主页面独有标记及元素opt-in，shared nav/scope调用参数只在main内默认关；source/error/P7/P8/P9/结算冻结。两reporting产品JS、原字段/form边界/GET/POST/CSRF/revision/草拟与生效范围、指标三参数唯一导航、公式/权限/CSV11列/后端不改。
 - 允许正常GET/query/page/source及有源+exportWRITE普通角色原POST读取既有CSV；原请求/CSV只私有不效果包。经济库存/文书原件PDF/打印签署发布扫码0，不执行。83附件引用/80物理文件及共享引用、旧金额库存/身份作者价源/审计/责任按现场完整清单独立逐bytes/SHA保全。
 - before真实Chromium156.0.8078.4/WebKit27.2各五view/实收实退应收唯一患者lab_pending完整HTML/JSON/来源/错误/summary正常0；本轮320根346/332，不套旧值。三旁路GET有效0；文书first工具双main定位失败Node2/native0原件保，精确定位v2补齐。before owned20261026T032700Z-967020d455f9于03:31:54.313686Z正常foreground0/child0/signull/groupstop；完整before-window-post仅新增91正常读取认证审计、旧18017保持，技术/其它区同。
-- 4addon产品文件：主XML/manifest/两局部SCSS，main唯一marker+元素opt-in、nav/scope局部参数默认关，无wrapper/产品JS/后端改动。SOURCE还原完整XML C14N exact，原生提取86occ/74unique全序全文同；P4两JS两SCSS/sharedmixin/P7/P8/P9原字节保持。manifest追加实际直接access/inventory依赖与两末尾资产；单owner标签8/range24/actions16/展开12等，空totals无外距洞。尚未实际加载或after实测，不预签。
-- 当前下一步：固定产品/after工具候选→独立当前准入→必要唯一reporting-u即时完整pre/真实退出/post→定向T01—12/独立交付与正常收尾。只在计划结束新增一份#37最终P10且OPEN，#36CLOSED，main仅必要路由；正常同步实读，缺证据PARTIAL，用户亲手效果待确认。
+- 4addon产品文件：主XML/manifest/两局部SCSS，main唯一marker+元素opt-in、nav/scope局部参数默认关，无wrapper/产品JS/后端改动。初产品d2deb2c、纯CSS表格外距唯一归属修68e4cda；SOURCE还原完整XML C14N exact，原生提取86occ/74unique全序全文同；P4两JS两SCSS/sharedmixin/P7/P8/P9原字节保持。manifest追加实际直接access/inventory依赖与两末尾资产；单owner标签8/range24/actions16/展开12等，空totals无外距洞。
+- 首次必要reporting-u实际运行913b7ab pre→exit0/ERROR0/noNative→post，145业务/全部原文件不变，原生技术5类/新增直接依赖2分类，独立22a3ef79…PASS仅此加载层。actual after24c0edc freshregistry两engine5metric/5view/源/错误分项0，原JSON除精确query_at同，320根346/332同；但主控实看PNG/DOM发现nav3与scope-summary无optin，原测试总数阈值被rows凑足漏族，不能签整页通过。独立finding P10-A01/原证据保留。
+- 已核锁定core ir_qweb.py2693 lazy t-call正文，片段不消费0，内部t-set未执行；原生2719支持非t-* call参数。仅main两call改成report_main_actions="True"，默认OFF片段/主CSSscope保持；逐族工具加精确nav3/scope1/其余动作条件断言。actual after run20261026T034221Z-83dea8bb9932于03:45:57.125024Z正常foreground0/child0/groupstop，完整windowpost已采，无经济业务。
+- 当前下一步：固定XML修复/精确族工具→独立当前准入→第二次必要reporting-u即时完整pre/真实退出/post（XML改变所需；不为CSS/工具重复-u）→受影响族/空间及P4/CSV等定向T01—12→独立交付正常收尾。只在计划结束新增一份#37最终P10且OPEN，#36CLOSED，main仅必要路由；正常同步实读，缺证据PARTIAL，用户亲手效果待确认。
 - P10交付后停止。详情页/结算/其它页、完整S13/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/合并部署生产未启用。
 
 ---

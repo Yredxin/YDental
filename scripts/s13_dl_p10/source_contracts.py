@@ -15,10 +15,10 @@ def original(name):
 def restore(raw):
     tree=etree.fromstring(raw)
     for node in list(tree.iter()):
-        if node.get('t-set')=='report_main_actions':
-            assert node.get('t-value')=='True'
-            assert node.getparent().get('t-call') in ('ydental_reporting.ydental_operating_report_navigation','ydental_reporting.ydental_operating_report_scope')
-            node.getparent().remove(node)
+        if node.get('report_main_actions') is not None:
+            assert node.get('report_main_actions')=='True'
+            assert node.get('t-call') in ('ydental_reporting.ydental_operating_report_navigation','ydental_reporting.ydental_operating_report_scope')
+            del node.attrib['report_main_actions']
         elif node.get('t-call','').startswith('ydental_inventory.p7_icon_'):
             assert node.get('t-call') in ['ydental_inventory.p7_icon_'+x for x in ['search','arrow_right','chevron_left','chevron_right']]
             node.getparent().remove(node)
