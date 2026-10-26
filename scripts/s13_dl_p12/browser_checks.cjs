@@ -429,11 +429,19 @@ async function components() {
 async function clickPoint(target,kind) {
     await target.evaluate(e=>e.scrollIntoView({block:'center',inline:'nearest'}));
     return target.evaluate((e,kind)=>{
-        const b=e.getBoundingClientRect();let x,y;
-        if(kind==='icon'||kind==='text') {
-            const child=kind==='icon'?e.querySelector('svg'):(e.querySelector('.o_ydental_settlement_action_label')||e.querySelector('span'));
-            if(!child)throw Error('Expected original action '+kind+' target');
+        const b=e.getBoundingClientRect();let x,y,glyph=null;
+        if(kind==='icon') {
+            const child=e.querySelector('svg');if(!child)throw Error('Expected original SVG target');
             const c=child.getBoundingClientRect();x=c.left+c.width/2;y=c.top+c.height/2;
+        } else if(kind==='text') {
+            const child=e.querySelector('.o_ydental_settlement_action_label')||e.querySelector('span')||e;
+            const walk=document.createTreeWalker(child,NodeFilter.SHOW_TEXT);let node;
+            for(let n=walk.nextNode();n;n=walk.nextNode())if(n.textContent.trim()){node=n;break;}
+            if(!node)throw Error('Original action needs visible text');
+            const offset=node.textContent.search(/\S/u),range=document.createRange();range.setStart(node,offset);range.setEnd(node,offset+1);
+            const c=range.getBoundingClientRect();if(c.width<=0||c.height<=0)throw Error('Original first text glyph has no positive Range');
+            x=c.left+c.width/2;y=c.top+c.height/2;glyph={character:node.textContent[offset],rect:c.toJSON(),owner_tag:node.parentElement.tagName};
+            const hit=document.elementFromPoint(x,y);if(!(hit===node.parentElement||node.parentElement.contains(hit)))throw Error('Text click did not hit the original glyph owner');
         } else {
             for(const fy of [.5,.25,.75,.15,.85])for(const fx of [.04,.96,.1,.9,.25,.75,.5]) {
                 const xx=b.left+b.width*fx,yy=b.top+b.height*fy;
@@ -443,7 +451,7 @@ async function clickPoint(target,kind) {
         }
         const hit=document.elementFromPoint(x,y);
         if(!(hit===e||e.contains(hit)))throw Error('Hit test escaped original control');
-        return {x,y,kind,tag:e.tagName,text:e.textContent.trim(),href:e.getAttribute('href'),hit_tag:hit.tagName,hit_class:typeof hit.className==='string'?hit.className:null,box:b.toJSON()};
+        return {x,y,kind,glyph,tag:e.tagName,text:e.textContent.trim(),href:e.getAttribute('href'),hit_tag:hit.tagName,hit_class:typeof hit.className==='string'?hit.className:null,box:b.toJSON()};
     },kind);
 }
 async function clickedEvent(p,target,kind,{component=false}={}) {

@@ -8,7 +8,9 @@
 - 前态实际候选0558abe9bdb5f1f90489934e2f247e6d2be67d8d，12客户端/102原PNG，双engine五view/各native200与root32、有限四旁路均Node0/native0/context关闭。before owned20261026T142243Z-171a760b4d3d于14:35:58.388151Z正常stop/child0/signull/groupstopped；不是只用active标记缺席冒退出。
 - 产品固定 **7c3e2fe89e402c1e4f7b6d0534cfae07bfd0fc6e**，仅XML/manifest/局部SCSS三addon文件；旧P5 SCSS/共享mixin/图标/后台字节保。全XML仅剥class/span/SVG/三原生call opt-in后C14N exact，原页头与首bill起完整后缀原字节exact；native terms231→233仅两个共享重复标签、unique set不变。真实loaded/新按钮/间距/权限尚待after。
 - 新独立fresh准入/physical已核原目标145业务/13技术/83ref/80实际路径/80SHA/3共享保持。before末完整保护旧18818audit逐行保→19478，新660正常认证读取，其它业务/技术/九区same。为继续完整保护原生日志，只把该审计表采集上限20k提高100k，其它20k不变，不删行/不清账/不省投影；工具差异须独核。
-- 待after fresh准入、唯一必要settlement XML加载即时pre→0/log→post与真实浏览器/loaded组件/独立T01—12，未签技术完成；无经济库存/原件PDF/打印签署发布/扫码提交。
+- 唯一必要settlement-u于2df168f已实际native0/ERROR0/noNative；Odoo原生级联下游模块，独立87ba1839…核143业务含19478旧audit same、ir_access20/res_groups69仅write_date/权限成员原值same、7技术表逐ID分类，83ref/80物理及config/schema保持。loaded EN/CN/4内存组件和288共享pager分支、两序列局部call不泄漏已独核a404dfd5…；以后纯CSS不-u。
+- 首after2df168f四客户端Node0/native0，但发现 **P12-A01**：原Trace列内shared横16使summary折2行，窄屏行70.594→103px。原件保留，不冒T03 PASS。root仅把该scope summary横padding改.5em，产品固定 **4cf0b15809494ab8ef108eb4d384a14dbb550df2**；其它共享token/min44/列宽/cell内衬保持。候选文字点击工具由整体span中心改首字Range中心，旧hit_tag=A不反签真实字形点击。
+- 首after owned20261026T144715Z-51fc103732c8已正常stop0/groupstopped，完整保护旧19478audit逐行保→20606，新1128正常auth/read，其余144业务/13技术与loadpost同，文件保持。最终CSS候选须新窗口回归/独立关闭A01及T01—12，尚未技术完成；无经济库存/原件PDF/打印签署发布/扫码提交。
 - W0—W4连续，完成适用T01—12及未实现者独立验收后才交TECHNICALLY_COMPLETE；同步另列。最终#37只一份P12且OPEN，#36 CLOSED，main仅文档路由，不合产品不部署。P12结束立即停止；用户亲手效果待确认。
 
 ---
