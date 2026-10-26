@@ -1,18 +1,22 @@
 # DL-P8 逐项验收矩阵
 
-YD-S13-DL-P8 / 1.0。实施中；以下是待完成断言索引，不是PASS声明。SOURCE/PURE、loaded-QWeb内存、浏览器组件、真实HTTP/浏览器及独立physical分别记录，不能把读取或序列化称为写业务成功。
+YD-S13-DL-P8 / 1.0；最终产品/运行bd8411d4ef50014caddff7128f0c9cf4fe42f122。用户亲手效果待确认。未实现产品或测试工具的`/root/acceptance_p8`独立核验；同OS不冒隔离。SOURCE/PURE、原生loaded QWeb内存、浏览器组件、真实HTTP/BROWSER和独立newphysical分别列。原生读取POST不是生成，表单序列化不是业务执行。
 
-|项|必需断言|当前|
-|---|---|---|
-|T01|25目标节点/9button7summary7a2h2，精确剥离呈现后全原XML合同、两入口opt-in及无新JS/后端|待最终候选|
-|T02|同P7 token/主次/四真实状态/对比度，真实disabled/busy分层|待动态|
-|T03|五既有SVG/几何SHA/许可/中文AX/故障降级/marker|待最终候选及动态|
-|T04|原生提取/loaded中文、图/字/Enter单GET、显式preview一次、P1真实busy和恢复|前态有效分项已采，后态待验|
-|T05|旧pdf_view/download真实bytes/SHA、原追溯/页内链接/有限真实分页|前态30+17页已采，其余待验|
-|T06|generate/print/template/export仅焦点/源码/loadedQWeb/无网络FormData|待最终候选|
-|T07|五视口/长文/根溢出前后/局部表读法|前态补采中|
-|T08|真实Chromium+WebKit、各native200/root200、自然Tab/summary/无JS|前态自然Tab已采，其余待验|
-|T09|普通有源无exportwrite单件读取，无源/跨域原件真实拒绝，旧权限规则精确复用|待验|
-|T10|共享partial无顶层输出，库存有限computed/GET不变，文书字段/iframe/旁路保持|离线暂存CSS完全同；动态待验|
-|T11|必要加载pre/exit/post、最终新physical全阶段145/13及83refs/80files/audit保全|初始独立保护通过；其余待验|
-|T12|未实现者原件/包/完整保护/总签、正常owned收尾、实际同步读回并停止|待完成|
+T01—T11及T12_LOCAL适用事实已获独立PASS，总索引a2bde742…；最终本地正文/状态/README总签80ae088d…已成，最终远端同步待正常推送/实际读回，不预签SYNCED。实际收据完整SHA见[evidence-index](evidence-index.md)，全部测试raw/source/退出保留于`.local/dl-p8/`。
+
+|项|候选、角色/输入与必需预期|实际层级、结果和边界|独立依据|
+|---|---|---|---|
+|T01 范围/合同|9/7/7+2标题、25节点，P1字段例外，GET与preview POST同主模板|**PASS SOURCE/PURE+loaded/BROWSER**：25精确白名单剥离后整个原XML canonical exact；原fields/form/type（含隐式submit）/条件/权限/顺序保持，元素opt-in不按pathname误门控。9产品文件，无产品JS/后端/ACL/schema/PDF改动；两个combobox及现有consent继承区不套新scope；shared partial无顶层输出|product3-strict-source-independent（eb62cf…）；original-source-baseline；native-qweb独立|
+|T02 样式/状态|同P7 token、四状态、真实busy/disabled、实际对比度；doctor9/store1|**PASS actual COMPUTED/BROWSER+COMPONENT**：e81两engine×5view normal/hover/active/focus几何稳定，bd仅busy条件追加，无影响源码精确复用。bd双engine两trusted原读提交中search124.015625×46/preview130.015625×46正常→busy精确同，label/fields/widgets及恢复保持，spinner不遮字且在原padding内。真实none无源disabled另采；component状态不冒实际业务。552状态代表文字min5.2016318344/必要边3.2401343224/focus7.0613212442；非整站认证|main-browser-read-controls-layered-independent（37101c…）；busy-and-webkit-old-PDF-independent（a38b98…）；组件独立|
+|T03 SVG/降级/名称|P7五既有几何/固定源SHA/ISC+MIT；中文与原名称、原marker|**PASS SOURCE+actual DOM/AX+FAULT COMPONENT**：Lucide0.468.0/f12b0de…，原七SVG文件及完整许可不改，P8只call search/arrow-right/chevron-left/right/list；24网格/2线宽/currentColor/相对尺寸/aria-hidden=true/focusable=false。原中文等于native accessible name、无额外Tab，无新runtime/CDN/字体/事件/外href/t-raw。summary原marker；缺SVG、缺CSS及CSS缺失但SVG仍在各明确组件保原字/元素/属性/焦点|product3-strict-source-independent；loaded QWeb；两engine fixtures-v2原件/独立|
+|T04 翻译/事件/P1|q=S，原clinical508:2，图/字/Enter各单GET，required/选择确认取消、显式一次preview及busy恢复|**PASS native提取/loaded+真实BROWSER+内存组件**：123occ/116术语顺序同；25目标occ/24词实际native export/loaded/render同原中文，不靠PO存在推PASS。两engine真实单GET/无源disabled/有源required空值原预拒提交不出网，原两selector确认/取消/自然Tab保持；一次显式preview回action仍同scope。真实trusted P1 spinner/aria-busy/status与navigation恢复；原loaded方法detached adapter另核reset/pageshow/取消，非真实挂载/提交成功|native-source-translation；native-qweb-contracts-translations-independent（e539d27d…）；main/busy/NOJS分层独立|
+|T05 旧原件/页内|doctor9有源无exportwrite；原309 view/download，q=S 30+17前后页/14追溯|**PASS actual BROWSER+正常HTTP+独立旧bytes关联**：原submitter/csrf/revision/original_id/_blank保持，309→attachment15810→真实旧文件及各校验副本57306B/SHA b2d813eb1e4477aeb40810550f7fbd184a524aabc8be1cd1599441d70fe4a4e3。Chrome view601B壳仅壳，另显式same-session正常旧file HTTP真bytes；download同次native文件。WK最终两操作均同次native Download真bytes，旧body等待130不冒通过。47行集/顺序/原状态UTC/hash及实际30+17分页、原href/页内导航合同保持；未新造原件或重验全部历史PDF|chromium-old-PDF-bytes-association（4c0ef7…）；busy-and-webkit-old-PDF-independent；comparison-chrome-main-e81-v1|
+|T06 不提交写合同|generate/print_request/template_create/template_review/export；真实只焦点/开闭|**PASS SOURCE+loaded QWeb/MEMORY+真实自然Tab**：rich/empty/previous/result基线9/7/7覆盖，全部字段/required/disabled/条件/隐式submit/operation/source token契约同；FormData仅无网络内存，秘密值不落盘。五写按钮从原前字段native Tab到达，未激活；未以禁用/隐藏合法能力换零动作。禁止写POST/guardblocks均0；原正向业务实证按未变源码复用，未声称本轮执行写成功|source合同；qweb-controls-v1；main-browser-read-controls-layered-independent；完整保护|
+|T07 响应/长文|两engine五view1366×768/1440×900/768×1024/390×844/320×800；target完整、自然撑高、局部表读法，无新增动作区spill|**PASS SOURCE+当前BROWSER+明确COMPONENT，限定本轮作用域**：五view目标fit原parent、目标client/scroll无溢出；五view长中文首末Range/实际clipper及纵向可达，未改真实文案/隐藏字段/复制DOM。Chrome320 root345与同engine before345实同；WK当前333、其same-engine before及整document具体元凶UNKNOWN，不称333旧值已测或根差值0。全XML/非目标45/12/44 compiled规则原值同，无祖先/global变化+当前target-fit支持无新增P8动作区spill；不冒全页零溢出或全页已适配|main-browser-read-controls-layered-independent；两fixtures-v2/narrow-v2；独立T07限定裁定|
+|T08 双引擎/放大/键盘/JSoff|Chromium156.0.8078.4+WebKit27.2 WPE；各native200/root200，真Tab和native select/details/旧file|**PASS actual native BROWSER/NOJS**：各zoom2/root16/DPR2与独立native1/root32/DPR1分列；Chrome原native200白图不算视觉，3真正CDP viewport图补齐，old metrics/rootfont图有效；WK native与root图清晰。各javaScriptEnabled=false，正常CSRF/密码同context认证、不复制Cookie，桌面/320原select/Tab/preview/旧PDF/details原生截图和真实操作通过。自然Tab片段与矩阵keyboard-modality后directfocus分开，AX不冒屏读/实机|zoom-and-real-nojs-independent（c8f936…）；native CDP raw integrity（8c44e4…）|
+|T09 权限/旧规则|doctor9单份正例；none17无源及approver15跨医疗域旧95真实读拒绝|**PASS actual HTTP/BROWSER+SOURCE精确复用**：doctor无exportwrite合法单件200真bytes；none实际空源disabled/required，非把空shell200当拒绝；none/approver的pdf_view/download各原后端403/access_denied。无临时授撤权；模板入口可见不代表授权。源/撤权旧页/门店revision/批量双权限保持，明确复用P1最终8dea H17及P3固定2×200/8×403与S12/UX证据，不重旧权限全链|permission/fixture/bypass原件；full projection权限保持；旧P1/P3矩阵及独立|
+|T10 共享/旁路|P7 warehouse13有限query/source/summary/confirm焦点，P1字段/iframe，doc继承/print/report/settlement有限代表|**PASS 限定SOURCE+实际前后采样，非全文same**：P7全部采样computed（含rect）/fields strict exact，原popup/print exact；doc继承forms/computed同（scope_count目标增加0→165）。Chrome q input与label各-34对应Search自然+34，原grid不改；其余采样style同。iframe attrs及UTC单时戳外prefix/suffix字节同，时间为采后精确分类，不伪称before预声明/全文same。WK无自身before computed，3cell width跨engine精度差原值留。reports4处today date echo25→26已前态声明；settlement27checkbox中fee88 index6→0、其余26相对序同及actual_utc原时点不同，独立冻结today/history源码+pre event日期解释午夜原生重组，不排序伪same。其余采样attrs/style/值同；其它页scope0|comparison-final-full-v1（b89ac1…）；bypass-independent（108a4e5b…）；SOURCE/raw原值|
+|T11 加载/全保护|唯一print-u即时pre→actualexit→post；final新physical全业务/文件/旧audit|**PASS loading+INDEPENDENT NEW PHYSICAL RO/RR**：一次必要-u exit0/ERROR0/noNative；后两纯资产freshregistry实际new bundle不重复-u，唯一load主1618 arch及原生日期/8技术类/39views及两依赖精确分类。final新physical440896完整145/13九区same root f66d61…，同事务4deps及83refs真文件→80path/80SHA全保。旧17631audit逐行同，新181=177accepted+4旧PDF读denied（原handler categoryexport不冒bulk export），原资金/库存/身份价源/责任/原件无增改删；本轮原件/PDF生成/打印/模板/库存经济扫码0|final-protection-independent（0357de…）；final-physical-snapshot（97de1c…）；product1-load-protection-independent（c98d6a…）|
+|T12 独立交付/同步/停止|原始source/command/exit/图/bytes/包/完整保护与独立总签；远端实际读回|**PASS 本地总签80ae088d…（逐T索引a2bde742…）；REMOTE_PENDING如实分列**。27实际clients=21×0/5×2/1×130、27native均0；165原PNG路径/148不同SHA逐项验证，旧白图/失败保持；owned最后00:53:00.708240UTC child0/signull/groupstopped，独立OS411a4342…和包5d985066…已实际PASS，37原PNG/40成员/39manifest，SHA8afb9922…，无秘密/原件PDF/程序/字体；2张WK130图只复用已签UI分项，wholeFAILED不变。#37仅新增一P8最终记录并OPEN、旧9全文/id保留，#36 CLOSED；main仅两路由、无产品合并部署|client-index-final-v1（0d6680…）；test-layer-summary-final-v1（5b6eac…）；最终OS/包/本地已成；远端随后按实际补记|
+
+完整状态和截图不是所有历史业务的重新执行证明。首产品asset注册缺陷、+32px busy、普通locator/序列化/角色预期、WK130读体及Chrome白图都保留原件与候选；只有实际有效断言按源码影响复用，不把失败整轮反签。用户效果、真实设备/正式政策、完整S13与其它页面、负载恢复、组合扫码、真实患者资金/外部通道及产品合并部署生产未启用。
