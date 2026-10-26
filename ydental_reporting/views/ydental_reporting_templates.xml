@@ -5,18 +5,18 @@
     </record>
     <menuitem id="ydental_operating_report_menu" name="Operating reports and source documents" action="ydental_operating_report_action" groups="ydental_base.ydental_base_group_user"/>
     <template id="ydental_operating_report_navigation" name="Operating report navigation">
-        <nav aria-label="Business navigation" t-att-class="'o_ydental_reporting_navigation o_ydental_reporting_main_spacing_navigation' if report_main_actions else 'o_ydental_reporting_navigation'">
-            <a href="/ydental/access" t-att-class="'o_ydental_reporting_main_action o_ydental_reporting_main_action_quiet' if report_main_actions else None" t-att-data-dl-actions="'report-actions' if report_main_actions else None">Current store and permissions</a>
-            <a href="/ydental/documents" t-att-class="'o_ydental_reporting_main_action o_ydental_reporting_main_action_quiet' if report_main_actions else None" t-att-data-dl-actions="'report-actions' if report_main_actions else None">Document originals</a>
-            <a href="/ydental/settlement" t-att-class="'o_ydental_reporting_main_action o_ydental_reporting_main_action_quiet' if report_main_actions else None" t-att-data-dl-actions="'report-actions' if report_main_actions else None">Settlement workbench</a>
+        <nav aria-label="Business navigation" t-att-class="'o_ydental_reporting_navigation o_ydental_reporting_main_spacing_navigation' if report_main_actions else ('o_ydental_reporting_navigation o_ydental_reporting_source_navigation' if report_detail_actions else 'o_ydental_reporting_navigation')">
+            <a href="/ydental/access" t-att-class="'o_ydental_reporting_main_action o_ydental_reporting_main_action_quiet' if report_main_actions else ('o_ydental_reporting_source_action o_ydental_reporting_source_action_quiet' if report_detail_actions else None)" t-att-data-dl-actions="'report-actions' if report_main_actions else ('report-source-actions' if report_detail_actions else None)">Current store and permissions</a>
+            <a href="/ydental/documents" t-att-class="'o_ydental_reporting_main_action o_ydental_reporting_main_action_quiet' if report_main_actions else ('o_ydental_reporting_source_action o_ydental_reporting_source_action_quiet' if report_detail_actions else None)" t-att-data-dl-actions="'report-actions' if report_main_actions else ('report-source-actions' if report_detail_actions else None)">Document originals</a>
+            <a href="/ydental/settlement" t-att-class="'o_ydental_reporting_main_action o_ydental_reporting_main_action_quiet' if report_main_actions else ('o_ydental_reporting_source_action o_ydental_reporting_source_action_quiet' if report_detail_actions else None)" t-att-data-dl-actions="'report-actions' if report_main_actions else ('report-source-actions' if report_detail_actions else None)">Settlement workbench</a>
         </nav>
     </template>
     <template id="ydental_operating_report_scope" name="Effective report scope">
-        <div t-att-class="'o_ydental_reporting_scope o_ydental_reporting_main_spacing_scope' if report_main_actions else 'o_ydental_reporting_scope'">
+        <div t-att-class="'o_ydental_reporting_scope o_ydental_reporting_main_spacing_scope' if report_main_actions else ('o_ydental_reporting_scope o_ydental_reporting_source_scope' if report_detail_actions else 'o_ydental_reporting_scope')">
             <p><strong>Authorized report scope:</strong> <t t-out="display['scope']"/> · <t t-out="display['companies']"/></p>
             <p><strong>Local source dates:</strong> <t t-out="report['filters']['date_from']"/> — <t t-out="report['filters']['date_to']"/> · <t t-out="display['currency']"/> · <t t-out="display['state_label']"/></p>
             <p><strong>Queried at (UTC):</strong> <t t-out="report['filters']['query_at_utc']"/></p>
-            <details><summary t-att-class="'o_ydental_reporting_main_disclosure' if report_main_actions else None" t-att-data-dl-actions="'report-actions' if report_main_actions else None">Store timezones and effective UTC boundaries</summary>
+            <details><summary t-att-class="'o_ydental_reporting_main_disclosure' if report_main_actions else ('o_ydental_reporting_source_disclosure' if report_detail_actions else None)" t-att-data-dl-actions="'report-actions' if report_main_actions else ('report-source-actions' if report_detail_actions else None)">Store timezones and effective UTC boundaries</summary>
                 <ul><li t-foreach="display['bounds']" t-as="bound"><t t-out="bound['label']"/> · <t t-out="bound['timezone']"/>:
                     <t t-out="bound['start_utc']"/> ≤ UTC &lt; <t t-out="bound['end_exclusive_utc']"/>
                 </li></ul>
@@ -27,31 +27,31 @@
     <template id="ydental_operating_report_source" name="Reauthorized operating report source detail">
         <t t-call="web.frontend_layout">
             <t t-set="no_header" t-value="True"/><t t-set="no_footer" t-value="True"/>
-            <main class="container o_ydental_reporting o_ydental_reporting_source">
-                <t t-call="ydental_reporting.ydental_operating_report_navigation"/>
-                <p><a t-att-href="return_url">Return to the same report filters and page</a></p>
-                <h1 t-out="title"/>
-                <p class="o_ydental_reporting_notice">This is an authorized view of current source facts. Viewing does not collect, refund, receive or move stock.</p>
-                <t t-call="ydental_reporting.ydental_operating_report_scope"/>
+            <main class="container o_ydental_reporting o_ydental_reporting_source" data-dl-layout="report-source-detail">
+                <t t-call="ydental_reporting.ydental_operating_report_navigation" report_detail_actions="True"/>
+                <p class="o_ydental_reporting_source_return"><a t-att-href="return_url" class="o_ydental_reporting_source_action o_ydental_reporting_source_action_secondary" data-dl-actions="report-source-actions"><t t-call="ydental_inventory.p7_icon_chevron_left"/><span class="o_ydental_reporting_source_action_label" t-translation="on">Return to the same report filters and page</span></a></p>
+                <h1 t-out="title" class="o_ydental_reporting_source_heading"/>
+                <p class="o_ydental_reporting_notice o_ydental_reporting_source_intro">This is an authorized view of current source facts. Viewing does not collect, refund, receive or move stock.</p>
+                <t t-call="ydental_reporting.ydental_operating_report_scope" report_detail_actions="True"/>
                 <article t-foreach="display['rows']" t-as="row" class="o_ydental_reporting_source_card">
                     <h2 t-out="row['source_label']"/>
-                    <p t-out="row['patient_label']"/>
-                    <p><strong t-out="row['quantity']['value']"/> · <t t-out="row['quantity']['label']"/> · <t t-out="row['state_label']"/></p>
-                    <p><strong>Business date / source time:</strong> <t t-out="row['event_label']"/></p>
-                    <dl class="o_ydental_reporting_facts"><t t-foreach="row['facts_display']" t-as="fact"><dt t-out="fact[0]"/><dd t-out="fact[1]"/></t></dl>
-                    <div t-if="row['allocations']" class="o_ydental_reporting_table_wrap" tabindex="0" role="region" aria-label="Selected bills and current native allocations">
+                    <p t-out="row['patient_label']" class="o_ydental_reporting_source_patient"/>
+                    <p class="o_ydental_reporting_source_quantity"><strong t-out="row['quantity']['value']"/> · <t t-out="row['quantity']['label']"/> · <t t-out="row['state_label']"/></p>
+                    <p class="o_ydental_reporting_source_date"><strong>Business date / source time:</strong> <t t-out="row['event_label']"/></p>
+                    <dl class="o_ydental_reporting_facts o_ydental_reporting_source_facts"><t t-foreach="row['facts_display']" t-as="fact"><dt t-out="fact[0]"/><dd t-out="fact[1]"/></t></dl>
+                    <div t-if="row['allocations']" class="o_ydental_reporting_table_wrap o_ydental_reporting_source_allocations" tabindex="0" role="region" aria-label="Selected bills and current native allocations">
                         <table class="table"><thead><tr><th>Selected bill</th><th>Original amount</th><th>Native collection allocation</th><th>Current receivable</th></tr></thead>
-                            <tbody><tr t-foreach="row['allocations']" t-as="allocation"><td><a t-att-href="allocation['url']" t-out="allocation['number']"/></td><td t-out="allocation['total']"/><td t-out="allocation['allocated']"/><td t-out="allocation['balance']"/></tr></tbody>
+                            <tbody><tr t-foreach="row['allocations']" t-as="allocation"><td><a t-att-href="allocation['url']" t-out="allocation['number']" class="o_ydental_reporting_source_action o_ydental_reporting_source_action_quiet" data-dl-actions="report-source-actions"/></td><td t-out="allocation['total']"/><td t-out="allocation['allocated']"/><td t-out="allocation['balance']"/></tr></tbody>
                         </table>
                     </div>
-                    <p t-if="row['requires_store_switch']" class="o_ydental_reporting_notice">Select this source store through the normal store selector before opening its business page. Report access does not grant cross-store handling permission.</p>
-                    <p><a t-att-href="row['business_url']">Open the source business page</a> · <a t-att-href="row['native_url']">Native source document (permissions checked again)</a></p>
-                    <details><summary>Technical trace and complete source facts</summary>
+                    <p t-if="row['requires_store_switch']" class="o_ydental_reporting_notice o_ydental_reporting_source_store_notice">Select this source store through the normal store selector before opening its business page. Report access does not grant cross-store handling permission.</p>
+                    <p class="o_ydental_reporting_source_links"><a t-att-href="row['business_url']" class="o_ydental_reporting_source_action o_ydental_reporting_source_action_quiet" data-dl-actions="report-source-actions"><span class="o_ydental_reporting_source_action_label" t-translation="on">Open the source business page</span><t t-call="ydental_inventory.p7_icon_arrow_right"/></a><a t-att-href="row['native_url']" class="o_ydental_reporting_source_action o_ydental_reporting_source_action_quiet" data-dl-actions="report-source-actions">Native source document (permissions checked again)</a></p>
+                    <details class="o_ydental_reporting_source_trace"><summary class="o_ydental_reporting_source_disclosure" data-dl-actions="report-source-actions">Technical trace and complete source facts</summary>
                         <p><t t-out="row['source_model']"/> / <t t-out="row['source_id']"/></p>
                         <pre t-out="row['trace']"/>
                     </details>
                 </article>
-                <p><a t-att-href="return_url">Return to the same report filters and page</a></p>
+                <p class="o_ydental_reporting_source_return o_ydental_reporting_source_return_tail"><a t-att-href="return_url" class="o_ydental_reporting_source_action o_ydental_reporting_source_action_secondary" data-dl-actions="report-source-actions"><t t-call="ydental_inventory.p7_icon_chevron_left"/><span class="o_ydental_reporting_source_action_label" t-translation="on">Return to the same report filters and page</span></a></p>
             </main>
         </t>
     </template>

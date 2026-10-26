@@ -12,6 +12,7 @@
         'ydental_reporting/static/src/report_filters/report_filters.js',
         'ydental_reporting/static/src/report_actions/report_actions.scss',
         'ydental_reporting/static/src/report_spacing/report_spacing.scss',
+        'ydental_reporting/static/src/report_source_detail/report_source_detail.scss',
     ]},
     'installable': True,
 }
