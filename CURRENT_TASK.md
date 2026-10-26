@@ -6,7 +6,7 @@
 - 从clean P7最终9f5ce4626895cb8f3da0562d9170e79220728378正常创建 `codex/s13-dl-p8-documents-actions-icons-r1`；origin/main现场994a9e4路由已读，本地旧main不作产品基线。P7产品52d5422/唯一回执6399387525及P1—P7旧交付、P5 PARTIAL、旧包/失败/UNKNOWN不改。
 - root唯一产品/状态/报告写者和运行主控；testing_p8测试工具/浏览器，runtime_p8新scope/运行/加载/保护与loaded QWeb工具，acceptance_p8未实现产品或测试工具的独立验收。同OS不冒隔离，旧期限/STOP/guard不改。
 - W0核9button/7summary/7a及最多2标题，P1两动态combobox明确排除。原字段/隐式submit/权限/顺序/P1 JS保持；GET与preview POST同模板元素opt-in。允许preview/pdf_view/download读取，禁止generate/print_request/template_create/template_review/export live提交。
-- 唯一旧合成目标/OID2171423/cluster7694897083368259627及原filestore；83附件引用/80唯一文件逐项保护，旧17431+P7新增200审计均作为历史。P8已新scope（23:44:36UTC起8h，旧记录不改）；真实0159037初态准入、独立新physical423333完整145/13投影和423365逐引用文件核通过，历史17631audit全保/新0。before owned run20261025T234648Z-b60cc8fa8fb6（无-u）已于23:53:10UTC正常child0/signull/groupstopped，端口/active空。前态6clients=3×0/3×2全部native0，原工具定位/角色预期失败保留；实际47原件30+17页/5view/preview与库存及旁路已按有效分项采齐。产品8文件及设计说明已应用，待最终后态工具一并固定和必要print-only加载。
+- 唯一旧合成目标/OID2171423/cluster7694897083368259627及原filestore；83附件引用/80唯一文件逐项保护，旧17431+P7新增200审计均作为历史。P8已新scope（23:44:36UTC起8h，旧记录不改）；真实0159037初态准入、独立新physical423333完整145/13投影和423365逐引用文件核通过，历史17631audit全保/新0。before owned run20261025T234648Z-b60cc8fa8fb6（无-u）已于23:53:10UTC正常child0/signull/groupstopped，端口/active空。前态6clients=3×0/3×2全部native0，原工具定位/角色预期失败保留；实际47原件30+17页/5view/preview与库存及旁路已按有效分项采齐。首产品a262238的唯一print-u已正常0，并获独立保护c98d6a55…；loaded QWeb25中文/9/7/7合同通过。真实浏览器发现本地SCSS@import被原生asset sanitizer拒绝，HTTP200为旧CSS，不签新视觉；已正常stop after1（00:06:21UTC child0/ports空）。本次按native manifest先注册purepartial、caller去import修复，不改安全检查/core/XML/业务；fresh registry直接读manifest，无必要重复-u，待新候选实际bundle/computed。
 - 最终交三报告、私有效果包、独立保护及一份#37 P8最终评论；#37 OPEN/#36 CLOSED，main只必要路由。缺必需验收则PARTIAL；完成P8后停止。
 
 ---

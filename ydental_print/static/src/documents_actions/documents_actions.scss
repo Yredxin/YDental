@@ -1,5 +1,5 @@
-// The main QWeb template opts in for GET and preview POST returns alike.
-@import "ydental_access/static/src/scss/actions";
+// The dependency asset declares the mixin before this template opt-in.
+// GET and preview POST returns use the same explicit element scope.
 @include o-ydental-actions("o_ydental_print_document", "documents-actions",
     ".o_ydental_print_document_action_heading");
 

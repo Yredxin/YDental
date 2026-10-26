@@ -207,7 +207,7 @@ Lucide采用 `0.468.0 / f12b0de177fbc2a6795e99be065887e72b237123`，原文件及
 
 [完整P8计划](../execution/S13_DL_P8_IMPLEMENTATION_PLAN.md)仅启用文书主模板`ydental_document_page`的25个动作/标题呈现定义；GET和POST preview回页均按元素`data-dl-actions="documents-actions"`启用。两动态combobox仍为P1字段，不套按钮变体；现有同意/临床集合/设备故障继承入口保持。P7技术交付保持，用户亲手效果不反签；后续报表、结算及其它页面仍未启用。
 
-DL-15—20的唯一通用规范源机械提取到`ydental_access/static/src/scss/_actions.scss`的`o-ydental-actions` mixin，单独不输出CSS。库存原`inventory_actions.scss`以原选择器/opt-in调用；文书`documents_actions.scss`以独立`o_ydental_print_document_*`元素类调用。tokens/变体/原生marker/焦点/状态规则相同，不创建主题设置或全局控件覆盖；提取前后库存源码编译与有限实际computed另作影响验证，不重跑P7业务。
+DL-15—20的唯一通用规范源机械提取到`ydental_access/static/src/scss/_actions.scss`的`o-ydental-actions` mixin，单独不输出CSS；由access的frontend资产清单依赖顺序先声明，调用者不使用本地`@import`。库存原`inventory_actions.scss`以原选择器/opt-in调用；文书`documents_actions.scss`以独立`o_ydental_print_document_*`元素类调用。tokens/变体/原生marker/焦点/状态规则相同，不创建主题设置或全局控件覆盖；提取前后库存源码编译与有限实际computed另作影响验证，不重跑P7业务。
 
 文书查询secondary、预览primary，查看原件及五工作区链接quiet，下载/打印请求/导出/分页secondary，生成/各管理表单提交primary，summary为原生disclosure。强调不表示已经生成、审核或签署；生成、打印、模板创建审核发布、导出本轮不live提交。允许原preview读取HTML、pdf_view/download读旧bytes；源码/内存合同和真实读取分层。
 

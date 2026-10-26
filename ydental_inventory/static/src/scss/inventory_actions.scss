@@ -1,4 +1,3 @@
-// Preserve the exact P7 selectors and declarations through the shared mixin.
-@import "ydental_access/static/src/scss/actions";
+// The dependency asset declares the mixin before this unchanged P7 scope.
 @include o-ydental-actions("o_ydental_inventory", "inventory-actions",
     ".o_ydental_inventory_lookup");
