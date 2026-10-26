@@ -4,7 +4,7 @@
 
 活动分支 `codex/s13-dl-p12-settlement-readonly-actions-spacing-r1`。[活动CURRENT](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p12-settlement-readonly-actions-spacing-r1/CURRENT_TASK.md) · [完整限定计划](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p12-settlement-readonly-actions-spacing-r1/docs/execution/S13_DL_P12_IMPLEMENTATION_PLAN.md) · [结果/7步复现](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p12-settlement-readonly-actions-spacing-r1/docs/reports/s13-dl-p12/summary.md) · [T01—12矩阵](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p12-settlement-readonly-actions-spacing-r1/docs/reports/s13-dl-p12/acceptance-matrix.md) · [证据索引](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p12-settlement-readonly-actions-spacing-r1/docs/reports/s13-dl-p12/evidence-index.md)。
 
-当前技术 **PARTIAL（A04原生横向焦点未过）**、同步 **SYNC_PENDING**、owned/browser已停止；用户亲手效果待确认。本地报告e7924ad，最终产品ba3a5b0da4f3a8d2b27c3c5f84fbf533896f104f、实际最后运行0f1deb837ed469deb9d5e2e8dcb819863ad59a0d、公共工具a161aa3f956d16eb24dc4255955202db002f5857（机械SOURCE/PURE，不冒70actual共同源）。最终独立包/文本/远端同步旁签待实际登记，不能以同步或保护PASS代技术全通过。
+当前技术 **PARTIAL（A04原生横向焦点未过）**、同步 **SYNCED（仅传输）**、owned/browser已停止；用户亲手效果待确认。本地报告e7924ad，最终产品ba3a5b0da4f3a8d2b27c3c5f84fbf533896f104f、实际最后运行0f1deb837ed469deb9d5e2e8dcb819863ad59a0d、公共工具a161aa3f956d16eb24dc4255955202db002f5857（机械SOURCE/PURE，不冒70actual共同源）。最终独立包/文本/远端同步旁签待实际登记，不能以同步或保护PASS代技术全通过。
 
 A04实证：明确loaded pending组件768×1024，可信右读保36后Tab首列summary，双engine真实当前normal asset双轴8px已加载，充分settled仍left26<clip50；一次可信ArrowLeft可恢复原active/标签/圈/rootX0，不能代原生Tab门槛。同序before未观测不冒新回归，也不借P11旧限制豁免。没有已验证且合本轮冻结边界的修复；不引产品JS/不改表格策略/不削标准。T07/T08焦点缺项公开保留。
 
@@ -22,3 +22,6 @@ P12交付后立即停止；P13/结算办理美化/其它岗位全站/完整S13/5
 
 
 本地最终独立交付审计已实际接受PARTIAL记录：总项3d3d982f938ff5d0fec4db8f9e5a4fa6ca7a2e9a159ba8d7e4c18243ec4bbf88、公开56新blobs秘密0hit及全文核a5399dfd…、all70/700源/1003原PNG/210收据与原命令退出f4f569d6…、包2e83a4b4…已成。T08/A04仍FAIL，不签TECHNICALLY_COMPLETE；远端refs/唯一回执与旧13保持待实际读回。原初SYNC_PENDING时点保留，之后不为报告或同步复开软件/DB。
+
+
+实际同步已独立成立：首业务9cf8057/main仅两路由abef497正常push，33完整文件/唯一P12回执 [6422670245](https://github.com/Yredxin/YDental/issues/37#issuecomment-6422670245)全文/旧13 idbody/37OPEN36CLOSED与#23/#36/#37 titlebody exact，旁签e4ef772ad7df6a7fd836a2bad657bad54e4e526f84c3b73aa72867d6560d2455。当前 **PARTIAL / SYNCED（仅传输）/ STOPPED**，A04/T08仍FAIL，用户效果待确认。原首发PENDING保，最后仅元数据ref/六正文/同评论另正常读回，不循环自身未来hash，不为报告重开app/DB/browser，不合产品不部署，P12交付后停止。

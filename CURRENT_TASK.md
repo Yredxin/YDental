@@ -4,7 +4,7 @@ YD-COLLAB-V2.0 / WORKFLOW-V3。main仅规则与文档路由，不是业务代码
 
 - 用户2026-10-26完整启用限定 **YD-S13-DL-P12 / 1.0**：结算患者查询及三段只读费用区的统一按钮/静态SVG/层级间距；唯一lookup root在首出账details前结束，不重开P11/不扩办理或全站。
 - 活动分支 `codex/s13-dl-p12-settlement-readonly-actions-spacing-r1`；[活动CURRENT](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p12-settlement-readonly-actions-spacing-r1/CURRENT_TASK.md) · [完整限定计划](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p12-settlement-readonly-actions-spacing-r1/docs/execution/S13_DL_P12_IMPLEMENTATION_PLAN.md) · [结果/7步复现](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p12-settlement-readonly-actions-spacing-r1/docs/reports/s13-dl-p12/summary.md) · [T01—12矩阵](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p12-settlement-readonly-actions-spacing-r1/docs/reports/s13-dl-p12/acceptance-matrix.md) · [证据索引](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p12-settlement-readonly-actions-spacing-r1/docs/reports/s13-dl-p12/evidence-index.md)。
-- 技术 **PARTIAL / A04 OPEN**，同步 **SYNC_PENDING**，软件运行已STOPPED；用户亲手效果待确认。已实现限定UI，但loaded pending组件768保横读36→Tab首列summary，双engine原生settled仍left26<clip50，一次可信ArrowLeft恢复不代原生Tab完整PASS。同序before未测，不冒新回归/不借P11豁免；不引产品JS/不改表策略/不削门槛。
+- 技术 **PARTIAL / A04 OPEN**，同步 **SYNCED（仅传输）**，软件运行已STOPPED；用户亲手效果待确认。已实现限定UI，但loaded pending组件768保横读36→Tab首列summary，双engine原生settled仍left26<clip50，一次可信ArrowLeft恢复不代原生Tab完整PASS。同序before未测，不冒新回归/不借P11豁免；不引产品JS/不改表策略/不削门槛。
 - 最终产品 **ba3a5b0da4f3a8d2b27c3c5f84fbf533896f104f**；实际最后运行 **0f1deb837ed469deb9d5e2e8dcb819863ad59a0d**；公共工具 **a161aa3f956d16eb24dc4255955202db002f5857** 仅机械整合SOURCE/PURE，70actual逐执行源/命令/退出另保，不冒共同来源；本地报告候选 **e7924ad0b9df76c13b7fbf05e27ca1798242e373**（最终包/正文/同步独核旁签随后登记）。
 - 仅3addon，原P5scss/mixin/SVG双许可/全部产品JS/backend/ACL/schema/财务库存保持；全XML装饰还原C14N与首bill起完整后缀byte exact。原GET q只候选，patient_id明确选，原三段/钱日/actor/reason/独立页码及共享其它办理calls保持；loaded288/两父序列无flag泄漏。间距8/12/16/24与桌24窄16按单owner，空态32→16；A01/A02/A03修复与旧原件保持，A04仍未过。
 - 70actual=56Node0/14Node2，70native0/context正常close，1003原PNG/700执行源路径保；12strictFAIL+2COMPLETE_WITH_OPEN_A04不倒签。双engine真实5view/两种200/noJS/普通32控件完整主路径、真后端403/400、有限其它页冻结和四组件long/empty/pager/states/fault分层已采；focus子项受A04限制，不冒Safari/iOS/屏读/实机或用户效果。
@@ -15,3 +15,6 @@ YD-COLLAB-V2.0 / WORKFLOW-V3。main仅规则与文档路由，不是业务代码
 
 
 本地最终独立交付审计已实际接受PARTIAL记录：总项3d3d982f938ff5d0fec4db8f9e5a4fa6ca7a2e9a159ba8d7e4c18243ec4bbf88、公开56新blobs秘密0hit及全文核a5399dfd…、all70/700源/1003原PNG/210收据与原命令退出f4f569d6…、包2e83a4b4…已成。T08/A04仍FAIL，不签TECHNICALLY_COMPLETE；远端refs/唯一回执与旧13保持待实际读回。原初SYNC_PENDING时点保留，之后不为报告或同步复开软件/DB。
+
+
+实际同步已独立成立：首业务9cf8057/main仅两路由abef497正常push，33完整文件/唯一P12回执 [6422670245](https://github.com/Yredxin/YDental/issues/37#issuecomment-6422670245)全文/旧13 idbody/37OPEN36CLOSED与#23/#36/#37 titlebody exact，旁签e4ef772ad7df6a7fd836a2bad657bad54e4e526f84c3b73aa72867d6560d2455。当前 **PARTIAL / SYNCED（仅传输）/ STOPPED**，A04/T08仍FAIL，用户效果待确认。原首发PENDING保，最后仅元数据ref/六正文/同评论另正常读回，不循环自身未来hash，不为报告重开app/DB/browser，不合产品不部署，P12交付后停止。
