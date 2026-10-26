@@ -2,7 +2,7 @@
 
 [CODEX-FINAL] YD-S13-DL-P11 / 1.0
 
-技术：LOCAL_ACCEPTANCE_PENDING（软件、独立完整保护和效果包分项通过，待本地最终正文总签）
+技术：TECHNICALLY_COMPLETE（限定P11本地软件；未实现者最终本地总签已实际完成）
 
 同步：SYNC_PENDING  
 用户亲手效果：待确认  
@@ -64,7 +64,7 @@ root 为唯一产品/状态/报告写者及运行调度；`runtime_p11` 实现�
 
 真实原收款来源只读：实收300；原账单270/分摊270/当前应收0，与原账单200/分摊30/当前应收170；这是既有两分摊，不重做收款。患者/金额币种精度/业务时间/状态/facts/完整 trace 按原投影对照。动态 query_at 只分类 scope 第三段唯一原生字段，保留前后原值；不删除其它时间或排序。
 
-SOURCE/loaded/真实浏览器、内存组件、故障组件分列。多卡和长中文/连续哈希/60行追溯只用有【P11夹具】标识的 loaded QWeb 与原产品 CSS，未创建持久业务。四分支双engine共52实际投影、每engine26批完整文本首末Range与342次焦点观察已独立逐值核验；五view、长值native200/root32、文字间距和缺CSS/SVG故障均注明组件。首末字符以真实普通window/local滚动补读，不改CSS/文本/可见阈值；不能把组件冒真实多来源、真实授权或真实多页。
+实际Chromium156.0.8078.4与WebKit27.2 WPE，driver1.64.0-beta-1791568591000。SOURCE/loaded/真实浏览器、内存组件、故障组件分列。多卡和长中文/连续哈希/60行追溯只用有【P11夹具】标识的 loaded QWeb 与原产品 CSS，未创建持久业务。四分支双engine共52实际投影、每engine26批完整文本首末Range与342次焦点观察已独立逐值核验；五view、长值native200/root32、文字间距和缺CSS/SVG故障均注明组件。首末字符以真实普通window/local滚动补读，不改CSS/文本/可见阈值；不能把组件冒真实多来源、真实授权或真实多页。
 
 当前真实普通uid5/16的source8读200，none17、无源、非法店过滤真403，无临时提权。既有followup55/store2来源读200且默认跨店提醒可见；原business GET实际200，只显示当前StoreA范围、与该店2来源交集为空，既有控制器行为，不写成403、不自动切店。P10主页面/error双engine原computed/fields/status严格同，error整个main HTML exact，主页面只分类唯一query_at文本节点后全C14N same。三有限旁路原字段/样式保持，结算仅原pay.actual_utc默认now单字段保两原值，不办理。
 
@@ -84,7 +84,7 @@ P11-A01在分摊组件横读→缩窄后实证：native Tab等待两帧+250ms仍
 
 最终0400只读包 `.local/dl-p11/viewing/S13-DL-P11-view-only-20261026-r1.zip`：**9,328,107B / SHA256 7e1c32e45aff99eb34613abf918378eb57401a9a869f1161dd183c7513c58773**。87成员/83未编辑原PNG（83不同SHA）/6有限测量；manifest85数据项/SHA表86非self项及整体ZIP均独立全核。每图保actual capture candidate/uid5/viewport/rootFont/DPR/scroll/场景，真实同一source8前后与fixture/fault、native Tab partial/普通ArrowLeft恢复分层。构造时manifest PENDING保原字节，最终外部独立签 **e399ad9387eb0d1824dafb02d4d803a62263abaffc827f3a713ac1ac536f567c** / 隐私与视觉 **3b13e2845ecede3bf26f1970743ec61d2072da10b6f8bf3e5ccd0fb2d2296892**，不循环回写未来签名。无凭据/Cookie/profile/原请求/配置/完整DB投影/原件PDF/CSV/字体/程序，不Public上传；旧包原字节保持。
 
-5个owned窗口全部正常foreground/child0/groupstop；最终run `20261026T100710Z-f7eda0f7b9af` 于2026-10-26约10:35UTC正常stop（准确时间/exit见索引）。38原生浏览器正常退出，全部owned profiles/known PID/marker/18411和12空，独立另新physical588563其它target连接[]。未改/未停共享主服务，无临时授权需撤回。独立收尾 **eb2c025c64b2cbff0cb9170c9f7e635ee351da28df87c2fa397e72d23ae1464c**；之后仅离线工具/报告/包与正常同步，不为报告复开DB/app/browser。
+5个owned窗口全部正常foreground/child0/groupstop；最终run `20261026T100710Z-f7eda0f7b9af` 于 **2026-10-26T10:35:51.660196Z** 正常stop。38原生浏览器正常退出，全部owned profiles/known PID/marker/18411和12空，独立另新physical588563其它target连接[]。未改/未停共享主服务，无临时授权需撤回。独立收尾 **eb2c025c64b2cbff0cb9170c9f7e635ee351da28df87c2fa397e72d23ae1464c**；之后仅离线工具/报告/包与正常同步，不为报告复开DB/app/browser。
 
 ## 普通岗位7步复现
 
@@ -98,4 +98,4 @@ P11-A01在分摊组件横读→缩窄后实证：native Tab等待两帧+250ms仍
 
 ## 同步与停止
 
-适用软件断言、独立完整保护/包/正常收尾分项均已通过；本地最终报告总签与正常远端同步仍待，不预签TECHNICALLY_COMPLETE或SYNCED。最终仅#37一份P11回执，保持OPEN；#36 CLOSED，旧12评论不改。main仅必要文档路由，不合产品、不部署。P11完成立即停止；P12/其它页面、完整S13/50活动负载/备份恢复/实机/正式政策/S11组合扫码/真实患者资金和外部通道/生产均未启用。用户亲手效果继续待确认。
+未实现者本地最终总签 **53c9d259cac5f685338761c1e1cb7195dabccde247bde60f385e1f7e3e145330** 已实际PASS（LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING，66817固定审查候选）；T01—11及T12本地适用项成立，限定P11软件 **TECHNICALLY_COMPLETE / SYNC_PENDING**。本次只记录已发生的总签与精确版本/退出时刻，正常远端refs/完整正文/本唯一回执与状态尚待，不预签SYNCED。最终仅#37一份P11回执，保持OPEN；#36 CLOSED，旧12评论不改。main仅必要文档路由，不合产品、不部署。P11完成立即停止；P12/其它页面、完整S13/50活动负载/备份恢复/实机/正式政策/S11组合扫码/真实患者资金和外部通道/生产均未启用。用户亲手效果继续待确认。
