@@ -1,3 +1,20 @@
+# DL-P10 当前状态｜YD-S13-DL-P10 / 1.0
+
+## W0 接管与准备 / 未验收 / 未同步
+
+- 用户直接启用[完整P10计划](docs/execution/S13_DL_P10_IMPLEMENTATION_PLAN.md)，W0—W4连续实施，唯一目标经营报表主页面 `/ydental/reports` / `ydental_reporting.ydental_operating_report_page`。2提交button/6链接定义/2summary，复用原纯mixin及4既有SVG，局部8/12/16/24rem间距；不是重开P9或全站推广。
+- 从clean P9最终 `9ea71c63465ec3ab625f141dbbbe277edd436d90` 正常建立 `codex/s13-dl-p10-report-actions-spacing-r1`，实际origin/HEAD/工作树已核；P9产品5f8f154/实际after7d02a16/唯一6407140114、P1—P9/P5 PARTIAL、原包/失败/UNKNOWN完整保留，无reset/clean/强推/从文档main重建。
+- root唯一产品/状态/报告写者及运行调度；runtime_p10运行/保护工具，testing_p10浏览器/合同工具，复用未参与本次实现的acceptance_p9独立验收，同OS不冒隔离。先工具/候选/独立ready后必要窗口；尚未启服务/加载/业务操作。
+- 运行只既有synth OID2171423/cluster7694897083368259627/原filestore、锁定core f0c5a9b；runtime新physical477597 RO/RR正常退出核身份/旧audit18017/其它连接空、owner/18411和12空。原uid5门店1/2 exportWRITE、reader16有源exportREAD、doctor9/none17原权限，无grant。新scope不改旧时间/STOP/guard。
+- 主页面独有标记及元素opt-in，shared nav/scope调用参数只在main内默认关；source/error/P7/P8/P9/结算冻结。两reporting产品JS、原字段/form边界/GET/POST/CSRF/revision/草拟与生效范围、指标三参数唯一导航、公式/权限/CSV11列/后端不改。
+- 允许正常GET/query/page/source及有源+exportWRITE普通角色原POST读取既有CSV；原请求/CSV只私有不效果包。经济库存/文书原件PDF/打印签署发布扫码0，不执行。83附件引用/80物理文件及共享引用、旧金额库存/身份作者价源/审计/责任按现场完整清单独立逐bytes/SHA保全。
+- 当前下一步：固定准备候选，独立当前准入及完整before保护/合成视图，双engine本轮before；随后最小实现/必要加载/定向T01—12/独立交付与正常收尾。只在计划结束新增一份#37最终P10且OPEN，#36CLOSED，main仅必要路由；正常同步实读，缺证据PARTIAL，用户亲手效果待确认。
+- P10交付后停止。详情页/结算/其它页、完整S13/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/合并部署生产未启用。
+
+---
+
+以下完整保留P9及更早交付/保护/不可重放历史；历史“P10未启用”仅由本次明确用户授权替代。
+
 # DL-P9 当前状态｜YD-S13-DL-P9 / 1.0
 
 ## TECHNICALLY_COMPLETE（限定P9本地软件）/ SYNCED / 用户亲手效果待确认
