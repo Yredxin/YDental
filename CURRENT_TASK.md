@@ -1,3 +1,19 @@
+# DL-P11 当前状态｜YD-S13-DL-P11 / 1.0
+
+## IN_PROGRESS / W0 定界与前态 / 尚未产品验收
+
+- 用户2026-10-26明确启用[完整P11限定计划](docs/execution/S13_DL_P11_IMPLEMENTATION_PLAN.md)，W0—W4连续实施，仅正常GET来源详情页 `ydental_reporting.ydental_operating_report_source`。非重开P10、非全站；不改controller/service/ACL/model/指标/CSV/原链接或返回条件；不执行业务POST、原件/PDF/打印或经济库存链。
+- 已读固定GPT_HANDOFF、main规则/路由、P10活动状态/完整计划/三报告及#23/#37当前正文/有效增量。实际origin为Yredxin/YDental，原工作树clean，P10最终6d74bbe0b95fc1dbfbacd51e9d2475ee52749e36与远端一致，正常建立 `codex/s13-dl-p11-report-source-detail-r1`，无reset/clean/强推/从文档main重建。
+- root唯一产品/报告/状态写者及运行调度；runtime_p11运行与完整保护工具，testing_p11浏览器/合同/效果包工具，acceptance_p11未实现产品或对应工具者独立SOURCE/准入/新physical完整保护/包/最终验收。实际独立agent线程，共享OS不冒隔离；当前无其它主控调度。共享主服务保持，不启动旧窗口。
+- 当前P11新scope已准备，旧scope/STOP不改。现场RO前态145业务/13技术，83附件引用/80真实路径/80不同SHA/3共享引用；未实现者新physical513239 RO/RR/rollbackclosed完整九区与root和P10末态exact。独立准备收据3c1d9010…；尚非运行准入或产品通过。必要窗口未启动。
+- 承接P10产品/实际最后运行8a1547a14f5647d6a49555c8ab7f9ceb658511e3、工具2c18d3271b49ab1ba2d6622e1755ed9678a97997、报告6d74bbe/唯一#37 6408631886。P1—P10交付/早期PARTIAL/旧失败UNKNOWN/旧原件和金额库存/身份作者价源/未完成责任全部保留，不重放历史全链。
+- 仅既有synth `ydental_s11_synth_20261023_01` / OID2171423 / cluster7694897083368259627 / 原filestore；最终需未实现者新physical RO/RR和现场逐bytes/size/SHA独核，不能以计数或主控结果代替。正常读取审计与必要技术变化分类，不宣称全库物理零变化。
+- 阶段中不向GitHub发中间进度；最终只在#37新增唯一P11回执保持OPEN，#36 CLOSED、P1—P10旧评论不改；main仅必要文档路由。P11完成即停；后续/完整S13/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/合并部署生产未启用；用户亲手效果待确认。
+
+---
+
+以下完整保留P10及更早已交付状态与历史边界；历史“P11未启用”仅由本次明确授权替代。
+
 # DL-P10 当前状态｜YD-S13-DL-P10 / 1.0
 
 ## TECHNICALLY_COMPLETE（限定P10软件）/ SYNCED / 用户亲手效果待确认
