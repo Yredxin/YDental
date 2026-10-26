@@ -34,13 +34,12 @@
             display: block;
         }
 
-        &:empty {
-            margin-block: 0;
-        }
     }
 
+    // The preceding candidate container owns this leading space even when
+    // QWeb leaves whitespace in its zero-height empty list.
     .o_ydental_settlement_search > .o_ydental_settlement_empty {
-        margin-block: 1rem 0;
+        margin-block: 0;
     }
 
     .o_ydental_settlement_search_pager {
