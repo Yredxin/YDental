@@ -12,3 +12,6 @@ YD-COLLAB-V2.0 / WORKFLOW-V3。main仅规则与文档路由，不是业务代码
 - 6owned正常退出，70native/browser/context正常关，独立c148f336…核knownPID/profile/ports/markers及新RO683713其它targetconn空。私有0400 r1ZIP9949005B/SHA9ecdf42f…，94成员/90原PNG，PARTIAL/A04明确，不Public上传、旧包不覆盖。必要新physical已完成，之后不为报告或同步复开软件/DB。
 - #37最终只新增一份P12且OPEN，#36 CLOSED，旧13回执/title/body不改；正常同步与独立全文读回待实际登记，不用SYNCED代技术通过。
 - **P12交付后停止**，不自动P13/结算办理/全站/完整S13/负载恢复/实机/正式政策/S11组合扫码/真实患者资金外部通道/产品合并部署生产。P11产品613fb33/运行7b0601e/工具1fa0ac8/报告bd0f73a/[唯一6414490185](https://github.com/Yredxin/YDental/issues/37#issuecomment-6414490185)和P1—P11旧PARTIAL/失败/UNKNOWN均在原Git/活动CURRENT保留。
+
+
+本地最终独立交付审计已实际接受PARTIAL记录：总项3d3d982f938ff5d0fec4db8f9e5a4fa6ca7a2e9a159ba8d7e4c18243ec4bbf88、公开56新blobs秘密0hit及全文核a5399dfd…、all70/700源/1003原PNG/210收据与原命令退出f4f569d6…、包2e83a4b4…已成。T08/A04仍FAIL，不签TECHNICALLY_COMPLETE；远端refs/唯一回执与旧13保持待实际读回。原初SYNC_PENDING时点保留，之后不为报告或同步复开软件/DB。
