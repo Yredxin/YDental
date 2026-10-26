@@ -4,7 +4,7 @@
 
 技术：TECHNICALLY_COMPLETE（限定P8软件）
 
-同步：SYNC_PENDING（首正常推送及完整远端读回待实际完成）
+同步：SYNCED（首业务/main两ref、30全文、唯一P8评论/旧9及Issue状态已真实独立读回；末元数据增量另实际核）
 
 用户亲手效果：待确认
 
@@ -100,6 +100,8 @@ P8只调用P7五个既有静态QWeb片段`p7_icon_search/arrow_right/chevron_lef
 
 ## 同步与停止
 
-本地技术与完整独立保护、包及正常收尾均已成立。首正常commit/push、业务/main两ref、必要完整UTF8正文/字节/Gitblob、#37唯一新P8全文/旧9逐id-body和#37OPEN/#36CLOSED的实际远端读回待最后同步；当前不预签SYNCED。main仅CURRENT_TASK/GPT_HANDOFF路由，不合产品、不部署。
+首技术报告 **0e4e1d4037e4ff77ced8669f2be5a2e66a4debb1** 与main仅两路由 **68727492bbb23429cb42443747edcd56df2b719f** 已正常push。正常GitHub connector实际读30完整UTF8正文，bytes与Gitblob逐一exact；唯一新P8回执 [6406133603](https://github.com/Yredxin/YDental/issues/37#issuecomment-6406133603) 全4511chars与预期全文同，旧9逐id/body全保，#37 OPEN/#36 CLOSED及原title/body同。未实现者首远端同步独立总签 **547b0cee9db2aa745039f13643104433969c75991b87119275eedc39df00dc9e** 已实际PASS，结合80ae088d…本地总签，T01—12本批适用项成立，**TECHNICALLY_COMPLETE / SYNCED**，用户亲手效果待确认。原本地REMOTE_PENDING时点保留。
 
-P8交付后停止。最终实际报告锚点、唯一P8评论ID及同步事实在发生后更新，不循环把最后回执自身hash嵌入自身。
+最后四文档只更新这些已发生的同步与停止事实；其最终ref/完整正文和同一评论增量另外实际读回并保私有收据，不预签未知SHA，也不把该末回执hash循环嵌入自身。产品/运行bd841、完整保护与私有包不变，没有新HTTP/DB/浏览器/业务动作。
+
+P8交付后停止。#37仅本一份P8最终记录，旧9评论及P5历史不改；#36保持CLOSED，main只必要路由，不合产品、不部署，不自动开始后续页面或完整S13。
