@@ -11,6 +11,7 @@ exports.projection = () => {
                 'overflowY','whiteSpace','overflowWrap','minWidth','tableLayout'
             ].map(k => [k,s[k]]))};
     };
+    const actionInfo = e => {const paragraphs=[...e.querySelectorAll(':scope > p')],p=paragraphs.at(-1),anchors=[...p.querySelectorAll('a')];if(anchors.length!==2)throw Error('Exactly two original business/native actions required');return {paragraphIndex:paragraphs.length-1,labels:anchors.map(a=>a.textContent.trim()),hrefs:anchors.map(a=>a.getAttribute('href')),separator:anchors[0].nextSibling?.nodeType===Node.TEXT_NODE?anchors[0].nextSibling.textContent:''};};
     const links = el => [...el.querySelectorAll('a')].map(a => ({
         text:a.textContent.trim(),href:a.getAttribute('href')}));
     const details = el => [...el.querySelectorAll('details')].map(d => ({
@@ -21,7 +22,7 @@ exports.projection = () => {
         scope:[...m.querySelector('.o_ydental_reporting_scope').children]
             .map(e=>e.textContent), links:links(m), details:details(m),
         cards:[...m.querySelectorAll('.o_ydental_reporting_source_card')].map(e=>({
-            title:e.querySelector('h2').textContent,
+            title:e.querySelector('h2').textContent,actionParagraph:actionInfo(e),
             paragraphs:[...e.querySelectorAll(':scope > p')].map(p=>p.textContent),
             facts:[...e.querySelectorAll('dt,dd')].map(f=>({tag:f.tagName,text:f.textContent})),
             tables:[...e.querySelectorAll('table')].map(t=>({
@@ -52,5 +53,6 @@ exports.semantic = value => {
     if(matches?.length!==1)throw Error('Unique typed native UTC field required');
     copy.scope[2]=copy.scope[2].replace(matches[0],'<NATIVE_QUERY_AT_UTC>');
     copy.details.forEach(x=>delete x.open);
+    for(const card of copy.cards){const [business,native]=card.links.slice(-2),index=card.paragraphs.length-1,oldExpected=business.text+' · '+native.text;if(card.actionParagraph){if(card.actionParagraph.paragraphIndex!==index||card.actionParagraph.labels[0]!==business.text||card.actionParagraph.labels[1]!==native.text||!['','·'].includes(card.actionParagraph.separator.trim()))throw Error('Business/native presentation separator outside whitelist');delete card.actionParagraph;}else if(card.paragraphs[index].trim()!==oldExpected)throw Error('Original business/native paragraph exact separator required');card.paragraphs[index]=business.text+'<PRESENTATION_GAP>'+native.text;}
     return copy;
 };

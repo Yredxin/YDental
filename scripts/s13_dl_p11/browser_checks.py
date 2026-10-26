@@ -53,7 +53,7 @@ def main():
     if args.fixture_file:
         command.extend(['--fixture-file', args.fixture_file])
     dependencies = [Path(__file__), source, source.with_name('browser_source.cjs'),
-                    ROOT / 'scripts/s13/browser_client.py', ROOT / 'scripts/s13_dl_p11/http_client.py', ROOT / 'scripts/s13_dl_p11/admission_probe.py', ROOT / 'scripts/s13_dl_p11/launcher.py',
+                    ROOT / 'scripts/s13/browser_client.py', ROOT / 'scripts/s13_dl_p11/browser_client.py', ROOT / 'scripts/s13_dl_p11/http_client.py', ROOT / 'scripts/s13_dl_p11/admission_probe.py', ROOT / 'scripts/s13_dl_p11/launcher.py',
                     ROOT / '.local/dl-p3/tools/webkit_finite_zoom_bridge.cjs',
                     ROOT / '.local/dl-p3/verification/webkit_plugins_environment.cjs']
     for index, item in enumerate(dependencies):

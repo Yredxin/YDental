@@ -95,6 +95,7 @@ def main():
     output = args.output.resolve()
     if output.parent != (PRIVATE / 'runtime').resolve() or output.exists():
         raise RuntimeError('Use a fresh file within the P11 private runtime directory.')
+    output.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
     runtime, admission, database, branch, candidate = launcher.validate_pair()
     directory = PRIVATE / 'verification' / ('native-components-' + args.label)
     directory.mkdir(mode=0o700, parents=True)
