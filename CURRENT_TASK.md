@@ -1,3 +1,17 @@
+# DL-P12 当前状态｜YD-S13-DL-P12 / 1.0
+
+## IN_PROGRESS / W0 当前准入与真实前态准备
+
+- 用户2026-10-26明确启用限定P12，交付完整计划与“继续”；[实施计划](docs/execution/S13_DL_P12_IMPLEMENTATION_PLAN.md)。仅结算既有`settlement-lookup`根，首出账details前闭合；不重开P11、不美化办理区或全站。
+- clean P11最终`bd0f73a99eb6f49c27d99a5db4cc6d4f8dedf008`承接分支`codex/s13-dl-p12-settlement-readonly-actions-spacing-r1`，无reset/clean/强推/从main重建。P11产品613fb33/实际7b0601e/工具1fa0ac8/唯一#37 6414490185全部保留。
+- root唯一产品/计划/报告/状态/路由写者与运行调度；runtime_p12运行工具及加载、testing_p12合同/浏览器/包工具、acceptance_p12未实现产品或对应工具者独立准入/physical RO/总验收。同OS不冒隔离。主控和runtime曾发生capacity，原私有中间收据保留；本次同线程正常恢复，不换模型/账号/入口。
+- 当前只有工具SOURCE准备，尚无运行/产品/浏览器或T01—12 PASS。新scope和fresh独立准入后才开必要窗口；83引用/80原文件/三共享、145业务/13技术（现场核）完整保全。无经济库存/原件PDF/打印签署发布/扫码提交。
+- W0—W4连续，完成适用T01—12及未实现者独立验收后才交TECHNICALLY_COMPLETE；同步另列。最终#37只一份P12且OPEN，#36 CLOSED，main仅文档路由，不合产品不部署。P12结束立即停止；用户亲手效果待确认。
+
+---
+
+以下原文保留P11及更早全部历史；历史“P12未启用”仅由当前授权替代，不反签旧事实。
+
 # DL-P11 当前状态｜YD-S13-DL-P11 / 1.0
 
 ## TECHNICALLY_COMPLETE（限定P11软件）/ SYNCED / 用户亲手效果待确认
