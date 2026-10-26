@@ -1,6 +1,6 @@
 # DL-P11 当前状态｜YD-S13-DL-P11 / 1.0
 
-## IN_PROGRESS / W1—W2 局部视觉实现 / 尚未产品验收
+## IN_PROGRESS / W3 定向验证 / 尚未最终产品验收
 
 - 用户2026-10-26明确启用[完整P11限定计划](docs/execution/S13_DL_P11_IMPLEMENTATION_PLAN.md)，W0—W4连续实施，仅正常GET来源详情页 `ydental_reporting.ydental_operating_report_source`。非重开P10、非全站；不改controller/service/ACL/model/指标/CSV/原链接或返回条件；不执行业务POST、原件/PDF/打印或经济库存链。
 - 已读固定GPT_HANDOFF、main规则/路由、P10活动状态/完整计划/三报告及#23/#37当前正文/有效增量。实际origin为Yredxin/YDental，原工作树clean，P10最终6d74bbe0b95fc1dbfbacd51e9d2475ee52749e36与远端一致，正常建立 `codex/s13-dl-p11-report-source-detail-r1`，无reset/clean/强推/从文档main重建。
@@ -8,6 +8,7 @@
 - W0完整前态已固定：未实现者新physical513239 RO/RR/rollbackclosed完整145业务/13技术/九区与P10末态exact，83refs/80实际路径/80不同SHA逐bytes保，3共享引用保持。before两个owned窗口已正常stop/foreground0；8客户端=7Node0/1Node2，全部native0/context正常close。首Chrome布局main双层选择器错保Node2，其有效五view/原值/两return与summary分层保；只补Chrome main/error、WK五view、各native200/root32和三有限只读旁路，未重放业务。
 - before全阶段18501 audit相对P10末18406仅新增95正常accepted认证/查询/钻取/有限旁路，其它144业务/13技术/九区与83原引用文件保持。原生QWeb4内存组件已单独标明非真实授权/非持久业务，首缺输出目录native1普通工具错与修复保。原source本页320/390根宽393本轮前态已实测，不套P10主页面346/332旧数据。
 - 当前产品仅3addon文件：source/shared局部opt-in的XML、manifest末新增单SCSS、source独立report_source_detail.scss。source唯一marker+元素动作scope，nav/scope原生call局部report_detail_actions，P10分支保持；共享动作mixin与原P7 chevron_left/arrow_right复用，唯独业务/native两链接装饰点由12px gap替代，原quantity/scope/facts点与文字/值/URL全保。间距单owner，桌24/窄16，table列/单元10px保持。必要加载、after双engine/权限/独立最终保护与效果包待做，不冒已通过。
+- 产品已固定f235c649df0f58403ae3ce50a666ec2c377787a2，实际必要唯一reporting-u亦f235，native0/ERROR0/noNative；即时完整pre→exit→post无业务/附件/配置schema变化，5原生技术类、3arch及原main backup已独立精确分类，4deps保持。独立加载040e2001…、actual loaded5view双语言/4内存分支/逐族ad64dbe7…均实际PASS，未代浏览器。工具4deabb3后补长值首末Range/局部横读，源码与产品候选分列；无需重复-u。after HTTP/双engine/最终完整新physical保护/包/同步尚待。
 - 承接P10产品/实际最后运行8a1547a14f5647d6a49555c8ab7f9ceb658511e3、工具2c18d3271b49ab1ba2d6622e1755ed9678a97997、报告6d74bbe/唯一#37 6408631886。P1—P10交付/早期PARTIAL/旧失败UNKNOWN/旧原件和金额库存/身份作者价源/未完成责任全部保留，不重放历史全链。
 - 仅既有synth `ydental_s11_synth_20261023_01` / OID2171423 / cluster7694897083368259627 / 原filestore；最终需未实现者新physical RO/RR和现场逐bytes/size/SHA独核，不能以计数或主控结果代替。正常读取审计与必要技术变化分类，不宣称全库物理零变化。
 - 阶段中不向GitHub发中间进度；最终只在#37新增唯一P11回执保持OPEN，#36 CLOSED、P1—P10旧评论不改；main仅必要文档路由。P11完成即停；后续/完整S13/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/合并部署生产未启用；用户亲手效果待确认。
