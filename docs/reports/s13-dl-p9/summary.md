@@ -3,7 +3,7 @@
 [CODEX-FINAL] YD-S13-DL-P9 / 1.0
 
 技术：TECHNICALLY_COMPLETE（限定P9本地软件）
-同步：SYNC_PENDING
+同步：SYNCED（首两ref/34完整正文/唯一P9回执及旧10/Issue状态已独立实际读回；末元数据增量另读）
 用户亲手效果：待确认
 完成范围：文书主页面间距与留白；继承三块仅外距；非全站
 完整S13、后续页面、合并部署生产：未启用
@@ -84,6 +84,6 @@ after owned run `20261026T021012Z-d241867b77e3` 于 **2026-10-26T02:30:15.610853
 
 ## 同步与停止
 
-未实现者本地最终正文/状态/工具总签 **67f8af87eaf871b61ac54c7810fc644c50ccd8c7e00d0996e2c5db0bd4a6bc78** 已PASS（实际审0ac54de/clean），结合9d6a2aa4…本地层总索引，限定P9软件TECHNICALLY_COMPLETE；当时REMOTE_PENDING保留。正常commit/push、main两必要路由、#37唯一P9最终结果/旧10评论、#37OPEN/#36CLOSED实际读回另按已发生事实更新。未同步不写SYNCED；不循环自嵌未来自身hash，不为元数据重复软件/数据库/包验收。
+未实现者本地最终正文/状态/工具总签 **67f8af87eaf871b61ac54c7810fc644c50ccd8c7e00d0996e2c5db0bd4a6bc78** 已PASS（实际审0ac54de/clean），结合9d6a2aa4…本地层总索引，限定P9软件TECHNICALLY_COMPLETE；当时REMOTE_PENDING保留。首技术报告 **8b218e5b5e15c31a2327aa342416bb9c9b0e1f83** 与main仅两路由 **9ff513b632b123a0f54a8db07cafd073af8238b5** 正常push，未实现者直接正常connector读两ref/34 FULL正文/唯一新P9回执[6407140114](https://github.com/Yredxin/YDental/issues/37#issuecomment-6407140114)及旧10逐id/body、37OPEN/36CLOSED/titlebody全exact；首远端独立总签 **325083662a966f0088ecb84597b6586b3c2e4f32522c2441cef9efbdb8429a4c** 已PASS，结合67f8af87…本地总签，T01—12适用项成立，TECHNICALLY_COMPLETE / SYNCED。初发SYNC_PENDING时点不改；本次仅记录已发生元数据，最后ref/正文/同一P9评论增量另正常读回，不循环自身未来hash。未同步不写SYNCED；不循环自嵌未来自身hash，不为元数据重复软件/数据库/包验收。
 
 P9交付后停止。后续报表/结算/库存或其它页面推广、完整S13、合并部署生产未启用。

@@ -2,7 +2,7 @@
 
 YD-S13-DL-P9 / 1.0。产品5f8f15416521486f156e2932dd0b577c25d970f9，实际after/唯一加载7d02a16c429993e36971ce065bf78d56a4d72fb8；before ee15b39（产品P8）。私有根`.local/dl-p9/`。公共不上传原PNG、PDF副本、完整DB投影、provider、配置、session或原始日志/请求。hash/文件存在不是PASS，实际层级见[矩阵](acceptance-matrix.md)。
 
-本地适用软件总索引9d6a2aa4…已独立签T01—11及T12包/收尾；最终本地正文/状态/工具总签 **67f8af87eaf871b61ac54c7810fc644c50ccd8c7e00d0996e2c5db0bd4a6bc78** 已PASS（0ac54de/clean），原REMOTE_PENDING时点保；远端另按实际补记，不提前声称SYNCED。用户亲手效果待确认。
+本地适用软件总索引9d6a2aa4…已独立签T01—11及T12包/收尾；最终本地正文/状态/工具总签 **67f8af87eaf871b61ac54c7810fc644c50ccd8c7e00d0996e2c5db0bd4a6bc78** 已PASS（0ac54de/clean），原REMOTE_PENDING时点保；首远端独立 **325083662a966f0088ecb84597b6586b3c2e4f32522c2441cef9efbdb8429a4c** 已实际PASS，TECHNICALLY_COMPLETE / SYNCED；最后元数据增量另普通读回，不反签未来。用户亲手效果待确认。
 
 ## 独立收据（完整SHA256）
 
@@ -24,6 +24,7 @@ YD-S13-DL-P9 / 1.0。产品5f8f15416521486f156e2932dd0b577c25d970f9，实际afte
 |acceptance/final-physical-snapshot.json|41c08b040a5793f4878e7c8b555ec394dfbd4f220387ce77fca9b6264813c1f4|READONLY_PROTECTED_BASELINE_COMPLETE_NO_UPGRADE_AUTHORIZATION|
 |acceptance/final-protection-independent.json|0e86f0a1411a260fe0bcc728a764c32aeb732e42b5d3fd6daa0dae3f397d2816|P9_FINAL_FULL_STAGE_INDEPENDENT_NEW_PHYSICAL_PROTECTION_PASS|
 |acceptance/final-quiescence-independent.json|7e5d6e7c6bc63baaeb0639e28a74b24e8b93c436777b3bfce89c233fdbda0f4c|P9_OWNED_SERVICES_BROWSERS_TARGET_CONNECTIONS_QUIESCENCE_INDEPENDENT_PASS|
+|acceptance/remote-initial-synchronization-independent.json|325083662a966f0088ecb84597b6586b3c2e4f32522c2441cef9efbdb8429a4c|P9首业务/main两ref、34完整正文、唯一6407140114、旧10/Issue状态实际独立PASS|
 |acceptance/local-technical-acceptance-independent.json|67f8af87eaf871b61ac54c7810fc644c50ccd8c7e00d0996e2c5db0bd4a6bc78|LOCAL_TECH_ACCEPTANCE_PASS_REMOTE_PENDING|
 |acceptance/local-acceptance-index-independent.json|9d6a2aa4f57b5a9bc961582228e6a30eaa0b0231c0cbedb298e46b326f638cc0|P9_T01_TO_T11_AND_T12_ARTIFACT_STOP_LOCAL_INDEPENDENT_PASS_FINAL_REPORTS_AND_REMOTE_PENDING|
 |acceptance/narrow-finalsettlement-browser-integrity.json|3c98d1f7e5e6c67c2edaf9d12e189649a8af528b37a5575b6884bc790b647f7b|P9_INDEPENDENT_BROWSER_RAW_INTEGRITY_REVIEWED_NOT_ALL_T_ACCEPTANCE|
@@ -125,3 +126,5 @@ P1 JS/ARIA/fallback/pageshow/reset与P8按钮内部/状态合同、P1/P3/P8未�
 320根Chrome345/WebKit333本轮same，未改区根因UNKNOWN；真实OS IME、屏读/设备/Safari/iOS、正式政策/完整S13/负载恢复/组合扫码/真实患者资金外部通道及合并部署生产未启用，用户亲手待确认。旧失败/UNKNOWN/P5 PARTIAL与P1—P8旧评论/包不改。
 
 最终元数据只按实际ref/完整正文/唯一P9评论及旧10/Issue状态读回补记；不循环自身未来hash、不复开服务或重复软件/数据库/包验收。
+
+首正常同步：业务8b218e5b5e15c31a2327aa342416bb9c9b0e1f83 / main9ff513b632b123a0f54a8db07cafd073af8238b5，正常connector 34全文UTF8/bytes/Gitblob exact，根比较收据f49e94c323f09868c2ac8af6874600d1329e897862301d5a9aa6910004c4d69f；唯一P9评论6407140114 fullbody/旧10/37OPEN36CLOSED/titlebody独立32508366…实际通过。最后元数据不重复软件/DB/包，只另存实际ref/正文及同评论读回。
