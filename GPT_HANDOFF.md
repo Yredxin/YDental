@@ -16,6 +16,6 @@ root唯一产品/状态/报告写者与调度，runtime_p10运行/保护，testi
 
 私有只读r1包4433215B/SHAfeddb5fab4c00e0a462dee6faba5e5d7e061e668a0d82a0f041676a21f791dba，56成员/52原PNG/38测量，独立f85d224a…逐源/字节/解码/隐私通过，无CSV/PDF/原请求/session/秘密/配置/DB/program/font，不Public上传，P9r2/P8r1原字节保持。
 
-未实现者本地最终总签 **84420335db5e4948b7c74f4e59084ce22cfd313aaded7df4fe13f56f057479b8** 已实际PASS，main两路由4643da7d…亦已审；限定P10 **TECHNICALLY_COMPLETE / SYNC_PENDING**，原REMOTE_PENDING保，未预签远端。随后只plan结束正常push两ref/全文/唯一新P10评论及旧11逐id/body、#37 OPEN/#36 CLOSED/titlebody实读才写SYNCED。报告自身hash不循环，最后同步metadata另实读，不重验软件/DB/包。用户亲手效果待确认。
+未实现者本地最终总签 **84420335db5e4948b7c74f4e59084ce22cfd313aaded7df4fe13f56f057479b8** 已实际PASS，main两路由4643da7d…亦已审；限定P10 **TECHNICALLY_COMPLETE / SYNCED**，原REMOTE_PENDING保；首业务6a0ac1a/main09d368a两ref/31FULL、[#37唯一P10回执6408631886](https://github.com/Yredxin/YDental/issues/37#issuecomment-6408631886)及旧11逐id/body/37OPEN36CLOSED/titlebody直接独立总签 **6682d0c377f049fffbbd79bc41453609c4ca4ffaedb7f95bd9bcdb95babca7e0** 实际PASS，T01—12适用项成立。最后6文本/ref/同评论metadata再正常实读，不复开软件DB包。报告自身hash不循环，最后同步metadata另实读，不重验软件/DB/包。用户亲手效果待确认。
 
 P9产品5f8f154/实际7d02a16/最终9ea71c6/唯一6407140114，P1—P9/P5 PARTIAL/旧包/失败/UNKNOWN和不可重放事实在活动CURRENT/历史报告完整保留。#37只新增一份P10最终结果保持OPEN，旧11不改，#36 CLOSED。**P10交付后停止**：后续页面/完整S13/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/产品合并部署生产均未启用。GPT仅按用户请求总结/特别复核/业务变更介入，不恢复逐批审批链。
