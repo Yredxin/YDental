@@ -1,25 +1,23 @@
 # DL-P11 当前状态｜YD-S13-DL-P11 / 1.0
 
-## IN_PROGRESS / W3 定向验证 / 尚未最终产品验收
+## LOCAL_ACCEPTANCE_PENDING / W4 最终交付核验 / SYNC_PENDING
 
-- 用户2026-10-26明确启用[完整P11限定计划](docs/execution/S13_DL_P11_IMPLEMENTATION_PLAN.md)，W0—W4连续实施，仅正常GET来源详情页 `ydental_reporting.ydental_operating_report_source`。非重开P10、非全站；不改controller/service/ACL/model/指标/CSV/原链接或返回条件；不执行业务POST、原件/PDF/打印或经济库存链。
-- 已读固定GPT_HANDOFF、main规则/路由、P10活动状态/完整计划/三报告及#23/#37当前正文/有效增量。实际origin为Yredxin/YDental，原工作树clean，P10最终6d74bbe0b95fc1dbfbacd51e9d2475ee52749e36与远端一致，正常建立 `codex/s13-dl-p11-report-source-detail-r1`，无reset/clean/强推/从文档main重建。
-- root唯一产品/报告/状态写者及运行调度；runtime_p11运行与完整保护工具，testing_p11浏览器/合同/效果包工具，acceptance_p11未实现产品或对应工具者独立SOURCE/准入/新physical完整保护/包/最终验收。实际独立agent线程，共享OS不冒隔离；当前无其它主控调度。共享主服务保持，不启动旧窗口。
-- W0完整前态已固定：未实现者新physical513239 RO/RR/rollbackclosed完整145业务/13技术/九区与P10末态exact，83refs/80实际路径/80不同SHA逐bytes保，3共享引用保持。before两个owned窗口已正常stop/foreground0；8客户端=7Node0/1Node2，全部native0/context正常close。首Chrome布局main双层选择器错保Node2，其有效五view/原值/两return与summary分层保；只补Chrome main/error、WK五view、各native200/root32和三有限只读旁路，未重放业务。
-- before全阶段18501 audit相对P10末18406仅新增95正常accepted认证/查询/钻取/有限旁路，其它144业务/13技术/九区与83原引用文件保持。原生QWeb4内存组件已单独标明非真实授权/非持久业务，首缺输出目录native1普通工具错与修复保。原source本页Chrome320/390根宽393、WebKit320根377/390根390本轮前态已实测，不套P10主页面346/332旧数据。
-- 当前产品仅3addon文件：source/shared局部opt-in的XML、manifest末新增单SCSS、source独立report_source_detail.scss。source唯一marker+元素动作scope，nav/scope原生call局部report_detail_actions，P10分支保持；共享动作mixin与原P7 chevron_left/arrow_right复用，唯独业务/native两链接装饰点由12px gap替代，原quantity/scope/facts点与文字/值/URL全保。间距单owner，桌24/窄16，table列/单元10px保持。必要加载、after双engine/权限/独立最终保护与效果包待做，不冒已通过。
-- 产品已固定f235c649df0f58403ae3ce50a666ec2c377787a2，实际必要唯一reporting-u亦f235，native0/ERROR0/noNative；即时完整pre→exit→post无业务/附件/配置schema变化，5原生技术类、3arch及原main backup已独立精确分类，4deps保持。独立加载040e2001…、actual loaded5view双语言/4内存分支/逐族ad64dbe7…均实际PASS，未代浏览器。工具4deabb3后补长值首末Range/局部横读，源码与产品候选分列；无需重复-u。after HTTP/双engine/最终完整新physical保护/包/同步尚待。
-- after1实际13客户端=11Node0/2Node2，全部native0/context正常close，owned20261026T055953Z-53f3c65e66fe已正常stop/foreground0。真实双engine五view/各native200-root32/真noJS/3族4state、uid5/16源200/none17及越界403与现存跨店followup55默认提示已成；业务GET实际200且当前店空交集，不冒403。独立布局c3aaeb07…、main/error完整隔离、编译CSS55新规则精确root作用域0f4e2db1…已PASS。
-- 缺样长值组件首Node2为Range断言未留失败原坐标，暂不判产品缺陷/PASS；将补原始Range及仅正常scroll前后几何。doctor旁路Node2为JS undefined/JSON省字段普通比较错，原两持久JSON逐值exact独立核，0重采。其它旁路原值保持，settlement只原pay.actual_utc文本默认单字段分类。after1新增192正常accepted读取审计，其它144业务/13技术/所有保护区保持；最终独立新physical/效果包/总签仍待，未代签完成。
-- 组件普通glyph诊断已实际证明H1首Range top-4可由正常window滚动完整阅读，未改CSS/文本/阈值。另P11-A01有真实产品缺口：allocation组件横读保留scroll状态，390下原生Tab并等待2rAF+250ms后链接仍部分在clip外，正常nearest后共享圈仍左裁6px；独立confirmed dbba0cb4…保OPEN与原Node2。root仅在source allocations wrapper增加.375rem scroll-padding-inline，保共享outline+offset局部滚动净空，不改cell10px/列760px/mixin/颜色/业务/原XML，待新候选受影响补验，不反签旧失败。
-- 第二after窗口已正常stop/foreground0，旧源/私有诊断和两engine真实trusted Tab→ShiftTab均归档。after2仅新增41正常accepted读取/认证，完整其它144业务/13技术/保护九区与after1post保持；全P11至此328新正常审计，技术仍仅唯一-u已归类5表。最终完整独立新physical/包/同步仍待。
-- 承接P10产品/实际最后运行8a1547a14f5647d6a49555c8ab7f9ceb658511e3、工具2c18d3271b49ab1ba2d6622e1755ed9678a97997、报告6d74bbe/唯一#37 6408631886。P1—P10交付/早期PARTIAL/旧失败UNKNOWN/旧原件和金额库存/身份作者价源/未完成责任全部保留，不重放历史全链。
-- 仅既有synth `ydental_s11_synth_20261023_01` / OID2171423 / cluster7694897083368259627 / 原filestore；最终需未实现者新physical RO/RR和现场逐bytes/size/SHA独核，不能以计数或主控结果代替。正常读取审计与必要技术变化分类，不宣称全库物理零变化。
-- 阶段中不向GitHub发中间进度；最终只在#37新增唯一P11回执保持OPEN，#36 CLOSED、P1—P10旧评论不改；main仅必要文档路由。P11完成即停；后续/完整S13/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/合并部署生产未启用；用户亲手效果待确认。
+- 用户2026-10-26完整启用[限定P11计划](docs/execution/S13_DL_P11_IMPLEMENTATION_PLAN.md)，同日“继续”承接同一阶段；W0—W4连续执行，仅来源详情正常GET页面。不是重开P10/全站，不扩后续。[结果/动作SVG/间距责任/7步](docs/reports/s13-dl-p11/summary.md) · [T01—12矩阵](docs/reports/s13-dl-p11/acceptance-matrix.md) · [全件SHA索引](docs/reports/s13-dl-p11/evidence-index.md)。软件/完整独立保护/包分项已通过，最终本地正文总签与远端待，不冒最终完成。
+- clean P10最终6d74bbe0b95fc1dbfbacd51e9d2475ee52749e36正常承接 `codex/s13-dl-p11-report-source-detail-r1`，无reset/clean/强推/从文档main重建。最终产品 **613fb33bb4fecdb23eff3c46a2d3a1de2a4c1780**；首产品/唯一必要reporting-u **f235c649df0f58403ae3ce50a666ec2c377787a2**，native0/ERROR0/noNative，后CSS/工具/文档不-u。最终真实运行 **7b0601effe6ee2b3cc670087589865b7528a3f18**；公共工具 **1fa0ac89827bc0d4400fa53e45c7bd63e4c43d01** 机械整合仅SOURCE/PURE，actual客户端各executed源另逐hash，不反签同源。
+- root唯一产品/报告/状态/路由写者与调度；runtime_p11运行保护工具，testing_p11浏览器/合同/包工具，acceptance_p11未实现产品或对应工具者独立准入/源码/原件/新physical完整保护/总签。真实线程，同OS不冒隔离；本次capacity后同入口同团队正常恢复，无换模型/账号/入口，旧interim/partial及06:43未启动after3事实保。实际10:07前另fresh212d75ab…准入，旧scope/STOP不改。
+- 仅3addon：原source/shared局部调用的XML、manifest单资产、source独有SCSS；marker report-source-detail+逐元素report-source-actions，原生call report_detail_actions仅source启用，P10原分支/main/error/原字段/href/条件/顺序及P4两JS/旧SCSS/mixin/P7几何许可/所有backend/指标/ACL/schema/CSV保持。8a/2summary定义，无新增业务按钮。全XML呈现白名单还原C14N exact；业务/native唯一装饰点→12px gap，原标签与其它事实分隔不变，native terms86→85/74独有保持。
+- 当前双engine实际五view/各native200-root32/真JSoff/3族4states与完整facts/trace/两分摊/双return原值及原条件保持；uid5/16来源200、none17及越界真403，0临时grant。真实store2 followup55默认提示可见，原业务GET实际200为当前StoreA空交集，不冒403，不切店办理。main/error完整DOM/computed与3有限旁路按精确层级核，结算仅原pay.actual_utc默认now单字段分类；原CSV/backend SOURCE冻结不重跑CSV/经济链。
+- 4明确loaded内存组件（无/有分摊、跨店、双卡、长中文/hash/60行pre）原native QWeb+真实产品CSS；双engine52投影、26ranges/engine、342focus/engine、五view/long两zoom/压力/fault全核。夹具不冒真实身份/多来源/多页或权限。单owner 8/12/16/24、card桌24/窄16实测；table列760px/cell10px保持；P10/其它页无P11 opt-in或编译CSS污染。
+- P11-A01旧原生Tab/settled92横滚及nearest后6px圈裁实证保；最终只source wrapper .375rem scroll-padding保root16=6/root32=12净空，完整键盘局部可达限定闭合 **b1344f9a33b7f90d8b4805b5460bd4ceff6a6c23be489b341a70e1510c00322e**。UA Tab保92时仍可能partial；真实source8仅Chrome3/WK2次trusted ArrowLeft保active原a后全文/完整环/rootX0可达，恢复无helper。不宣称自动全显，不添加JS。
+- 38actual clients=32Node0/6Node2、38native0/context正常close，277原PNG路径/196SHA/377执行源全独核。6旧Node2、原glyph首次缺失败range/后新普通scroll诊断、doctor undefined与JSON省字段误差、术语/初始化/native组件首目录错误均留原退出/原源/原图，不倒签。Chrome390/320 root393、WK390root390/320root377本轮before/final各same，旧根因UNKNOWN；P10旧346/332及WK CSV原件/BOM未观测等不改，不冒全站WCAG/屏读/Safari/iOS/实机/用户效果。
+- 既有synth OID2171423/cluster7694897083368259627/原filestore/core f0c5a9b保持，无新库/克隆/改名。未实现者最终新physical **588513** RO/RR/rollbackclosed完整145业务/13技术/九区+4deps与root同；83引用/80实际路径/80不同SHA逐bytes/size/SHA保持，3共享不丢。全阶段独立 **5ad9a5dfd827df8e75817842fcd38f75fe2ccfbf672ca06cecfddef52ad84b16**；旧18406audit保→18818，新412正常认证/读取，其他144业务/配置schema及原身份作者价源责任保持，技术仅唯一-u5表。派生assets65→65仅15832→15833 CSS缓存替换，与83业务引用分开；新增经济库存/文书原件PDF/打印签署发布/治疗扫码/CSV0，不宣称全库物理零差。
+- 私有0400 r1 ZIP **9328107B / SHA7e1c32e45aff99eb34613abf918378eb57401a9a869f1161dd183c7513c58773**，87成员/83原PNG/6有限测量；独立全成员/sourcebytes/manifest85/SHA86核 **e399ad9387eb0d1824dafb02d4d803a62263abaffc827f3a713ac1ac536f567c**，隐私/视觉 **3b13e2845ecede3bf26f1970743ec61d2072da10b6f8bf3e5ccd0fb2d2296892**。构造时PENDING保原字节、最终旁签；无秘密/session/profile/配置/原请求/完整DB/PDF/CSV/font/program，不Public上传，旧包字节保。
+- 5owned全正常foreground/child0/groupstop，最终100710-f7eda0f7b9af已正常stop；38native/context全close，未实现者收尾 **eb2c025c64b2cbff0cb9170c9f7e635ee351da28df87c2fa397e72d23ae1464c** 核marker/knownPID/profile/18411和12空，新physical588563其它targetconn[]。无临时权限需撤、共享主服务未动；之后不为报告/同步复开app/DB/browser。
+- 最终本地正文总签和正常远端refs/全文/唯一P11回执仍待。#37当前仅旧12评论不改、保持OPEN；#36 CLOSED。main仅必要两文档路由，不合产品不部署。P11交付即停；P12/结算其它岗位/全站/完整S13/负载备份恢复/实机/正式政策/S11组合扫码/真实患者资金外部通道/生产未启用，用户亲手效果待确认。
 
 ---
 
-以下完整保留P10及更早已交付状态与历史边界；历史“P11未启用”仅由本次明确授权替代。
+以下完整保留P10及更早交付、历史PARTIAL与UNKNOWN；历史P11未启用仅由本次明确授权替代，不反签旧事实。
 
 # DL-P10 当前状态｜YD-S13-DL-P10 / 1.0
 
