@@ -34,6 +34,11 @@ Modes:
 - `states`: actual available action families. When the real page has no
   secondary pagination controls, the explicit paged component supplies that
   family; do not describe it as a real multipage business sample.
+- `events`: trusted icon/text/empty-padding clicks on the actual Search and
+  other-store links, plus text/padding on original undecorated candidates. Each
+  actual action records one original GET and the original composed event path.
+  Secondary pagination is tested separately in the explicitly loaded component,
+  with trusted events and preventDefault, without claiming a successful HTTP GET.
 
 `browser_settlement.cjs` preserves original form/URL/fee/currency/trace values,
 and the complete rendered prefix and write suffix with computed styles.

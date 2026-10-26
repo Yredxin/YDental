@@ -402,7 +402,7 @@ async function components() {
             if(width===320)await continuousKeyboard(p,'fixture-'+item.name+'-320');
         }
         await traces(p,'fixture-'+item.name);
-        if(item.paged&&stage==='after')await states(p);
+        if(item.name==='two-way-pagination'&&stage==='after'){await states(p);await paginationEvents(p,item.name);}
         if(item.long_text) {
             await p.setViewportSize({width:1366,height:768});await setZoomOn(p,2);
             assert.equal(await p.evaluate(()=>getComputedStyle(document.documentElement).fontSize),'16px');
@@ -425,8 +425,78 @@ async function components() {
     }
 }
 
+
+async function clickPoint(target,kind) {
+    await target.evaluate(e=>e.scrollIntoView({block:'center',inline:'nearest'}));
+    return target.evaluate((e,kind)=>{
+        const b=e.getBoundingClientRect();let x,y;
+        if(kind==='icon'||kind==='text') {
+            const child=kind==='icon'?e.querySelector('svg'):(e.querySelector('.o_ydental_settlement_action_label')||e.querySelector('span'));
+            if(!child)throw Error('Expected original action '+kind+' target');
+            const c=child.getBoundingClientRect();x=c.left+c.width/2;y=c.top+c.height/2;
+        } else {
+            for(const fy of [.5,.25,.75,.15,.85])for(const fx of [.04,.96,.1,.9,.25,.75,.5]) {
+                const xx=b.left+b.width*fx,yy=b.top+b.height*fy;
+                if(document.elementFromPoint(xx,yy)===e){x=xx;y=yy;break;}
+            }
+            if(x===undefined)throw Error('Original control has no empty padding point');
+        }
+        const hit=document.elementFromPoint(x,y);
+        if(!(hit===e||e.contains(hit)))throw Error('Hit test escaped original control');
+        return {x,y,kind,tag:e.tagName,text:e.textContent.trim(),href:e.getAttribute('href'),hit_tag:hit.tagName,hit_class:typeof hit.className==='string'?hit.className:null,box:b.toJSON()};
+    },kind);
+}
+async function clickedEvent(p,target,kind,{component=false}={}) {
+    const events=[],listener=message=>{if(message.text().startsWith('P12_TRUSTED_ACTION:'))events.push(JSON.parse(message.text().slice('P12_TRUSTED_ACTION:'.length)))};
+    p.on('console',listener);
+    await target.evaluate((e,component)=>e.addEventListener('click',event=>{
+        if(component)event.preventDefault();
+        console.debug('P12_TRUSTED_ACTION:'+JSON.stringify({isTrusted:event.isTrusted,tag:e.tagName,text:e.textContent.trim(),href:e.getAttribute('href'),form_action:e.form?.getAttribute('action')||null,form_method:e.form?.method||null,hit_tag:event.target.tagName,original_control_in_composed_path:event.composedPath().includes(e),composed_path_tags:event.composedPath().filter(x=>x.tagName).map(x=>x.tagName),default_prevented:event.defaultPrevented,component_prevent_default:component}));
+    },{once:true}),component);
+    const point=await clickPoint(target,kind);const before=r.requests.length;
+    if(component)await p.mouse.click(point.x,point.y);else await nav(()=>p.mouse.click(point.x,point.y),point.href===null||!point.href.includes('/other-stores/'));
+    await p.waitForTimeout(100);p.off('console',listener);
+    assert.equal(events.length,1);assert(events[0].isTrusted&&events[0].original_control_in_composed_path);
+    if(component){assert(events[0].component_prevent_default&&events[0].default_prevented);assert.equal(r.requests.length,before,'Component event must not dispatch actual business GET');}
+    return {point,event:events[0],component};
+}
+async function actionEvents() {
+    await querySelect();const records=[];
+    for(const kind of ['icon','text','blank']) {
+        await open();await page.locator(form+' [name=q]').fill(r.selected_business_number);
+        const n=count(),target=page.locator(form+' button'),value=await clickedEvent(page,target,kind);
+        assert.equal(count(),n+1);const v=await page.evaluate(tools.projection);
+        assert.deepEqual(v.query,[['q',r.selected_business_number]]);assert.equal(v.other_stores.length,0);assert(v.candidates.length);
+        records.push({family:'primary_search',kind,one_original_GET:true,candidates_only:true,...value});
+    }
+    for(const kind of ['text','blank']) {
+        await open('/ydental/settlement?q='+encodeURIComponent(r.selected_business_number));
+        const target=page.locator(search+' li a').first();assert.equal(await target.locator('svg').count(),0);
+        const href=await target.getAttribute('href'),n=count(),value=await clickedEvent(page,target,kind);
+        assert.equal(count(),n+1);assert.equal(new URL(page.url()).searchParams.get('patient_id'),new URL(href,base).searchParams.get('patient_id'));
+        records.push({family:'quiet_patient_candidate',kind,one_original_GET:true,...value});
+    }
+    for(const kind of ['icon','text','blank']) {
+        await open(r.selected_href);const target=page.locator(scope+' a[href^="/ydental/settlement/other-stores/"]');
+        const href=await target.getAttribute('href'),n=r.requests.filter(x=>x.path.startsWith('/ydental/settlement/other-stores/')).length;
+        const value=await clickedEvent(page,target,kind);
+        assert.equal(r.requests.filter(x=>x.path.startsWith('/ydental/settlement/other-stores/')).length,n+1);
+        assert.equal(new URL(page.url()).pathname,href);assert.equal(r.responses.filter(x=>x.path===href).at(-1).status,200);
+        records.push({family:'quiet_other_store_minimal_summary',kind,one_original_GET:true,no_store_switch:true,...value});
+    }
+    save('actual-icon-text-blank-original-GET-events.json',records);await shot('actual-other-store-event-target');
+    check('actual-primary-quiet-icon-text-blank-one-original-GET',{cases:records.length,business_submit:false});
+}
+async function paginationEvents(p,name) {
+    const links=[];for(const a of await p.locator(scope+' a').all())if((await a.getAttribute('class')||'').includes('secondary'))links.push(a);
+    assert.equal(links.length,8,'Two candidate and six fee previous/next original links');const values=[];
+    for(const a of links)for(const kind of ['icon','text','blank'])values.push({fixture:name,...await clickedEvent(p,a,kind,{component:true})});
+    save('component-pagination-icon-text-blank-events.json',{layer:'EXPLICIT_LOADED_QWEB_COMPONENT_TRUSTED_EVENTS_NOT_HTTP',values,actual_GET_success_claimed:false,real_multipage_business_claimed:false});
+    check('loaded-component-secondary-eight-links-icon-text-blank-original-anchor',{cases:values.length,actual_GET_success_claimed:false});
+}
+
 try{if(engine==='webkit'){const manifest=path.join(root,'.local/dl-p1/evidence/webkit-engine-native-source-manifest.json');assert.equal(hash(manifest),JSON.parse(fs.readFileSync(path.join(root,'.local/dl-p1/webkit-manifest-binding.json'))).sha256);for(const f of JSON.parse(fs.readFileSync(manifest)).browser_files)assert.equal(hash(path.join(root,'.local/dl-p1',f.path)),f.sha256);r.engine_manifest_sha256=hash(manifest);browser=await pw.webkit.launch(require(path.join(root,'.local/dl-p3/verification/webkit_plugins_environment.cjs')).launchOptions(root));context=await browser.newContext({viewport:{width:1366,height:768},locale:'zh-CN',javaScriptEnabled:!nojs,acceptDownloads:false})}else if(['zoom','components'].includes(mode)){profile=path.join(out,'owned-temporary-profile');fs.mkdirSync(profile,{mode:0o700});const ext=path.join(root,'.local/dl-p1/zoom-extension');context=await pw.chromium.launchPersistentContext(profile,{headless:true,channel:'chromium',executablePath:path.join(root,'.local/s11/browsers/chromium-1248/chrome-linux64/chrome'),viewport:{width:1366,height:768},locale:'zh-CN',acceptDownloads:false,args:['--disable-extensions-except='+ext,'--load-extension='+ext],env:{...process.env,LD_LIBRARY_PATH:path.join(root,'.local/s11/browser-deps/root/usr/lib/x86_64-linux-gnu'),FONTCONFIG_FILE:path.join(root,'.local/s12/fontconfig/fonts.conf'),FONTCONFIG_PATH:path.join(root,'.local/s12/fontconfig')}});browser=context.browser();worker=context.serviceWorkers()[0]||await context.waitForEvent('serviceworker')}else{browser=await pw.chromium.launch({headless:true,executablePath:path.join(root,'.local/s11/browsers/chromium-1248/chrome-linux64/chrome'),env:{...process.env,LD_LIBRARY_PATH:path.join(root,'.local/s11/browser-deps/root/usr/lib/x86_64-linux-gnu'),FONTCONFIG_FILE:path.join(root,'.local/s12/fontconfig/fonts.conf'),FONTCONFIG_PATH:path.join(root,'.local/s12/fontconfig')}});context=await browser.newContext({viewport:{width:1366,height:768},locale:'zh-CN',javaScriptEnabled:!nojs,acceptDownloads:false})}
 r.actual_engine_version=browser.version();r.driver_version=require(path.join(driver,'package.json')).version;proc=browser._connection.toImpl(browser)?.options?.browserProcess?.process;if(proc){r.native_main_lifecycle={pid:proc.pid,executable:proc.spawnfile};proc.once('exit',(exitCode,signalCode)=>Object.assign(r.native_main_lifecycle,{exitCode,signalCode}))}context.setDefaultTimeout(nojs?12000:20000);context.on('response',x=>r.responses.push({path:new URL(x.url()).pathname,method:x.request().method(),status:x.status()}));context.on('requestfailed',x=>r.failures.push({path:new URL(x.url()).pathname,resource:x.resourceType(),error:x.failure()?.errorText}));await context.route('**/*',route=>{const req=route.request(),u=new URL(req.url()),op=new URLSearchParams(req.postData()||'').get('operation');if(!['data:','about:','blob:'].includes(u.protocol)&&u.origin!==base){(r.external_blocks??=[]).push({protocol:u.protocol,host:u.host});return route.abort()}if(u.pathname.startsWith('/ydental/'))r.requests.push({method:req.method(),path:u.pathname,query:[...u.searchParams].filter(([k])=>k!=='revision'),...(u.pathname==='/ydental/access/action'?{operation:op}:{})});if((/\/pdf\/|\/originals\/generate|\/bill-original\/|\/csv(?:$|\/)/.test(u.pathname))||(req.method()==='POST'&&u.pathname.startsWith('/ydental/')&&!((u.pathname==='/ydental/access/action'&&op==='switch')))){r.business_write_requests++;(r.guard_blocks??=[]).push({path:u.pathname,operation:op});return route.abort()}return route.continue()});page=context.pages()[0]||await context.newPage();page.on('pageerror',e=>(r.page_errors??=[]).push({class:e.constructor.name,message:String(e.message).slice(0,600)}));await login();
-if(mode==='layout')await layout();else if(mode==='zoom')await zooms();else if(mode==='nojs')await noJS();else if(mode==='permissions')await permissions();else if(mode==='bypass')await bypass();else if(mode==='components')await components();else if(mode==='keyboard'){await querySelect();await page.setViewportSize({width:320,height:800});await continuousKeyboard(page,'real-320');await traces();await nativeTableReading();}else if(mode==='states'){await querySelect();await families();await states();}else throw Error('Unknown P12 mode');
+if(mode==='layout')await layout();else if(mode==='zoom')await zooms();else if(mode==='nojs')await noJS();else if(mode==='permissions')await permissions();else if(mode==='bypass')await bypass();else if(mode==='components')await components();else if(mode==='events')await actionEvents();else if(mode==='keyboard'){await querySelect();await page.setViewportSize({width:320,height:800});await continuousKeyboard(page,'real-320');await traces();await nativeTableReading();}else if(mode==='states'){await querySelect();await families();await states();}else throw Error('Unknown P12 mode');
 assert.equal(r.business_write_requests,0);assert.equal((r.guard_blocks||[]).length,0);assert.equal((r.external_blocks||[]).length,0);r.status='P12_'+stage.toUpperCase()+'_'+engine.toUpperCase()+'_'+mode.toUpperCase()+'_PASS';
 }catch(error){r.status='FAILED_NO_AUTOMATIC_REPLAY';r.error={class:error.constructor.name,message:String(error.message).slice(0,2200)};r.stack=String(error.stack).split('\n').slice(0,12)}finally{if(context){if(logged)try{r.logout_status=(await context.request.post(base+'/web/session/destroy',{data:{jsonrpc:'2.0',method:'call',params:{},id:9}})).status()}catch(e){r.logout_error=e.constructor.name}try{await context.close();r.context_normal_close=true}catch(e){r.context_close_error=e.constructor.name}}if(browser)try{await browser.close();r.browser_normal_close=true}catch(e){r.browser_close_error=e.constructor.name}if(proc&&proc.exitCode===null)await new Promise(resolve=>{proc.once('exit',resolve);setTimeout(resolve,3000)});if(profile&&r.context_normal_close){fs.rmSync(profile,{recursive:true});r.owned_profile_removed=true}r.finished_at_utc=new Date().toISOString();save('result.json',r);process.stdout.write(JSON.stringify({status:r.status,checks:r.checks.length,screenshots:r.screenshots.length})+'\n');process.exitCode=r.status.endsWith('_PASS')?0:2}})();

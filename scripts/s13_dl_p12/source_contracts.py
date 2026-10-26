@@ -153,6 +153,8 @@ def restore(tree, old, enabled):
         extra = [name for name in after_classes if name not in before_classes]
         if extra:
             assert inside(after) or shared(after), 'Class escapes lookup/shared opt-in'
+            if shared(after) and not enabled:
+                raise AssertionError('Shared default output gained a static presentation class')
             assert all(name.startswith(PREFIX) for name in extra), extra
         assert [name for name in after_classes if name in before_classes] == before_classes
         if 'class' in before.attrib:
@@ -203,7 +205,7 @@ def main():
     suffix = b'<details name="settlement-operation"'
     assert old_raw[old_raw.index(suffix):] == raw[raw.index(suffix):], 'Original first-operation through file end must remain exact bytes'
     page_start = b'<main class="container py-4 o_ydental_settlement"'
-    lookup_start = b'<div class="o_ydental_settlement_lookup"'
+    lookup_start = b'<div class="o_ydental_settlement_lookup'
     assert old_raw[old_raw.index(page_start):old_raw.index(lookup_start)] == raw[raw.index(page_start):raw.index(lookup_start)], 'Original page header remains exact bytes'
     if args.baseline_only:
         assert old_raw == raw
@@ -228,6 +230,8 @@ def main():
               'ydental_inventory/views/ydental_inventory_templates.xml',
               'ydental_inventory/static/lib/lucide/SOURCE.json',
               'ydental_inventory/static/lib/lucide/LICENSE',
+              'ydental_inventory/static/lib/lucide/LICENSE-Feather',
+              *['ydental_inventory/static/lib/lucide/'+name+'.svg' for name in ('search','chevron-left','chevron-right','arrow-right')],
               'ydental_reporting/static/src/report_source_detail/report_source_detail.scss']
     for name in frozen:
         assert original(name) == (ROOT / name).read_bytes(), name

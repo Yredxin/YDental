@@ -1,11 +1,14 @@
 # DL-P12 当前状态｜YD-S13-DL-P12 / 1.0
 
-## IN_PROGRESS / W0 当前准入与真实前态准备
+## IN_PROGRESS / W1—W2 产品固定，W3加载与定向验收准备
 
 - 用户2026-10-26明确启用限定P12，交付完整计划与“继续”；[实施计划](docs/execution/S13_DL_P12_IMPLEMENTATION_PLAN.md)。仅结算既有`settlement-lookup`根，首出账details前闭合；不重开P11、不美化办理区或全站。
 - clean P11最终`bd0f73a99eb6f49c27d99a5db4cc6d4f8dedf008`承接分支`codex/s13-dl-p12-settlement-readonly-actions-spacing-r1`，无reset/clean/强推/从main重建。P11产品613fb33/实际7b0601e/工具1fa0ac8/唯一#37 6414490185全部保留。
 - root唯一产品/计划/报告/状态/路由写者与运行调度；runtime_p12运行工具及加载、testing_p12合同/浏览器/包工具、acceptance_p12未实现产品或对应工具者独立准入/physical RO/总验收。同OS不冒隔离。主控和runtime曾发生capacity，原私有中间收据保留；本次同线程正常恢复，不换模型/账号/入口。
-- 当前只有工具SOURCE准备，尚无运行/产品/浏览器或T01—12 PASS。新scope和fresh独立准入后才开必要窗口；83引用/80原文件/三共享、145业务/13技术（现场核）完整保全。无经济库存/原件PDF/打印签署发布/扫码提交。
+- 前态实际候选0558abe9bdb5f1f90489934e2f247e6d2be67d8d，12客户端/102原PNG，双engine五view/各native200与root32、有限四旁路均Node0/native0/context关闭。before owned20261026T142243Z-171a760b4d3d于14:35:58.388151Z正常stop/child0/signull/groupstopped；不是只用active标记缺席冒退出。
+- 产品固定 **7c3e2fe89e402c1e4f7b6d0534cfae07bfd0fc6e**，仅XML/manifest/局部SCSS三addon文件；旧P5 SCSS/共享mixin/图标/后台字节保。全XML仅剥class/span/SVG/三原生call opt-in后C14N exact，原页头与首bill起完整后缀原字节exact；native terms231→233仅两个共享重复标签、unique set不变。真实loaded/新按钮/间距/权限尚待after。
+- 新独立fresh准入/physical已核原目标145业务/13技术/83ref/80实际路径/80SHA/3共享保持。before末完整保护旧18818audit逐行保→19478，新660正常认证读取，其它业务/技术/九区same。为继续完整保护原生日志，只把该审计表采集上限20k提高100k，其它20k不变，不删行/不清账/不省投影；工具差异须独核。
+- 待after fresh准入、唯一必要settlement XML加载即时pre→0/log→post与真实浏览器/loaded组件/独立T01—12，未签技术完成；无经济库存/原件PDF/打印签署发布/扫码提交。
 - W0—W4连续，完成适用T01—12及未实现者独立验收后才交TECHNICALLY_COMPLETE；同步另列。最终#37只一份P12且OPEN，#36 CLOSED，main仅文档路由，不合产品不部署。P12结束立即停止；用户亲手效果待确认。
 
 ---

@@ -175,8 +175,10 @@ def collect(args):
     cols=[n for n in info if n not in omit];result['omitted_columns'][table]=omit
     stmt=sql.SQL('SELECT {} FROM {} WHERE '+where).format(sql.SQL(',').join(map(sql.Identifier,cols)),sql.Identifier('public',table))
     q.execute(stmt,params) if params else q.execute(stmt)
-    data=q.fetchmany(20001)
-    if len(data)>20000:raise RuntimeError('Protected table bound exceeded: '+table)
+    # Keep the growing native access audit complete without narrowing its projection.
+    row_limit=100000 if table=='ydental_access_audit' else 20000
+    data=q.fetchmany(row_limit+1)
+    if len(data)>row_limit:raise RuntimeError('Protected table bound exceeded: '+table)
     values=[]
     for vals in data:
      row=dict(zip(cols,vals));v=projected_row(row,info)
