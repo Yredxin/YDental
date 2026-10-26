@@ -7,6 +7,10 @@ clients=[];pngs=[]
 for p in sorted(ev.glob('*/result.json')):
  if p.parent.name.startswith('process-'):continue
  v=json.loads(p.read_text());process=ev/('process-'+p.parent.name);end=process/'result.json';start=process/'start.json';s=json.loads(start.read_text());e=json.loads(end.read_text()) if end.exists() else None
+ if e is None:
+  assert p.parent.name=='after-webkit-stress-v1','Unobserved client exit must remain UNKNOWN; do not infer 143'
+  observed=json.loads((r/'.local/dl-p9/testing/webkit-stress-v1-wrapper-termination-observed.json').read_text())
+  assert observed['actual_exec_command_exit_code']==143 and observed['node_exit_code']=='UNKNOWN'
  sources=list(process.glob('executed-1-*.cjs'));assert len(sources)==1 and sha(sources[0])==v['source_sha256']
  for x in v.get('screenshots',[]):
   im=r/x['file'];assert im.exists() and sha(im)==x['sha256'] and im.stat().st_size==x['bytes']
