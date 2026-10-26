@@ -28,6 +28,8 @@ def main():
     parser.add_argument('--sample-file', default='.local/dl-p12/testing/sample.json')
     parser.add_argument('--timeout', type=int, default=600)
     parser.add_argument('--fixture-file')
+    parser.add_argument('--component-phase', choices=('all','chrome-tail'), default='all')
+    parser.add_argument('--known-open-a04', action='store_true')
     parser.add_argument('--before-result')
     parser.add_argument('--role', default='settlement')
     args = parser.parse_args()
@@ -52,6 +54,9 @@ def main():
         command.extend(['--before-result', args.before_result])
     if args.fixture_file:
         command.extend(['--fixture-file', args.fixture_file])
+    command.extend(['--component-phase',args.component_phase])
+    if args.known_open_a04:
+        command.extend(['--known-open-a04','true'])
     dependencies = [Path(__file__), source, source.with_name('browser_settlement.cjs'),
                     ROOT / 'scripts/s13/browser_client.py', ROOT / 'scripts/s13_dl_p12/browser_client.py', ROOT / 'scripts/s13_dl_p12/http_client.py', ROOT / 'scripts/s13_dl_p12/admission_probe.py', ROOT / 'scripts/s13_dl_p12/launcher.py',
                     ROOT / '.local/dl-p3/tools/webkit_finite_zoom_bridge.cjs',

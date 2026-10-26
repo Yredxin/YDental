@@ -62,3 +62,37 @@ The constructor's PENDING status is preserved in the original package bytes.
 
 SOURCE checks and successful construction are not browser execution, business
 acceptance, independent physical preservation, or a completed P12 delivery.
+
+The final public collector mechanically integrates the executed private fixes.
+Its publication is SOURCE/PURE only. Actual clients retain their own archived
+wrapper/dependencies/source hashes; they are not relabelled as this common source.
+The public wrapper keeps its repository-relative ROOT resolution.
+
+Native focus records keep a 100ms sample, a separate settled sample (two frames
+when JS is enabled, plus an external 250ms wait), actual block/inline scroll
+margins, and any later trusted-key recovery. JS-disabled page listeners do not
+run: their event trust is explicitly NOT_OBSERVED_EXPECTED_JS_DISABLED, while
+all native GET, focus-order, geometry and disclosure checks remain mandatory.
+Real noJS chains start after the same original patient GET; component chains
+start in a fresh document with identical loaded QWeb HTML and actual CSS bytes.
+No universal Control+Home recovery is claimed.
+
+The local table reader saves its initial offset and uses bounded trusted arrow
+input to reach real left/right/left endpoints, retaining original focus/root X.
+For targets taller than the actual viewport, native top/bottom focus edges and
+visible first/last glyphs are read separately using trusted keys. This does not
+claim that an oversized outline is simultaneously visible. Fit targets keep the
+full settled native-outline requirement. Later Range scrolling is labelled
+READABILITY_HELPER and is not used as pure keyboard evidence.
+
+P12 remains PARTIAL with A04 OPEN: after retained horizontal reading, a fit
+pending summary can keep its left edge clipped on native Tab. Trusted ArrowLeft
+recovery is recorded separately and never changes that native result to PASS.
+The component collector records this known case as FAIL and continues independent
+field, Range, state, pagination, stress and fault assertions. An explicit
+`--known-open-a04` also carries the independently observed same-candidate negative
+pair into a filtered run. Overall `COMPLETE_WITH_OPEN_A04` exits 2.
+`--component-phase chrome-tail` reuses explicitly identified valid earlier field
+subchecks, reproves native paths and fills the long-value gaps; it does not turn
+the earlier failed whole client into PASS. Text-spacing overrides are explicit
+user-setting stress experiments on memory components, never product repair CSS.

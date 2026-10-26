@@ -54,7 +54,7 @@ async function scroll(e){await e.evaluate(e=>e.scrollIntoView({block:'center',in
 async function click(e){if(!nojs)return e.click({noWaitAfter:true});await scroll(e);const b=await e.boundingBox();assert(b);await page.mouse.click(b.x+b.width/2,b.y+b.height/2)}
 async function nav(fn,report=true){await Promise.all([page.waitForNavigation({waitUntil:'domcontentloaded',timeout:40000}),fn()]);if(report)await ready();else await settle()}
 async function login(){const f=path.join(root,'.local/s11/new-target-tests/roles.json'),st=fs.lstatSync(f);assert(st.isFile()&&!st.isSymbolicLink()&&st.uid===process.getuid()&&(st.mode&0o777)===0o600);const account=JSON.parse(fs.readFileSync(f)).users[alias];assert(account);r.actor={alias,uid:account.id};if(nojs){const login=await context.request.get(base+'/web/login?db=ydental_s11_synth_20261023_01'),csrf=await page.evaluate(s=>new DOMParser().parseFromString(s,'text/html').querySelector('form.oe_login_form [name=csrf_token]').value,await login.text());const resp=await context.request.post(base+'/web/login',{form:{login:account.login,password:account.password,csrf_token:csrf,db:'ydental_s11_synth_20261023_01',redirect:'/ydental/access'},maxRedirects:0});assert.equal(resp.status(),303);r.login_layer='NORMAL_CSRF_PASSWORD_SAME_NOJS_CONTEXT'}else{await page.goto(base+'/web/login?db=ydental_s11_synth_20261023_01&redirect=%2Fydental%2Faccess',{waitUntil:'domcontentloaded'});await page.locator('body[is-ready="true"]').waitFor({state:'attached',timeout:30000});const f=page.locator('form.oe_login_form');await f.locator('[name=login]').fill(account.login);await f.locator('[name=password]').fill(account.password);const[response]=await Promise.all([page.waitForResponse(x=>new URL(x.url()).pathname==='/web/login'&&x.request().method()==='POST'),f.locator('button[type=submit]').click()]);assert.equal(response.status(),303);await page.waitForURL(base+'/ydental/access',{waitUntil:'domcontentloaded',timeout:40000});r.login_layer='NORMAL_BROWSER_CSRF_PASSWORD'}logged=true;const identity=await context.request.post(base+'/web/session/get_session_info',{data:{jsonrpc:'2.0',method:'call',params:{},id:1}});assert.equal((await identity.json()).result.uid,account.id);await page.goto(base+'/ydental/access',{waitUntil:'domcontentloaded'});const f2=page.locator('form').filter({has:page.locator('[name=operation][value=switch]')});await f2.locator('[name=store_id]').selectOption(String(sample.store_id||1));await nav(()=>click(f2.locator('button[type=submit]')),false);if(!['permissions','bypass'].includes(mode))await nav(()=>click(page.locator('nav a[href="/ydental/settlement"]')))}
-async function focusSample(e){return e.evaluate(e=>{const c=getComputedStyle(e),b=e.getBoundingClientRect(),o=parseFloat(c.outlineWidth)+parseFloat(c.outlineOffset),clippers=[];for(let p=e.parentElement;p;p=p.parentElement){const s=getComputedStyle(p);if(['hidden','clip','auto','scroll'].includes(s.overflowX)||['hidden','clip','auto','scroll'].includes(s.overflowY)){const r=p.getBoundingClientRect();clippers.push({class:p.className,overflowX:s.overflowX,overflowY:s.overflowY,left:r.left+p.clientLeft,right:r.left+p.clientLeft+p.clientWidth,top:r.top+p.clientTop,bottom:r.top+p.clientTop+p.clientHeight})}}return{tag:e.tagName,name:e.name,text:e.textContent.trim(),active:e===document.activeElement,focusVisible:e.matches(':focus-visible'),outline:c.outline,offset:c.outlineOffset,box:b.toJSON(),viewport:{width:innerWidth,height:innerHeight},outline_reachable:b.left-o>=-1&&b.right+o<=innerWidth+1&&b.top-o>=-1&&b.bottom+o<=innerHeight+1,not_clipped:clippers.every(p=>(!['hidden','clip','auto','scroll'].includes(p.overflowX)||b.left-o>=p.left-1&&b.right+o<=p.right+1)&&(!['hidden','clip','auto','scroll'].includes(p.overflowY)||b.top-o>=p.top-1&&b.bottom+o<=p.bottom+1)),clippers}})}
+async function focusSample(e){return e.evaluate(e=>{const c=getComputedStyle(e),b=e.getBoundingClientRect(),o=parseFloat(c.outlineWidth)+parseFloat(c.outlineOffset),clippers=[];for(let p=e.parentElement;p;p=p.parentElement){const s=getComputedStyle(p);if(['hidden','clip','auto','scroll'].includes(s.overflowX)||['hidden','clip','auto','scroll'].includes(s.overflowY)){const r=p.getBoundingClientRect();clippers.push({class:p.className,overflowX:s.overflowX,overflowY:s.overflowY,left:r.left+p.clientLeft,right:r.left+p.clientLeft+p.clientWidth,top:r.top+p.clientTop,bottom:r.top+p.clientTop+p.clientHeight})}}return{tag:e.tagName,name:e.name,text:e.textContent.trim(),active:e===document.activeElement,focusVisible:e.matches(':focus-visible'),outline:c.outline,offset:c.outlineOffset,scrollMarginBlockStart:c.scrollMarginBlockStart,scrollMarginBlockEnd:c.scrollMarginBlockEnd,scrollMarginInlineStart:c.scrollMarginInlineStart,scrollMarginInlineEnd:c.scrollMarginInlineEnd,box:b.toJSON(),viewport:{width:innerWidth,height:innerHeight},outline_reachable:b.left-o>=-1&&b.right+o<=innerWidth+1&&b.top-o>=-1&&b.bottom+o<=innerHeight+1,not_clipped:clippers.every(p=>(!['hidden','clip','auto','scroll'].includes(p.overflowX)||b.left-o>=p.left-1&&b.right+o<=p.right+1)&&(!['hidden','clip','auto','scroll'].includes(p.overflowY)||b.top-o>=p.top-1&&b.bottom+o<=p.bottom+1)),clippers}})}
 async function fixtureReach(p,selector){
     const values=await p.locator(selector).evaluateAll(xs=>xs.filter(e=>e.getClientRects().length).map(e=>{
         const textNodes=[],walk=document.createTreeWalker(e,NodeFilter.SHOW_TEXT);
@@ -110,8 +110,48 @@ async function focusThreePhasePNG(p,phase,before) {
     r.screenshots.push(facts);return facts;
 }
 
-async function naturalTarget(target,p){const seed=await target.evaluateHandle(e=>{const all=[...document.querySelectorAll('a[href],button,input:not([type=hidden]),select,textarea,summary,[tabindex]')].filter(x=>!x.disabled&&x.tabIndex>=0&&x.getClientRects().length&&getComputedStyle(x).visibility!=='hidden'),i=all.indexOf(e);if(i>0)return{element:all[i-1],key:'Tab'};if(i>=0&&i+1<all.length)return{element:all[i+1],key:'Shift+Tab'};throw Error('No natural keyboard seed')});const key=await seed.evaluate(s=>s.key),origin=await seed.evaluate(s=>({tag:s.element.tagName,name:s.element.name||null,role:s.element.getAttribute('role')}));await seed.evaluate(s=>s.element.focus());await p.keyboard.press(key);assert(await target.evaluate(e=>e===document.activeElement),'Natural '+key+' reaches original target');const geometry=async()=>({observed_at:new Date().toISOString(),focus:await focusSample(target),local:await target.evaluate(e=>{const a=e.closest('.o_ydental_settlement_fee_scroll');return a?{scrollLeft:a.scrollLeft,scrollTop:a.scrollTop,client:a.clientWidth,scroll:a.scrollWidth}:null})});const nativeImmediate=await geometry(),diagnose=mode==='focus-diagnostic'&&(await target.textContent()).includes('账单1')&&(await p.evaluate(()=>innerWidth))===390;if(diagnose)await focusThreePhasePNG(p,'native-immediate',nativeImmediate);await p.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));await p.waitForTimeout(250);const nativeSettled=await geometry(),nativeBeforeHelper=nativeSettled.focus;if(diagnose)await focusThreePhasePNG(p,'native-settled',nativeSettled);await target.evaluate(e=>e.scrollIntoView({block:'center',inline:'nearest'}));await p.waitForTimeout(150);const afterHelper=await geometry(),value=afterHelper.focus;if(diagnose)await focusThreePhasePNG(p,'after-helper',afterHelper);save('natural-target-observation-'+(r.focus_observations||[]).length+'.json',{origin,key,nativeImmediate,nativeSettled,nativeBeforeHelper,afterHelper,value});(r.focus_observations??=[]).push({origin,key,nativeImmediate,nativeSettled,nativeBeforeHelper,afterHelper,value});if(stage==='after')assert(value.active&&value.focusVisible&&value.outline_reachable&&value.not_clipped);else if(!(value.active&&value.focusVisible&&value.outline_reachable&&value.not_clipped))(r.before_findings??=[]).push({type:'BEFORE_FOCUS_REACH',value});await seed.dispose();return{explicit_seed:origin,natural_key:key,focus:value}}
-async function reachableTargets(p,tag,selector){await p.bringToFront();const records=[];for(const e of await p.locator(selector).all()){const keyboard=await naturalTarget(e,p),range=await e.evaluate(e=>{const labels=e.querySelector('.o_ydental_reporting_main_action_label')||e,walk=document.createTreeWalker(labels,NodeFilter.SHOW_TEXT),nodes=[];for(let n=walk.nextNode();n;n=walk.nextNode())if(n.textContent.trim())nodes.push(n);const first=nodes[0],last=nodes.at(-1),ends=[];for(const [kind,node,offset]of [['first',first,0],['last',last,last.length-1]]){e.scrollIntoView({block:kind==='first'?'start':'end',inline:'nearest'});const r=document.createRange();r.setStart(node,offset);r.setEnd(node,offset+1);const b=r.getBoundingClientRect();ends.push({kind,character:node.textContent[offset],box:b.toJSON(),visible:b.left>=-1&&b.right<=innerWidth+1&&b.top>=-1&&b.bottom<=innerHeight+1})}return ends});if(stage==='after')assert(range.every(x=>x.visible));else if(!range.every(x=>x.visible))(r.before_findings??=[]).push({type:'BEFORE_TEXT_ENDPOINT',range});records.push({tag:await e.evaluate(e=>e.tagName),text:(await e.textContent()).trim(),href:await e.getAttribute('href'),keyboard,endpoints:range});await e.evaluate(e=>e.scrollIntoView({block:'center',inline:'nearest'}));}save(tag+'-target-reachability.json',records);check(tag+'-actual-natural-Tab-focus-and-first-last-reachability',{count:records.length,layer:p===page?'ACTUAL_BROWSER':'LOADED_QWEB_COMPONENT'});return records}
+function measuredOversized(value) {const extent=parseFloat(value.offset)+Number(value.outline.match(/([0-9.]+)px/)[1]);return value.box.height+extent*2>value.viewport.height;}
+function knownA04(value) {
+    if(value.tag!=='SUMMARY'||!value.active||!value.focusVisible||measuredOversized(value))return false;
+    const extent=parseFloat(value.offset)+Number(value.outline.match(/([0-9.]+)px/)[1]);
+    return value.clippers.some(c=>c.class.includes('o_ydental_settlement_fee_scroll')&&(value.box.left-extent<c.left-1||value.box.right+extent>c.right+1));
+}
+async function collectA04(p,target,name,native) {
+    const observe=async()=>({focus:await focusSample(target),local:await target.evaluate(e=>{const a=e.closest('.o_ydental_settlement_fee_scroll');return {left:a.scrollLeft,client:a.clientWidth,scroll:a.scrollWidth,rootX:scrollX}})});
+    const initial=await observe(),steps=[];save(name+'-A04-native-FAIL.json',{native,initial,status:'FAIL_NATIVE_FIT_INLINE_CLIP'});await shot(name+'-A04-native-clipped',p,'ACTUAL_NATIVE_FIT_INLINE_FAILURE_A04');
+    for(let i=0;i<30;i++) {
+        const before=await observe();if(before.focus.outline_reachable&&before.focus.not_clipped)break;
+        const c=before.focus.clippers.find(c=>c.class.includes('o_ydental_settlement_fee_scroll')),o=parseFloat(before.focus.offset)+Number(before.focus.outline.match(/([0-9.]+)px/)[1]);
+        const key=before.focus.box.left-o<c.left?'ArrowLeft':'ArrowRight';await p.keyboard.press(key);await p.waitForTimeout(120);steps.push({key,before,after:await observe()});
+    }
+    const final=await observe(),value={name,status:'FAIL_NATIVE_FIT_INLINE_CLIP',native,initial,steps,final,native_PASS_claimed:false,helper_scroll_used:false};
+    save(name+'-A04-trusted-recovery.json',value);(r.native_focus_failures??=[]).push(value);
+    await shot(name+'-A04-recovered-reading-only',p,'TRUSTED_KEYBOARD_COMPENSATION_NOT_NATIVE_PASS');
+    assert(final.focus.active&&final.focus.focusVisible&&final.focus.outline_reachable&&final.focus.not_clipped&&final.local.rootX===initial.local.rootX,'Independent trusted reading recovery must be complete, original native result remains FAIL');
+    return value;
+}
+async function naturalTarget(target,p) {
+    const seed=await target.evaluateHandle(e=>{const all=[...document.querySelectorAll('a[href],button,input:not([type=hidden]),select,textarea,summary,[tabindex]')].filter(x=>!x.disabled&&x.tabIndex>=0&&x.getClientRects().length&&getComputedStyle(x).visibility!=='hidden'),i=all.indexOf(e);if(i>0)return{element:all[i-1],key:'Tab'};if(i>=0&&i+1<all.length)return{element:all[i+1],key:'Shift+Tab'};throw Error('No natural keyboard seed')});
+    const key=await seed.evaluate(s=>s.key),origin=await seed.evaluate(s=>({tag:s.element.tagName,name:s.element.name||null,role:s.element.getAttribute('role')}));await seed.evaluate(s=>s.element.focus());await p.keyboard.press(key);assert(await target.evaluate(e=>e===document.activeElement));
+    const geometry=async()=>({observed_at:new Date().toISOString(),focus:await focusSample(target),local:await target.evaluate(e=>{const a=e.closest('.o_ydental_settlement_fee_scroll');return a?{scrollLeft:a.scrollLeft,client:a.clientWidth,scroll:a.scrollWidth}:null})});
+    await p.waitForTimeout(100);const nativeImmediate=await geometry();if(!nojs)await p.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));await p.waitForTimeout(250);const nativeSettled=await geometry();
+    const index=r.focus_observations?.length||0;let oversizedEvidence=null,openA04Evidence=null;
+    save('natural-target-'+index+'-native-before-recovery.json',{origin,key,nativeImmediate,nativeSettled,helper_scroll_used:false});
+    if(measuredOversized(nativeSettled.focus))oversizedEvidence=await oversizedFocusRead(p,target,'natural-target-'+index);
+    else if(knownA04(nativeSettled.focus))openA04Evidence=await collectA04(p,target,'natural-target-'+index,nativeSettled);
+    else assert(nativeSettled.focus.active&&nativeSettled.focus.focusVisible&&nativeSettled.focus.outline_reachable&&nativeSettled.focus.not_clipped,'Fit control native settled outline must be complete');
+    const afterRecovery=await geometry();save('natural-target-observation-'+index+'.json',{origin,key,nativeImmediate,nativeSettled,afterRecovery,oversizedEvidence,openA04Evidence,helper_scroll_used:false});
+    (r.focus_observations??=[]).push({origin,key,nativeImmediate,nativeSettled,afterRecovery,oversizedEvidence,openA04Evidence});await seed.dispose();
+    return {explicit_seed:origin,natural_key:key,focus:afterRecovery.focus,oversizedEvidence,openA04Evidence};
+}
+async function reachableTargets(p,tag,selector) {
+    await p.bringToFront();const records=[],oldFailures=r.native_focus_failures?.length||0;
+    for(const e of await p.locator(selector).all()) {
+        const keyboard=await naturalTarget(e,p),range=await e.evaluate(e=>{const walk=document.createTreeWalker(e,NodeFilter.SHOW_TEXT),nodes=[];for(let n=walk.nextNode();n;n=walk.nextNode())if(n.textContent.trim())nodes.push(n);const ends=[];for(const [kind,node,offset]of [['first',nodes[0],0],['last',nodes.at(-1),nodes.at(-1).length-1]]){e.scrollIntoView({block:kind==='first'?'start':'end',inline:'nearest'});const r=document.createRange();r.setStart(node,offset);r.setEnd(node,offset+1);const b=r.getBoundingClientRect();ends.push({kind,character:node.textContent[offset],box:b.toJSON(),visible:b.left>=-1&&b.right<=innerWidth+1&&b.top>=-1&&b.bottom<=innerHeight+1})}return ends});
+        assert(range.every(x=>x.visible),'Independent readability endpoints remain mandatory');records.push({tag:await e.evaluate(e=>e.tagName),text:(await e.textContent()).trim(),href:await e.getAttribute('href'),keyboard,readability_helper_layer:'ORDINARY_SCROLL_RANGE_NOT_KEYBOARD',endpoints:range});
+    }
+    const failures=(r.native_focus_failures?.length||0)-oldFailures;save(tag+'-target-reachability.json',records);check(tag+'-native-focus-and-independent-readable-endpoints',{passed:failures===0,known_A04_failures:failures,readability_endpoints_passed:true,count:records.length,layer:p===page?'ACTUAL_BROWSER':'LOADED_QWEB_COMPONENT'});return records;
+}
 
 const tools=require('./browser_settlement.cjs');
 const scope='[data-dl-scope="settlement-lookup"]',search=scope+' [data-dl-region="search"]';
@@ -202,27 +242,45 @@ async function nativeTableReading(p=page,prefix='actual') {
     const observations=[];
     for(const table of await p.locator(scope+' .o_ydental_settlement_fee_scroll').all()) {
         await table.evaluate(e=>e.scrollIntoView({block:'center',inline:'nearest'}));await table.focus();
-        const width=await table.evaluate(e=>({left:e.scrollLeft,client:e.clientWidth,scroll:e.scrollWidth}));
-        for(let i=0;i<24;i++)await p.keyboard.press('ArrowRight');await p.waitForTimeout(120);
-        const right=await table.evaluate(e=>({left:e.scrollLeft,client:e.clientWidth,scroll:e.scrollWidth,windowX:scrollX}));
+        const observe=()=>table.evaluate(e=>({left:e.scrollLeft,client:e.clientWidth,scroll:e.scrollWidth,windowX:scrollX,active:e===document.activeElement,focusVisible:e.matches(':focus-visible'),rootClient:document.documentElement.clientWidth,rootScroll:document.documentElement.scrollWidth}));
+        const index=observations.length,initial=await observe();save(prefix+'-table-'+index+'-native-initial.json',initial);
+        const drive=async(key,edge,label)=>{
+            const steps=[];let final=await observe();
+            for(let i=0;i<60;i++) {
+                const reached=edge==='left'?final.left<=1:final.left>=final.scroll-final.client-1;
+                if(reached)break;
+                const before=final;await p.keyboard.press(key);await p.waitForTimeout(120);final=await observe();steps.push({key,before,after:final});
+            }
+            save(prefix+'-table-'+index+'-'+label+'.json',{key,edge,steps,final,helper_scroll_reset_used:false});
+            assert(final.active&&final.focusVisible&&final.windowX===initial.windowX&&final.rootScroll<=initial.rootScroll,'Native local reading retains original table focus and root overflow');
+            assert(edge==='left'?final.left<=1:final.left>=final.scroll-final.client-1,'Bounded trusted arrow reading reaches actual '+edge+' boundary');
+            return final;
+        };
+        const width=await drive('ArrowLeft','left','native-left-start');
+        const pictures=p===page||(prefix.includes('long-mixed-values')&&prefix.endsWith('-320'));
+        if(pictures)await shot(prefix+'-table-'+index+'-left-edge',p,p===page?'ACTUAL_PRODUCT_BROWSER':'ACTUAL_LOADED_QWEB_MEMORY_COMPONENT');
+        const right=await drive('ArrowRight','right','native-right');
         if(width.scroll>width.client+2)assert(right.left>width.left);
-        for(let i=0;i<24;i++)await p.keyboard.press('ArrowLeft');await p.waitForTimeout(120);
-        const left=await table.evaluate(e=>({left:e.scrollLeft,client:e.clientWidth,scroll:e.scrollWidth,windowX:scrollX}));
-        assert(left.left<=right.left);observations.push({before:width,right,left});
+        if(pictures)await shot(prefix+'-table-'+index+'-right-edge',p,p===page?'ACTUAL_PRODUCT_BROWSER':'ACTUAL_LOADED_QWEB_MEMORY_COMPONENT');
+        const left=await drive('ArrowLeft','left','native-left-final');
+        assert(left.left<=right.left&&left.left<=1);observations.push({initial,normalization:'TRUSTED_ARROWLEFT_ONLY_NO_SCROLLLEFT_ASSIGNMENT',before:width,right,left});
     }
     save(prefix+'-native-table-arrow-keys.json',observations);check(prefix+'-native-local-table-read',{tables:observations.length});
 }
 async function continuousKeyboard(p=page,prefix='actual') {
     const all=await p.locator(scope+' input:not([type="hidden"]),'+scope+' button,'+scope+' a,'+scope+' summary,'+scope+' [tabindex="0"]').all();
     const visible=[];for(const e of all)if(await e.isVisible()&&await e.evaluate(e=>e.tabIndex>=0&&!e.disabled))visible.push(e);
-    assert(visible.length>=2);await visible[0].focus();
+    assert(visible.length>=2);
+    const seedBefore=await p.evaluate(()=>({x:scrollX,y:scrollY,activeTag:document.activeElement.tagName,rootScroll:document.documentElement.scrollWidth,rootClient:document.documentElement.clientWidth}));
+    save(prefix+'-continuous-seed-setup.json',{strategy:'VERIFIED_FRESH_DOCUMENT_TOP_THEN_EXPLICIT_ORIGINAL_Q_FOCUS',before:seedBefore,JavaScript_scroll_assignment:false,arbitrary_ControlHome_recovery_claimed:false});
+    assert(seedBefore.y<=1,'The caller must provide the observed fresh-document start before explicit q seed');await visible[0].focus();
     await p.evaluate(()=>{window.__p12ContinuousKeys=[];window.addEventListener('keydown',e=>window.__p12ContinuousKeys.push({key:e.key,shift:e.shiftKey,trusted:e.isTrusted,tag:e.target.tagName,name:e.target.name||null,href:e.target.getAttribute('href')}),true)});
     const records=[];
     for(let i=0;i<visible.length;i++) {
         const e=visible[i];if(i)await p.keyboard.press('Tab');
         assert(await e.evaluate(e=>e===document.activeElement),'Continuous native Tab order '+i);
-        await p.waitForTimeout(100);const native=await focusSample(e),steps=[];
-        if(stage==='after')for(let n=0;n<24;n++) {
+        await p.waitForTimeout(100);const nativeImmediate=await focusSample(e);if(!nojs)await p.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));await p.waitForTimeout(250);const native=await focusSample(e),steps=[];let openA04Evidence=null;if(knownA04(native))openA04Evidence=await collectA04(p,e,prefix+'-target-'+i,native);const extent=parseFloat(native.offset)+Number(native.outline.match(/([0-9.]+)px/)[1]),oversized=native.box.height+extent*2>native.viewport.height;let oversizedEvidence=null;if(stage==='after'&&oversized)oversizedEvidence=await oversizedFocusRead(p,e,prefix+'-target-'+i);
+        if(stage==='after'&&!oversized&&!openA04Evidence)for(let n=0;n<24;n++) {
             const current=await focusSample(e);if(current.outline_reachable&&current.not_clipped)break;
             const b=current.box,clip=current.clippers.find(c=>c.class.includes('o_ydental_settlement_fee_scroll'));
             let key;
@@ -231,14 +289,17 @@ async function continuousKeyboard(p=page,prefix='actual') {
             else key=b.top<6?'ArrowUp':'ArrowDown';
             await p.keyboard.press(key);await p.waitForTimeout(80);steps.push({key,before:current,after:await focusSample(e)});
         }
-        const final=await focusSample(e);records.push({index:i,tag:await e.evaluate(e=>e.tagName),text:(await e.textContent()).trim(),native,steps,final});
-        if(stage==='after')assert(final.active&&final.focusVisible&&final.outline_reachable&&final.not_clipped,'Keyboard-only original target fully reachable '+i);
+        const final=await focusSample(e);records.push({index:i,tag:await e.evaluate(e=>e.tagName),text:(await e.textContent()).trim(),nativeImmediate,native,settle_policy:'100MS_THEN_JS_ON_2RAF_AND_EXTERNAL_250MS',steps,final,oversized,oversizedEvidence,openA04Evidence});save(prefix+'-continuous-keyboard-step-'+i+'.json',records.at(-1));
+        if(stage==='after'){if(!oversized&&!openA04Evidence){assert(native.active&&native.focusVisible&&native.outline_reachable&&native.not_clipped,'Settled native original fit target fully visible before recovery '+i);assert(final.active&&final.focusVisible&&final.outline_reachable&&final.not_clipped,'Keyboard-only original target fully reachable '+i);}else assert((oversizedEvidence||openA04Evidence)&&final.active&&final.focusVisible&&final.not_clipped,'Actually oversized target keeps focus and has separately proven top/bottom endpoints '+i);}
     }
     await p.keyboard.press('Shift+Tab');assert(await visible.at(-2).evaluate(e=>e===document.activeElement));
-    const events=await p.evaluate(()=>window.__p12ContinuousKeys);assert(events.length&&events.every(e=>e.trusted));
-    save(prefix+'-continuous-native-keyboard.json',{layer:p===page?'ACTUAL_NORMAL_ROLE_BROWSER':'EXPLICIT_LOADED_COMPONENT_BROWSER',explicit_seed:'first original q field',records,events,anchor_helper_scroll_used:false,native_Tab_automatic_full_visibility_claimed:false});
+    const events=await p.evaluate(()=>window.__p12ContinuousKeys);
+    const trustObservation=nojs?'NOT_OBSERVED_EXPECTED_JS_DISABLED':'OBSERVED_ALL_TRUSTED_REQUIRED';
+    save(prefix+'-continuous-native-keyboard.json',{layer:p===page?'ACTUAL_NORMAL_ROLE_BROWSER':'EXPLICIT_LOADED_COMPONENT_BROWSER',explicit_seed:'first original q field',records,events,event_trust_observation:trustObservation,native_input_transport:'ENGINE_NATIVE_KEYBOARD_PRESS',anchor_helper_scroll_used:false,native_Tab_automatic_full_visibility_claimed:false});
+    if(nojs)assert.equal(events.length,0,'No page listener callback runs in the JS-disabled context');
+    else assert(events.length&&events.every(e=>e.trusted));
     await shot(prefix+'-continuous-keyboard-final',p,p===page?'ACTUAL_PRODUCT_BROWSER':'ACTUAL_LOADED_QWEB_MEMORY_COMPONENT');
-    check(prefix+'-continuous-native-Tab-ShiftTab-and-keyboard-only-reach',{controls:visible.length,helper_scroll_used:false});
+    check(prefix+'-continuous-native-Tab-ShiftTab-and-keyboard-only-reach',{passed:records.every(x=>!x.openA04Evidence),controls:visible.length,known_A04_cases:records.filter(x=>x.openA04Evidence).length,helper_scroll_used:false});
 }
 async function otherStores() {
     const a=page.locator(scope+' a[href^="/ydental/settlement/other-stores/"]');assert.equal(await a.count(),1);
@@ -295,7 +356,7 @@ async function zooms() {
 }
 async function noJS() {
     await querySelect();await traces();await page.setViewportSize({width:320,height:800});await nativeTableReading();await captureSections('noJS-320');
-    await continuousKeyboard(page,'noJS-320');
+    await open(r.selected_href);save('noJS-fresh-document-entry.json',await page.evaluate(()=>({x:scrollX,y:scrollY,activeTag:document.activeElement.tagName})));await continuousKeyboard(page,'noJS-320');
     const button=page.locator(form+' button'),link=page.locator(search+' li a').first();
     await button.focus();await page.keyboard.press('Tab');assert(await link.evaluate(e=>e===document.activeElement));
     await emptyAndName();check('normal-authentication-same-JS-disabled-context-native-GET-link-details-keyboard',{session_copied:false});
@@ -361,9 +422,20 @@ async function componentRanges(p,name) {
     for(const d of await p.locator(scope+' details').all())if(!await d.evaluate(e=>e.open))await d.locator('summary').press('Enter');
     const ranges=await fixtureReach(p,selector);save(name+'-component-ranges.json',ranges);
 }
+async function freshComponentKeyboard(item,styles,actualCSS) {
+                const k=await context.newPage(),responses=[];k.on('response',x=>{if(x.request().resourceType()==='stylesheet')responses.push(x)});
+                await k.setViewportSize({width:320,height:800});
+                await k.setContent('<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">'+styles+'</head><body><main class="container py-4 o_ydental_settlement">'+item.html+'</main></body></html>',{waitUntil:'load'});await settle(k);
+                const actual=[];for(const response of responses){assert.equal(response.status(),200);const bytes=await response.body();actual.push({url:response.url(),status:response.status(),bytes:bytes.length,sha256:sha(bytes)});}
+                assert.deepEqual(actual,actualCSS,'Fresh keyboard component uses identical actual product stylesheet bytes');
+                const start=await k.evaluate(()=>({x:scrollX,y:scrollY,rootFont:getComputedStyle(document.documentElement).fontSize,rootScroll:document.documentElement.scrollWidth,rootClient:document.documentElement.clientWidth}));
+                save('fixture-'+item.name+'-fresh-keyboard-document.json',{layer:'LOADED_QWEB_MEMORY_COMPONENT_NEW_DOCUMENT',source_html_sha256:item.html_sha256,actualCSS:actual,start,real_identity_or_permission_claimed:false,helper_scroll_used:false});assert.equal(start.y,0);
+                await k.locator('a').evaluateAll(xs=>xs.forEach(e=>e.addEventListener('click',event=>event.preventDefault())));
+                await continuousKeyboard(k,'fixture-'+item.name+'-320-fresh');await k.close();
+}
 async function components() {
     await querySelect();
-    const fixtureFile=arg('fixture-file');assert(fixtureFile);const fixture=JSON.parse(fs.readFileSync(fixtureFile));
+    const componentPhase=arg('component-phase')||'all';r.component_phase=componentPhase;r.component_coverage=[];const fixtureFile=arg('fixture-file');assert(fixtureFile);const fixture=JSON.parse(fs.readFileSync(fixtureFile));
     assert.equal(fixture.components.length,4);assert.equal(fixture.database_writes,false);assert.equal(fixture.rollback_performed,true);
     const assetBindings=await page.locator('head link[rel=stylesheet],head style').evaluateAll(xs=>xs.map(e=>{
         const clone=e.cloneNode(true);if(e.tagName==='LINK')clone.setAttribute('href',e.href);
@@ -395,11 +467,28 @@ async function components() {
             else assert.equal(actual.pages.length,0);
         }
         if(item.paged)assert.deepEqual(original.search_pages.map(x=>x.href),[item.expected_search_previous_href,item.expected_search_next_href]);
+        if(componentPhase==='chrome-tail'&&!item.long_text){await freshComponentKeyboard(item,styles,actualCSS);r.component_coverage.push({name:item.name,actual:'NEW_320_NATIVE_REPROOF',reused_valid_sublayers_from:'.local/dl-p12/testing/evidence/final3-chromium-components-v7/result.json',old_whole_client_status_preserved:'FAILED_NO_AUTOMATIC_REPLAY'});await p.close();continue;}
         for(const [width,height]of views) {
+            const reusedFields=componentPhase==='chrome-tail'&&![390,320].includes(width);
             await p.setViewportSize({width,height});await settle(p);await projection('fixture-'+item.name+'-'+width,p);
-            await captureSections('fixture-'+item.name+'-'+width,p);await componentRanges(p,'fixture-'+item.name+'-'+width);
-            await reachableTargets(p,'fixture-'+item.name+'-'+width,targets);await nativeTableReading(p,'fixture-'+item.name+'-'+width);
-            if(width===320)await continuousKeyboard(p,'fixture-'+item.name+'-320');
+            if(!reusedFields){await captureSections('fixture-'+item.name+'-'+width,p);await componentRanges(p,'fixture-'+item.name+'-'+width);}
+            await reachableTargets(p,'fixture-'+item.name+'-'+width,targets);if(!reusedFields)await nativeTableReading(p,'fixture-'+item.name+'-'+width);
+            r.component_coverage.push({name:item.name,width,actual:reusedFields?'NEW_NATIVE_REPROOF':'ALL_ASSERTIONS',reused_valid_fields_from:reusedFields?'.local/dl-p12/testing/evidence/final3-chromium-components-v7/result.json':null});
+            if(width===320)await freshComponentKeyboard(item,styles,actualCSS);
+        }
+        if(item.name==='empty-unselected') {
+            await p.setViewportSize({width:1366,height:768});await setZoomOn(p,2);
+            assert.equal(await p.evaluate(()=>getComputedStyle(document.documentElement).fontSize),'16px');
+            await projection('fixture-empty-unselected-native200',p);
+            await p.locator(search).evaluate(e=>e.scrollIntoView({block:'start',inline:'nearest'}));await shot('fixture-empty-unselected-native200-search',p,'ACTUAL_LOADED_QWEB_MEMORY_COMPONENT_NEW_ZOOM_SAMPLE_NO_BEFORE');
+            await p.locator(search+' > .o_ydental_settlement_empty').evaluate(e=>e.scrollIntoView({block:'center',inline:'nearest'}));await shot('fixture-empty-unselected-native200-empty',p,'ACTUAL_LOADED_QWEB_MEMORY_COMPONENT_NEW_ZOOM_SAMPLE_NO_BEFORE');
+            await setZoomOn(p,1);await p.evaluate(()=>document.documentElement.style.fontSize='200%');
+            assert.equal(await p.evaluate(()=>getComputedStyle(document.documentElement).fontSize),'32px');
+            await projection('fixture-empty-unselected-rootfont200',p);
+            await p.locator(search).evaluate(e=>e.scrollIntoView({block:'start',inline:'nearest'}));await shot('fixture-empty-unselected-rootfont200-search',p,'ACTUAL_LOADED_QWEB_MEMORY_COMPONENT_NEW_ZOOM_SAMPLE_NO_BEFORE');
+            await p.locator(search+' > .o_ydental_settlement_empty').evaluate(e=>e.scrollIntoView({block:'center',inline:'nearest'}));await shot('fixture-empty-unselected-rootfont200-empty',p,'ACTUAL_LOADED_QWEB_MEMORY_COMPONENT_NEW_ZOOM_SAMPLE_NO_BEFORE');
+            await p.evaluate(()=>document.documentElement.style.fontSize='');await setZoomOn(p,1);
+            check('loaded-empty-both-actual-zoom-modes-new-samples',{before_claimed:false});
         }
         await traces(p,'fixture-'+item.name);
         if(item.name==='two-way-pagination'&&stage==='after'){await states(p);await paginationEvents(p,item.name);}
@@ -414,6 +503,7 @@ async function components() {
             await reachableTargets(p,'fixture-'+item.name+'-rootfont200',targets);await captureSections('fixture-'+item.name+'-rootfont200',p);
             await p.evaluate(()=>document.documentElement.style.fontSize='');
         }
+        if(item.long_text){const pressure=await p.addStyleTag({content:scope+','+scope+' *{line-height:1.6!important;letter-spacing:.12em!important;word-spacing:.16em!important}'+scope+' p{margin-block-end:2em!important}'});await projection('fixture-long-user-text-spacing',p);await componentRanges(p,'fixture-long-user-text-spacing');await reachableTargets(p,'fixture-long-user-text-spacing',targets);await shot('fixture-long-user-text-spacing',p,'EXPLICIT_USER_TEXT_SPACING_STRESS_COMPONENT_NOT_PRODUCT_CSS');await pressure.evaluate(e=>e.remove());check('explicit-user-text-spacing-stress-keeps-fields-visible',{product_repair_CSS:false});}
         for(const fault of ['missing-SVG','missing-CSS']) {
             const f=await context.newPage();await f.setContent('<!doctype html><html lang="zh-CN"><head>'+(fault==='missing-CSS'?'':styles)+'</head><body><main class="container py-4 o_ydental_settlement">'+item.html+'</main></body></html>',{waitUntil:'load'});await settle(f);
             if(fault==='missing-SVG')await f.locator('svg').evaluateAll(xs=>xs.forEach(e=>e.remove()));
@@ -503,8 +593,52 @@ async function paginationEvents(p,name) {
     check('loaded-component-secondary-eight-links-icon-text-blank-original-anchor',{cases:values.length,actual_GET_success_claimed:false});
 }
 
+async function oversizedFocusRead(p,target,name) {
+    const original={tag:await target.evaluate(e=>e.tagName),href:await target.getAttribute('href')};
+    const observe=async()=>({focus:await focusSample(target),root:await p.evaluate(()=>({x:scrollX,y:scrollY})),local:await target.evaluate(e=>({left:e.scrollLeft,top:e.scrollTop,client:e.clientWidth,scroll:e.scrollWidth}))});
+    const initial=await observe(),extent=parseFloat(initial.focus.offset)+Number(initial.focus.outline.match(/([0-9.]+)px/)[1]);
+    assert(initial.focus.box.height+extent*2>initial.focus.viewport.height,'Oversized branch requires actual measured height beyond viewport');
+    await p.evaluate(()=>{if(window.__p12TallKeyListener)window.removeEventListener('keydown',window.__p12TallKeyListener,true);window.__p12TallKeys=[];window.__p12TallKeyListener=e=>window.__p12TallKeys.push({key:e.key,trusted:e.isTrusted,tag:e.target.tagName});window.addEventListener('keydown',window.__p12TallKeyListener,true)});
+    const glyph=async edge=>target.evaluate((e,edge)=>{
+        const walk=document.createTreeWalker(e,NodeFilter.SHOW_TEXT),values=[];
+        for(let n=walk.nextNode();n;n=walk.nextNode())if(n.textContent.trim()){
+            const closed=n.parentElement.closest('details:not([open])');if(closed&&!closed.querySelector('summary').contains(n.parentElement))continue;
+            let offset=edge==='top'?n.textContent.search(/\S/u):n.textContent.length-1;while(/\s/u.test(n.textContent[offset]))offset--;
+            const r=document.createRange();r.setStart(n,offset);r.setEnd(n,offset+1);const b=r.getBoundingClientRect();if(b.width>0&&b.height>0)values.push({char:n.textContent[offset],box:b.toJSON(),owner:n.parentElement.tagName});
+        }
+        if(!values.length)throw Error('Visible original glyph endpoints required');
+        values.sort((a,b)=>edge==='top'?a.box.top-b.box.top:b.box.bottom-a.box.bottom);return values[0];
+    },edge);
+    const endpoints={};
+    for(const edge of ['top','bottom']) {
+        const steps=[];
+        for(let i=0;i<40;i++) {
+            const state=await observe(),g=await glyph(edge),b=state.focus.box,v=state.focus.viewport;
+            const horizontal=g.box.left>=Math.max(0,b.left)+1&&g.box.right<=Math.min(v.width,b.right)-1;
+            const vertical=edge==='top'?b.top-extent>=0&&b.top-extent<v.height:b.bottom+extent<=v.height&&b.bottom+extent>0;
+            const glyphVertical=g.box.top>=0&&g.box.bottom<=v.height;
+            if(horizontal&&vertical&&glyphVertical)break;
+            let key;
+            if(!horizontal&&state.local.scroll>state.local.client+2)key=g.box.left<Math.max(0,b.left)+1?'ArrowLeft':'ArrowRight';
+            else key=i<20?(edge==='top'?'PageUp':'PageDown'):(edge==='top'?'ArrowUp':'ArrowDown');
+            await p.keyboard.press(key);await p.waitForTimeout(120);steps.push({key,before:state,glyphBefore:g,after:await observe(),glyphAfter:await glyph(edge)});
+        }
+        const final=await observe(),g=await glyph(edge),b=final.focus.box,v=final.focus.viewport;
+        endpoints[edge]={steps,final,glyph:g};save(name+'-oversized-'+edge+'.json',{original,initial,extent,edge,...endpoints[edge],simultaneous_entire_outline_claimed:false,helper_scroll_used:false});
+        const h=b.left-extent>=-1&&b.right+extent<=v.width+1;
+        const vertical=edge==='top'?b.top-extent>=-1&&b.top-extent<v.height:b.bottom+extent<=v.height+1&&b.bottom+extent>0;
+        assert(final.focus.active&&final.focus.focusVisible&&h&&vertical&&final.focus.not_clipped&&final.root.x===initial.root.x,'Oversized original focus edge is reachable without changing active element or root X');
+        assert(g.box.left>=-1&&g.box.right<=v.width+1&&g.box.top>=-1&&g.box.bottom<=v.height+1,'Original oversized endpoint glyph visible');
+        assert.equal(await target.getAttribute('href'),original.href);
+        await shot(name+'-oversized-'+edge,p,'EXPLICIT_LOADED_QWEB_OVERSIZED_FOCUS_KEYBOARD_SEGMENT');
+    }
+    const keys=await p.evaluate(()=>{window.removeEventListener('keydown',window.__p12TallKeyListener,true);return window.__p12TallKeys});assert(keys.length&&keys.every(x=>x.trusted));
+    save(name+'-oversized-complete.json',{original,initial,extent,endpoints,keys,simultaneous_entire_outline_claimed:false,helper_scroll_used:false,layer:'LOADED_QWEB_COMPONENT_KEYBOARD_SEGMENTED_EDGES'});
+    return {original,initial,extent,endpoints,simultaneous_entire_outline_claimed:false};
+}
+
 try{if(engine==='webkit'){const manifest=path.join(root,'.local/dl-p1/evidence/webkit-engine-native-source-manifest.json');assert.equal(hash(manifest),JSON.parse(fs.readFileSync(path.join(root,'.local/dl-p1/webkit-manifest-binding.json'))).sha256);for(const f of JSON.parse(fs.readFileSync(manifest)).browser_files)assert.equal(hash(path.join(root,'.local/dl-p1',f.path)),f.sha256);r.engine_manifest_sha256=hash(manifest);browser=await pw.webkit.launch(require(path.join(root,'.local/dl-p3/verification/webkit_plugins_environment.cjs')).launchOptions(root));context=await browser.newContext({viewport:{width:1366,height:768},locale:'zh-CN',javaScriptEnabled:!nojs,acceptDownloads:false})}else if(['zoom','components'].includes(mode)){profile=path.join(out,'owned-temporary-profile');fs.mkdirSync(profile,{mode:0o700});const ext=path.join(root,'.local/dl-p1/zoom-extension');context=await pw.chromium.launchPersistentContext(profile,{headless:true,channel:'chromium',executablePath:path.join(root,'.local/s11/browsers/chromium-1248/chrome-linux64/chrome'),viewport:{width:1366,height:768},locale:'zh-CN',acceptDownloads:false,args:['--disable-extensions-except='+ext,'--load-extension='+ext],env:{...process.env,LD_LIBRARY_PATH:path.join(root,'.local/s11/browser-deps/root/usr/lib/x86_64-linux-gnu'),FONTCONFIG_FILE:path.join(root,'.local/s12/fontconfig/fonts.conf'),FONTCONFIG_PATH:path.join(root,'.local/s12/fontconfig')}});browser=context.browser();worker=context.serviceWorkers()[0]||await context.waitForEvent('serviceworker')}else{browser=await pw.chromium.launch({headless:true,executablePath:path.join(root,'.local/s11/browsers/chromium-1248/chrome-linux64/chrome'),env:{...process.env,LD_LIBRARY_PATH:path.join(root,'.local/s11/browser-deps/root/usr/lib/x86_64-linux-gnu'),FONTCONFIG_FILE:path.join(root,'.local/s12/fontconfig/fonts.conf'),FONTCONFIG_PATH:path.join(root,'.local/s12/fontconfig')}});context=await browser.newContext({viewport:{width:1366,height:768},locale:'zh-CN',javaScriptEnabled:!nojs,acceptDownloads:false})}
 r.actual_engine_version=browser.version();r.driver_version=require(path.join(driver,'package.json')).version;proc=browser._connection.toImpl(browser)?.options?.browserProcess?.process;if(proc){r.native_main_lifecycle={pid:proc.pid,executable:proc.spawnfile};proc.once('exit',(exitCode,signalCode)=>Object.assign(r.native_main_lifecycle,{exitCode,signalCode}))}context.setDefaultTimeout(nojs?12000:20000);context.on('response',x=>r.responses.push({path:new URL(x.url()).pathname,method:x.request().method(),status:x.status()}));context.on('requestfailed',x=>r.failures.push({path:new URL(x.url()).pathname,resource:x.resourceType(),error:x.failure()?.errorText}));await context.route('**/*',route=>{const req=route.request(),u=new URL(req.url()),op=new URLSearchParams(req.postData()||'').get('operation');if(!['data:','about:','blob:'].includes(u.protocol)&&u.origin!==base){(r.external_blocks??=[]).push({protocol:u.protocol,host:u.host});return route.abort()}if(u.pathname.startsWith('/ydental/'))r.requests.push({method:req.method(),path:u.pathname,query:[...u.searchParams].filter(([k])=>k!=='revision'),...(u.pathname==='/ydental/access/action'?{operation:op}:{})});if((/\/pdf\/|\/originals\/generate|\/bill-original\/|\/csv(?:$|\/)/.test(u.pathname))||(req.method()==='POST'&&u.pathname.startsWith('/ydental/')&&!((u.pathname==='/ydental/access/action'&&op==='switch')))){r.business_write_requests++;(r.guard_blocks??=[]).push({path:u.pathname,operation:op});return route.abort()}return route.continue()});page=context.pages()[0]||await context.newPage();page.on('pageerror',e=>(r.page_errors??=[]).push({class:e.constructor.name,message:String(e.message).slice(0,600)}));await login();
-if(mode==='layout')await layout();else if(mode==='zoom')await zooms();else if(mode==='nojs')await noJS();else if(mode==='permissions')await permissions();else if(mode==='bypass')await bypass();else if(mode==='components')await components();else if(mode==='events')await actionEvents();else if(mode==='keyboard'){await querySelect();await page.setViewportSize({width:320,height:800});await continuousKeyboard(page,'real-320');await traces();await nativeTableReading();}else if(mode==='states'){await querySelect();await families();await states();}else throw Error('Unknown P12 mode');
-assert.equal(r.business_write_requests,0);assert.equal((r.guard_blocks||[]).length,0);assert.equal((r.external_blocks||[]).length,0);r.status='P12_'+stage.toUpperCase()+'_'+engine.toUpperCase()+'_'+mode.toUpperCase()+'_PASS';
+if(mode==='layout')await layout();else if(mode==='zoom')await zooms();else if(mode==='nojs')await noJS();else if(mode==='permissions')await permissions();else if(mode==='bypass')await bypass();else if(mode==='components')await components();else if(mode==='events')await actionEvents();else if(mode==='keyboard'){r.selected_href='/ydental/settlement?patient_id='+sample.selected_patient_id;await open(r.selected_href);const selected=await projection('keyboard-selected-context');assert(selected.selected.includes(sample.business_number));r.keyboard_entry='NORMAL_ORIGINAL_SELECTED_GET_NO_ALL_STORE_DATE_COMPARISON';await page.setViewportSize({width:320,height:800});await continuousKeyboard(page,'real-320');await traces();await nativeTableReading();}else if(mode==='states'){await querySelect();await families();await states();}else throw Error('Unknown P12 mode');
+assert.equal(r.business_write_requests,0);assert.equal((r.guard_blocks||[]).length,0);assert.equal((r.external_blocks||[]).length,0);r.completed_independent_assertions=true;r.external_known_A04=arg('known-open-a04')==='true';r.external_known_A04_sources=r.external_known_A04?['inline5-chromium-retained36-recovery-v2','inline5-webkit-retained36-recovery-v2']:[];r.status=(r.native_focus_failures?.length||r.external_known_A04)?'COMPLETE_WITH_OPEN_A04':'P12_'+stage.toUpperCase()+'_'+engine.toUpperCase()+'_'+mode.toUpperCase()+'_PASS';
 }catch(error){r.status='FAILED_NO_AUTOMATIC_REPLAY';r.error={class:error.constructor.name,message:String(error.message).slice(0,2200)};r.stack=String(error.stack).split('\n').slice(0,12)}finally{if(context){if(logged)try{r.logout_status=(await context.request.post(base+'/web/session/destroy',{data:{jsonrpc:'2.0',method:'call',params:{},id:9}})).status()}catch(e){r.logout_error=e.constructor.name}try{await context.close();r.context_normal_close=true}catch(e){r.context_close_error=e.constructor.name}}if(browser)try{await browser.close();r.browser_normal_close=true}catch(e){r.browser_close_error=e.constructor.name}if(proc&&proc.exitCode===null)await new Promise(resolve=>{proc.once('exit',resolve);setTimeout(resolve,3000)});if(profile&&r.context_normal_close){fs.rmSync(profile,{recursive:true});r.owned_profile_removed=true}r.finished_at_utc=new Date().toISOString();save('result.json',r);process.stdout.write(JSON.stringify({status:r.status,checks:r.checks.length,screenshots:r.screenshots.length})+'\n');process.exitCode=r.status.endsWith('_PASS')?0:2}})();
