@@ -21,3 +21,14 @@ P11 owned服务，凭据仅由正常私有provider读取，认证/正常选店�
 `viewing_package.py` 从显式清单复制原PNG逐bytes构造私有0400 ZIP，内含
 完整manifest/SHA；不包括凭据、Cookie、profile、原请求、DB、原件、CSV、
 字体或程序。未实现者须逐源/成员/隐私独立核验，构造成功不算验收。
+
+`keyboard` 是真实普通岗位 source 原导航相邻两控件的可信 Tab / Shift+Tab
+补层，保 active、原 href、完整焦点和原 PNG。`diagnostic` 只测单个明确
+loaded QWeb 组件首视口的原字体 Range；首尾全文端点先保存原状态，再以
+真实 window/原 auto-scroll 容器正常滚动补读并保存前后几何，不改 CSS、
+字体、文字或判定阈值，也不滚动 hidden/clip 容器冒用户可达。
+`focus-diagnostic` 保留有分摊组件横读后视口切换的原顺序；保存原生 Tab
+即时、两帧加250ms后、正常 scrollIntoView 后的实际 scrollLeft / box /
+ring / clip 和三张未编辑现场图，用于区分原生滚动与收集器影响。
+先前实际私有小测试的 exact executed 源与退出独立保留；最终公开函数整合
+不反签此前失败、不同候选或未运行模式。

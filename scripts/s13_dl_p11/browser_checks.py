@@ -24,7 +24,7 @@ def main():
     parser.add_argument('--run-id', required=True)
     parser.add_argument('--engine', choices=('chromium', 'webkit'), required=True)
     parser.add_argument('--stage', choices=('before', 'after'), required=True)
-    parser.add_argument('--mode', choices=('layout','permissions','zoom','nojs','stress','bypass','components','diagnostic'), default='layout')
+    parser.add_argument('--mode', choices=('layout','permissions','zoom','nojs','stress','bypass','components','diagnostic','focus-diagnostic','keyboard'), default='layout')
     parser.add_argument('--sample-file', default='.local/dl-p11/testing/sample.json')
     parser.add_argument('--timeout', type=int, default=600)
     parser.add_argument('--fixture-file')
