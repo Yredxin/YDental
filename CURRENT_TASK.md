@@ -1,17 +1,21 @@
 # DL-P9 当前状态｜YD-S13-DL-P9 / 1.0
 
-## IN_PROGRESS / SYNC_PENDING / 用户亲手效果待确认
+## 本地分层技术已成，待最终正文总签 / SYNC_PENDING / 用户亲手效果待确认
 
-- 用户2026-10-26直接启用[完整P9计划](docs/execution/S13_DL_P9_IMPLEMENTATION_PLAN.md)，W0—W4连续实施，仅文书主页面空间关系；P8技术交付保持，非重开P8或全站改造，完成后停止。
-- 从clean P8报告756df60286d078a4243f87c885dc7a10de1f9b8b正常建立`codex/s13-dl-p9-documents-spacing-r1`；产品bd8411d4/唯一回执6406133603及P1—P8、P5 PARTIAL、旧包/失败/UNKNOWN保持，不reset/clean/强推/从main重建。
-- root唯一产品/文档/状态写者和调度；runtime_p9负责运行工具/保护，testing_p9测试工具/实际双引擎，acceptance_p9未实现者独立验收。同OS不冒隔离。三agent均真实响应；测试协作者后于before完成返回新的模型capacity限制，未更换模型/agent/入口；主控接续其已准备工具，独立验收者不参与实现。
-- W0完成：原生1618+1621合成视图/XPath已固定；本轮Chromium/WebKit各五view前态实际完成39checks/19原图，320根分别345/333。before服务正常stop/child0，唯一58正常accepted审计、其余业务/技术/原文件保持。W1/W2产品冻结5f8f154（7addon文件），当前待必要print-only XML加载及after定向验证，未签技术完成。仅既有synth OID2171423/cluster7694897083368259627及原filestore；新scope不修改旧到期/STOP/guard。现场完整清单83引用/80唯一路径/80不同SHA，独立before新physical454445全部真实字节SHA保持；不删共享引用。
-- 允许原GET、HTML preview、旧pdf_view/download；禁止live生成/打印/模板创建审核发布/导出/继承三块业务/经济库存重放。P8按钮和P1JS/内部控件、iframe/PDF、原合同冻结；继承三块仅顶层外距。
-- 只在计划结束向#37新增一份最终结果，保持OPEN，旧10评论不改；#36 CLOSED。main只必要路由，不合产品不部署。完整S13/后续页面/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/生产未启用。
+- 用户直接启用[完整P9计划](docs/execution/S13_DL_P9_IMPLEMENTATION_PLAN.md)，W0—W4连续实施，仅文书主页面空间关系；继承三块只顶层外距；非重开P8/全站，不推广其它页面。[结果/间距责任表/7步复现](docs/reports/s13-dl-p9/summary.md) · [12项矩阵](docs/reports/s13-dl-p9/acceptance-matrix.md) · [完整脱敏索引](docs/reports/s13-dl-p9/evidence-index.md)。
+- 从clean P8报告756df60286d078a4243f87c885dc7a10de1f9b8b正常建立`codex/s13-dl-p9-documents-spacing-r1`。准备/before ee15b39（产品P8）；产品固定5f8f15416521486f156e2932dd0b577c25d970f9，实际唯一print-u/after7d02a16c429993e36971ce065bf78d56a4d72fb8仅多状态文档。P8产品bd8411d4/唯一6406133603、P1—P8、P5 PARTIAL、旧包/失败/UNKNOWN保持，不reset/clean/强推/从文档main重建。
+- root唯一产品/状态/报告写者与调度；runtime_p9运行工具/before，testing_p9测试工具/双enginebefore，acceptance_p9未实现产品或相应工具者独立审查。同OS不冒隔离。两个协作者先后新capacity限制后保留原失败、不换模型/agent/入口，root接续其工具与after/加载/普通工具修复，独立验收者继续。实际源/command/退出逐client固定，最后工具发布不冒所有client同源运行。
+- 两XML剥获准spacing class/rootmarker后全canonical exact，实际1618+1621合成视图/XPath不变；7addon文件，仅局部SCSS/单资产及三旧SCSS7间距声明删除。P8按钮/共享_actions.scss/P1JS和内部控件/浮层、原form合同/iframe正文/PDF/表格列单元padding保持，无产品JS/后端/ACL/schema/全局主题改变。GET及preview POST实际8/24/16/12/module24/card24-16，两engine五view/两种200%/真JSoff/真实busy/键盘required/320popup/压力分层已成。
+- 34clients=29Node0/4Node2/1UNKNOWN，34native0；236原PNG路径/181不同SHA。4失败为before2+busy2普通工具错误；WKstress完整browser层/8PNG/native0已独立签，wrapper143/NodeUNKNOWN及原因UNKNOWN不反签。新businessPOST/预拦截guard0。320根Chrome345/WK333本轮各same、旧根因UNKNOWN不扩大成全页适配。
+- 唯一既有synth OID2171423/cluster7694897083368259627/原filestore、core f0c5a9b保持，无新库/克隆/改名；新scope不改旧时间/STOP/guard。唯一print-u实际0/ERROR0/noNative，即时完整pre42fb99…/post183144…独立36b3a554…分类native日期/两arch，4依赖同，后续不重复-u。
+- 最终root23885cd…；未实现者独立新physical465527 RO/RR/rollbackidle/closed，完整145业务/13技术/九区same root，83refs/80真实路径/80不同SHA逐bytes/size/SHA全保，独立0e86f0a1411a260fe0bcc728a764c32aeb732e42b5d3fd6daa0dae3f397d2816。旧17812audit逐行保，新205=201accepted认证/读取+4none旧PDF读denied；原category export不冒bulk export。原件/金额库存/身份作者价源/责任/schema/config保持，新原件/PDF生成/打印/签署/模板创建审核发布/继承业务/经济库存0，无临时grant。
+- 最终私有0400r2包`.local/dl-p9/viewing/S13-DL-P9-view-only-20261026-r2.zip`5039889B/SHA9796854834e8a350d7ab618bb4a6c6d68a8a486dd82fe4bbe0499603f7e8529e，52members/48原PNG/152测量，独立ee3fc0c1…全核。r1说明before失败数误3保历史，r2修为2并补4窄屏popup/同active正常scroll环图，r1/P8旧字节不改。无秘密/session/PDF/DB/config/program/font，不上传Public。
+- after owned20261026T021012Z-d241867b77e3于2026-10-26T02:30:15.610853Z正常stop/foreground0/child0/signull/groupstopped；before亦0。独立7e5d6e7c…核2owned/34native0、owner/ports/profile/已知进程空，freshRO465768其它targetconn[]。不为报告复开、不动共享主服务。未实现者T01—11及T12本地层总索引9d6a2aa4f57b5a9bc961582228e6a30eaa0b0231c0cbedb298e46b326f638cc0，最终正文/状态和远端签另按实际补记。
+- 仅计划结束向#37新增一份P9最终结果、保持OPEN、旧10不改；#36CLOSED，main只必要路由，不合产品不部署。用户亲手效果待确认。P9交付后停止，后续页面/完整S13/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/生产未启用。
 
 ---
 
-以下完整保留P8及更早交付、保护和不可重放历史；历史P9未启用仅由本次用户明确授权替代。
+以下完整保留P8及更早交付/保护/不可重放历史；历史P9未启用仅由本次用户明确授权替代。
 
 # DL-P8 当前状态｜YD-S13-DL-P8 / 1.0
 

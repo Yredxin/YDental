@@ -24,7 +24,7 @@ def main():
     parser.add_argument('--run-id', required=True)
     parser.add_argument('--engine', choices=('chromium', 'webkit'), required=True)
     parser.add_argument('--stage', choices=('before', 'after'), required=True)
-    parser.add_argument('--mode', choices=('narrow', 'busy', 'others-bypass', 'before', 'main', 'zoom', 'nojs', 'fixtures', 'bypass', 'files', 'permissions', 'spacing', 'stress', 'long', 'branches'), default='main')
+    parser.add_argument('--mode', choices=('narrow', 'busy', 'others-bypass', 'before', 'main', 'zoom', 'nojs', 'fixtures', 'bypass', 'files', 'permissions', 'spacing', 'stress', 'long', 'branches', 'required', 'p1-narrow'), default='main')
     parser.add_argument('--sample-file', default='.local/dl-p9/testing/sample.json')
     parser.add_argument('--timeout', type=int, default=600)
     parser.add_argument('--fixture-file')

@@ -65,7 +65,15 @@ def compare(before_file, after_file):
     clocks = preview_equal(before['preview_projection'], after['preview_projection'])
     checks.append('preview_full_semantics_exact_except_one_classified_native_UTC')
     for key in ['unaffected_initial', 'unaffected_preview']:
-        assert without_width(before[key]) == without_width(after[key]), key+' frozen control internals changed'
+        left, right = copy.deepcopy(before[key]), copy.deepcopy(after[key])
+        if key == 'unaffected_preview':
+            for sample, full in ((left, before['preview_projection']), (right, after['preview_projection'])):
+                assert len(sample['iframe']) == len(full['iframe'])
+                for frame, source in zip(sample['iframe'], full['iframe']):
+                    assert all(source[k] == v for k, v in frame.items())
+            for frame in left['iframe'] + right['iframe']:
+                frame.pop('srcdoc')  # Exact source classification already passed above.
+        assert without_width(left) == without_width(right), key+' frozen control internals changed'
         checks.append(key+'_frozen_style_and_contracts_exact_except_allowed_width')
     layout = []
     for view in ['1366x768', '1440x900', '768x1024', '390x844', '320x800', 'post-preview']:
