@@ -31,3 +31,6 @@
 
 
 未实现者最终本地总签 **3d3d982f938ff5d0fec4db8f9e5a4fa6ca7a2e9a159ba8d7e4c18243ec4bbf88** 已实际接受PARTIAL交付记录。T01/T04/T05/T06/T09/T10/T11适用子证据成立，T02/T03/T07完整焦点子项PARTIAL、T08 FAIL/A04OPEN，T12本地资料/包/保护/停止已成，远端同步待实际读回；不能签TECHNICALLY_COMPLETE。all70全原件独核f4f569d6…，公共文稿/新可达blobs审查a5399dfd…均保原结论。
+
+
+T12远端交付子项已实际独立读回：两ref9cf8057/abef497、33完整文件、唯一P12 6422670245完整正文、旧13 id/body与37OPEN36CLOSED及#23/#36/#37 title/body/state exact，签 **e4ef772ad7df6a7fd836a2bad657bad54e4e526f84c3b73aa72867d6560d2455**。当前PARTIAL/SYNCED（传输），T08/A04仍FAIL，T02/T03/T07焦点PARTIAL；不以T12读回代技术全通过。最终仅metadata增量另正常读回，原首发PENDING/旧失败不改，无运行重开。

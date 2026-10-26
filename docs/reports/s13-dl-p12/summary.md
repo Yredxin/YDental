@@ -2,7 +2,7 @@
 
 `[CODEX-FINAL] YD-S13-DL-P12 / 1.0`
 
-技术：**PARTIAL — A04 原生横向焦点门槛未通过**。同步：SYNC_PENDING。用户亲手效果：待确认。
+技术：**PARTIAL — A04 原生横向焦点门槛未通过**。同步：**SYNCED（仅传输，技术仍PARTIAL）**。用户亲手效果：待确认。
 
 仅 `/ydental/settlement` 原 `div.o_ydental_settlement_lookup[data-dl-scope="settlement-lookup"]`，在首个“Select fees to bill”办理 details 之前闭合。完成动作/SVG/间距实现，保留一项未关闭的原生焦点问题；不重开P11、不扩结算办理区或全站。
 
@@ -120,3 +120,12 @@ P12交付后停止；#37保持OPEN/#36 CLOSED，P1—P11旧回执不改。main�
 未实现者审固定文稿 **e33c05f3f8ebce7599bbaf31d410f12b7b6b5a17**、工具a161aa3、main仅两路由ce52cb9，全部70实际客户端的700执行源/1003PNG/210收据和原命令/退出完整核。`final-all70-fullsource-integrity-independent.json` SHA **f4f569d646ab0fb66f52a8473d5d83fa21b96fbc243154152b8a80b5bdb365e7**。
 
 最终本地总项 `final-technical-partial.json` SHA **3d3d982f938ff5d0fec4db8f9e5a4fa6ca7a2e9a159ba8d7e4c18243ec4bbf88** 已实际接受PARTIAL交付记录：T08 FAIL/A04 OPEN，T02/T03/T07完整焦点子项PARTIAL，未签TECHNICALLY_COMPLETE。公开交付审查 **a5399dfd5ddd15426c04c476d38a473ee1e9b8b4a5503f4ff90c676fd66a530c**：全部56新可达Git blobs以正常获准provider秘密值仅在内存比对，0命中，无值或摘要输出；71个公开证据行的实际bytes/SHA已重核。后续只加入这些已发生元数据，最终refs/唯一回执和完整远端读回尚待真实操作；原SYNC_PENDING时点保留。
+
+
+## 实际同步与最终停止
+
+正常push首业务 **9cf8057923516df89dc6ccfc14022688b1c29644** / main仅两路由 **abef497bdfb6f5b925736999cb23d351f69bfd3b**，root经正常GitHub插件33完整UTF8/bytes/SHA256/Gitblob exact（3fbaf2efa9250f53375c423b8deeab86636ad4440c035a830299cc54494d5cd4）。#37只新增唯一P12 [6422670245](https://github.com/Yredxin/YDental/issues/37#issuecomment-6422670245)，root全文与旧13 id/body及37OPEN36CLOSED/titlebody实读exact（af4bbb3177c999e43febb847cbe54ea75e4f7d06e5e6819ef54f1ec336677b78）。
+
+未实现者独立直接plugin两ref/33全文/本唯一评论完整正文/旧13/#23/#36/#37 title/body/state逐项exact，`final-sync-independent.json` SHA **e4ef772ad7df6a7fd836a2bad657bad54e4e526f84c3b73aa72867d6560d2455** 已实际成立；新增metadata blobs和comment秘密值内存比对0hit。评论API真实created/updated未观测，不用null相等冒时间证明。当前 **PARTIAL / SYNCED（仅传输）/ STOPPED**；A04/T08原生横向焦点FAIL仍在，不能TECHNICALLY_COMPLETE，用户亲手效果待确认。
+
+原首发SYNC_PENDING及本地总项时点保留。最后仅加入这些已发生元数据，最终ref/六文档/同一回执增量再正常读回，不循环自身未来hash，不新增第二P12，不改旧13，不复开app/DB/browser，不合产品或部署。P12交付即停，后续未启用。

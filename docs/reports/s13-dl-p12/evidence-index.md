@@ -204,3 +204,8 @@ SOURCE来自每process原始归档，code2不反签whole；状态/有效子层�
 |`acceptance/final-all70-fullsource-integrity-independent.json`|304057|`f4f569d646ab0fb66f52a8473d5d83fa21b96fbc243154152b8a80b5bdb365e7`|
 |`acceptance/final-technical-partial.json`|9856|`3d3d982f938ff5d0fec4db8f9e5a4fa6ca7a2e9a159ba8d7e4c18243ec4bbf88`|
 |`acceptance/final-public-delivery-review-independent.json`|15315|`a5399dfd5ddd15426c04c476d38a473ee1e9b8b4a5503f4ff90c676fd66a530c`|
+
+
+## 已发生的远端独立读回
+
+`acceptance/final-sync-independent.json` / 3659B / SHA256 `e4ef772ad7df6a7fd836a2bad657bad54e4e526f84c3b73aa72867d6560d2455`：两ref/33完整文件/唯一P12 6422670245与旧13/Issue状态正文direct plugin exact。root33全文3fbaf2ef…、唯一回执af4bbb31…保私有原件。SYNCED仅传输，技术PARTIAL/A04未过；最后metadata ref/六正文/同回执另读回旁签，不循环写自身未来hash。
