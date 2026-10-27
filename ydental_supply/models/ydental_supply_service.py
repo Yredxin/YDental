@@ -599,6 +599,10 @@ class YDentalSupplyService(models.AbstractModel):
         candidates = candidates.sorted(lambda r: (len(r.ydental_capability_ids), r.ydental_station_id.id, r.id))
         for slot in candidates:
             pool = slot.ydental_policy_id.ydental_phone_pool if p['channel'] == 'phone' else p['channel']
+            # Disabled test slots must neither convert nor block an otherwise
+            # eligible formal slot in the same area and time.
+            if slot.ydental_policy_id.ydental_mode == 'isolated_test' and not self._isolated_test_allowed(store):
+                continue
             if slot.ydental_start <= self._now() < slot.ydental_end and not slot.ydental_converted:
                 self._convert_slot(store, slot)
             field = 'ydental_reservation_free' if pool == 'reservation' else 'ydental_walkin_free'

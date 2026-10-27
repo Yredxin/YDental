@@ -656,3 +656,24 @@ class TestSupply(TransactionCase):
             changed = list(identity)
             changed[index] = other
             self.assertFalse(_is_allowed_isolated_test_target(*changed))
+
+    def test_disabled_isolated_slot_does_not_block_current_formal_slot(self):
+        service_type = type(self.service)
+        test_policy = {'name': 'Isolated scope', 'mode': 'isolated_test', 'rounding': 'floor',
+            'phone_pool': 'reservation', 'cutoff_minutes': 0, 'reason': 'Synthetic approval',
+            'isolated_test_approved': True, 'station_id': self.stations[0].id}
+        formal_policy = {'name': 'Formal scope', 'mode': 'published', 'rounding': 'floor',
+            'phone_pool': 'reservation', 'cutoff_minutes': 0, 'reason': 'Formal approval',
+            'approved': True, 'station_id': self.stations[1].id}
+        with patch.object(service_type, '_isolated_test_allowed', return_value=True):
+            self.service._operate('policy', test_policy, 'mixed-test-policy')
+            self.service._operate('policy', formal_policy, 'mixed-formal-policy')
+            test_slot = slot(self, self.stations[0], key='mixed-test-slot')
+            formal_slot = slot(self, self.stations[1], key='mixed-formal-slot')
+        with patch.object(service_type, '_isolated_test_allowed', return_value=False), patch(NOW, return_value=self.start):
+            self.service._operate('business', {'area_id': self.area.id, 'state': 'open',
+                'reason': 'Open actual business day'}, 'mixed-open')
+            claim = acquire(self, formal_slot, key='mixed-walkin', channel='walkin', capability=self.capabilities[0])
+            self.assertEqual(claim.ydental_slot_id, formal_slot)
+            self.assertFalse(test_slot.ydental_converted)
+            self.assertTrue(formal_slot.ydental_converted)
