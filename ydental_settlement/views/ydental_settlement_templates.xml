@@ -23,7 +23,12 @@
 
     <template id="ydental_settlement_page" name="Offline settlement workbench">
         <t t-set="head"><meta name="viewport" content="width=device-width, initial-scale=1"/>
-            <t t-call-assets="web.assets_frontend" t-js="false"/></t>
+            <t t-call-assets="web.assets_frontend" t-js="false"/>
+            <script type="text/javascript" data-ydental-fee-focus-bootstrap="true">
+                odoo.__session_info__ = <t t-out="json.dumps(env['ir.http'].get_frontend_session_info())"/>;
+            </script>
+            <t t-call-assets="web.assets_frontend_minimal" t-css="false" defer_load="True"/>
+            <t t-call-assets="web.assets_frontend_lazy" t-css="false" lazy_load="True"/></t>
         <t t-call="web.layout" head="head">
             <main class="container py-4 o_ydental_settlement" t-att-data-revision="revision">
                 <h1>线下结算工作台</h1>
