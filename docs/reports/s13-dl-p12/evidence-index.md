@@ -1,3 +1,120 @@
+# DL-P12 A04 续办证据索引｜2026-10-27
+
+技术 **PARTIAL / JS-on增强通过、真JS-off原A04仍FAIL**。公开工具e4569c50d8dfac204028b5429abe190c05a7dfa2仅SOURCE/PURE整合，320 actual执行源/24SHA逐件保留，不冒共同运行源。同步SYNC_PENDING，最终本地包/正文/总项与远端旁签在实际发生后追加。下列均为大小/SHA/脱敏指针，不上传private原件、DB、凭据、效果ZIP或完整runtime配置。
+
+facts-r2为当前事实；facts-r1中错误的0/27自然跨日推测仅保历史、不得作为结论。原P12三报告/1913原件/旧ZIP保持，文末原索引全文仍为2026-10-26时点。
+
+## 当前产品源
+
+|文件|字节|SHA256|
+|---|---:|---|
+|`ydental_settlement/static/src/fee_focus/fee_focus.js`|3963|`4d867cc79eee5ecae476f123b13f47e805029245e4fbf55c4bcb743cd396dabc`|
+|`ydental_settlement/__manifest__.py`|920|`07716010bdb52eb27814af3a6734370b043125bc895ebc3b5ff7cb20e480a692`|
+|`ydental_settlement/views/ydental_settlement_templates.xml`|37811|`2765676ef9b2e73bf30be1e324d5b08be627aa14ff2c555dae64a2317336333d`|
+
+原SCSS/mixin/SVG/许可和其它addon精确保持；原XML只新增head三必要资源节点，精确剥block才整文件恢复，不声称整个head原bytes。
+
+## 关键原件及独立旁签
+
+|本机指针|字节|SHA256|
+|---|---:|---|
+|`.local/dl-p12/a04-testing/final-facts-a04-r2.json`|555138|`ca1f89893117eeefa2b09e7fa421dcc5df5bf19f8c9db74330786c7dd6998ca2`|
+|`.local/dl-p12/a04-testing/final-facts-a04-r1.json`|552669|`ae2cac966771a82fdbc40dcf6896460263838b666888ca80795130acb65f149d`|
+|`.local/dl-p12/a04-testing/raw-manifest-a04-r1.json`|439128|`c2fbc628530225ab3feef300f2382a9242e7100a66521bfde0663d3bb01f7be4`|
+|`.local/dl-p12/a04-testing/public-tool-integration-a04-r1.json`|2149|`12c6e58d1c43a8ece7d1d022d1569ac2324fcd1e654e8a61a4c8c0daa49ab60a`|
+|`.local/dl-p12/a04-runtime/final-runtime-facts.json`|124417|`7eb903929d2e9bd0eafc0cc141f9ef709783268d7f35a407dfb0d211f6fb05f4`|
+|`.local/dl-p12/verification/upgrade-a04-final-root-baseline.json`|46594159|`1e9a6fcd3a3edf4cb2abd667bd491fd87d0b30d439a7e9f9ea48d79797296344`|
+|`.local/dl-p12/a04-runtime/final-used-source-inventory.json`|6573|`d8a1f9d524468d88c7c2768e650bf48bc8628bb4276c5f47dcb1167dfeda8236`|
+|`.local/dl-p12/a04-runtime/final-owned-command-lifecycle-receipt.json`|1891|`fe3c795b0b2e992bc263c63ce6416b9179bbb2f386fbb4379238cb913cddf283`|
+|`.local/dl-p12/a04-runtime/final-native-bundle-module-proof.json`|3800|`52eaea970af2e41f7dcd618e0f7cfef26d777cfed22ca60dc336b2d9355954ae`|
+|`.local/dl-p12/a04-acceptance/product2-source-independent.json`|2000|`13c31ebc66dcb49b7076f199c43173be7fe6fb8255b8bd68975df99ea9951a42`|
+|`.local/dl-p12/a04-acceptance/product2-native-load-independent.json`|39984|`f52595274982b402c2f33043e041811157e4f57ab78a5c971a370609c70bb205`|
+|`.local/dl-p12/a04-acceptance/before-two-engine-strict-fail-independent.json`|4424|`7c4ef7b6316ee89c8dcd4b1b0cf8e394a468fcc6aaf59c68c6398ed35fe040fc`|
+|`.local/dl-p12/a04-acceptance/after-two-engine-strict-json-independent.json`|11472|`ebab921c5869c3e8f1d900a1100ef2660ce6f2b32d4a5ef845d4fd2d070d00b8`|
+|`.local/dl-p12/a04-acceptance/after-two-engine-true-nojs-independent.json`|4179|`7b8b82e770be9b30989ac2a243ab9bf2d9c084ae631da14abd94218095717490`|
+|`.local/dl-p12/a04-acceptance/correction-chromium-before-nojs1-layer.json`|1362|`9f2a82c03310714ee4a3b5031b1e1f8d45cc5c01af5dce5abbfbb5a4a4a97635`|
+|`.local/dl-p12/a04-acceptance/impact168-independent.json`|120301|`f1cf13d60923549270a6c3ccaccbb79d8c73c8e1161d41a28aa9e56f456099aa`|
+|`.local/dl-p12/a04-acceptance/paired-lifecycle-instrumented-AX-independent.json`|5898|`50ddd3453ba33a16fe699499dfda362c449c1f71215571f780a31fdf31f4fc43`|
+|`.local/dl-p12/a04-acceptance/all32-fullsource-PNG-integrity-independent.json`|47724|`dd2312e9423aa3a44eb437c3e60441ca5e3796b6bc3fe269ca5817374a3f9e7e`|
+|`.local/dl-p12/a04-acceptance/final-complete-native-connection.json`|25881|`78117a92c59c6b81a96207f44905a676680e73c6d5479f8468025a793c6e94b9`|
+|`.local/dl-p12/a04-acceptance/final-complete-protection-independent.json`|39326|`9c7ece2d5e2e379b9bd8b7fc3b1d1b4104d3b74ea423577b27d0a2d0ec853409`|
+|`.local/dl-p12/a04-acceptance/final-quiescence-independent.json`|32629|`a324a920767c660f6d77eaa4f1f69141b57c7df8cf7b5fb0e041adcbb3a067e9`|
+|`.local/dl-p12/a04-acceptance/old-all1913-integrity-independent.json`|660|`41a5198724bae533d413e1c881dda18850b8f69e76bded1d13d4475c65007800`|
+|`.local/dl-p12/a04-root-inspection-notes.json`|796|`0b7027da7de571f60183246d18a5e20d9b8712e86b49986f934050dab6a20c49`|
+|`.local/dl-p12/viewing/S13-DL-P12-A04-view-only-20261027-r1.zip`|8598186|`1e3d5e02c9cd2ca6e93911ce243cb015859e13ed2d03319a0c5393599e0478bb`|
+
+原runtime/admission以原字节另私有归档，新scope不延旧有效期、不改guard；这些完整配置不进入ZIP/Public。旧客户端不重跑：本轮仅32唯一actual，2 label碰撞exit1未Node启动另存，不重复计旧strict文件。全部原命令、开始/退出、候选、执行源、日志前后SHA和原PNG在1797项raw清单中；UNKNOWN原null/当时空日志与late清理日志分开，不倒签Node终码。
+
+## 本续办逐actual
+
+|label|实际wrapper HEAD|Node/native|PNG|result SHA256 / process SHA256|
+|---|---|---|---:|---|
+|`a04-after-chromium-strict1`|`294ea5e`|2/0|0|`3991d049efcbc80e15b6808bb23cebdb061867f9ad536f74b9ce03e5bccfe58a` / `e54bc09567732aedc6e6c3573c4ea478c90d4344c295a296e8b23c439aeba316`|
+|`a04-after-chromium-strict2`|`294ea5e`|2/0|0|`b8c803d2a6a3f0cc29e78e1b1a74c87025d1ac70c2e625199a9457caa41a66da` / `536e34415277906088ca85da8a7b90898f44c0329be972d727b2f7b31b0d8fdc`|
+|`a04-before-chromium-diag1`|`0f928bb`|2/0|5|`54cc95c62b6e310af78706af55b01164c401b4c99e26cd3f18e467aa1b42bf14` / `d10c0f23213e6884eb096bc20812d2a672ce2ca1649c81ea6a666eeede819fe1`|
+|`a04-before-chromium-nojs1`|`0f928bb`|2/0|1|`f453f30cea7d17b9f853728f20986e802b831b07380a1bb05663a84d0b8b6feb` / `65d805f413e5c579917a6b3d4c1253381b2a7e3955a4bc7a7de711112555cc34`|
+|`a04-before-webkit-diag1`|`0f928bb`|2/0|5|`88a2da6de5ea539c8029913eeb32d7804afeaf7db6e473388267fe2f4f58da0e` / `3068905e52da46cc0017a28e236bd50ed6f83265130be1c722c578eb02335516`|
+|`a04-before-webkit-nojs1`|`0f928bb`|UNKNOWN/0|0|`fff796a4603d7222e8b4a7451dc8b420abf14a211257877ca82016d6bedc40b6` / `4c25e7d1d9cd402c4691c6512e89d7fb9562ef71751cc9bdb9638bd2babc43d8`|
+|`a04-before-webkit-nojs2`|`0f928bb`|2/0|1|`fcabdc4b86fac50de0e89c37c3f3c405c475cf8e05798a9503e0d392ce998b4e` / `6982422257a7018d64ac5f7472c2c0732442678066e1523fe90f7a3dba38b79f`|
+|`a04-final-chromium-documents1`|`78c3650`|0/0|1|`e5da0f4ce380838824ba7d510e81f5e0a81055567340b432bb82cc9efc240990` / `3828a00faad2526127efeda47bf9879960f6598bfed30a96e4a4ab4b88410106`|
+|`a04-final-chromium-error1`|`78c3650`|0/0|1|`9ce9acc958814d0d6cfe4c8b1fce1f892207a184d0885e450789193e8ff46149` / `0e48ff4e0787db249ee08bdee3a0962f2c5ac7e5e373c07204a7e1424dad1c59`|
+|`a04-final-chromium-impact-tail1`|`78c3650`|0/0|49|`9d5900323e03ab27636fe3d8d87ce7d5426ae16eccaa142c02079a65d7e8295f` / `c21c3b83334a18560672189d4a4a8d506efbb4468e4a07962f1b9e541727b9f7`|
+|`a04-final-chromium-impact1`|`78c3650`|2/0|61|`460f3a9c318aeeb8c06a36291761960d10e00c997b7e0fae38dddab87e5d0647` / `3687ba8986959c514d71d08498087752ee7935608787a6b452b20e51ab53694e`|
+|`a04-final-chromium-instrumented1`|`78c3650`|0/0|1|`dc2da358667932d9f4b7c583db6da92b3bb7d1e862c47d8d3bb27b9559a702c3` / `af8da4a0722a7a617a6feb940106f2da86e6db0b789042e73615bffa9e2951b0`|
+|`a04-final-chromium-inventory1`|`78c3650`|0/0|1|`e4d4da312d4dd31c6d8bf819d73b32425d653257bfbc784ba495a88afec91a28` / `519ee9454655548dbe004625fe8eba7a035ca9c0dc6f0203f9b45109b658829b`|
+|`a04-final-chromium-layout1`|`78c3650`|0/0|35|`503e72809eaffc8cc92f1fdfb2aead1d5a04564748fe5623ceb216e358fcd194` / `45faabf7eae87fd59280a55bea3bb88cae20d25a9c4b68f870c3d6f607bb4126`|
+|`a04-final-chromium-lazy-resource-fault1`|`78c3650`|2/0|1|`a74b47a2c45842a038ce63ad978a79615af9d679802ce51b4d3bd1c542d3a3c5` / `55c07a5b33246e827d9284a2334fb4fc8ea8ea9c9444fea8b07c406a84356921`|
+|`a04-final-chromium-lifecycle1`|`78c3650`|0/0|0|`f1fb03f496c992b87fd39b496b7a6b139217108b73b9e34a59ff9dbc7b1753e5` / `b8820de6da87f3d3c44ee56d5e363355cd82056c3d92fdfe1482ef91babe67b0`|
+|`a04-final-chromium-nojs1`|`78c3650`|2/0|2|`ba9a44f390063034deb1b69fd8ed2757a37da12f148c1572997fcf93a2f18121` / `462fb3b95870c8ac322a1ac790d0b41e65a3f245408d9f87b06aaf199c47da57`|
+|`a04-final-chromium-normal-nojs1`|`78c3650`|0/0|14|`fc2e084f53ef6eb08da45655eca90847d5734fe569eecdd7d2420688be2e3afb` / `8df6ace32e7266302274bf2820e3b0d4793ecfc33ceda60476215470db72037a`|
+|`a04-final-chromium-paired1`|`78c3650`|0/0|1|`74944f18c59c2ed1971222ff4fd98c4996ebb3de9edf5e6e27409f8061fb07db` / `6c7b59942f1ef3762c7b9301837f4ffac6b14c3c0cdcefddb312fb6c924bab53`|
+|`a04-final-chromium-reports-directory1`|`78c3650`|0/0|3|`7d778721f24e799b8fce605161fa82d0742a9f15957da1a1b2374ce3ad1eb385` / `67cf5386f06ed3d7d570036b29922854338e9a16e106fa4e89bbe409a2c50887`|
+|`a04-final-chromium-strict1`|`78c3650`|0/0|2|`e13dccedfb17060e895c42f5432e324a694bfdda30a738d056e2a602c6ac50fd` / `a8fb34c9bda45b2b64df6dbfef17a5f8ab8a905d1138ad84f3e814d0e7e55f26`|
+|`a04-final-chromium-touch1`|`78c3650`|0/0|1|`d1b3076002be702726d1159a381836b9da3cca0e79c05bb786a468bee448e778` / `35967c705ef92d17dae2b7484ceaddf6a51238db03cd5959613a1375de7e286d`|
+|`a04-final-chromium-zoom1`|`78c3650`|0/0|16|`d171cc77529a7d142cde1606e67894750763d7cdf00d3993c7118b6776ed2dff` / `a2ada2b295d3102743b14e9f9067658db25f7c595bad3fc6dbc963fa5b12b89b`|
+|`a04-final-webkit-impact1`|`78c3650`|0/0|85|`39287558444c1074b9eaaac7981f68b23ecb8baaf5fffebc29ee732650d404f0` / `5f494871c0420f7cec0dcc03b30525856ff56719e419b3772933c353b8529c48`|
+|`a04-final-webkit-instrumented1`|`78c3650`|0/0|1|`b899d63357fb266170f1649c8fffa8f3b24d79e1b72e8af991f457917f8e6924` / `5f2adcfd29f5ee8d99c90ec67de1cc1024351d9b930204632f8ce8ad36704669`|
+|`a04-final-webkit-layout1`|`78c3650`|0/0|35|`dad7609a03c9b211c61d5f706bc67c8a575d3f3ab87c95dbf411a1bf58dcb1ae` / `e635b20bc47a3d2bb216b276a14ca0e52aa762ccd67150e666512f3b1c356f72`|
+|`a04-final-webkit-lifecycle1`|`78c3650`|0/0|0|`e8f1e8e7182c876d18626f8d6ca32c1c4550ebfbd6bc9a10b23a196430c2bc53` / `8597e53180a94e9dad648b6cb5523cd7e4a96c98c18045a4e4dd298db7e262e4`|
+|`a04-final-webkit-nojs1`|`78c3650`|2/0|2|`edf1344f1cced5f503c902c2eb28486283ef51b1624c66eb9ba484839987c92f` / `6b567f36126dd7ceb4a5231882b2ddde98d0995eae1cde32c32502194bd32f67`|
+|`a04-final-webkit-normal-nojs1`|`78c3650`|0/0|14|`e8ee2cb03d1999811d3ffd599a0680c60bd9516d10a8794fb65b1d11740fcdd9` / `d4d2e2c3af3c1ffd8084d509d7edc2a70ab3f06cd9ba8199e093c7625ea65319`|
+|`a04-final-webkit-paired1`|`78c3650`|0/0|1|`a27b5f468e43e5672b901f9f1723eea20e7dc2fd74905c03a476e396aeb4628b` / `9507cc0f7eb13108968453b30040886006e459a9c5fdd4e131204c4a7f4f120d`|
+|`a04-final-webkit-strict1`|`78c3650`|0/0|2|`1a6568880836d7e34ed1922f0a14afbefb16e2d149cb6a4bf564636bf1368562` / `7787a96b424f7eae92b1f785b784fa98a7b5aa94d82a69592771430fb96f3256`|
+|`a04-final-webkit-zoom1`|`78c3650`|0/0|16|`a78fae7d0d9f127458f49e98732a7ab5eb0b44e953d818217ab3799e5850f02b` / `2cd267b93a4b3447691a3cc9918c71adbe541bd707dcea44a77358c530335d38`|
+
+Node2逐层区分原严格FAIL、误配flag、资源缺加载、缩放前置污染、明确lazyfault，不将故障恢复、到达check或之后成功反签为wholePASS。原P12 70 actual在下文原索引，仍由其固定源/层级/原判定承接；本轮未机械重跑。
+
+SOURCE、native loaded QWeb、正常HTTP/BROWSER、明确loaded组件、Colibri/iframe组件、协议仿真触控、独立已提交physical RO与包核不能互冒。WebKit非Safari/iOS，AX非真实屏读，实机/用户亲手效果未代签。软件已正常停止，之后仅离线/source/同步，无DB/app/browser重开。
+
+## 新包实际独核
+
+|指针|字节|SHA256|
+|---|---:|---|
+|`.local/dl-p12/a04-acceptance/new-viewing-package-independent.json`|44956|`b6a1a3edc2097d566bf80578c059ef6345bcc6891203b75edd03728cf641923f`|
+
+98成员/94原PNG、manifest96/SHA97、14有限测量逐raw对照，已核隐私与旧包原bytes。不用包PASS代T08或技术全通过。
+
+
+## 普通路径/日期/降级/触控实际独核
+
+|指针|字节|SHA256|
+|---|---:|---|
+|`.local/dl-p12/a04-acceptance/ordinary-fault-touch-UTC-independent.json`|9479|`23d48eebcb604a2dd16c18611212184a05ef4c61a768065c59b63c00cc26224a`|
+
+27行全值多重集合保持；按原日期88/89互换分段，去除两行后其余25条history原顺序exact。普通noJS32控件、有限冻结和故障语义/仿真触控均按实际层独核，T08严格noJS仍FAIL。
+
+## 公开工具独立SOURCE
+
+|指针|字节|SHA256|
+|---|---:|---|
+|`.local/dl-p12/a04-acceptance/public-tool-source-independent.json`|3551|`41167b0a3afa12f76e5d94b84c5a28254fb9230f41397249b610c227a51fde98`|
+
+工具e456仅5新文件与离线SOURCE/PURE检查；实际32客户端各归档源为准，元数据修正不冒旧同源。
+
+---
+
+以下完整保留原2026-10-26索引。
+
 # DL-P12 证据索引
 
 阶段 **PARTIAL / A04 OPEN**。本索引只列脱敏指针、大小和SHA，不上传private原件/数据库/凭据或效果ZIP。所有原图/actual执行源/命令与退出保留本机；不能用快照或PNG数量代验收。后续远端同步及总签旁签在同目录独立保存，不循环嵌自身未来hash。

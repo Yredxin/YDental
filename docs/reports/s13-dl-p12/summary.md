@@ -1,3 +1,75 @@
+# DL-P12 A04 定向续办交付｜2026-10-27
+
+技术：**PARTIAL — JS-on 的一次 Tab 焦点显现已修复，真正 JS-off 仍不满足原完整焦点门槛**。同步：**SYNC_PENDING（本地结果，传输另核）**。用户亲手效果：待确认。
+
+继续同一 `YD-S13-DL-P12 / 1.0`，不是P13。原PARTIAL报告 `2399983f917587d0145d085fd72aca1e1b00e5cc`、全部旧失败/UNKNOWN/原截图/旧ZIP保留；以下旧报告全文作为2026-10-26历史，不反签过去。[原计划及续办授权](../../execution/S13_DL_P12_IMPLEMENTATION_PLAN.md) · [更新矩阵](acceptance-matrix.md) · [证据索引](evidence-index.md)。
+
+最终产品 **78c3650e0eeb1fcd3a970ed0693cfe9354e51cbc**；实际最后运行 **78c3650e0eeb1fcd3a970ed0693cfe9354e51cbc**；工具发布 **e4569c50d8dfac204028b5429abe190c05a7dfa2**，实际每个客户端源/命令/退出另有原件，发布整合只做SOURCE/PURE，不冒共同运行来源。报告固定锚点由本文件Git提交及#37原唯一回执6422670245的续办段登记，不循环嵌自身未来hash。
+
+## 原因、修复和受控例外
+
+原A04严格重现：loaded非空pending组件、768×1024、704px表/668px局部client，原生横读保36后一次可信Tab进入原summary；双引擎立即、100ms、充分稳定及1s仍local36/left26/clipLeft50，原文字/外圈被裁。没有观察到先归位再被锚点滚回的过程。已加载的scroll-margin/scroll-padding未令这条原生路径补足完整外圈；不把这一观察扩张成浏览器内部算法根因的证明。
+
+有界CSS诊断的flow-root list-item、focus-sticky、contain-layout均未通过；focus-snap虽令Tab回0，却使后续ArrowRight被锁回0，违反自由横读，未采用。没有继续堆大margin，也未改44rem最小宽度、列比例、cell padding、字段、summary或table语义。
+
+新增 [fee_focus.js](../../../ydental_settlement/static/src/fee_focus/fee_focus.js)：原lookup费用scroll各一个原生Odoo Interaction，只在局部focusin后等待两帧，重新核原activeElement/连接状态与实际outline-width+offset、client裁切边，再写必要的一次scrollLeft差量。已完整可见/无overflow/超宽目标不反复写；focusout和destroy取消待帧，初始化失败移除已注册监听并保持原生降级。没有preventDefault、focus调用、tabindex/DOM改写、全局键盘、根或纵向滚动、网络/财务动作。
+
+首增量294ea5e仅manifest注册了JS；真实目标使用web.layout且原t-js=false，只CSS，目标页未引用/启动增强。旧候选及其缺加载结果保留，不能以bundle曾在登录页生成冒目标页已loaded。78c3650补上模板head内核心原生session_info、minimal defer、lazy三项必要启动资源；保原CSS，不换整frontend_layout，不复制tz cookie/测试资产/字体。原body/main视觉页头、lookup、全部办理源码逐字节保留；**head资源确有增量**，精确剥除该块后整XML才与原ba3字节相同。此与manifest单JS一并属于用户本续办授权的唯一受控JS例外。
+
+相对原产品ba3仅XMLhead资源、manifest单asset、新JS三文件；原P12两SCSS、共享mixin/SVG/许可、其它全部addon、后台/ACL/schema/业务规则保持。原XML装饰还原canonical350d824…和共享分页default-off合同承接。SOURCE清单593个其余既有addon文件逐bytes/SHA保持（inventory 3a295fda…）；原a161工具文件未改，5个新A04工具单独发布。
+
+## 修复前后与真实层级
+
+|层级/条件|Chromium|WebKit|
+|---|---|---|
+|原产品lookup-only组件，原seed/retained36→一次Tab|稳定36 / left26 / clip50，FAIL|同FAIL|
+|最终normal frontend全页组件，pending open/closed，同横向条件|100/400/1100ms local6 / left56 / clip50 / ring6，PASS|同PASS|
+|原lookup-only结构与原seed的补充同条件组件|rootY581 / y842.84375 / 尺寸不变，left26→56，PASS|rootY557 / y866.84375 / 尺寸不变，left26→56，PASS|
+|最终真正JS-off（实际禁用、原inline均未执行）|open/closed稳定36 / left26 / clip50，FAIL|同FAIL|
+
+JS-on为“一次可信原生Tab＋受控JS显现增强”，不是纯UA自动滚动已修复。立即帧仍可保36；稳定帧才完成校正。原active summary/名称/标签/空href/tabindex、Enter/Space、Shift+Tab、自由左右横读/滚轮和idle不跳均实测；关键Tab到稳定窗口无网络请求。Chromium单次CDP EMULATED_TOUCH观察到可信start/11move/end且prevented=false，history局部0→165/max398，原DIV active、rootX0/rootY3133保持。它是协议仿真；WebKit触屏、实机触屏未测，源码无touch/pointer/全局keyboard拦截单列。
+
+原baseline仅lookup的body与新全页正常启动组件纵向文档不同，不能把其rootY/viewport y直接当同位前后；各自水平条件完全相同，增强本身不改根/纵滚。补充paired组件按原body结构、原前置seed重建，仍正常HTTP head启动，不手动实例化修复；原seed的summary程序focus仅在critical之前，critical Tab后无重新focus/滚动helper或额外恢复键。
+
+双engine各84有效焦点case（两明确loaded组件×三费用段×closed/open×五视口及两独立放大），合计168，另两empty。Chromium原有效前36层复用＋纠正后48层；WebKit84层逐actual viewport/DPR/rootfont核：native200根16、独立native100根32，非标签推测。原44rem/五列/cell12（root32为24）不改，真实Arrow/wheel、idle不跳及全文阅读分层保持。独签f1cf13d6…；普通真实五视口/两zoom/真noJS、原办理只读展开取消/他店和有限其它岗位另测。
+
+真实岗位、loaded QWeb/BROWSER_FIXTURE、SOURCE/PURE、Colibri/iframe组件、已提交physical RO和包核严格分层。真实pending仍空；三段非空/长值不创建持久业务。Store1实际UTC，本轮跨到10-27后的自然today/history分类按原业务日核，不改clock、不强套10-26的1/26旧数量。本轮未选仍today1/history26/pending0；原fee88(10-26)从today进入history，既有fee89(10-27)从history进入today，计数巧合同，27行cells多重集合逐值保持；不把合并集合比较冒各段旧有序序列不变。实际selected655=0/1/0，lookup30控件与main连续32控件分开计，原办理2表单可用，仅展开取消；q/选择、金额/业务日/原来源值/权限合同保持。facts-r1中推测0/27的叙述已明确弃用，原文件保；仅facts-r2及原DOM行证据作为本结论。
+
+本轮修正并保留全部新错误：WebKit禁JS rAF等待超时UNKNOWN及唯一已知owned browser正常回收；Chrome before-nojs1实际仍开JS的误标（撤回其noJS层，不改原件）；294目标缺前台引用；Chrome影响测试同origin原生zoom继承污染。仅有效前36层精确承接，受污染48+empty按每页native100/root16和实际viewport/DPR前置补采，不把旧wholeFAIL改PASS。续办32唯一actual browser：21 Node0、10 Node2、1 wrapper UNKNOWN；32 native0/context正常关闭。超时wrapper原null不改，后续browser正常回收/late日志另列，Node终码未观测不倒签。2次exclusive label拒绝exit1未启动Node，不重复计旧strict结果。357原PNG路径/334SHA、320执行源路径/24SHA逐件保，facts-r2 ca1f8989…、raw清单1797项/c2fbc628…；原P12全部1913原件和旧ZIP末次重核exact。
+
+Chrome明确静态lazyJS缺失时，原中文/form/link/summary/EnterSpaceTab语义保持；原完整焦点native_pass=false、strictfailures=1且Node2/FAULT_FALLBACK…FAIL。旧collector末check的passed标签只是到达，不用作焦点PASS；公开工具仅改准该元数据标签，旧原件不改、不为标签重跑。真实loaded class＋Colibri/Scope各engine六组件分支核初始化第二listener失败清理、公开destroy、真实focusout取消及水平已完整0写/必要1写；这不是普通岗位浏览器或wholeviewport证明。normal bundle透传setter观察各一次真实reveal写6，未直接调用修复方法。
+
+T02/T03/T07的JS-on焦点子层已成立；跨JS路径完整焦点仍PARTIAL，T08保FAIL，阶段不能TECHNICALLY_COMPLETE。未影响的T01/T04—06/T09—11按原固定候选/源码和本轮必要影响证据承接，未重演经济/库存/PDF全链；详见更新矩阵，不以截图/客户端数量代门槛。
+
+## 完整保全、私有包和停止
+
+同原目标OID2171423/cluster7694897083368259627/原filestore/core f0c5a9b保持。续办唯一必要XML-u完整即时pre→native0/ERROR0/noNative→post已独审f5259527…，原P12第一次-u历史另保；之后无重复-u。最终root快照1e9a6fcd…，未实现者newphysical803220 RO/RR/rollbackclosed全145业务/13技术/九区exactroot；83引用/80完整实际路径及三共享逐bytes/size/SHA原初exact。完整分类独签 **9c7ece2d5e2e379b9bd8b7fc3b1d1b4104d3b74ea423577b27d0a2d0ec853409**。旧18818＋原P12新增7001共25819逐row保，再1854正常auth/read→27673；原142业务same，21原生权限元数据仅write_date，7技术表唯一必要-u字段已逐ID分类。相对loadpost除1586正常audit，其余144业务/13技术/七区same，六依赖same。派生65记录=46实际文件＋19既有empty，仅lazyJS15819→15839（1990039B/SHA fb8816308411dc8fa0bc9224bb14ab02dcc3639c3179def8b383fe67556c6543），其它64记录和有文件者SHA保，CSS6cb6bed2…同；不是业务原件变化或全库物理零diff。新经济/库存/治疗扫码/原件PDF/打印签署发布/CSV动作0。
+
+新私有0400 `.local/dl-p12/viewing/S13-DL-P12-A04-view-only-20261027-r1.zip`：**8,598,186B / SHA256 1e3d5e02c9cd2ca6e93911ce243cb015859e13ed2d03319a0c5393599e0478bb**，98成员/94原PNG/14有限测量，README PARTIAL，含原生FAIL/JS增强PASS/真noJS FAIL/同位pair/长值zoom/普通岗位及明确仿真层。只读脱敏，不含凭据/session/profile/原请求/完整DB/PDF/字体/程序，不上传Public；包核另有未实现者旁签。旧r1 **9949005B / 9ecdf42f3567a32bd2316f7c89e9b7f06ab4a442fb5fab5e6b08489122a7660a** 末次字节保持。
+
+真实分工：root唯一产品/报告/路由写者，runtime_a04运行保护，testing_a04测试工具/浏览器/包，acceptance_a04未实现者独审。同OS不冒安全隔离。已实际完成SOURCE/必要-u/严格双engine/真noJS/168case/paired与组件/32actual全源原图/完整physical/OS终态各独签；32原件核 **dd2312e9423aa3a44eb437c3e60441ca5e3796b6bc3fe269ca5817374a3f9e7e**。最终包/正文/总项和正常同步旁签在证据索引按实际增加，不能用保护/包PASS代焦点全通过。
+
+本续办3owned全前台0/child0/signull/groupstopped，日志ERROR/CRITICAL0，3临时配置已移除。末run20261027T002613Z-7762e3996f14于 **2026-10-27T00:47:30.383544Z** 正常stop。32浏览器/context正常close；独立OS/knownPID/profile/marker/18411与12空、新RO803342其它targetconn[]/rollbackclosed，旁签 **a324a920767c660f6d77eaa4f1f69141b57c7df8cf7b5fb0e041adcbb3a067e9**。原6owned/70native保持，合计9owned/102native已关；共享主服务未动，无临时grant，之后不为报告/同步复开app/DB/browser。
+
+## 普通岗位7步
+
+1. 在正常新有效测试窗口登录有结算读取权的原岗位、选择授权店，从原菜单进入结算；交付后的本轮owned已停止，不能恢复旧scope/STOP。
+2. 输入姓名/业务号以Enter或搜索按钮执行原GET，核q仅产生候选。
+3. 点击原patient_id候选链接明确选择，核规范业务号和本店范围。
+4. 依原序读今日、历史未出账和待核对；未出账非应收，确认金额非实收，空结果非结清。
+5. 启用JS时聚焦原表格正常横读，再按一次Tab到来源summary，无额外恢复键即可完整显现；Enter/Space展开关闭。真正禁JS的保横读后Tab裁切仍是本批公开缺口，不借方向键恢复代通过。实际非空pending仅在明确组件中复现。
+6. 用原分页/其它店最小只读摘要并正常返回；组件多页不冒真实业务页数，不获得他店办理权。
+7. 有权时仅只读展开原办理面板并取消返回，不提交出账、收退款、免单、日结、治疗、库存、扫码、原件/PDF、打印、签署或发布。
+
+同步与唯一回执：本地固定资料正常提交/推送和全文独立读回尚在收口；只追加原唯一评论6422670245并保其原PARTIAL全文，不新增第二份P12回执。#37保持OPEN、#36 CLOSED、旧P1—P11回执不改；main只必要文档路由，不合产品、不部署。续办交付后停止；P13/完整S13/负载恢复/实机/正式政策/S11组合扫码/真实患者资金和外部通道/生产均未启用，用户亲手效果待确认。
+
+新包独核已实际PASS（不代技术通过）：`new-viewing-package-independent.json` **b6a1a3edc2097d566bf80578c059ef6345bcc6891203b75edd03728cf641923f**，98成员/94原PNG逐sourcebytes/manifest96/SHA97/14有限测量及隐私全核。原r1ZIP末次exact。最终正文/总项及正常远端同步仍待本次实际封口。
+
+
+---
+
+以下完整保留2026-10-26原PARTIAL报告；其候选/统计/同步/停止均是原时点事实。
+
 # DL-P12 结算患者查询与只读费用区域交付
 
 `[CODEX-FINAL] YD-S13-DL-P12 / 1.0`

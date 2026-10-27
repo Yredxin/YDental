@@ -1,3 +1,20 @@
+# DL-P12 A04 续办收口｜2026-10-27
+
+**PARTIAL（JS-on一次Tab增强已修复，真JS-off原A04仍FAIL）/ SYNC_PENDING / 软件已STOPPED。** 同原YD-S13-DL-P12 / 1.0与原T01—12门槛，不启P13。原2399983 PARTIAL/失败/UNKNOWN/全部原件和旧包保持。
+
+- [当前结果/原因/7步](docs/reports/s13-dl-p12/summary.md) · [更新矩阵](docs/reports/s13-dl-p12/acceptance-matrix.md) · [全SHA与逐actual](docs/reports/s13-dl-p12/evidence-index.md) · [原计划及A04授权](docs/execution/S13_DL_P12_IMPLEMENTATION_PLAN.md)。沿原业务分支正常提交，无reset/clean/强推/从main重建。
+- 固定产品/实际最后运行78c3650e0eeb1fcd3a970ed0693cfe9354e51cbc；工具e4569c50d8dfac204028b5429abe190c05a7dfa2仅PURE发布，actual逐源归档。新JS只有lookup费用表局部focusin/out、双帧后实测必要scrollLeft；原focus/tabindex/根纵滚/方向键wheel/native语义不改，无网络业务动作。head正常sessioninfo+minimal/lazy是唯一受控JS例外必要资源，整个body/原CSS/表列/业务源码原bytes。
+- 双engine原严格36/left26clip50 FAIL；新normalbundle一次可信Tab稳定local6/left56/ring6完整，paired原纵横/seed同位、168有效影响case/原native能力通过。真禁JS四strict仍36/26/50 FAIL，普通noJS查询选择/展开/连续键盘通过；不能TECHNICALLY_COMPLETE。仅Chrome协议仿真触控有实证，WK/实机触屏未测。
+- 32actual=21Node0/10Node2/1wrapperUNKNOWN，32native0/closed，357原PNG/320源/1797raw；2label拒绝无Node另列。flag/zoom/资源加载/超时/fault标签/UTC叙述错误均原件保，facts-r2为当前准确信息；不反签旧whole。
+- 同target2171423/cluster7694897083368259627/原filestore；新physical803220完整145/13/九区exactroot，83ref/80真实文件/三共享原初bytesSHA保。旧25819audit含7001逐row保＋1854正常read=27673，21native date/7tech/一lazy缓存替换分列，完整保护9c7ece2d…；无新经济库存/治疗扫码/原件PDF/打印签署发布/CSV。
+- 3续办owned/32native均正常关，末run20261027T002613Z-7762e3996f14于00:47:30.383544Z stop，独立a324a920…核ports/PID/profile及newRO803342其它targetconn[]；共享主服务未动，之后不为报告同步重开app/DB/browser。
+- 新私有0400 A04 r1ZIP8598186B/1e3d5e02…、98成员/94原PNG/14测量，旧r1ZIP9949005B/9ecdf42f…同字节；无秘密/完整配置/session/profile/原请求/DB/PDF/font/program，不Public上传。包/全文/总项与正常同步旁签按实际收口追加，不冒已通过。
+- root唯一产品/报告/路由写者；runtime_a04运行、testing_a04测试、acceptance_a04未实现者独核；同OS非隔离。#37原唯一6422670245只追加有时点续办并保原正文，37OPEN36CLOSED，旧P1—P11回执不改；main只必要路由，不合产品部署。交付后停止，不启P13/完整S13/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/生产；用户亲手效果待确认。
+
+---
+
+以下保留续办开工记录及原P12/P1—P11全部历史时点，不反签过去。
+
 # DL-P12 A04 定向续办｜2026-10-27 00:05 UTC
 
 **IN_PROGRESS / 原PARTIAL历史保持。** 用户明确继续原YD-S13-DL-P12 / 1.0，仅A04及直接影响T项；原计划/T01—12门槛不变，不启动P13。先同条件复现原FAIL，有界诊断局部原生CSS；如证据需要，用户仅本次允许Odoo前台局部focusin几何水平修正例外，不拦Tab/不改focus或tabindex/不改根滚动或表结构策略。JS-off仍按原适用门槛单验，缺口不冒PASS。

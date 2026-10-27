@@ -113,3 +113,18 @@ root统一写者和环境，真实开发/测试/验收分工；未实现者不�
 .local/dl-p12/viewing/只读脱敏ZIP/README/manifest/独立包核，不含凭据/session/profile/原请求/完整DB/旧PDF/font/program，不上传Public，旧包不覆盖。正常同步实际读回；计划结束才#37新增唯一P12，37OPEN36CLOSED，P1—P11旧回执不改。main只必要文档路由，不合产品部署。
 
 交付后立即停止。P13/结算写入办理美化/其它岗位全站/完整S13/50负载/备份恢复/实机/正式临床财务政策/S11组合扫码/真实患者资金/外部通道/合并部署生产未启用。自动化不代用户亲手效果签署。
+
+
+## 8. 2026-10-27 原P12 A04定向续办授权
+
+用户明确继续同一 `YD-S13-DL-P12 / 1.0`，仅修复原三段费用表局部横读后的A04与直接影响项；原T01—T12门槛不变。不是P13，不重新设计P12，不重开P1—P11。原PARTIAL报告2399983、失败原件、UNKNOWN、全部旧截图和旧r1 ZIP均保留。
+
+原条件先复现：真实loaded pending组件、Chromium/WebKit、768×1024，可信横读保留36后一次Tab进入原首列summary，充分稳定后测必要文字和完整焦点圈；额外方向键、重新focus或切换目标不能代通过。
+
+先做有界原生CSS诊断，保44rem/五列比例/单元padding/原table和summary语义。用户仅本次有限允许一个只读焦点增强：采用锁定Odoo前台Interaction，在原lookup费用表局部focusin后等待正常焦点转移，再依实际目标/焦点圈与client裁切盒几何，仅修正必要scrollLeft。不得preventDefault Tab、改focus/tabindex/根或纵向滚动、复制DOM、绑定全局键盘、拦方向键/滚轮/触控、发业务请求或改金额状态；已完整可见不跳动，初始化失败和销毁须正常降级清理。
+
+必要正常前台资源注册属于该唯一受控JS例外：manifest单JS资产；结算原 `web.layout` 的head内增加核心原生session_info、minimal defer、lazy资源调用。保原CSS调用，不换整页layout，不复制可选时区cookie/测试资产/字体，不改视觉页头导航、body/lookup业务DOM或办理控件。该head资源增量必须显式登记，不能宣称整个head原字节未变；精确剥除资源块才可与原完整XML比较。必要XML加载须完整即时pre→真实退出/日志→post和未实现者独核，纯CSS/工具/报告不重复升级。
+
+正常JS-on的“一次可信原生Tab＋局部JS增强”与纯UA自动滚动、真正JS-off分别验收。任一原适用必需门槛仍缺失，阶段继续PARTIAL，不能改断言、拿方向键恢复或SYNCED替技术通过。五视口、两种200%、today/history/pending、长值/空态/首末边界及有限旁路按实际影响定向验证；无真实pending继续明确loaded QWeb/BROWSER_FIXTURE，不创建业务事件。
+
+同一活动CURRENT与三报告续写；83引用/80原物理文件/三共享逐路径bytes/size/SHA、全部原审计（含原P12新增7001）继续保，新读取审计另列。新私有效果包独立命名，不覆盖或上传旧包。最终只在#37原唯一评论6422670245保留原PARTIAL全文后追加有真实时间和新锚点的续办结论，#37 OPEN/#36 CLOSED，P1—P11旧回执不改。main仅必要文档路由，不合产品、不部署，续办交付后停止；用户亲手效果待确认。
