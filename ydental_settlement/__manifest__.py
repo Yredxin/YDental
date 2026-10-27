@@ -17,6 +17,7 @@
         'web.assets_frontend': [
             'ydental_settlement/static/src/scss/settlement_lookup.scss',
             'ydental_settlement/static/src/scss/settlement_readonly_actions.scss',
+            'ydental_settlement/static/src/fee_focus/fee_focus.js',
         ],
     },
     'installable': True,
