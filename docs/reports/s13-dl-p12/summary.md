@@ -1,6 +1,6 @@
 # DL-P12 A04 定向续办交付｜2026-10-27
 
-技术：**PARTIAL — JS-on 的一次 Tab 焦点显现已修复，真正 JS-off 仍不满足原完整焦点门槛**。同步：**SYNC_PENDING（本地结果，传输另核）**。用户亲手效果：待确认。
+技术：**PARTIAL — JS-on 的一次 Tab 焦点显现已修复，真正 JS-off 仍不满足原完整焦点门槛**。同步：**SYNCED（已实际独立传输读回；技术仍PARTIAL）**。用户亲手效果：待确认。
 
 继续同一 `YD-S13-DL-P12 / 1.0`，不是P13。原PARTIAL报告 `2399983f917587d0145d085fd72aca1e1b00e5cc`、全部旧失败/UNKNOWN/原截图/旧ZIP保留；以下旧报告全文作为2026-10-26历史，不反签过去。[原计划及续办授权](../../execution/S13_DL_P12_IMPLEMENTATION_PLAN.md) · [更新矩阵](acceptance-matrix.md) · [证据索引](evidence-index.md)。
 
@@ -47,7 +47,7 @@ T02/T03/T07的JS-on焦点子层已成立；跨JS路径完整焦点仍PARTIAL，T
 
 新私有0400 `.local/dl-p12/viewing/S13-DL-P12-A04-view-only-20261027-r1.zip`：**8,598,186B / SHA256 1e3d5e02c9cd2ca6e93911ce243cb015859e13ed2d03319a0c5393599e0478bb**，98成员/94原PNG/14有限测量，README PARTIAL，含原生FAIL/JS增强PASS/真noJS FAIL/同位pair/长值zoom/普通岗位及明确仿真层。只读脱敏，不含凭据/session/profile/原请求/完整DB/PDF/字体/程序，不上传Public；包核另有未实现者旁签。旧r1 **9949005B / 9ecdf42f3567a32bd2316f7c89e9b7f06ab4a442fb5fab5e6b08489122a7660a** 末次字节保持。
 
-真实分工：root唯一产品/报告/路由写者，runtime_a04运行保护，testing_a04测试工具/浏览器/包，acceptance_a04未实现者独审。同OS不冒安全隔离。已实际完成SOURCE/必要-u/严格双engine/真noJS/168case/paired与组件/32actual全源原图/完整physical/OS终态各独签；32原件核 **dd2312e9423aa3a44eb437c3e60441ca5e3796b6bc3fe269ca5817374a3f9e7e**。最终包/正文/总项和正常同步旁签在证据索引按实际增加，不能用保护/包PASS代焦点全通过。
+真实分工：root唯一产品/报告/路由写者，runtime_a04运行保护，testing_a04测试工具/浏览器/包，acceptance_a04未实现者独审。同OS不冒安全隔离。已实际完成SOURCE/必要-u/严格双engine/真noJS/168case/paired与组件/32actual全源原图/完整physical/OS终态各独签；32原件核 **dd2312e9423aa3a44eb437c3e60441ca5e3796b6bc3fe269ca5817374a3f9e7e**。最终包/正文/本地PARTIAL总项和首独立同步旁签均已实际成立，在证据索引登记，不能用保护/包PASS代焦点全通过。
 
 本续办3owned全前台0/child0/signull/groupstopped，日志ERROR/CRITICAL0，3临时配置已移除。末run20261027T002613Z-7762e3996f14于 **2026-10-27T00:47:30.383544Z** 正常stop。32浏览器/context正常close；独立OS/knownPID/profile/marker/18411与12空、新RO803342其它targetconn[]/rollbackclosed，旁签 **a324a920767c660f6d77eaa4f1f69141b57c7df8cf7b5fb0e041adcbb3a067e9**。原6owned/70native保持，合计9owned/102native已关；共享主服务未动，无临时grant，之后不为报告/同步复开app/DB/browser。
 
@@ -61,10 +61,16 @@ T02/T03/T07的JS-on焦点子层已成立；跨JS路径完整焦点仍PARTIAL，T
 6. 用原分页/其它店最小只读摘要并正常返回；组件多页不冒真实业务页数，不获得他店办理权。
 7. 有权时仅只读展开原办理面板并取消返回，不提交出账、收退款、免单、日结、治疗、库存、扫码、原件/PDF、打印、签署或发布。
 
-同步与唯一回执：本地固定资料正常提交/推送和全文独立读回尚在收口；只追加原唯一评论6422670245并保其原PARTIAL全文，不新增第二份P12回执。#37保持OPEN、#36 CLOSED、旧P1—P11回执不改；main只必要文档路由，不合产品、不部署。续办交付后停止；P13/完整S13/负载恢复/实机/正式政策/S11组合扫码/真实患者资金和外部通道/生产均未启用，用户亲手效果待确认。
+同步与唯一回执：固定正文/正常推送/15全文及原唯一回执已实际独立读回（b1663384…）；只追加原唯一评论6422670245并保其原PARTIAL全文，不新增第二份P12回执。#37保持OPEN、#36 CLOSED、旧P1—P11回执不改；main只必要文档路由，不合产品、不部署。续办交付后停止；P13/完整S13/负载恢复/实机/正式政策/S11组合扫码/真实患者资金和外部通道/生产均未启用，用户亲手效果待确认。
 
-新包独核已实际PASS（不代技术通过）：`new-viewing-package-independent.json` **b6a1a3edc2097d566bf80578c059ef6345bcc6891203b75edd03728cf641923f**，98成员/94原PNG逐sourcebytes/manifest96/SHA97/14有限测量及隐私全核。原r1ZIP末次exact。最终正文/总项及正常远端同步仍待本次实际封口。
+新包独核已实际PASS（不代技术通过）：`new-viewing-package-independent.json` **b6a1a3edc2097d566bf80578c059ef6345bcc6891203b75edd03728cf641923f**，98成员/94原PNG逐sourcebytes/manifest96/SHA97/14有限测量及隐私全核。原r1ZIP末次exact。固定正文/本地PARTIAL总项及首远端独立同步已实际成立；最终metadata另正常读回后停止。
 
+
+## 实际独立交付与首同步封口
+
+固定正文d74a4f01ba929b42921adf91b4214d6aa3f5a7a3 / main仅两路由8d5698583f5b4fa0847aaea6b8d926c5dd916624已正常push。未实现者直接正常GitHub工具实际读回15全文bytes/SHA/gitblob、两ref、原唯一6422670245完整11909B正文及原4189chars PARTIAL prefix、旧13 id/body、#23/#36/#37 title/body/state，37OPEN36CLOSED：**b16633848adcf17607d84d6f8a1f61f4e3d606d7a35187c956a75932f3729e5f**。当前 **PARTIAL / SYNCED（仅传输）/ STOPPED**，真JS-off T08仍FAIL，用户亲手效果待确认。原首发SYNC_PENDING时点与正文留Git/私有原件，不倒签过去。
+
+固定7正文/16新blobs秘密0hit审 **c88c055161934cf28f2c1a7df9e8cd4bd8be34c6cba2fa6b006e309349c8db90**，本地最终总签 **a7e5f9e13af8563f3157115a7fa65be61652d3f8b9f88d640d589bfa1ddf717f** 接受真实PARTIAL交付记录，不签TECHNICALLY_COMPLETE。新包独核b6a1a3ed…、完整物理9c7ece2d…、原件dd2312e9…与终态a324a920…均已成立。最后只登记这些已发生元数据，另对新ref/变化全文/同评论做正常独立读回后停止，不循环嵌未来自身hash、不重开app/DB/browser、不新增第二回执、不合产品部署、不启P13。
 
 ---
 

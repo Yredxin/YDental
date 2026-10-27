@@ -1,6 +1,6 @@
 # DL-P12 A04 续办收口｜2026-10-27
 
-**PARTIAL（JS-on一次Tab增强已修复，真JS-off原A04仍FAIL）/ SYNC_PENDING / 软件已STOPPED。** 同原YD-S13-DL-P12 / 1.0与原T01—12门槛，不启P13。原2399983 PARTIAL/失败/UNKNOWN/全部原件和旧包保持。
+**PARTIAL（JS-on一次Tab增强已修复，真JS-off原A04仍FAIL）/ SYNCED（仅传输）/ 软件已STOPPED。** 同原YD-S13-DL-P12 / 1.0与原T01—12门槛，不启P13。原2399983 PARTIAL/失败/UNKNOWN/全部原件和旧包保持。
 
 - [当前结果/原因/7步](docs/reports/s13-dl-p12/summary.md) · [更新矩阵](docs/reports/s13-dl-p12/acceptance-matrix.md) · [全SHA与逐actual](docs/reports/s13-dl-p12/evidence-index.md) · [原计划及A04授权](docs/execution/S13_DL_P12_IMPLEMENTATION_PLAN.md)。沿原业务分支正常提交，无reset/clean/强推/从main重建。
 - 固定产品/实际最后运行78c3650e0eeb1fcd3a970ed0693cfe9354e51cbc；工具e4569c50d8dfac204028b5429abe190c05a7dfa2仅PURE发布，actual逐源归档。新JS只有lookup费用表局部focusin/out、双帧后实测必要scrollLeft；原focus/tabindex/根纵滚/方向键wheel/native语义不改，无网络业务动作。head正常sessioninfo+minimal/lazy是唯一受控JS例外必要资源，整个body/原CSS/表列/业务源码原bytes。
@@ -10,6 +10,8 @@
 - 3续办owned/32native均正常关，末run20261027T002613Z-7762e3996f14于00:47:30.383544Z stop，独立a324a920…核ports/PID/profile及newRO803342其它targetconn[]；共享主服务未动，之后不为报告同步重开app/DB/browser。
 - 新私有0400 A04 r1ZIP8598186B/1e3d5e02…、98成员/94原PNG/14测量，旧r1ZIP9949005B/9ecdf42f…同字节；无秘密/完整配置/session/profile/原请求/DB/PDF/font/program，不Public上传。包/全文/总项与正常同步旁签按实际收口追加，不冒已通过。
 - root唯一产品/报告/路由写者；runtime_a04运行、testing_a04测试、acceptance_a04未实现者独核；同OS非隔离。#37原唯一6422670245只追加有时点续办并保原正文，37OPEN36CLOSED，旧P1—P11回执不改；main只必要路由，不合产品部署。交付后停止，不启P13/完整S13/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/生产；用户亲手效果待确认。
+
+最终本地总项a7e5f9e1…/固定全文与秘密0hit c88c0551…接受PARTIAL；首远端15全文/refs/同唯一评论及旧13/状态已真实独立SYNCED，**b16633848adcf17607d84d6f8a1f61f4e3d606d7a35187c956a75932f3729e5f**。固定正文d74/原main两路由8d已push0，原首发PENDING保；本次仅登记已发生metadata，最后变化文本/ref/同评论另正常读回后停止，不复开软件/DB/browser、不循环未来hash。
 
 ---
 

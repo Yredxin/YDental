@@ -1,6 +1,6 @@
 # DL-P12 A04 续办证据索引｜2026-10-27
 
-技术 **PARTIAL / JS-on增强通过、真JS-off原A04仍FAIL**。公开工具e4569c50d8dfac204028b5429abe190c05a7dfa2仅SOURCE/PURE整合，320 actual执行源/24SHA逐件保留，不冒共同运行源。同步SYNC_PENDING，最终本地包/正文/总项与远端旁签在实际发生后追加。下列均为大小/SHA/脱敏指针，不上传private原件、DB、凭据、效果ZIP或完整runtime配置。
+技术 **PARTIAL / JS-on增强通过、真JS-off原A04仍FAIL**。公开工具e4569c50d8dfac204028b5429abe190c05a7dfa2仅SOURCE/PURE整合，320 actual执行源/24SHA逐件保留，不冒共同运行源。同步SYNCED（仅传输），最终本地包/正文/总项与首远端旁签已实际成立。下列均为大小/SHA/脱敏指针，不上传private原件、DB、凭据、效果ZIP或完整runtime配置。
 
 facts-r2为当前事实；facts-r1中错误的0/27自然跨日推测仅保历史、不得作为结论。原P12三报告/1913原件/旧ZIP保持，文末原索引全文仍为2026-10-26时点。
 
@@ -110,6 +110,18 @@ SOURCE、native loaded QWeb、正常HTTP/BROWSER、明确loaded组件、Colibri/
 |`.local/dl-p12/a04-acceptance/public-tool-source-independent.json`|3551|`41167b0a3afa12f76e5d94b84c5a28254fb9230f41397249b610c227a51fde98`|
 
 工具e456仅5新文件与离线SOURCE/PURE检查；实际32客户端各归档源为准，元数据修正不冒旧同源。
+
+## 实际独立交付与首同步封口
+
+固定正文d74a4f01ba929b42921adf91b4214d6aa3f5a7a3 / main仅两路由8d5698583f5b4fa0847aaea6b8d926c5dd916624已正常push。未实现者直接正常GitHub工具实际读回15全文bytes/SHA/gitblob、两ref、原唯一6422670245完整11909B正文及原4189chars PARTIAL prefix、旧13 id/body、#23/#36/#37 title/body/state，37OPEN36CLOSED：**b16633848adcf17607d84d6f8a1f61f4e3d606d7a35187c956a75932f3729e5f**。当前 **PARTIAL / SYNCED（仅传输）/ STOPPED**，真JS-off T08仍FAIL，用户亲手效果待确认。原首发SYNC_PENDING时点与正文留Git/私有原件，不倒签过去。
+
+固定7正文/16新blobs秘密0hit审 **c88c055161934cf28f2c1a7df9e8cd4bd8be34c6cba2fa6b006e309349c8db90**，本地最终总签 **a7e5f9e13af8563f3157115a7fa65be61652d3f8b9f88d640d589bfa1ddf717f** 接受真实PARTIAL交付记录，不签TECHNICALLY_COMPLETE。新包独核b6a1a3ed…、完整物理9c7ece2d…、原件dd2312e9…与终态a324a920…均已成立。最后只登记这些已发生元数据，另对新ref/变化全文/同评论做正常独立读回后停止，不循环嵌未来自身hash、不重开app/DB/browser、不新增第二回执、不合产品部署、不启P13。
+
+|实际独立旁签|字节|SHA256|
+|---|---:|---|
+|`.local/dl-p12/a04-acceptance/fixed-public-delivery-independent.json`|7884|`c88c055161934cf28f2c1a7df9e8cd4bd8be34c6cba2fa6b006e309349c8db90`|
+|`.local/dl-p12/a04-acceptance/final-technical-partial.json`|11150|`a7e5f9e13af8563f3157115a7fa65be61652d3f8b9f88d640d589bfa1ddf717f`|
+|`.local/dl-p12/a04-acceptance/first-sync-independent.json`|7195|`b16633848adcf17607d84d6f8a1f61f4e3d606d7a35187c956a75932f3729e5f`|
 
 ---
 

@@ -1,6 +1,6 @@
 # DL-P12 A04 续办更新矩阵｜2026-10-27
 
-同一计划 `YD-S13-DL-P12 / 1.0`，原门槛保持。技术 **PARTIAL**：JS-on一次Tab经受控局部增强完整显现，真正JS-off原A04仍FAIL。产品/实际最后运行78c3650e0eeb1fcd3a970ed0693cfe9354e51cbc；工具e4569c50d8dfac204028b5429abe190c05a7dfa2为离线整合发布，actual各次执行源/命令/退出另保。同步**SYNC_PENDING（本地结果，传输另核）**，用户亲手效果待确认。
+同一计划 `YD-S13-DL-P12 / 1.0`，原门槛保持。技术 **PARTIAL**：JS-on一次Tab经受控局部增强完整显现，真正JS-off原A04仍FAIL。产品/实际最后运行78c3650e0eeb1fcd3a970ed0693cfe9354e51cbc；工具e4569c50d8dfac204028b5429abe190c05a7dfa2为离线整合发布，actual各次执行源/命令/退出另保。同步**SYNCED（已实际独立传输读回；技术仍PARTIAL）**，用户亲手效果待确认。
 
 |ID|本续办实际层级与证据承接|更新结论|
 |---|---|---|
@@ -15,14 +15,20 @@
 |T09 办理/有限其它页|本轮真实主页面头/首bill起DOM/computed/字段可用、两表单只读展开/取消，原后缀sourcebytes不变；他店、库存、文书、报表主/源、目录和错误有限代表，精确保留原UTC/key/scroll等差异。未改页面的新module无匹配目标|PASS（有限影响面）；旧经济/库存/PDF全链不重演，未提交写入|
 |T10 降级/复用边界|实际Chrome lazyJS静态资源缺失，中文/原form-link-summary/EnterSpaceTab可用，A04明确FAIL/Node2；真正noJS双engine另证。真实loadedclass+Colibri/Scope六组件分支各engine通过，含真实focusout取消/destroy/第二listener故障清理；既有CSS/SVG故障按未改源承接|PASS（降级语义，不签fault焦点）；旧collector误passed标签只代表到达，native_pass=false/strictfailures1/exit2是门槛结论|
 |T11 完整加载/保全|本续办唯一必要XML-u完整即时pre→native0/ERROR0→post独签f5259527…；final新physical803220 RO/RR/rollbackclosed145/13九区exactroot，83ref/80file/3共享及旧25819audit逐row保→27673，新1854正常读。21native metadata dates/7tech/65派生精分类，总保护9c7ece2d…|PASS（完整保护）；无新经济库存/原件PDF/打印签署发布/扫码，不冒全库物理零diff|
-|T12 独立交付/同步/停止|固定产品78/工具e456/实际run78；新0400包8598186B/1e3d5e02…已独核b6a1a3ed…。3owned/32native已正常关，newRO803342其它conn空；旧包/原PARTIAL/全部原件保，唯一#37续办和main必要路由待正常同步读回|本地资料/保护已成，独立总项待实际封口；同步**SYNC_PENDING（本地结果，传输另核）**另列，不能TECHNICALLY_COMPLETE；用户亲手效果待确认|
+|T12 独立交付/同步/停止|固定产品78/工具e456/实际run78；新0400包8598186B/1e3d5e02…已独核b6a1a3ed…。3owned/32native已正常关，newRO803342其它conn空；旧包/原PARTIAL/全部原件保，唯一#37续办和main必要路由已实际独立读回b1663384…|本地PARTIAL总项已实际独立接受a7e5f9e1…；同步**SYNCED（已实际独立传输读回；技术仍PARTIAL）**另列，不能TECHNICALLY_COMPLETE；用户亲手效果待确认|
 
 新旧证据复用以候选/源bytes/实际层级为准。原P12 a161公开工具与70actual/原1003PNG、全部原失败/UNKNOWN/旧ZIP保；续办32唯一actual=21 Node0/10 Node2/1wrapperUNKNOWN，32native0，357PNG/320执行源/1797清单项；2 label拒绝无Node另列。旧wholeFAIL不反签，误配noJS/zoom/label冲突和资源缺加载均有原命令/退出及新补证，详细源清单见[证据索引](evidence-index.md)。
 
-未实现者已独签：严格JS-on ebab921c…、真JSoff 7b8b82e7…、168有效影响 f1cf13d6…、paired/组件/透传setter与AX50ddd345…、32全源/原PNG dd2312e9…、完整physical分类9c7ece2d…、终态a324a920…。其余既有P12证据按精确未改source和适用层复用。最终包/全文/总项与同步旁签按实际追加；总项只接受真实PARTIAL，不签all-pass。
+未实现者已独签：严格JS-on ebab921c…、真JSoff 7b8b82e7…、168有效影响 f1cf13d6…、paired/组件/透传setter与AX50ddd345…、32全源/原PNG dd2312e9…、完整physical分类9c7ece2d…、终态a324a920…。其余既有P12证据按精确未改source和适用层复用。最终包/全文/本地PARTIAL总项与首同步旁签已实际成立；总项只接受真实PARTIAL，不签all-pass。
 
-T12本地包子项已独立成立：**b6a1a3edc2097d566bf80578c059ef6345bcc6891203b75edd03728cf641923f**；只接受PARTIAL记录，不消除T08真JS-off FAIL。全文/总项和远端读回按实际追加。
+T12本地包子项已独立成立：**b6a1a3edc2097d566bf80578c059ef6345bcc6891203b75edd03728cf641923f**；只接受PARTIAL记录，不消除T08真JS-off FAIL。全文/本地PARTIAL总项和首远端读回已实际成立。
 
+
+## 实际独立交付与首同步封口
+
+固定正文d74a4f01ba929b42921adf91b4214d6aa3f5a7a3 / main仅两路由8d5698583f5b4fa0847aaea6b8d926c5dd916624已正常push。未实现者直接正常GitHub工具实际读回15全文bytes/SHA/gitblob、两ref、原唯一6422670245完整11909B正文及原4189chars PARTIAL prefix、旧13 id/body、#23/#36/#37 title/body/state，37OPEN36CLOSED：**b16633848adcf17607d84d6f8a1f61f4e3d606d7a35187c956a75932f3729e5f**。当前 **PARTIAL / SYNCED（仅传输）/ STOPPED**，真JS-off T08仍FAIL，用户亲手效果待确认。原首发SYNC_PENDING时点与正文留Git/私有原件，不倒签过去。
+
+固定7正文/16新blobs秘密0hit审 **c88c055161934cf28f2c1a7df9e8cd4bd8be34c6cba2fa6b006e309349c8db90**，本地最终总签 **a7e5f9e13af8563f3157115a7fa65be61652d3f8b9f88d640d589bfa1ddf717f** 接受真实PARTIAL交付记录，不签TECHNICALLY_COMPLETE。新包独核b6a1a3ed…、完整物理9c7ece2d…、原件dd2312e9…与终态a324a920…均已成立。最后只登记这些已发生元数据，另对新ref/变化全文/同评论做正常独立读回后停止，不循环嵌未来自身hash、不重开app/DB/browser、不新增第二回执、不合产品部署、不启P13。
 
 ---
 
