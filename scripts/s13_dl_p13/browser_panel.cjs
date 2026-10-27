@@ -128,6 +128,13 @@ exports.run=async env=>{
             await p.waitForTimeout(180);const native=await e.evaluate(geometry.observe);assert(native.focused,'Original native Tab order '+i);
             const record={index:i,native,continuous_native_Tab:continuous&&i>0,entry:i===0?'INITIAL_ORIGINAL_SUMMARY_PROGRAMMATIC_SEED_THEN_NATIVE_ENTER_SPACE':continuous?'CONTINUOUS_ENGINE_NATIVE_TAB':'EXPLICIT_ORIGINAL_FOCUS_SEED'};
             const clickOwner=native.name==='fee_ids'?native.associatedLabel:null;
+            if(clickOwner){
+                const handle=await e.evaluateHandle(x=>x.labels[0]);record.checkboxLabel=await handle.evaluate(geometry.observe);await handle.dispose();
+                if(!record.checkboxLabel.boxFit.viewport||!record.checkboxLabel.boxFit.ancestors||!record.checkboxLabel.textFit)
+                    r.findings.push({tag,index:i,type:'LABEL_HORIZONTAL_BOX_OR_TEXT_CLIP',labelGeometry:record.checkboxLabel});
+                if(!before&&parseFloat(record.checkboxLabel.style.fontSize)<parseFloat(native.viewport.rootFont)-.1)
+                    r.findings.push({tag,index:i,type:'LABEL_TEXT_BELOW_1REM'});
+            }
             const targetHeight=clickOwner?clickOwner.box.height:native.box.height;
             const rootFont=parseFloat(native.viewport.rootFont),largeTextOwner=(clickOwner?clickOwner.box.height:native.box.height)>native.viewport.height;
             const oversizedFocusBox=native.box.height+native.ring*2>native.viewport.height;
