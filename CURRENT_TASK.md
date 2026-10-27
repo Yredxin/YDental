@@ -151,6 +151,7 @@
 - W6厂商与加工：正常Odoo页面创建无联系方式的新合成partner3376；厂商资格草稿首次缺必填公司未发保存，第二次被测试工具字段门控拦截，B核无vendor、旧14厂商/24工单/14合作、jobs51/mail13及待办费用不变，回执`beada5d3d09cc15dc05215e7b5fd3a83a4ffe3efd33a2206d92be02ac828b4db`。草稿未完成非产品拒绝。源码核合作创建将建立未来pending notification job及postcommit dispatcher，未来启用政策时不能排除外发，故未建合作或人工加工工单；不能宣称加工通过，原失败保留。
 - W7收尾：第一次停用runner系统Python缺依赖，独核未进入事务；第二次UID2非sudo正常ORM停用因事务保护断言回滚、11账号仍active。两次明确回滚诊断显示归档会改变10个slot1229–1238的state/reason/version、删除12讨论成员，partner元数据与审计也变化；B独核诊断均回滚且未完成责任保持。正常密码write会触发安全邮件发送且账号partner邮件非空，禁止外部通知，故未轮换；账号停用受阻，不能冒称已停用或所有session失效。UID2单次正常ORM独立恢复web.base.url至127.0.0.1:18411并B读回；18511未监听，无活动lease/执行/目标连接/prepared，独验`8bdb72b2ff0c1c06d77f8b0e67cf1b1af0c21a6c7c98377448a9f502e5d13585`。历史scope denied真实栈和失败日志按W7报告保存，未绕过。
 - E2E-R1 主控最终裁定 **PARTIAL**：W7 A/B独立复核已记 `docs/reports/s13-e2e-r1/w7-a-review.md` 和 `w7-independent-review.md`，最终报告 `w7-final-report.md`、演示手册 `demo-guide.md`；BUG-003限目标正向及已记录独立验证FIXED_VERIFIED，BUG-002仍OPEN。11账号active且登录停用BLOCKED、历史技术前像UNKNOWN和未执行项不得掩盖。固定产品候选`dca4e1d2821b20df7b4b940d28d461270c310225`；报告提交及#37最终同步以随后实际Git/API读回为准，不合并产品。
+- E2E-R1最终报告固定 `bfe608114106daf57089d5fba5ec0b42a9f87f42` 已推送活动分支；计划最终 PARTIAL 结果已发布 #37 评论 `6453041826` 并通过正常 GitHub API 读回全文，#37 仍 OPEN。账号停用未完成与各项未验缺口不因同步而解除；不重开P13、不重判P12、不合并产品。
 - 管理员操作后的 `web.base.url` 已恢复P13原值，B读回freeze未设；静止保护 `.local/s13-e2e-r1/b-w1/protection-finalhold.json` SHA `9eef42711b057fcb807a5e6da57c807c80be42d8d8b4198c5767d7ed10837d04`，旧145业务行无改删、13技术/7附加/83引用80文件exact，新增91正常审计及本阶段新对象。11 UAT active，服务进程/端口停止，原浏览器进程组因证据未包含PID独立状态未证。
 
 以下保留P13及全部历史。
