@@ -25,6 +25,7 @@ def main():
     parser.add_argument('--engine', choices=('chromium', 'webkit'), required=True)
     parser.add_argument('--stage', choices=('before', 'after'), required=True)
     parser.add_argument('--mode', choices=('actual','components','states','keyboard','conditions','bypass'), default='actual')
+    parser.add_argument('--panel-variant', choices=('main', 'wheel-v3', 'supplement-v5'), default='main')
     parser.add_argument('--sample-file', default='.local/dl-p13/testing/sample.json')
     parser.add_argument('--timeout', type=int, default=600)
     parser.add_argument('--fixture-file')
@@ -54,8 +55,10 @@ def main():
         command.extend(['--before-result', args.before_result])
     if args.fixture_file:
         command.extend(['--fixture-file', args.fixture_file])
-    command.extend(['--js',args.js,'--suite',args.suite])
-    dependencies = [Path(__file__), source, source.with_name('browser_geometry.cjs'), source.with_name('browser_panel.cjs'),
+    command.extend(['--js',args.js,'--suite',args.suite,'--panel-variant',args.panel_variant])
+    panel_file = {'main':'browser_panel.cjs', 'wheel-v3':'browser_panel_wheel_v3.cjs',
+                  'supplement-v5':'browser_panel_supplement_v5.cjs'}[args.panel_variant]
+    dependencies = [Path(__file__), source, source.with_name('browser_geometry.cjs'), source.with_name(panel_file),
                     ROOT / 'scripts/s13/browser_client.py', ROOT / 'scripts/s13_dl_p12/browser_client.py', ROOT / 'scripts/s13_dl_p13/http_client.py', ROOT / 'scripts/s13_dl_p13/admission_probe.py', ROOT / 'scripts/s13_dl_p13/launcher.py',
                     ROOT / '.local/dl-p3/tools/webkit_finite_zoom_bridge.cjs',
                     ROOT / '.local/dl-p3/verification/webkit_plugins_environment.cjs']

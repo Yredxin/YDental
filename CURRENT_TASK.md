@@ -1,3 +1,15 @@
+# DL-P13 实证完成、离线收口｜2026-10-27
+
+限定产品 **83d5a002ee29dbb10177c773a81f7c2acae8b583** 已实施，实际主工具/末运行 **42e6bd84a5ab0cc194e64db75fd4bfba88e79618**；独立技术总签/报告/远端同步仍待收口，不先记最终完成。此后仅离线机械工具发布、同三报告和正常同步，不复开DB/app/browser。
+
+- 核心188case/1816控件/876label/34190行Range/244分段，横盒/字/祖先/字号/目标高度/原Tab与ShiftTab次序全核；附加WebKit原生Tab初态108圈viewport裁切FAIL保。原P13可达标准独立澄清808e6cd4…，108补证=104真实wheel＋4前目标wheel后已显，保原active/value/整FormData、根X0及完整圈，不冒一次Tab自动修复。60真正closed BOX无额外占洞；原closedBefore全open=true不伪签。
+- 54actual native均0/正常close；Node46×0、7×2普通工具失败、1实际exit UNKNOWN（outer143）全原件保。最后Coff状态纯CDP正常12态/未激活确认；2637原PNG，不以退出0或单图冒验收。
+- 3owned全正常0，末STOP **2026-10-27T05:09:12.780241Z**；四ROshell及唯一-u均0，新P13 ERROR0。未实现者新physical869346 RO/RR/rollbackclosed，145/13/九区exact最终34cad49b…、其它targetconn[]，83引用/80真文件/三共享原bytes全保。旧31622审计逐row保＋941正常auth/read/旁路=32563；-u后只＋781audit，其它144/13/七区same；唯一-u权限21行仅date/7技术/1602首bill arch分列。65cache仅CSS15844→15845，其它64及六依赖same，零经济库存/文书原件/PDF/打印签署/新持久fee。
+- 新私有0400P13 ZIP2606105B/SHA942091ca67d11f7a365153b6b6fe7ad633911fdba003471bc8a83a78ff8ca0f9，48原PNG；旧三ZIP/8263raw和P12全部报告/回执不改，包与最终正文仍待独核总签。
+- P12继续PARTIAL（真off A04 36/26/50 FAIL与超高候选限制保持）；P13不回填旧门槛。仅结束时#37新增一份P13结果且OPEN、#36 CLOSED；main仅必要文档路由。未合产品/部署，未启第二面板/P14/完整S13/生产，用户效果待确认。
+
+以下保留开工及P12全部历史。
+
 # DL-P13 开工｜2026-10-27
 
 **YD-S13-DL-P13 / 1.0｜IN_PROGRESS**。用户本会话明确启用[完整限定计划](docs/execution/YDental_DL_P13_Settlement_First_Bill_Panel_Plan_v1.md)，仅lookup之后首个operation=bill details的动作/checkbox字段排布/响应式留白；W0—W4连续实施，T01—12未实现者独验。不live提交bill或其它经济/库存/PDF；确认能力、原字段顺序/FormData/条件保持。

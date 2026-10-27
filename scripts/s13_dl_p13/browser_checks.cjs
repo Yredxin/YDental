@@ -2,6 +2,9 @@
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict'),{execFileSync}=require('node:child_process');
 const root=process.cwd(),argv=process.argv.slice(2),arg=n=>{const i=argv.indexOf('--'+n);return i<0?undefined:argv[i+1]},label=arg('label'),run=arg('run-id'),engine=arg('engine'),stage=arg('stage'),mode=arg('mode'),alias=arg('role')||'settlement',nojs=arg('js')==='off';
 assert(/^[A-Za-z0-9_-]{1,60}$/.test(label));
+// PURE publication: actual clients retain their separately archived executed sources.
+const panelModules={main:'./browser_panel.cjs','wheel-v3':'./browser_panel_wheel_v3.cjs','supplement-v5':'./browser_panel_supplement_v5.cjs'},panelVariant=arg('panel-variant')||'main';
+assert(Object.hasOwn(panelModules,panelVariant),'Known fixed panel module required');
 const out=path.join(root,'.local/dl-p13/testing/evidence',label);fs.mkdirSync(out,{mode:0o700,recursive:true});
 const hash=f=>crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex'),sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 function save(name,value){const f=path.join(out,name),raw=typeof value==='string'||Buffer.isBuffer(value)?value:JSON.stringify(value,null,2);fs.writeFileSync(f,raw,{flag:'wx',mode:0o600});return{file:path.relative(root,f),bytes:fs.statSync(f).size,sha256:hash(f)}}
@@ -62,7 +65,7 @@ try{
   return route.continue();
  });
  page=context.pages()[0]||await context.newPage();await login();
- await require('./browser_panel.cjs').run({root,base,context,page,browser,engine,stage,mode,nojs,alias,sample,views,arg,r,save,shot,zoom,settle,sha,hash,live});
+ await require(panelModules[panelVariant]).run({root,base,context,page,browser,engine,stage,mode,nojs,alias,sample,views,arg,r,save,shot,zoom,settle,sha,hash,live});
  assert.equal(r.business_write_attempts.length,0);assert.equal(r.external_blocks.length,0);r.status='P13_UI_EVIDENCE_RECORDED';
 }catch(error){r.status='FAILED_NO_AUTOMATIC_REPLAY';r.error={class:error.constructor.name,message:String(error.message).slice(0,1800)};r.stack=String(error.stack).split('\n').slice(0,8)}
 finally{
