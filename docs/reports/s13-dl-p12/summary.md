@@ -1,8 +1,8 @@
 # DL-P12 RWD 响应式增量交付｜2026-10-27
 
-限定计划 **YD-S13-DL-P12-RWD / 1.0**，DL-27—30、W0—W3已执行，技术 **PARTIAL**。新增极窄追溯盒/字/右圈横裁已修；原A04真JS-off仍FAIL，超高候选的严格整圈同屏仍PARTIAL。两者都保留，不能TECHNICALLY_COMPLETE。同步 **SYNC_PENDING**（仅传输），软件 **STOPPED**，用户亲手效果待确认。
+限定计划 **YD-S13-DL-P12-RWD / 1.0**，DL-27—30、W0—W3已执行，技术 **PARTIAL**。新增极窄追溯盒/字/右圈横裁已修；原A04真JS-off仍FAIL，超高候选的严格整圈同屏仍PARTIAL。两者都保留，不能TECHNICALLY_COMPLETE。同步 **SYNCED**（仅传输），软件 **STOPPED**，用户亲手效果待确认。
 
-未实现者本地总签 **378c09b3851f72087220911db4e60577f641e041e5d0f1b0e13c0dafd17c577d** 已实际接受真实PARTIAL交付记录，源/实测/完整保护/包/正常停止与全文均成立；不签TECHNICALLY_COMPLETE或用户效果，远端读回尚待实际发生。
+未实现者本地总签 **378c09b3851f72087220911db4e60577f641e041e5d0f1b0e13c0dafd17c577d** 已接受真实PARTIAL交付；首远端完整全文/两ref/原唯一回执与状态已实际独立读回，不升级技术、不代用户效果。
 
 产品/主工具/最后实际运行 **f3c63b6f2ec86f0518d6f0dae9b19de633085ac1**。私有补充分页/纵读客户端逐次执行源、命令、SHA与退出单列，不冒全部69次来自共同工具文件。报告锚点由本文件Git和原唯一#37/6422670245按实际提交登记，不嵌未来自身hash。正常承接clean d3ac2d3，无reset/clean/强推/从main重建。
 
@@ -26,7 +26,11 @@
 
 真实分工/root产品与三报告、runtime_rwd运行保护、testing_rwd测试、acceptance_rwd未实现者独核；同OS不冒隔离。源/真实浏览器/新physical/包/全文/同步按各自证据签，不代用户/临床/财务验收。
 
+## 已实际独立首同步
 
+技术报告d540b01d67ac2b9fde844695731a34bd4c2fa880 / main仅两路由191133293fe8b8f415f5f2743468e9706b91fea2已正常push。未实现者经正常GitHub插件实际读回17活动变化文件+main2完整bytes/SHA/gitblob、两ref、原唯一6422670245完整18133B及原8592chars PARTIAL/两续办prefix、旧13 id/body/总14、#23/#36/#37 title/body/state，37OPEN/36CLOSED：**6862b8b613aa74907edda573b3d5815eb9a3ac725b7cfecbedf60df082e2359e**。当前PARTIAL / SYNCED（仅传输）/ STOPPED，原A04真offFAIL与超高圈PARTIAL不改。
+
+原首发SYNC_PENDING时点保留在Git及同一评论。本次只登记已发生元数据；最后变化全文/ref/同评论按正常独立读回另存实际收据，不循环嵌自身未来hash、不复开app/DB/browser、不合产品不部署。
 
 ## 实际改动与冻结边界
 

@@ -1,6 +1,6 @@
 # DL-P12 RWD｜原件与独立签署索引
 
-产品/主工具/最后实际运行 **f3c63b6f2ec86f0518d6f0dae9b19de633085ac1**，报告以其Git/#37原唯一6422670245实际锚点为准。技术PARTIAL / 同步SYNC_PENDING / STOPPED。未实现者本地总签 **378c09b3851f72087220911db4e60577f641e041e5d0f1b0e13c0dafd17c577d** 已实际接受真实PARTIAL交付记录，源/实测/完整保护/包/正常停止与全文均成立；不签TECHNICALLY_COMPLETE或用户效果，远端读回尚待实际发生。
+产品/主工具/最后实际运行 **f3c63b6f2ec86f0518d6f0dae9b19de633085ac1**，报告以其Git/#37原唯一6422670245实际锚点为准。技术PARTIAL / 同步SYNCED / STOPPED。未实现者本地总签 **378c09b3851f72087220911db4e60577f641e041e5d0f1b0e13c0dafd17c577d** 已接受真实PARTIAL交付；首远端完整全文/两ref/原唯一回执与状态已实际独立读回，不升级技术、不代用户效果。
 
 原P12/A04 3710原件、两个旧ZIP保；本轮69actual/67native0，4553raw/1657原PNG逐源SHA可核。原截图未编辑，前后同引擎/实际viewport/root/DPR/loadedHTML原件按manifest关联；旧partial screenshot不充完整视口证明。私有配置/provider/session/完整请求/DB/PDF不上传Public。
 
@@ -37,6 +37,9 @@
 |`.local/dl-p12-rwd/acceptance/final-quiescence-and-native-errors-independent.json`|5287|`d75f3fb45b7cb160c614d7932723dbd3fe56e358f532253166ab8676c9622926`|
 |`.local/dl-p12-rwd/acceptance/final-local-partial-independent.json`|6910|`378c09b3851f72087220911db4e60577f641e041e5d0f1b0e13c0dafd17c577d`|
 |`.local/dl-p12-rwd/acceptance/w0-source-old-originals-baseline.json`|107287|`ecc1fa35091a5a89a03acabead93021e5237d712bf7e8caccb9041e02e872740`|
+|`.local/dl-p12-rwd/acceptance/fixed-d540-public-delivery-independent.json`|5599|`768012d9e1cececa52faddb801a56c2f1c2b141580d3bf091a35c1f68e82124d`|
+|`.local/dl-p12-rwd/acceptance/fixed-main1911-public-delivery-independent.json`|934|`e973314eb5a9047631e561d7894ce458991fd7c0a51ab30cf6b02ad445f2858a`|
+|`.local/dl-p12-rwd/acceptance/first-sync-independent.json`|9638|`6862b8b613aa74907edda573b3d5815eb9a3ac725b7cfecbedf60df082e2359e`|
 
 |新私有效果包|字节|SHA256|
 |---|---:|---|
@@ -46,7 +49,11 @@
 
 全期4ERROR/2次派生CSS native retry、最终200恢复和r3 ERROR0按原运行日志；两工具bootstrap、两index、两诊断UNKNOWN与晚正常关闭、旧r2 partialviewport五图分别保留。145/13/九区、旧27673+3949审计、83/80/3文件由新physical与全保护独签支撑，不以ZIP代数据库核。
 
+## 已实际独立首同步
 
+技术报告d540b01d67ac2b9fde844695731a34bd4c2fa880 / main仅两路由191133293fe8b8f415f5f2743468e9706b91fea2已正常push。未实现者经正常GitHub插件实际读回17活动变化文件+main2完整bytes/SHA/gitblob、两ref、原唯一6422670245完整18133B及原8592chars PARTIAL/两续办prefix、旧13 id/body/总14、#23/#36/#37 title/body/state，37OPEN/36CLOSED：**6862b8b613aa74907edda573b3d5815eb9a3ac725b7cfecbedf60df082e2359e**。当前PARTIAL / SYNCED（仅传输）/ STOPPED，原A04真offFAIL与超高圈PARTIAL不改。
+
+原首发SYNC_PENDING时点保留在Git及同一评论。本次只登记已发生元数据；最后变化全文/ref/同评论按正常独立读回另存实际收据，不循环嵌自身未来hash、不复开app/DB/browser、不合产品不部署。
 
 以下完整保留原P12/A04证据索引，均为原历史事实。
 

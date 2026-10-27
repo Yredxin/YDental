@@ -1,8 +1,8 @@
 # DL-P12 RWD 增量收口｜2026-10-27
 
-**YD-S13-DL-P12-RWD / 1.0｜限定W0—W3已执行；技术PARTIAL / SYNC_PENDING（仅传输）/ STOPPED**。新极窄summary横裁/真off右圈已修；原768 A04真JS-off仍36/26/50 FAIL，超高候选整圈同屏仍PARTIAL，不TECHNICALLY_COMPLETE。用户亲手效果待确认，不启P13。
+**YD-S13-DL-P12-RWD / 1.0｜限定W0—W3已执行；技术PARTIAL / SYNCED（仅传输）/ STOPPED**。新极窄summary横裁/真off右圈已修；原768 A04真JS-off仍36/26/50 FAIL，超高候选整圈同屏仍PARTIAL，不TECHNICALLY_COMPLETE。用户亲手效果待确认，不启P13。
 
-- [本增量合同](docs/execution/YDental_DL_P12_Responsive_Readability_Padding_Addendum_v1.md) · [结果/责任表/7步](docs/reports/s13-dl-p12/summary.md) · [RWD十项矩阵](docs/reports/s13-dl-p12/acceptance-matrix.md) · [全SHA/独签](docs/reports/s13-dl-p12/evidence-index.md)。未实现者本地总签 **378c09b3851f72087220911db4e60577f641e041e5d0f1b0e13c0dafd17c577d** 已实际接受真实PARTIAL交付记录，源/实测/完整保护/包/正常停止与全文均成立；不签TECHNICALLY_COMPLETE或用户效果，远端读回尚待实际发生。
+- [本增量合同](docs/execution/YDental_DL_P12_Responsive_Readability_Padding_Addendum_v1.md) · [结果/责任表/7步](docs/reports/s13-dl-p12/summary.md) · [RWD十项矩阵](docs/reports/s13-dl-p12/acceptance-matrix.md) · [全SHA/独签](docs/reports/s13-dl-p12/evidence-index.md)。未实现者本地总签 **378c09b3851f72087220911db4e60577f641e041e5d0f1b0e13c0dafd17c577d** 已接受真实PARTIAL交付；首远端完整全文/两ref/原唯一回执与状态已实际独立读回，不升级技术、不代用户效果。
 - 活动分支仍codex/s13-dl-p12-settlement-readonly-actions-spacing-r1；产品/主工具/最后实际运行 **f3c63b6f2ec86f0518d6f0dae9b19de633085ac1**。仅readonly_actions.scss，595其它addon/fullXML/JS/表/业务/权限原bytes，原核心不改。补充客户端逐实际源归档；无reset/clean/强推/合产品/部署。
 - 真实双engine五view/两放大/两JS；核心186几何3016控件横盒/字/尺寸全，66候选超高圈FAIL保；额外正常分页60完整、原JSon168全PASS、原strict真off4FAIL；22超高目标原生上下键首末可达不代整圈。69actual=57Node0/10Node2/2Node1，67native0/closed，4553raw/1657原PNG，旧3710及两包exact。
 - 原目标2171423/cluster7694897083368259627/filestore；全145/13/九区，旧27673audit逐row保+3949正常read=31622，其余144/13/七区同；83引用80物理三共享原bytes/pathSHA保。newphysical835708 RO/RR/rollbackclosed/其它targetconn[]；仅derivedCSS15838→15844，其余64/deps同。无-u/新持久费用/经济库存/原件PDF/扫码打印签署发布CSV。
@@ -10,7 +10,11 @@
 - 新私有0400RWD ZIP8240905B/SHAf579d5165fa0a33481d2bc039397e784366beace39676b52fd931c15a00e0c36，143成员109原PNG/32JSON；不覆盖旧包、不Public上传。root产品/报告、runtime_rwd运行、testing_rwd测试、acceptance_rwd未实现者独核，同OS非隔离。
 - #37仅原唯一6422670245保原PARTIAL全文后追加，37OPEN/36CLOSED，旧13回执不改；main仅两必要文档路由。完整S13/P13/其它办理或全站/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/生产未启用；交付停止。
 
+## 已实际独立首同步
 
+技术报告d540b01d67ac2b9fde844695731a34bd4c2fa880 / main仅两路由191133293fe8b8f415f5f2743468e9706b91fea2已正常push。未实现者经正常GitHub插件实际读回17活动变化文件+main2完整bytes/SHA/gitblob、两ref、原唯一6422670245完整18133B及原8592chars PARTIAL/两续办prefix、旧13 id/body/总14、#23/#36/#37 title/body/state，37OPEN/36CLOSED：**6862b8b613aa74907edda573b3d5815eb9a3ac725b7cfecbedf60df082e2359e**。当前PARTIAL / SYNCED（仅传输）/ STOPPED，原A04真offFAIL与超高圈PARTIAL不改。
+
+原首发SYNC_PENDING时点保留在Git及同一评论。本次只登记已发生元数据；最后变化全文/ref/同评论按正常独立读回另存实际收据，不循环嵌自身未来hash、不复开app/DB/browser、不合产品不部署。
 
 ---
 

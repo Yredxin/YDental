@@ -1,6 +1,6 @@
 # DL-P12 RWD｜RWD-T01—T10
 
-固定产品/主工具/最后实际运行 **f3c63b6f2ec86f0518d6f0dae9b19de633085ac1**。限定增量实施已完成，严格技术 **PARTIAL**；原P12整体亦 **PARTIAL**。同步 **SYNC_PENDING** / 软件STOPPED / 用户效果待确认。未实现者本地总签 **378c09b3851f72087220911db4e60577f641e041e5d0f1b0e13c0dafd17c577d** 已实际接受真实PARTIAL交付记录，源/实测/完整保护/包/正常停止与全文均成立；不签TECHNICALLY_COMPLETE或用户效果，远端读回尚待实际发生。
+固定产品/主工具/最后实际运行 **f3c63b6f2ec86f0518d6f0dae9b19de633085ac1**。限定增量实施已完成，严格技术 **PARTIAL**；原P12整体亦 **PARTIAL**。同步 **SYNCED** / 软件STOPPED / 用户效果待确认。未实现者本地总签 **378c09b3851f72087220911db4e60577f641e041e5d0f1b0e13c0dafd17c577d** 已接受真实PARTIAL交付；首远端完整全文/两ref/原唯一回执与状态已实际独立读回，不升级技术、不代用户效果。
 
 |ID|实际证据与层级|结论|
 |---|---|---|
@@ -13,9 +13,13 @@
 |RWD-T07 双engine/两放大/键盘|真实两engine五view、native200与root200独立，真正off认证GET/明确选择/EnterSpace、连续Tab/ShiftTab，原168JS-on完整焦点回归|PARTIAL：适用路径通过，A04真off与超高整圈门槛仍缺|
 |RWD-T08 文本压力|正常/长中文/空态/展开，测试专用间距16批960首末真实可达，22目标原生上下键可达；字号/自然高度不削弱，无默认压力样式|文字/首末可达PASS；超高完整圈子项PARTIAL，不降低判定|
 |RWD-T09 冻结/保护|实际岗位有限旁路；完整145/13/九区、83引用80真实文件三共享与newphysical835708，旧27673审计全保+3949正常新读、仅派生CSS变化|PASS（未实现者真实newphysical/完整原件及全阶段审计分类独核）|
-|RWD-T10 交付|固定产品/源/运行/报告、前后原PNG/新ZIP/SHA/7步、独立源/全raw/包/physical/停止/全文及唯一回执正常读回|本地材料/保护/包/正常停止PASS（独立接受PARTIAL交付）；远端SYNC_PENDING|
+|RWD-T10 交付|固定产品/源/运行/报告、前后原PNG/新ZIP/SHA/7步、独立源/全raw/包/physical/停止/全文及唯一回执正常读回|PASS（本地材料/保护/包/停止及首远端全文/唯一回执/状态已实际独核；最后metadata读回另存实际收据）|
 
+## 已实际独立首同步
 
+技术报告d540b01d67ac2b9fde844695731a34bd4c2fa880 / main仅两路由191133293fe8b8f415f5f2743468e9706b91fea2已正常push。未实现者经正常GitHub插件实际读回17活动变化文件+main2完整bytes/SHA/gitblob、两ref、原唯一6422670245完整18133B及原8592chars PARTIAL/两续办prefix、旧13 id/body/总14、#23/#36/#37 title/body/state，37OPEN/36CLOSED：**6862b8b613aa74907edda573b3d5815eb9a3ac725b7cfecbedf60df082e2359e**。当前PARTIAL / SYNCED（仅传输）/ STOPPED，原A04真offFAIL与超高圈PARTIAL不改。
+
+原首发SYNC_PENDING时点保留在Git及同一评论。本次只登记已发生元数据；最后变化全文/ref/同评论按正常独立读回另存实际收据，不循环嵌自身未来hash、不复开app/DB/browser、不合产品不部署。
 
 十项不以Node0/原图数/矩阵采集完成当PASS。SOURCE/PURE、normalHTTP/BROWSER、loadedQWeb夹具、helper/Range、连续原生键盘、独立已提交RO和包核不可互冒；失败/UNKNOWN/截图覆盖错误原字节保，详见summary/evidence-index。整体验收保持PARTIAL。
 
