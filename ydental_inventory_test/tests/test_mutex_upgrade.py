@@ -5,7 +5,7 @@ from odoo.tools.convert import convert_file
 @tagged('post_install', '-at_install')
 class TestInventoryMutexUpgrade(TransactionCase):
     def test_update_preserves_existing_legacy_mutex_and_fence(self):
-        env = self.env.sudo()
+        env = self.env['base'].sudo().env
         mutex = env.ref('ydental_inventory.ydental_inventory_mutex')
         xmlid = env['ir.model.data'].search([
             ('module', '=', 'ydental_inventory'), ('name', '=', 'ydental_inventory_mutex')], limit=1)
