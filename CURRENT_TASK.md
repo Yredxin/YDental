@@ -8,6 +8,7 @@
 - W0 已实成：双engine普通五view/390root200/1366native200真实30控件完整；160有效CSS宽度和320root200，真实history summary约103/client76及205/client204，三表组件同类横裁。超高候选的纵向整圈与祖先横裁分别记录。原严格768 table704/client668/max36，JS-on稳定6 PASS、真off36/left26/clip50 FAIL。before两owned正常0收尾；新976正常auth/read→28649，旧27673逐row及其它144业务/13技术/83ref80file三共享保。
 - W1 产品候选只改 readonly_actions.scss：局部inline-size container使summary按scrollport减两侧圈限制宽度；<48rem内衬1rem、≤20rem卡片.75rem/普通动作水平.75em，其余合格值保。768原24px不动，防止原36横读变不可达；未改44rem表/列/cell、XML/JS/mixin/后台。SASS纯编译已过，真实after待新固定候选，不能先记PASS。测试import/index普通错误及禁JS样式诊断未完成UNKNOWN/晚正常收尾原件均保。
 - r1 产品/工具8b82737双engine极窄smoke焦点及文字完整；非焦点nearest定位仍有约1.77px外框裁切，因原scroll-margin每侧.5rem大于圈.375rem。r2只将cap缓冲.75rem→1rem，容纳两侧既有scroll margin，不改前置/门槛。r1原件/失败保持，已正常stop/child0；全阶段至此新1054读取audit→28727，旧27673及其它保护保持。r2待实测，不先签PASS。
+- r2 e9fdae8 JS-on极窄BOX/TEXT/FOCUS全fit，严格768 JS-on仍36→6；未实现者本人WebKit真off极窄仅右圈越约3.773/7.547px，box/text已fit。r3最后有界cap改1.25rem，容纳原td起点13.773/27.547与圈6/12，不改字号/测试/表；若仍不满足保FAIL不循环。r2真实正常stop/child0，累计新1370审计→29043、旧全保；原生CSS派生cache并发serialization ERROR2及原生重试后HTTP200已分开保，不冒ERROR0。WK真off native200旧snapshot覆盖仅左上片的层级限制保留，截图工具将修为完整原生视口捕获，绝不缩裁旧图。
 - 原 P12 **PARTIAL / A04 真 JS-off FAIL** 保持；JS-on 一次可信 Tab 增强不得回退。两结论分别验收，无法通过严格原36横读场景则继续 FAIL。
 - GitHub #23/#36/#37 正文及 #37 全评论正常读取，#37 OPEN/#36 CLOSED；本增量结束后只在唯一 `6422670245` 保留原全文追加结果，过程中不发 Issue 进度。未合并、未部署，用户亲手效果待确认。完整 S13/P13/其它办理/生产均未启用。
 
