@@ -1,3 +1,16 @@
+# DL-P13 限定技术交付｜2026-10-27
+
+**YD-S13-DL-P13 / 1.0｜TECHNICALLY_COMPLETE（仅首bill界面）/ SYNC_PENDING / STOPPED**。未实现者本地总签 **ca9ab170684e238c092282eb5259c4d36a407fb80fd25478da33d8b75c3826f5** 已真实成立；远端正常同步及全文/refs/唯一新P13评论读回仍待实际，不冒SYNCED。用户亲手效果待确认。
+
+- [完整限定计划](docs/execution/YDental_DL_P13_Settlement_First_Bill_Panel_Plan_v1.md) · [结果/动作/间距/7步](docs/reports/s13-dl-p13/summary.md) · [12项矩阵](docs/reports/s13-dl-p13/acceptance-matrix.md) · [全证据SHA/失败/UNKNOWN](docs/reports/s13-dl-p13/evidence-index.md)。只首个operation=bill details，三addon文件；P12 lookup/JS/RWD、其它办理、后端/ACL业务内容/公式/字段/URL不改。
+- 产品 **83d5a002ee29dbb10177c773a81f7c2acae8b583**；实际主工具/末运行 **42e6bd84a5ab0cc194e64db75fd4bfba88e79618**；最终工具 **3d5ecabdfdfe451df21f8f79d3a57c6268d60700** 仅机械SOURCE/PURE，actual逐源SHA另存、不反签同源。活动分支 `codex/s13-dl-p13-settlement-bill-panel-r1`，从4e3e合法基线连续承接、不从main重建。
+- 188核心case/1816控件/876label/34190行Range/244分段，横盒/字/祖先/尺寸/原生次序符合；108 WebKit native初态圈viewport附加FAIL保，原P13可达门槛按104实际wheel+4前序wheel已显独证，不把后图冒一次Tab初态。60真closed剩余高度0；真实权限/空态/原生名称/300字reason/双engine状态/有限旁路均实际分层核。54native0/close，Node46zero/7工具2/1outer143-NodeUNKNOWN保。
+- 全保护未实现者新physical869346真实RO/RR/rollbackclosed，全145/13/九区exactfinal，83引用80真路径三共享原bytes/SHA保；旧31622audit全保+941正常auth/read/旁路=32563，唯一-u元数据/7技术与派生CSS另分列，六deps/其它64cache/原JS保持。零新经济库存/原件PDF打印签署/持久fee，未live提交bill。
+- 3owned正常0/configremoved，末STOP **2026-10-27T05:09:12.780241Z**；162已知PID gone/18411和12无listen/其它targetconn[]，不为报告同步复开app/DB/browser。私有0400新ZIP2606105B/SHA942091ca67d11f7a365153b6b6fe7ad633911fdba003471bc8a83a78ff8ca0f9，48原PNG/52成员，99730027独签；4428raw/2637原PNG及旧8263/三包/42文件全保。
+- P12整体仍PARTIAL：原A04真off36/26/50 FAIL和超高候选限制原样保；P13可达门槛不回填P12。结束时仅#37新增一份P13结果，旧14评论/P12唯一6422670245全文不改，37OPEN36CLOSED；main仅必要两路由，不合产品不部署。P13后停止，不改第二面板、不启P14/完整S13/负载恢复/实机/政策/组合扫码/真实资金外部生产。
+
+以下保留本次收口、开工和全部P12历史时点，不反签过去。
+
 # DL-P13 实证完成、离线收口｜2026-10-27
 
 限定产品 **83d5a002ee29dbb10177c773a81f7c2acae8b583** 已实施，实际主工具/末运行 **42e6bd84a5ab0cc194e64db75fd4bfba88e79618**；独立技术总签/报告/远端同步仍待收口，不先记最终完成。此后仅离线机械工具发布、同三报告和正常同步，不复开DB/app/browser。
