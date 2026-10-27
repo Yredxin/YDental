@@ -1,3 +1,15 @@
+# DL-P13 开工｜2026-10-27
+
+**YD-S13-DL-P13 / 1.0｜IN_PROGRESS**。用户本会话明确启用[完整限定计划](docs/execution/YDental_DL_P13_Settlement_First_Bill_Panel_Plan_v1.md)，仅lookup之后首个operation=bill details的动作/checkbox字段排布/响应式留白；W0—W4连续实施，T01—12未实现者独验。不live提交bill或其它经济/库存/PDF；确认能力、原字段顺序/FormData/条件保持。
+
+- 现场起点4e3e3aa1027286de473044d23f54d5faa81c9384与origin同、工作树clean；正常新建`codex/s13-dl-p13-settlement-bill-panel-r1`。P12产品f3c63b6及三报告/原回执6422670245/全部PARTIAL/原件保持；main仅路由，不从main重建，不reset/clean/强推。
+- root唯一产品/报告/CURRENT/main路由写者；复用runtime_rwd/testing_rwd/acceptance_rwd三个已响应协作者分别承担P13运行保护/测试/未实现者独验，职责写路径另在本机P13证据；同OS非隔离。新私有`.local/dl-p13/`，不改旧scope/STOP/账本/包。
+- 新鲜核同合成目标OID2171423/cluster7694897083368259627/filestore，原31622审计及83引用80真实文件3共享完整保全；正常新读/技术缓存另计。必要XML加载需全即时pre/post及独核；纯CSS不重复-u。
+- P12整体继续PARTIAL：真off A04原768横读36→Tab仍36/26/50 FAIL，超高候选圈限制保。P13新超高分段约定不回填P12。P13独立结论另判。
+- 仅计划结束#37新增一份P13最终结果，保旧14评论/P12全文；37OPEN/36CLOSED。main仅必要路由，不合产品/部署。P13结束停止，不自动改第二办理或P14；完整S13/负载恢复/实机/政策/组合扫码/真实资金外部生产未启用，用户效果待确认。
+
+以下保留P12及更早全部历史时点。
+
 # DL-P12 RWD 增量收口｜2026-10-27
 
 **YD-S13-DL-P12-RWD / 1.0｜限定W0—W3已执行；技术PARTIAL / SYNCED（仅传输）/ STOPPED**。新极窄summary横裁/真off右圈已修；原768 A04真JS-off仍36/26/50 FAIL，超高候选整圈同屏仍PARTIAL，不TECHNICALLY_COMPLETE。用户亲手效果待确认，不启P13。
