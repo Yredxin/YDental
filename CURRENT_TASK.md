@@ -1,3 +1,14 @@
+# DL-P12 A04 定向续办｜2026-10-27 00:05 UTC
+
+**IN_PROGRESS / 原PARTIAL历史保持。** 用户明确继续原YD-S13-DL-P12 / 1.0，仅A04及直接影响T项；原计划/T01—12门槛不变，不启动P13。先同条件复现原FAIL，有界诊断局部原生CSS；如证据需要，用户仅本次允许Odoo前台局部focusin几何水平修正例外，不拦Tab/不改focus或tabindex/不改根滚动或表结构策略。JS-off仍按原适用门槛单验，缺口不冒PASS。
+
+- 现场业务HEAD2399983f917587d0145d085fd72aca1e1b00e5cc与origin一致，工作树clean；main仅路由eb23b36，同业务分支接续，无reset/clean/强推。原产品ba3a5b0、工具a161aa3、最后实际0f1deb8和原PARTIAL报告/失败/UNKNOWN/全部原图/旧ZIP保持。
+- 主控/root唯一产品/状态/报告/路由写者；runtime_a04管运行/保护工具，testing_a04管测试工具和证据，acceptance_a04未实现者独立验收。同OS，不冒隔离。测试/独立者先准备，当前新准入核实后才owned启动，不续旧scope/修改guard。
+- 原目标OID2171423/cluster7694897083368259627/原filestore；新完整pre与原final全145业务/13技术/九区same，25819旧audit（含P12新增7001）逐条保，83引用/80物理文件/3共享保持。新读取审计另列，无经济/库存/原件PDF/打印签署发布/扫码提交。
+- GitHub #23/#36/#37正文和全部评论已正常读取保存私有baseline，#37原唯一P12评论6422670245将只在收口后追加续办结论且保原PARTIAL正文，不另建回执；#37 OPEN/#36 CLOSED。main只必要路由，不合产品、不部署；续办收口后停止，用户亲手效果待确认。
+
+以下是原P12最终报告及全部历史原字节，不改写过去。
+
 # DL-P12 当前状态｜YD-S13-DL-P12 / 1.0
 
 ## PARTIAL（A04原生横向焦点未通过）/ SYNCED（仅传输）/ STOPPED
