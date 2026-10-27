@@ -7,7 +7,7 @@ from odoo.tests import TransactionCase, tagged
 
 from odoo.addons.ydental_queue.models.ydental_queue_service import StartPermit
 
-from .common import setup, queue_bind, enter, lease_args, accepted, qualify, arrive_report, key, bind, patient, price
+from .common import setup, queue_bind, enter, lease_args, accepted, qualify, arrive_report, key, bind, patient, price, make_slot
 from ..models.adapter import DocumentSource, Clock
 
 
@@ -44,6 +44,45 @@ class TestQueue(TransactionCase):
         with self.assertRaises(UserError):
             a._operate('start', dict(lease_args(lease), entry_id=call['entry_id']))
         self.assertEqual(self.root['ydental.supply.event'].search_count([('ydental_claim_id', '=', claim.id), ('ydental_operation', '=', 'consume')]), 1)
+
+    def test_closed_test_scope_rejects_held_report_call_and_start(self):
+        supply = self.group.env['ydental.supply.service']
+        # Unit-only scope substitution; not proof of the deployment environment.
+        with patch.object(type(supply), '_isolated_test_allowed', return_value=True):
+            supply._operate('policy', {'name': 'Isolated scope', 'mode': 'isolated_test',
+                'rounding': 'floor', 'phone_pool': 'reservation', 'cutoff_minutes': 0,
+                'reason': 'Synthetic test', 'isolated_test_approved': True,
+                'station_id': self.other_station.id}, key())
+            slot = make_slot(self, self.group, self.other_station, self.start, self.end)
+            person = patient(self)
+            result = self.front._qualify(self.stores[0], person, self.mappings[0][0].id,
+                self.start, self.end, 'reservation', slot_id=slot.id)
+            task = self.root['ydental.intake.task'].browse(result['task_id'])
+            claim = task.ydental_entitlement_id.ydental_claim_id
+            self.front._operate('arrive', {'patient_id': person}, key())
+        with patch.object(type(supply), '_isolated_test_allowed', return_value=False):
+            with self.assertRaises(AccessError):
+                self.front._operate('report', {'task_id': task.id, 'version': task.ydental_version}, key())
+            self.assertFalse(self.front._position(task.ydental_patient_id))
+            self.assertEqual(claim.state, 'held')
+        with patch.object(type(supply), '_isolated_test_allowed', return_value=True):
+            self.front._operate('report', {'task_id': task.id, 'version': task.ydental_version}, key())
+            queue, lease = enter(self, station=self.other_station)
+        entry = self.root['ydental.queue.entry'].search([('ydental_task_id', '=', task.id)])
+        with patch.object(type(supply), '_isolated_test_allowed', return_value=False):
+            with self.assertRaises(UserError):
+                queue._operate('call', lease_args(lease))
+            self.assertEqual((entry.state, claim.state), ('waiting', 'held'))
+        with patch.object(type(supply), '_isolated_test_allowed', return_value=True):
+            call = queue._operate('call', lease_args(lease))
+        with patch.object(type(supply), '_isolated_test_allowed', return_value=False):
+            with self.assertRaises(AccessError):
+                queue._operate('start', dict(lease_args(lease), entry_id=call['entry_id']))
+            self.assertEqual((entry.state, claim.state), ('calling', 'held'))
+            self.assertFalse(self.root['ydental.queue.execution'].search_count([('ydental_task_id', '=', task.id)]))
+        with patch.object(type(supply), '_isolated_test_allowed', return_value=True):
+            queue._operate('start', dict(lease_args(lease), entry_id=call['entry_id']))
+        self.assertEqual((task.state, claim.state), ('started', 'consumed'))
 
     def test_expired_reserved_appointment_is_skipped_during_call(self):
         task = accepted(self)

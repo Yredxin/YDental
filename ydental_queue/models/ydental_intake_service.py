@@ -21,6 +21,10 @@ class YDentalIntakeService(models.AbstractModel):
         # eligible for document work until that execution is legitimately ended.
         if task.state in ('started', 'suspended', 'handed_over', 'done'):
             return ''
+        try:
+            self._check_held_test_scope(task, store)
+        except AccessError as error:
+            return str(error)
         entitlement = task.ydental_entitlement_id
         if not entitlement:
             return ''

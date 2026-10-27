@@ -514,7 +514,16 @@ class YDentalIntakeService(models.AbstractModel):
     def _position(self, patient):
         return self._model('position').search([('ydental_patient_id', '=', patient.id), ('ydental_active', '=', True)], limit=1)
 
+    def _check_held_test_scope(self, task, store):
+        entitlement = task.ydental_entitlement_id
+        if entitlement and entitlement.state == 'held':
+            policy = entitlement.ydental_claim_id.ydental_slot_id.ydental_policy_id
+            supply = self.env['ydental.supply.service']
+            supply._check_test_policy(policy.ydental_store_id, policy)
+            supply._check_test_policy(store, policy)
+
     def _valid_task(self, task, store):
+        self._check_held_test_scope(task, store)
         patient = self.env['ydental.patient.service']._business_patient(task.ydental_patient_id.id)
         if task.ydental_patient_id != patient:
             raise UserError(self.env._('version_conflict: Refresh the canonical task identity.'))
