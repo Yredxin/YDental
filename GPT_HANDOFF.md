@@ -1,3 +1,21 @@
+# YDental / odoo-sd｜P13 首bill面板交付路由
+
+2026-10-27，用户明确启用 **YD-S13-DL-P13 / 1.0**。**TECHNICALLY_COMPLETE（仅首个bill界面）/ SYNC_PENDING（远端独立全文读回待实际）/ STOPPED**；用户亲手效果待确认。P12整体仍PARTIAL，旧A04真JS-off36/26/50 FAIL及超高候选限制完整保，不由P13完成回填。
+
+活动业务分支 `codex/s13-dl-p13-settlement-bill-panel-r1`。[唯一活动CURRENT](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p13-settlement-bill-panel-r1/CURRENT_TASK.md) · [完整限定计划](https://github.com/Yredxin/YDental/blob/225fd71fbba352610bd46104ad401c782affb618/docs/execution/YDental_DL_P13_Settlement_First_Bill_Panel_Plan_v1.md) · [改动/动作/间距责任/7步](https://github.com/Yredxin/YDental/blob/225fd71fbba352610bd46104ad401c782affb618/docs/reports/s13-dl-p13/summary.md) · [12项矩阵](https://github.com/Yredxin/YDental/blob/225fd71fbba352610bd46104ad401c782affb618/docs/reports/s13-dl-p13/acceptance-matrix.md) · [全原件SHA/独签/失败UNKNOWN](https://github.com/Yredxin/YDental/blob/225fd71fbba352610bd46104ad401c782affb618/docs/reports/s13-dl-p13/evidence-index.md)。main仅必要文档路由，不是产品基线；先读AGENTS与活动CURRENT再核实际origin/HEAD/工作树，不从main重建，不reset/clean/强推。
+
+产品83d5a002ee29dbb10177c773a81f7c2acae8b583；主工具/最后应用42e6bd84a5ab0cc194e64db75fd4bfba88e79618；工具发布3d5ecabdfdfe451df21f8f79d3a57c6268d60700仅SOURCE/PURE；首报告225fd71fbba352610bd46104ad401c782affb618。只首bill的原生summary/checkbox/discount/reason/submit/cancel呈现三文件，原FormData/权限/字段序/URL业务保持，全部lookup/其后办理及后台冻结，没有live提交bill。
+
+两engine/五view/normal与两种独立200%/两JS核心188case/1816控件，横盒/字/祖先/尺寸/原次序符合；原WebKit108 native初态圈viewport附加FAIL保，按P13原可达标准104真实wheel+4前序wheel已显全可达，非一次Tab自动修复。54native0/close，Node46zero/7工具2/1outer143-NodeUNKNOWN及全部原件保；60真正closed无占洞。54实际来源逐SHA，不由最终工具反签同源。
+
+未实现者新physical869346 RO/RR/rollbackclosed全145/13九区exactfinal，83引用80真文件三共享bytes/SHA保；旧31622审计保+941正常auth/read/旁路=32563，唯一-u元数据与派生CSS分列，0经济库存/原件PDF打印签署/新持久fee。本地总签ca9ab170684e238c092282eb5259c4d36a407fb80fd25478da33d8b75c3826f5、保护962ae442…、新私有0400 ZIP2606105B/SHA942091ca67d11f7a365153b6b6fe7ad633911fdba003471bc8a83a78ff8ca0f9均已独核。
+
+[唯一新增P13最终结果 #37 / 6434515450](https://github.com/Yredxin/YDental/issues/37#issuecomment-6434515450) 已正常创建且root全文读回exact，旧14评论包括P12唯一6422670245全文未改；独立全远端读回尚待实际，37OPEN/36CLOSED。3owned正常0/configremoved，末STOP2026-10-27T05:09:12.780241Z，之后不为报告/同步复开app/DB/browser。未合产品、不部署；P13结束停止，不改第二面板，不启P14/完整S13/负载恢复/实机/正式政策/组合扫码/真实资金外部生产。
+
+以下完整保留旧P12及更早路由历史；旧“P13未启用”是历史时点，当前用户仅启用并完成上述限定P13。
+
+---
+
 # YDental / odoo-sd｜P12 RWD增量交接
 
 2026-10-27，用户明确启用 **YD-S13-DL-P12-RWD / 1.0**，同一P12的DL-27—30响应式限定增量，W0—W3已执行。技术 **PARTIAL**：新极窄summary横裁/真off右圈已修，原768 retained36 A04真JS-off仍FAIL，超高候选整圈同屏限制保；不是P13，不TECHNICALLY_COMPLETE。同步 **SYNCED（仅传输）**，软件 **STOPPED**，用户亲手效果待确认。
