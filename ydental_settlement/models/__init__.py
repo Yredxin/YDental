@@ -11,6 +11,7 @@ from . import ydental_settlement_receipt
 from . import ydental_settlement_trade
 from . import res_partner
 from . import ydental_settlement_service
+from . import ydental_settlement_synthetic_setup
 from . import report_ydental_settlement_pdf
 from . import ydental_settlement_bill_original
 from . import ydental_settlement_original_service
@@ -20,3 +21,5 @@ from . import product_template
 from . import ydental_print_service
 from . import ydental_settlement_tax_original
 from . import ydental_settlement_tax_service
+
+from . import ydental_synthetic_receivable

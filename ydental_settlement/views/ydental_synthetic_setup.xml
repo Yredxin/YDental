@@ -1,0 +1,30 @@
+<odoo>
+    <template id="ydental_access_synthetic_finance" inherit_id="ydental_access.ydental_access_page">
+        <xpath expr="//nav[hasclass('o_ydental_access_routes')]" position="inside">
+            <a t-if="can_setup_synthetic_finance" href="/ydental/settlement/synthetic-setup">Isolated synthetic finance setup</a>
+        </xpath>
+    </template>
+    <template id="ydental_synthetic_setup_page" name="Isolated synthetic finance setup">
+        <t t-call="web.layout">
+            <main class="container py-4 o_ydental_synthetic_finance">
+                <h1>Isolated synthetic finance setup</h1>
+                <p>This creates a new synthetic offline accounting configuration for the current isolated test store. It does not authorize production accounting or real funds.</p>
+                <p>Current store: <strong t-out="store.name"/></p>
+                <form t-if="store.id == 541" method="post" action="/ydental/settlement/synthetic-receivable">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input type="hidden" name="revision" t-att-value="revision"/>
+                    <p>Bind the dedicated receivable for this run's fixed synthetic patient only.</p>
+                    <label><input type="checkbox" name="confirmed" value="yes" required="required"/> I confirm this isolated synthetic patient binding.</label>
+                    <button type="submit">Bind synthetic patient receivable</button>
+                </form>
+                <form method="post" action="/ydental/settlement/synthetic-setup">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input type="hidden" name="revision" t-att-value="revision"/>
+                    <label><input type="checkbox" name="confirmed" value="yes" required="required"/> I confirm this setup is for the isolated synthetic test only.</label>
+                    <button type="submit">Create synthetic accounting configuration</button>
+                </form>
+                <a href="/ydental/access">Return to store and staff</a>
+            </main>
+        </t>
+    </template>
+</odoo>

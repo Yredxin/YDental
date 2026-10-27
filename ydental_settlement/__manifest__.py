@@ -11,6 +11,7 @@
         'report/ydental_settlement_templates.xml',
         'views/ydental_settlement_templates.xml',
         'views/ydental_settlement_frontdesk.xml',
+        'views/ydental_synthetic_setup.xml',
         'views/ydental_external_original_templates.xml',
     ],
     'assets': {
