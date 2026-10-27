@@ -1,3 +1,17 @@
+# YDental 当前路由｜P12 A04续办
+
+2026-10-27。继续同一 **YD-S13-DL-P12 / 1.0** 的A04限定续办，技术 **PARTIAL**：JS-on一次Tab经局部原生Interaction显现增强已修复，真正JS-off的原完整焦点门槛仍FAIL；不能TECHNICALLY_COMPLETE。软件已正常STOPPED，本地报告/正常同步收口中，用户亲手效果待确认。
+
+活动业务分支仍`codex/s13-dl-p12-settlement-readonly-actions-spacing-r1`，先读[同一活动CURRENT](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p12-settlement-readonly-actions-spacing-r1/CURRENT_TASK.md)、[原计划及续办授权](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p12-settlement-readonly-actions-spacing-r1/docs/execution/S13_DL_P12_IMPLEMENTATION_PLAN.md)与[更新结果](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p12-settlement-readonly-actions-spacing-r1/docs/reports/s13-dl-p12/summary.md)/[矩阵](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p12-settlement-readonly-actions-spacing-r1/docs/reports/s13-dl-p12/acceptance-matrix.md)/[证据索引](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p12-settlement-readonly-actions-spacing-r1/docs/reports/s13-dl-p12/evidence-index.md)。产品/最后实际运行78c3650e0eeb1fcd3a970ed0693cfe9354e51cbc，工具e4569c50d8dfac204028b5429abe190c05a7dfa2仅离线PURE发布，actual逐源保。
+
+只增局部focusin/out几何scrollLeft及其必要head原生启动资源；整个body/lookup业务DOM/办理后缀、原SCSS/列/业务代码保。JS-on双engine原pair和168有效影响case通过，真noJS A04仍FAIL；普通noJS业务读取路径通过。最终newphysical803220全145/13、83引用80文件三共享原bytes/SHA保，25819旧audit含7001完整＋1854正常读=27673，原生-u技术变化另列，独签9c7ece2d…。3续办owned/32native正常关，末stop00:47:30.383544Z，不为报告同步复开app/DB/browser。
+
+新私有0400A04包8598186B/SHA1e3d5e02…，98成员/94PNG；旧包9ecdf42f…字节保持，均不上传Public。#37仅在原唯一P12评论6422670245保留原PARTIAL全文后追加有时点续办结论，37OPEN36CLOSED，旧P1—P11回执不改。main仅文档路由，不合产品、不部署；续办交付后停止，不自动P13/其它办理/完整S13/负载恢复/实机/政策/真实患者资金外部通道/生产。
+
+---
+
+以下完整保留原路由/交接时点；历史SYNCED/STOPPED为原2026-10-26事实，续办同步另以活动CURRENT及原唯一回执实际读回为准。
+
 # YDental 当前任务路由
 
 YD-COLLAB-V2.0 / WORKFLOW-V3。main仅规则与文档路由，不是业务代码基线；不从main重建产品、不合产品、不部署。
