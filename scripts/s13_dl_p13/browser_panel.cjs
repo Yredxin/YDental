@@ -55,7 +55,7 @@ exports.run=async env=>{
                 // Cross-request comparison includes only already-redacted tokens.
                 // Actual nonce equality is asserted solely inside each current DOM.
                 for(const key of ['method','action','fields','serialized','submitter','cancel'])
-                    assert.deepEqual(value[key],old[key],'Original redacted contract field '+key);
+                    assert.deepEqual(JSON.parse(JSON.stringify(value[key])),old[key],'Original redacted contract field '+key);
                 value.before_redacted_contract_exact=true;
                 value.cross_request_native_secret_equality_claimed=false;
             }
