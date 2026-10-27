@@ -41,6 +41,11 @@ if (root) {
     async function payload(form) {
         const data = Object.fromEntries(new FormData(form));
         const operation = form.dataset.operation;
+        if (operation === 'grant_qualification') {
+            return {user_id: Number(data.user_id), code: data.code,
+                valid_from: data.valid_from.replace('T', ' '),
+                valid_until: data.valid_until.replace('T', ' '), evidence: data.evidence};
+        }
         if (operation === 'review_capability') {
             return {capability_id: Number(form.dataset.capability), family: data.family, reason: data.reason};
         }
@@ -91,7 +96,9 @@ if (root) {
     for (const form of root.querySelectorAll('form[data-operation]')) {
         const operation = form.dataset.operation;
         const needsExecution = ['draft', 'perform', 'abort', 'finish', 'revalidate'].includes(operation);
-        form.dataset.allowed = String(Boolean((operation === 'revalidate' || root.dataset.write === '1') && (!needsExecution ||
+        const permission = operation === 'grant_qualification' ? root.dataset.qualificationWrite === '1' :
+            operation === 'revalidate' || root.dataset.write === '1';
+        form.dataset.allowed = String(Boolean(permission && (!needsExecution ||
             (Number(root.dataset.execution) > 0 && holder?.lease_id && holder?.token))));
         form.querySelectorAll('input,textarea,select,button').forEach(control => { control.disabled = form.dataset.allowed !== 'true'; });
         form.dataset.key = random();

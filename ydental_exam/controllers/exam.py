@@ -61,6 +61,15 @@ class YDentalExam(http.Controller):
             service._audit('view', result, {'version': result.ydental_version})
         access = service.env['ydental.access.service']
         member = access._membership(service.env.uid, store.id)
+        levels = access._levels(member)
+        can_grant_qualification = access._get_execution_store_id() in (False, store.id) and (
+            access._is_group_manager() or member.ydental_is_manager or levels['personnel'] == 'write')
+        qualification_members = access.env['ydental.access.membership']
+        if can_grant_qualification:
+            qualification_members = qualification_members.sudo().search([
+                ('ydental_store_id', '=', store.id), ('active', '=', True),
+                ('ydental_user_id.active', '=', True), ('ydental_user_id', '!=', service.env.uid),
+                ('ydental_employee_id.active', '=', True)], order='id')
         medical_document = service.env['ydental.clinical.document'].sudo().search([
             ('ydental_current_execution_id', '=', execution.id)], limit=1) if (
                 execution and execution.ydental_category == 'medical' and execution.state == 'serving') else False
@@ -102,8 +111,10 @@ class YDentalExam(http.Controller):
             'store': store, 'revision': access._scope().ydental_revision,
             'execution': execution if execution and execution.state == 'serving' else False,
             'lines': lines, 'results': results, 'events': events,
-            'can_write': access._levels(member)['exam'] == 'write',
-            'can_medical_write': access._levels(member)['medical'] == 'write',
+            'can_write': levels['exam'] == 'write',
+            'can_medical_write': levels['medical'] == 'write',
+            'can_grant_qualification': can_grant_qualification,
+            'qualification_members': qualification_members,
             'actor_id': service.env.uid,
             'medical_document': medical_document,
             'business_date': service.env['ydental.supply.service']._date(store),
@@ -112,8 +123,8 @@ class YDentalExam(http.Controller):
             'result_labels': dict(results._fields['state']._description_selection(service.env)),
             'catalog_fields': catalog_fields, 'attachments': attachments, 'material_lots': material_lots,
             'capability_options': capability_options,
-            'can_review_capability': access._levels(member)['exam'] == 'write' and
-                access._levels(member)['medical'] == 'write' and
+            'can_review_capability': levels['exam'] == 'write' and
+                levels['medical'] == 'write' and
                 request.env.user.has_group('ydental_access.ydental_group_manager'),
             'current_lines': current_lines, 'care_areas': care_areas,
             'selected_area_id': area_id, 'handoff_rows': handoff_rows,

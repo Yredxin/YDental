@@ -11,7 +11,8 @@
                   t-att-data-category="execution.ydental_category if execution else ''"
                   t-att-data-document="str(medical_document.id if medical_document else 0)"
                   t-att-data-document-version="str(medical_document.ydental_version if medical_document else 0)"
-                  t-att-data-write="'1' if can_write else '0'">
+                  t-att-data-write="'1' if can_write else '0'"
+                  t-att-data-qualification-write="'1' if can_grant_qualification else '0'">
                 <h1>检查工作台</h1>
                 <nav><a href="/ydental/queue">工位叫号</a> | <a href="/ydental/treatment">医疗医嘱</a></nav>
                 <p class="alert alert-warning">演示字段与报告未审核签发；实际检查、结果文字、费用和附件分别确认。专业影像设备与PACS未连接。</p>
@@ -45,6 +46,23 @@
                             / <t t-out="line_labels[handoff_line.state]"/>
                         </p>
                     </article>
+                </section>
+                <section t-if="can_grant_qualification" class="border rounded p-3 my-3">
+                    <h2>检查人员资质授权</h2>
+                    <p>为本店其他在职人员记录已审核的资质；有效时间使用 UTC。</p>
+                    <form data-operation="grant_qualification">
+                        <label>人员 <select name="user_id" required="required">
+                            <option value="">请选择本店其他在职人员</option>
+                            <option t-foreach="qualification_members" t-as="qualified_member"
+                                    t-att-value="qualified_member.ydental_user_id.id"
+                                    t-out="qualified_member.ydental_employee_id.name"/>
+                        </select></label>
+                        <label>资质编码 <input name="code" required="required" maxlength="120"/></label>
+                        <label>有效开始（UTC） <input name="valid_from" type="datetime-local" required="required"/></label>
+                        <label>有效结束（UTC） <input name="valid_until" type="datetime-local" required="required"/></label>
+                        <label>审核凭据 <input name="evidence" required="required" maxlength="240"/></label>
+                        <button type="submit">记录人员资质</button>
+                    </form>
                 </section>
                 <section t-if="can_review_capability and capability_options" class="border rounded p-3 my-3">
                     <h2>检查能力家族审核</h2>

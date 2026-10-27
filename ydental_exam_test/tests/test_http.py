@@ -1,6 +1,7 @@
 import json
 import re
 
+from odoo import fields
 from odoo.tests import HttpCase, tagged
 
 from odoo.addons.ydental_treatment_test.tests.common import key
@@ -61,3 +62,33 @@ class TestExaminationHTTP(HttpCase):
         self.assertEqual(denied.status_code, 403)
         self._select('none')
         self.assertEqual(self.url_open('/ydental/exam').status_code, 403)
+
+    def test_qualification_entry_and_personnel_authority(self):
+        csrf, revision, connection = self._select('manager')
+        page = self.url_open('/ydental/exam')
+        self.assertEqual(page.status_code, 200, page.text)
+        self.assertIn('data-operation="grant_qualification"', page.text)
+        form = page.text.split('data-operation="grant_qualification"', 1)[1].split('</form>', 1)[0]
+        self.assertIn('value="%s"' % self.users['doctor'].id, form)
+        self.assertNotIn('value="%s"' % self.users['manager'].id, form)
+        args = {'user_id': self.users['doctor'].id, 'code': 'SYNTHETIC_EXAM',
+                'valid_from': '2026-01-01 00:00:00', 'valid_until': '2027-01-01 00:00:00',
+                'evidence': 'Synthetic qualification evidence'}
+        granted = self._action(csrf, revision, connection, 'grant_qualification', args)
+        self.assertEqual(granted.status_code, 200, granted.text)
+        qualification = self.env['ydental.exam.qualification'].sudo().browse(granted.json()['qualification_id'])
+        self.assertEqual(qualification.ydental_user_id, self.users['doctor'])
+        self.assertEqual(qualification.ydental_store_id, self.stores[0])
+        self.assertEqual(qualification.ydental_valid_from, fields.Datetime.to_datetime(args['valid_from']))
+        self.assertEqual(qualification.ydental_valid_until, fields.Datetime.to_datetime(args['valid_until']))
+        denied_self = self._action(csrf, revision, connection, 'grant_qualification',
+                                   args | {'user_id': self.users['manager'].id})
+        self.assertEqual(denied_self.status_code, 403)
+
+        csrf, revision, connection = self._select('doctor')
+        page = self.url_open('/ydental/exam')
+        self.assertEqual(page.status_code, 200, page.text)
+        self.assertNotIn('data-operation="grant_qualification"', page.text)
+        denied = self._action(csrf, revision, connection, 'grant_qualification',
+                              args | {'user_id': self.users['manager'].id})
+        self.assertEqual(denied.status_code, 403)
