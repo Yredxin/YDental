@@ -1,3 +1,57 @@
+# DL-P12 RWD｜原件与独立签署索引
+
+产品/主工具/最后实际运行 **f3c63b6f2ec86f0518d6f0dae9b19de633085ac1**，报告以其Git/#37原唯一6422670245实际锚点为准。技术PARTIAL / 同步SYNC_PENDING / STOPPED。未实现者本地总签 **378c09b3851f72087220911db4e60577f641e041e5d0f1b0e13c0dafd17c577d** 已实际接受真实PARTIAL交付记录，源/实测/完整保护/包/正常停止与全文均成立；不签TECHNICALLY_COMPLETE或用户效果，远端读回尚待实际发生。
+
+原P12/A04 3710原件、两个旧ZIP保；本轮69actual/67native0，4553raw/1657原PNG逐源SHA可核。原截图未编辑，前后同引擎/实际viewport/root/DPR/loadedHTML原件按manifest关联；旧partial screenshot不充完整视口证明。私有配置/provider/session/完整请求/DB/PDF不上传Public。
+
+|当前唯一产品文件|字节|SHA256|
+|---|---:|---|
+|`ydental_settlement/static/src/scss/settlement_readonly_actions.scss`|3685|`82ef5cb455f72b93154a4a4ec8bda08d0c0ca0469f0d31ab6832935ab41580ae`|
+
+独立SASS123叶全scope：25409B/`5c049dcd8d7d21fa585d253e55308b17dc95ad5a507730ffccb202e701049b1a`；正常完整CSS601190B/`f3e29511f8929ca2a8a08c92c3efd11332d43b765cf14e865f042b1b26a6fdb2`。不同源层不混称。
+
+|本机原件/独签指针|字节|SHA256|
+|---|---:|---|
+|`.local/dl-p12-rwd/testing/before-browser-facts.json`|173285|`989cba2967727ef705c4b6293f110cc7a2e5ec82264b4c1eb3635c63a8543230`|
+|`.local/dl-p12-rwd/testing/final-browser-facts.json`|2820497|`d028ef96506b1a50d99fdbb0e9299bd78873c5cc973206c3dcb31e71c29d81ba`|
+|`.local/dl-p12-rwd/runtime/final-runtime-facts.json`|114499|`2bf2d7d48e457f734be36c18f59b62fc0e2ec93424495228c129e6924b7f3e87`|
+|`.local/dl-p12-rwd/runtime/final-native-log-error-index.json`|171221|`4175143195776781c55250b965b8683761608a6f014cff1d988bc8f0e803c71e`|
+|`.local/dl-p12-rwd/runtime/final-native-error-classification.json`|3894|`3c51c05205829eb2a77d54a0a387830ca078358bc9443065055b77d52de5d805`|
+|`.local/dl-p12-rwd/runtime/final-command-outcome-index.json`|4312|`5ffa4d9e70ef2295f3e7b74d0e4595ab6c63169582b785a767d1cda9f3d9b08d`|
+|`.local/dl-p12-rwd/verification/upgrade-final-baseline.json`|50561042|`6aaca18482fc902f4c0d38fc0e877549b71765e73b347c2cc6c54960f7ccd11a`|
+|`.local/dl-p12-rwd/acceptance/final-complete-physical-snapshot.json`|50585703|`4d17d651e5921a50c68dc9311449930d7e8636c76147f37aaec415b74ea771b6`|
+|`.local/dl-p12-rwd/reporting/padding-and-control-size-matrix.json`|151293|`9f5628939141996e377f4f7b1a1f1a29f3b76aff59603becb9c526f90fb1e800`|
+|`.local/dl-p12-rwd/acceptance/product-r3-fixed-source-independent.json`|3023|`dd348afdb87cd0813c248df1f84949250aaa36cdda74c190791a1e5b28031bd7`|
+|`.local/dl-p12-rwd/acceptance/product-r3-scss-independent.json`|607|`4a9fe5ad6d489e3bc59e350d0e31df4c373e596955e8b657b3479b5898a44c78`|
+|`.local/dl-p12-rwd/acceptance/r3-personally-executed-smoke-independent.json`|24729|`47d027f26feb73054ce27ee592133a7dab6145c230eef3d7c1b1a460339fda9a`|
+|`.local/dl-p12-rwd/acceptance/r3-strict-a04-independent.json`|7876|`394ae05383e45192cb71e348d8ad2fae3a6dd92d3eb3a282c373b4ebda3e7e60`|
+|`.local/dl-p12-rwd/acceptance/r3-full186-geometry-independent.json`|184268|`429ae68c944a0f85895765fe3e0f197cdca2874e0d9abb525b06c45b81724f04`|
+|`.local/dl-p12-rwd/acceptance/r3-textpressure-endpoints-independent.json`|10704|`1c37a77d9c7b8f095118f492edaf6885ade9691627b4e2f031c77a9c8aed8b48`|
+|`.local/dl-p12-rwd/acceptance/r3-padding-size-matrix-independent.json`|919|`22c9fa3c783814d42524c227755f30e661946c317659a345fdd172fdb980d4a0`|
+|`.local/dl-p12-rwd/acceptance/final-all-integrity-independent.json`|1297167|`677bcae428c0d2cedb1d2e598c33984ad5addf9b2d210c9f818a98e6bc19f1a0`|
+|`.local/dl-p12-rwd/acceptance/final-complete-native-connection.json`|25936|`a2f929e774e4c880beeccc432a17695f5038b9e1f4c9b6efccbee0f31c1f8a1e`|
+|`.local/dl-p12-rwd/acceptance/final-complete-protection-independent.json`|37364|`ce6905f59193de9cf43598862b8f9254ac7341a2525c7c0b9b90d665e44675fb`|
+|`.local/dl-p12-rwd/acceptance/final-package-independent.json`|90138|`3faf82d0f56646d4675b1792eaac0daf314a5dd5f66d3eb4801f2d9e4db3f654`|
+|`.local/dl-p12-rwd/runtime/before-command-outcome-index.json`|2731|`38fc3db48bd9d703e4483feb895028547e23e6727deef256e3316a3ea9fc0dbc`|
+|`.local/dl-p12-rwd/acceptance/final-extra-browser-layers-independent.json`|74442|`70799b1d58c02117d3be05405eeb2db30869af1c7246919395f6e0b0d109cff6`|
+|`.local/dl-p12-rwd/acceptance/final-quiescence-and-native-errors-independent.json`|5287|`d75f3fb45b7cb160c614d7932723dbd3fe56e358f532253166ab8676c9622926`|
+|`.local/dl-p12-rwd/acceptance/final-local-partial-independent.json`|6910|`378c09b3851f72087220911db4e60577f641e041e5d0f1b0e13c0dafd17c577d`|
+|`.local/dl-p12-rwd/acceptance/w0-source-old-originals-baseline.json`|107287|`ecc1fa35091a5a89a03acabead93021e5237d712bf7e8caccb9041e02e872740`|
+
+|新私有效果包|字节|SHA256|
+|---|---:|---|
+|`.local/dl-p12-rwd/viewing/S13-DL-P12-RWD-view-only-20261027-r1.zip`|8240905|`f579d5165fa0a33481d2bc039397e784366beace39676b52fd931c15a00e0c36`|
+
+0400、143成员/109原PNG/32JSON，README/有限量测/源PNG/manifest的每成员另独核；包PASS不豁免原A04或66超高圈FAIL，不上传Public。完整actual逐命令/开始退出/候选/源/日志/原PNG在final-browser-facts的processes/raw_manifest，不反签失败或把主工具候选冒全部执行源。root汇总矩阵9f562893…由22c9fa3c…逐62源与1860控件重算验证。
+
+全期4ERROR/2次派生CSS native retry、最终200恢复和r3 ERROR0按原运行日志；两工具bootstrap、两index、两诊断UNKNOWN与晚正常关闭、旧r2 partialviewport五图分别保留。145/13/九区、旧27673+3949审计、83/80/3文件由新physical与全保护独签支撑，不以ZIP代数据库核。
+
+
+
+以下完整保留原P12/A04证据索引，均为原历史事实。
+
+---
+
 # DL-P12 A04 续办证据索引｜2026-10-27
 
 技术 **PARTIAL / JS-on增强通过、真JS-off原A04仍FAIL**。公开工具e4569c50d8dfac204028b5429abe190c05a7dfa2仅SOURCE/PURE整合，320 actual执行源/24SHA逐件保留，不冒共同运行源。同步SYNCED（仅传输），最终本地包/正文/总项与首远端旁签已实际成立。下列均为大小/SHA/脱敏指针，不上传private原件、DB、凭据、效果ZIP或完整runtime配置。

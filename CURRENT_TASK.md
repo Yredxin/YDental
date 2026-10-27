@@ -1,3 +1,21 @@
+# DL-P12 RWD 增量收口｜2026-10-27
+
+**YD-S13-DL-P12-RWD / 1.0｜限定W0—W3已执行；技术PARTIAL / SYNC_PENDING（仅传输）/ STOPPED**。新极窄summary横裁/真off右圈已修；原768 A04真JS-off仍36/26/50 FAIL，超高候选整圈同屏仍PARTIAL，不TECHNICALLY_COMPLETE。用户亲手效果待确认，不启P13。
+
+- [本增量合同](docs/execution/YDental_DL_P12_Responsive_Readability_Padding_Addendum_v1.md) · [结果/责任表/7步](docs/reports/s13-dl-p12/summary.md) · [RWD十项矩阵](docs/reports/s13-dl-p12/acceptance-matrix.md) · [全SHA/独签](docs/reports/s13-dl-p12/evidence-index.md)。未实现者本地总签 **378c09b3851f72087220911db4e60577f641e041e5d0f1b0e13c0dafd17c577d** 已实际接受真实PARTIAL交付记录，源/实测/完整保护/包/正常停止与全文均成立；不签TECHNICALLY_COMPLETE或用户效果，远端读回尚待实际发生。
+- 活动分支仍codex/s13-dl-p12-settlement-readonly-actions-spacing-r1；产品/主工具/最后实际运行 **f3c63b6f2ec86f0518d6f0dae9b19de633085ac1**。仅readonly_actions.scss，595其它addon/fullXML/JS/表/业务/权限原bytes，原核心不改。补充客户端逐实际源归档；无reset/clean/强推/合产品/部署。
+- 真实双engine五view/两放大/两JS；核心186几何3016控件横盒/字/尺寸全，66候选超高圈FAIL保；额外正常分页60完整、原JSon168全PASS、原strict真off4FAIL；22超高目标原生上下键首末可达不代整圈。69actual=57Node0/10Node2/2Node1，67native0/closed，4553raw/1657原PNG，旧3710及两包exact。
+- 原目标2171423/cluster7694897083368259627/filestore；全145/13/九区，旧27673audit逐row保+3949正常read=31622，其余144/13/七区同；83引用80物理三共享原bytes/pathSHA保。newphysical835708 RO/RR/rollbackclosed/其它targetconn[]；仅derivedCSS15838→15844，其余64/deps同。无-u/新持久费用/经济库存/原件PDF/扫码打印签署发布CSV。
+- 5owned正常0/configremoved；末stop2026-10-27T02:55:44.224093Z。全期nativeCSS serialization4ERROR/两次原生retry及200恢复保，r3 ERROR0；CSS诊断UNKNOWN/旧裁图/全部历史失败不反签。之后不为报告/同步复开app/DB/browser，共享服务未动。
+- 新私有0400RWD ZIP8240905B/SHAf579d5165fa0a33481d2bc039397e784366beace39676b52fd931c15a00e0c36，143成员109原PNG/32JSON；不覆盖旧包、不Public上传。root产品/报告、runtime_rwd运行、testing_rwd测试、acceptance_rwd未实现者独核，同OS非隔离。
+- #37仅原唯一6422670245保原PARTIAL全文后追加，37OPEN/36CLOSED，旧13回执不改；main仅两必要文档路由。完整S13/P13/其它办理或全站/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/生产未启用；交付停止。
+
+
+
+---
+
+以下完整保留本次开工/修复及原P12/A04/更早历史时点，不反签过去。
+
 # DL-P12 响应式增量开工｜2026-10-27
 
 **IN_PROGRESS / YD-S13-DL-P12-RWD / 1.0**。用户本会话明确启用 DL-27—30、RWD-W0—W3、RWD-T01—T10；完整附件要求见 [本增量计划](docs/execution/YDental_DL_P12_Responsive_Readability_Padding_Addendum_v1.md)。仅原 `/ydental/settlement` lookup，在首 Select fees to bill 办理 details 前闭合；不是 P13，不重做 P12 或扩全站。
@@ -9,6 +27,8 @@
 - W1 产品候选只改 readonly_actions.scss：局部inline-size container使summary按scrollport减两侧圈限制宽度；<48rem内衬1rem、≤20rem卡片.75rem/普通动作水平.75em，其余合格值保。768原24px不动，防止原36横读变不可达；未改44rem表/列/cell、XML/JS/mixin/后台。SASS纯编译已过，真实after待新固定候选，不能先记PASS。测试import/index普通错误及禁JS样式诊断未完成UNKNOWN/晚正常收尾原件均保。
 - r1 产品/工具8b82737双engine极窄smoke焦点及文字完整；非焦点nearest定位仍有约1.77px外框裁切，因原scroll-margin每侧.5rem大于圈.375rem。r2只将cap缓冲.75rem→1rem，容纳两侧既有scroll margin，不改前置/门槛。r1原件/失败保持，已正常stop/child0；全阶段至此新1054读取audit→28727，旧27673及其它保护保持。r2待实测，不先签PASS。
 - r2 e9fdae8 JS-on极窄BOX/TEXT/FOCUS全fit，严格768 JS-on仍36→6；未实现者本人WebKit真off极窄仅右圈越约3.773/7.547px，box/text已fit。r3最后有界cap改1.25rem，容纳原td起点13.773/27.547与圈6/12，不改字号/测试/表；若仍不满足保FAIL不循环。r2真实正常stop/child0，累计新1370审计→29043、旧全保；原生CSS派生cache并发serialization ERROR2及原生重试后HTTP200已分开保，不冒ERROR0。WK真off native200旧snapshot覆盖仅左上片的层级限制保留，截图工具将修为完整原生视口捕获，绝不缩裁旧图。
+- 最后候选 **f3c63b6f2ec86f0518d6f0dae9b19de633085ac1**；r3未实现者本人双engine真off各两放大共28控件BOX/TEXT/FONT/HEIGHT/FOCUS实核通过，独签47d027f2…，新20原PNG完整物理320×800/实际CSS160×400 DPR2与root320/32分列。最后strict双engineopen/closed JS-on原36→6 PASS，真off仍36/26/50 FAIL，原P12继续PARTIAL；最后全矩阵正在进行，未先签全通过。
+- 最后真实JS-on全30组合中，160×400 CSS viewport仍有3个超高候选纵向整圈不能同屏（Chromium454/406px、WebKit406px）；box/text/root横向及祖先均fit，区别于父盒横裁。保自然增高，不靠继续削padding追逐任意长样本；首末/键盘分段可达待最后定向核。RWD-T04/T07严格整圈子项保持PARTIAL，不将普通matrix-recorded/内容可达冒全圈PASS。
 - 原 P12 **PARTIAL / A04 真 JS-off FAIL** 保持；JS-on 一次可信 Tab 增强不得回退。两结论分别验收，无法通过严格原36横读场景则继续 FAIL。
 - GitHub #23/#36/#37 正文及 #37 全评论正常读取，#37 OPEN/#36 CLOSED；本增量结束后只在唯一 `6422670245` 保留原全文追加结果，过程中不发 Issue 进度。未合并、未部署，用户亲手效果待确认。完整 S13/P13/其它办理/生产均未启用。
 

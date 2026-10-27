@@ -1,3 +1,93 @@
+# DL-P12 RWD 响应式增量交付｜2026-10-27
+
+限定计划 **YD-S13-DL-P12-RWD / 1.0**，DL-27—30、W0—W3已执行，技术 **PARTIAL**。新增极窄追溯盒/字/右圈横裁已修；原A04真JS-off仍FAIL，超高候选的严格整圈同屏仍PARTIAL。两者都保留，不能TECHNICALLY_COMPLETE。同步 **SYNC_PENDING**（仅传输），软件 **STOPPED**，用户亲手效果待确认。
+
+未实现者本地总签 **378c09b3851f72087220911db4e60577f641e041e5d0f1b0e13c0dafd17c577d** 已实际接受真实PARTIAL交付记录，源/实测/完整保护/包/正常停止与全文均成立；不签TECHNICALLY_COMPLETE或用户效果，远端读回尚待实际发生。
+
+产品/主工具/最后实际运行 **f3c63b6f2ec86f0518d6f0dae9b19de633085ac1**。私有补充分页/纵读客户端逐次执行源、命令、SHA与退出单列，不冒全部69次来自共同工具文件。报告锚点由本文件Git和原唯一#37/6422670245按实际提交登记，不嵌未来自身hash。正常承接clean d3ac2d3，无reset/clean/强推/从main重建。
+
+[增量合同](../../execution/YDental_DL_P12_Responsive_Readability_Padding_Addendum_v1.md) · [十项矩阵](acceptance-matrix.md) · [原件及独签索引](evidence-index.md)。原d3ac2d3三报告全文在下文按原bytes保留，原P12/A04/全部旧PARTIAL、失败、UNKNOWN及旧包不反签。
+
+## 最终实测与独立层级
+
+真实Chromium156.0.8078.4与WebKit27.2，1366×768、1440×900、768×1024、390×844、320×800；native200和独立root200、JS-on/真JS-off分列。核心186份几何=62真实GET+124明确loaded组件，3016控件横盒/文字/字号/最小高度及根无新增横溢出；66个整圈FAIL均为自身高于视口的候选（真实6+长组件60），不能全PASS。额外正常双向分页60组合无BOX/TEXT/FOCUS finding。
+
+原JS-on168路径（三表/open-closed/五view/两放大/正常与长文）全部保持原门槛通过；原768 strict真off四项仍FAIL。真实连续Tab/ShiftTab两JS双engine四轮通过，和helper reachability/孤立Tab分层。16文字间距/端点批、960首末字符可达，其中148端点使用普通滚动调整；另22超高目标由原生ArrowUp/Down验证首末，原active/href/全文保，不替整圈同屏PASS。其它店真实只读GET、原首办理只展开取消，P7/P9/P10/P11/目录/错误等有限岗位旁路，按实际角色与原权限分列；不重演经济库存/PDF。
+
+69客户端=57 Node0/10 Node2/2 Node1；67实际native均0/正常closed，2个bootstrap未启动native。1657原PNG/4553新raw逐SHA及解码、逐次source/argv/退出已独核，MATRIX_RECORDED/Node0不等于产品PASS。旧3710原件和两旧ZIP末次字节保持。
+
+## 全阶段保护和收尾
+
+同唯一合成目标OID2171423/cluster7694897083368259627/原filestore。完整145业务/13技术、九区；旧27673审计逐row保，新增3949正常认证/读取/有限旁路，总31622，其余144业务/13技术/七区exact；金额、库存、身份作者、价源、责任、权限和schema保。83引用/80真实路径/三共享逐原bytes/size/SHA保，六依赖同。派生65项仅CSS15838→15844（601190B/SHA f3e29511f8929ca2a8a08c92c3efd11332d43b765cf14e865f042b1b26a6fdb2），其余64同，不冒全库物理零差。无-u，无新经济/库存/治疗扫码/持久费用/原件PDF/打印签署发布/CSV。
+
+未实现者newphysical835708，RO/RR、rollback/closed，完整九区exact root、83文件真实读、同target其它连接[]。本轮5owned全child0/signull/groupstopped/临时配置移除；末stop **2026-10-27T02:55:44.224093Z**。此后不为报告或同步重开app/DB/browser，共享主服务未动。
+
+新私有0400 `.local/dl-p12-rwd/viewing/S13-DL-P12-RWD-view-only-20261027-r1.zip`：**8240905B / SHA256 f579d5165fa0a33481d2bc039397e784366beace39676b52fd931c15a00e0c36**，143成员/109原PNG/32JSON，含原图、有限几何、padding责任、7步；无凭据/session/profile/完整请求/配置/DB/PDF/字体/程序，不Public上传。原P12/A04 ZIP原bytes保。
+
+真实分工/root产品与三报告、runtime_rwd运行保护、testing_rwd测试、acceptance_rwd未实现者独核；同OS不冒隔离。源/真实浏览器/新physical/包/全文/同步按各自证据签，不代用户/临床/财务验收。
+
+
+
+## 实际改动与冻结边界
+
+唯一产品变更是 `ydental_settlement/static/src/scss/settlement_readonly_actions.scss`。其余595个既有addon文件逐bytes保持，包括完整XML、lookup前页头、首Select fees to bill起全部后缀、原表列/表头/字段/URL/权限/提交顺序、原fee_focus.js、manifest、共享mixin/SVG/许可和后台。CSS编译123个selector叶均限定原lookup；没有全局button/a/table/body覆盖、禁缩放、CSS zoom/transform缩页、缩字、隐藏列/按钮或新产品JS。原核心锁定不改。
+
+- 已有1rem正文/控件、2.75rem最小高度、自然换行和Flex/Grid保留，辅助文字本来为1rem，无需降为.875rem。root200按实际computed升到32px/最小88px，不由媒体查询缩回。
+- 局部fee_scroll成为inline-size查询容器，原summary按`calc(100cqi - 1.25rem)`限制最大宽度，仍为原生list-item/details。auto宽仍受原td约束；仅超窄时自然增高，原44rem表、列比例和cell padding不改。缓冲容纳现场原生cell起点偏移和完整圈，也容纳原scroll-margin。
+- `max-width:calc(48rem - 1px)`将既有卡片1rem token延伸到中间宽度；≤20rem卡片.75rem/普通动作水平.75em。390px已有合格1rem保留，768px原1.5rem保留，避免把原36px横读前置变不可达。原50rem候选单列、34rem搜索按钮整行、上下间距owner不重造。
+
+## W0证据和有界修复
+
+普通五视口已有搜索按钮完整，不能泛称按钮被截半。真正缺口在极窄表格追溯：160CSSpx时真实history summary约102.7px/client76，pending组件173.1px/client76；320px根32时真实summary约205.5px/client204，盒/字/圈分别实证。
+
+r1 `8b82737` 预留两圈.75rem，JS-on聚焦已完整，但原两侧scroll-margin更大，非焦点nearest定位仍约1.77px外框横裁。r2 `e9fdae8` 改1rem后盒/字完整；未实现者本人WebKit真off查到右圈仍越约3.773px（root200约7.547px）。r3 `f3c63b6` 最后一次以1.25rem留出实测cell起点与圈，未实现者本人双engine真off两种放大28控件盒/字/圈均完整。每一旧候选、失败和原图保留，未改前置/门槛冒PASS。
+
+原A04始终单判：真实loaded pending组件768×1024，table704/client668/max36；可信横读保36后一次Tab，双engine open/closed最终JS-on稳定6/left56/clip50/圈6通过；真JS-off仍36/left26/clip50失败。新CSS未让原场景消失，既有JS-on增强未回退；不能宣称纯UA/noJS已修复。
+
+自然超高候选另列：160×400时真实合成候选Chromium454/406px、WebKit406px，文字/背景/祖先和横向均完整，但整圈无法一次同屏。12倍长文压力可高达数千像素；不改字号/自然增高或继续削padding追逐有限样本。分段首末可达证据只证明内容可达，不替严格整圈同屏通过。
+
+## Padding唯一责任
+
+|关系/有效CSS宽度|正常root16|独立root32|唯一owner与依据|
+|---|---:|---:|---|
+|lookup ≥768px|24px|48px|原lookup 1.5rem；保768原36横读，推荐tablet20px非强制，不为标实施修改已合格值|
+|lookup 321—767px|16px|32px|同一lookup覆盖为1rem；390保持原值，545—767从24降16|
+|lookup ≤320px|12px|24px|同一lookup .75rem；响应160有效宽与320大字真实缺口|
+|普通action水平 >320px|16px/侧|32px/侧|原共享1em，不重复加父边距|
+|普通action水平 ≤320px|12px/侧|24px/侧|lookup内原action .75em；纵向.625em和最小2.75rem保留|
+|summary水平|8px/侧|16px/侧|原summary .5em；最大宽由自身scrollport减1.25rem，不缩表列|
+|表cell|12px|24px|原table th/td .75rem；实际computed与原表语义均保|
+|范围卡/区组间距|16px / 24px|32px / 48px|原context 1rem/lookup与overview gap1.5rem，源和已验P12证据复用，未叠加|
+
+62份最终真实GET computed/几何、1860控件的尺寸责任见新私有padding矩阵，独立逐row与raw来源SHA核对。正常五视口1366/1440/768/390/320的卡片为24/24/24/16/12；native200实际宽683/720/384/195/160为16/16/16/12/12；独立root200为48/48/48/32/24。native200保持root16，root200保持native100，两者分列。
+
+## 失败、UNKNOWN与层级
+
+普通工具/准入元数据错误详见原command index：旧admission文件exclusive、stale SHA未spawn及CLI缺phase均保原退出，不是平台安全拒绝。bootstrap import、collector index笔误的原Node失败保留，修正不冒产品通过。两个真off addStyleTag诊断未完成，CSS结果为UNKNOWN；精确owned浏览器正常关闭后晚Node2/TargetClosedError另记，不能反推CSS有效失败。r2 WebKit真off/native200有5张原生协议图仅覆盖物理视口左上部分；旧原图原bytes保留，不作完整viewport证明，r3按原driver物理viewport捕获并核PNG头/实际几何，不缩裁或重绘PNG。
+
+最终全日志核发现r1、r2派生CSS cache并发清理各有一次serialization事件、各两行ERROR，共4行ERROR/2次框架原生重试，最终CSS响应200；r3顺序首发编译后ERROR0。原先仅已定位r2的时点记录保留。首错误、重试、最终正常响应与全业务保护分开，不写全期ERROR0，不当Native崩溃或新的经济提交。旧P12/A04全部PARTIAL、失败、Native139、Firefox字形、WebKit外层退出及UNKNOWN按原层级保，不用本轮结果反签过去。
+
+SOURCE/PURE、实际loaded QWeb只读回滚内存组件、HTTP/同真off context正常CSRF认证、真实岗位浏览器、协议原生zoom、未实现者新physical已提交RO核、包核分别列证。真实pending仍空、实际候选不足一页；三表非空/双向分页/长文使用明确P12夹具，未新建持久费用，不能冒真实多页业务或授权。helper reachability/孤立原生Tab、连续Tab、原36 strict各自判，不以Node0/截图数量或端点可达替全通过。
+
+## 普通岗位7步
+
+本轮owned服务交付时正常停止；以下用于正常获准的新测试窗口，或先查看新私有效果包原图。不是生产部署或恢复旧scope。
+
+1. 用原获准读取岗位正常登录、选择授权店，从原菜单进入`/ydental/settlement`。
+2. 输入姓名/业务号，按Enter或搜索按钮执行原GET；q只列候选，不自动选人。
+3. 点击原patient_id候选明确选择，核规范业务号/当前患者范围；重新搜索仍按原行为清选择。
+4. 分别观察1366、1440、768、390、320视口；浏览器native200与重置后的独立root200分别查看，不能禁缩放或缩字塞入。
+5. 依原序阅读今日/历史未出账/待核对，表格需要时只在局部横读至首末，保表头对应。原数字/日期/actor/reason不改；空态不表示结清，确认金额不表示实收。
+6. 用Tab/Shift+Tab进入原追溯，Enter/Space展开关闭；JS-on局部增强保持。真off原768保36 strict仍FAIL；非空pending及多页严格复现使用明确loaded夹具/效果包，不创建持久费用。超高候选需上下分段读，不能声称圈同时全屏。
+7. 用原候选/三表分页和其它店只读摘要正常返回；有权时仅展开原办理并取消，不提交出账/收退款/免单/日结/库存/扫码/原件/PDF/打印/签署/发布。
+
+用户亲手效果待确认。#37保持OPEN、#36保持CLOSED；只追加原唯一P12评论6422670245，保其完整原PARTIAL及两次续办全文。新效果ZIP独立命名且只保本机，不覆盖旧P12/A04包、不上传Public。结束后停止，不启P13/其它办理或全站/完整S13/负载恢复/实机/正式政策/组合扫码/生产，不合并、不部署。
+
+
+以下完整保留原A04/P12报告，均为原历史时点。
+
+---
+
 # DL-P12 A04 定向续办交付｜2026-10-27
 
 技术：**PARTIAL — JS-on 的一次 Tab 焦点显现已修复，真正 JS-off 仍不满足原完整焦点门槛**。同步：**SYNCED（已实际独立传输读回；技术仍PARTIAL）**。用户亲手效果：待确认。

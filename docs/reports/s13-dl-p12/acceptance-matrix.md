@@ -1,3 +1,29 @@
+# DL-P12 RWD｜RWD-T01—T10
+
+固定产品/主工具/最后实际运行 **f3c63b6f2ec86f0518d6f0dae9b19de633085ac1**。限定增量实施已完成，严格技术 **PARTIAL**；原P12整体亦 **PARTIAL**。同步 **SYNC_PENDING** / 软件STOPPED / 用户效果待确认。未实现者本地总签 **378c09b3851f72087220911db4e60577f641e041e5d0f1b0e13c0dafd17c577d** 已实际接受真实PARTIAL交付记录，源/实测/完整保护/包/正常停止与全文均成立；不签TECHNICALLY_COMPLETE或用户效果，远端读回尚待实际发生。
+
+|ID|实际证据与层级|结论|
+|---|---|---|
+|RWD-T01 范围|仅原lookup SCSS；595其它addon/fullXML/表/URL/权限/提交/完整后缀/其它调用原bytes，123 CSS叶全scope；真实有限旁路与办理展开取消原证分列|PASS（限定影响面，不重执行业务）|
+|RWD-T02 尺寸|真实62GET computed和组件；正文/操作/输入root16=16px、root32=32px，minblock44/88，辅助原1rem不缩字；自然撑高|PASS（超高圈非最小字号失败，另列）|
+|RWD-T03 媒体/内衬|五view×三mode×两engine×两JS，另767/768/320/321边界；正常24/24/24/16/12、native200有效683/720/384/195/160为16/16/16/12/12；单owner|PASS；768保24使原36严格前置仍可达|
+|RWD-T04 控件完整|186核心几何3016控件横盒/字完整；普通双向分页额外60配置完整；新极窄原生圈修复。66候选圈同屏FAIL全为自身超高，无祖先横裁|PARTIAL：完整文字/背景可达不代整圈同屏，原A04另FAIL|
+|RWD-T05 三表|原table/五列scope/字段/顺序/min44rem/cell .75rem保持；实际局部横读末端、长值端点/原因/金额/日期/actor完整，root无新横溢出|PASS（明确loaded夹具不冒真实pending/多页）|
+|RWD-T06 A04|双engine/open-closed原704/668/max36，可信横读36→一次Tab；JS-on稳定6完整，真off36/left26/clip50|JS-on PASS / 真JS-off FAIL；P12不能TECHNICALLY_COMPLETE|
+|RWD-T07 双engine/两放大/键盘|真实两engine五view、native200与root200独立，真正off认证GET/明确选择/EnterSpace、连续Tab/ShiftTab，原168JS-on完整焦点回归|PARTIAL：适用路径通过，A04真off与超高整圈门槛仍缺|
+|RWD-T08 文本压力|正常/长中文/空态/展开，测试专用间距16批960首末真实可达，22目标原生上下键可达；字号/自然高度不削弱，无默认压力样式|文字/首末可达PASS；超高完整圈子项PARTIAL，不降低判定|
+|RWD-T09 冻结/保护|实际岗位有限旁路；完整145/13/九区、83引用80真实文件三共享与newphysical835708，旧27673审计全保+3949正常新读、仅派生CSS变化|PASS（未实现者真实newphysical/完整原件及全阶段审计分类独核）|
+|RWD-T10 交付|固定产品/源/运行/报告、前后原PNG/新ZIP/SHA/7步、独立源/全raw/包/physical/停止/全文及唯一回执正常读回|本地材料/保护/包/正常停止PASS（独立接受PARTIAL交付）；远端SYNC_PENDING|
+
+
+
+十项不以Node0/原图数/矩阵采集完成当PASS。SOURCE/PURE、normalHTTP/BROWSER、loadedQWeb夹具、helper/Range、连续原生键盘、独立已提交RO和包核不可互冒；失败/UNKNOWN/截图覆盖错误原字节保，详见summary/evidence-index。整体验收保持PARTIAL。
+
+以下完整保留旧P12/A04矩阵与原结论。
+
+
+---
+
 # DL-P12 A04 续办更新矩阵｜2026-10-27
 
 同一计划 `YD-S13-DL-P12 / 1.0`，原门槛保持。技术 **PARTIAL**：JS-on一次Tab经受控局部增强完整显现，真正JS-off原A04仍FAIL。产品/实际最后运行78c3650e0eeb1fcd3a970ed0693cfe9354e51cbc；工具e4569c50d8dfac204028b5429abe190c05a7dfa2为离线整合发布，actual各次执行源/命令/退出另保。同步**SYNCED（已实际独立传输读回；技术仍PARTIAL）**，用户亲手效果待确认。
