@@ -70,8 +70,11 @@
     }
 
     // Keep the native marker and Chinese label on one line in the original
-    // trace column; shared minimum height and all table cell padding stay.
+    // trace column when it fits. At large text sizes or narrow scrollports,
+    // wrap the original label inside the local viewport, including both rings.
+    // Auto width still follows the original table cell; no column is resized.
     .o_ydental_settlement_disclosure[data-dl-actions="settlement-readonly-actions"] {
+        max-inline-size: calc(100cqi - 0.75rem);
         padding-inline: 0.5em;
     }
 
@@ -83,6 +86,24 @@
 
     // Preserve room for the shared focus ring during local table navigation.
     .o_ydental_settlement_fee_scroll {
+        container-type: inline-size;
         scroll-padding: 0.375rem;
+    }
+
+    // Extend the existing narrow-card token through intermediate widths.
+    // Keep 768px at its original 1.5rem: the strict A04 retained-36px
+    // horizontal-reading condition must remain reachable without alteration.
+    @media (max-width: calc(48rem - 1px)) {
+        padding: 1rem;
+    }
+
+    // The measured 160 CSS px viewport and 320px enlarged-text cases need
+    // more content width. Other already-fitting narrow cards keep 1rem.
+    @media (max-width: 20rem) {
+        padding: 0.75rem;
+
+        .o_ydental_settlement_action[data-dl-actions="settlement-readonly-actions"] {
+            padding-inline: 0.75em;
+        }
     }
 }

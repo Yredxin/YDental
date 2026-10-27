@@ -27,8 +27,16 @@ exports.observe = element => {
     for (let n=walker.nextNode(); n; n=walker.nextNode()) {
         if (!n.textContent.trim()) continue;
         const range=document.createRange(); range.selectNodeContents(n);
+        const textClips=[];
+        for(let p=n.parentElement;p;p=p.parentElement){
+            const c=getComputedStyle(p),a=rect(p);
+            if(['auto','scroll','hidden','clip'].includes(c.overflowX))
+                textClips.push({tag:p.tagName,class:p.className,overflowX:c.overflowX,
+                    left:a.left+p.clientLeft,right:a.left+p.clientLeft+p.clientWidth});
+        }
         for (const a of range.getClientRects()) if (a.width && a.height)
-            textRects.push({...a.toJSON(), ...fit(a)});
+            textRects.push({...a.toJSON(), ...fit(a),textClips,
+                ownAndAncestorTextFit:textClips.every(c=>a.left>=c.left-1&&a.right<=c.right+1)});
     }
     const ring=Math.max(0,parseFloat(s.outlineWidth)+parseFloat(s.outlineOffset));
     const boxFit=fit(b), focusFit=fit(b,ring,true);
@@ -39,7 +47,7 @@ exports.observe = element => {
             'minHeight','minBlockSize','padding','gap','boxSizing','whiteSpace',
             'overflowWrap','wordBreak','maxWidth','minWidth','overflowX','overflowY',
             'outline','outlineWidth','outlineOffset','outlineStyle'].map(k=>[k,s[k]])),
-        clips, textRects, boxFit, textFit:textRects.every(a=>a.viewport&&a.ancestors),
+        clips, textRects, boxFit, textFit:textRects.every(a=>a.viewport&&a.ancestors&&a.ownAndAncestorTextFit),
         focused:element===document.activeElement,
         focusVisible:element.matches(':focus-visible'), ring, focusFit,
         viewport:{width:innerWidth,height:innerHeight,rootFont:getComputedStyle(document.documentElement).fontSize,

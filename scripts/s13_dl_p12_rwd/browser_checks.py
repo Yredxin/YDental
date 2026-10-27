@@ -32,6 +32,7 @@ def main():
     parser.add_argument('--probes', action='store_true')
     parser.add_argument('--a04-filter', choices=('all','repaired-tail'), default='all')
     parser.add_argument('--a04-suite', choices=('strict','impact','lifecycle','instrumented','paired','fault'), default='strict')
+    parser.add_argument('--rwd-suite', choices=('all','smoke','boundaries'), default='all')
     parser.add_argument('--before-result')
     parser.add_argument('--role', default='settlement')
     args = parser.parse_args()
@@ -56,7 +57,7 @@ def main():
         command.extend(['--before-result', args.before_result])
     if args.fixture_file:
         command.extend(['--fixture-file', args.fixture_file])
-    command.extend(['--js',args.js,'--a04-suite',args.a04_suite,'--a04-filter',args.a04_filter])
+    command.extend(['--js',args.js,'--a04-suite',args.a04_suite,'--a04-filter',args.a04_filter,'--rwd-suite',args.rwd_suite])
     if args.probes:
         command.extend(['--probes','true'])
     dependencies = [Path(__file__), source, ROOT / 'scripts/s13_dl_p12/browser_settlement.cjs', source.with_name('browser_geometry.cjs'), source.with_name('browser_rwd.cjs'),
