@@ -1,6 +1,6 @@
 # DL-P13｜首个出账办理面板
 
-**TECHNICALLY_COMPLETE（仅限定P13） / SYNC_PENDING / STOPPED**。未实现者本地总签已实际成立，远端全文/refs/评论读回尚待收口。计划 [YD-S13-DL-P13 / 1.0](../../execution/YDental_DL_P13_Settlement_First_Bill_Panel_Plan_v1.md)；[十二项验收](acceptance-matrix.md) · [原件及SHA](evidence-index.md)。本报告只评价本P13，P12仍PARTIAL，用户亲手效果待确认。
+**TECHNICALLY_COMPLETE（仅限定P13） / SYNCED（仅传输） / STOPPED**。未实现者本地总签和首远端全文/refs/评论独立读回已实际成立；最后metadata读回另存收据。计划 [YD-S13-DL-P13 / 1.0](../../execution/YDental_DL_P13_Settlement_First_Bill_Panel_Plan_v1.md)；[十二项验收](acceptance-matrix.md) · [原件及SHA](evidence-index.md)。本报告只评价本P13，P12仍PARTIAL，用户亲手效果待确认。
 
 唯一产品范围是 `/ydental/settlement` 第一个 `details[name="settlement-operation"]`、`operation=bill`。它现在使用已有杏陶暖白动作，费用标签可换行，折扣与原因随宽度排成两列或一列，确认和取消有独立间距。没有增加业务功能或产品JS。
 
@@ -98,7 +98,7 @@ P13超视口高label要求完整内容经正常纵滚首末可达，glyph本体�
 
 新私有0400观看包 `S13-DL-P13-first-bill-view-only-20261027-r1.zip`，**2606105B / SHA942091ca67d11f7a365153b6b6fe7ad633911fdba003471bc8a83a78ff8ca0f9**，52成员/48张原PNG。2637张全部原图和完整raw/执行源/argv/退出逐SHA另索引；观看包不代完整验收。旧P12/A04/RWD三ZIP、8263旧raw和全部旧P12报告原bytes保持。新包不上传Public，无秘密/配置/session/profile/请求体/DB/PDF/font/program。
 
-root实现并统一报告/写者，runtime_rwd运行保护、testing_rwd采证、acceptance_rwd未实现产品或对应测试工具者独审SOURCE/真实本人browser/新physical/原件/包；同OS不冒OS隔离。未实现者本地总签 **ca9ab170684e238c092282eb5259c4d36a407fb80fd25478da33d8b75c3826f5** 已成立，T01—11及T12本地证据PASS；远端全文/refs/新唯一P13回执及状态读回尚待实际，当前不冒SYNCED。
+root实现并统一报告/写者，runtime_rwd运行保护、testing_rwd采证、acceptance_rwd未实现产品或对应测试工具者独审SOURCE/真实本人browser/新physical/原件/包；同OS不冒OS隔离。未实现者本地总签 **ca9ab170684e238c092282eb5259c4d36a407fb80fd25478da33d8b75c3826f5** 已成立，T01—11及T12本地证据PASS；远端全文/refs/新唯一P13回执及状态已实际独立读回，详见末附首同步收据。
 
 复现（普通有写权限且有本店已确认未出账费岗位，不提交）：
 
@@ -111,3 +111,10 @@ root实现并统一报告/写者，runtime_rwd运行保护、testing_rwd采证�
 7. 原取消返回查看；不产生账单、收退款、日结、治疗、库存、PDF或打印事件。
 
 未验证屏幕阅读器/Safari/iOS/实机/用户亲手；未启真实资金/外部通道/正式政策/生产、负载恢复或组合扫码。未合产品/部署，main仅必要两文档路由。P13交付后停止，不改第二办理面板，不启动P14。
+
+
+## 已实际独立首同步
+
+首报告 **225fd71fbba352610bd46104ad401c782affb618** 与main仅两路由 **1f538943f0fc78b6c91114092f9cd20a15a13c09** 已正常push0。未实现者经正常GitHub插件实际32请求读回两refs、24业务变化+main2共26文件完整bytes/SHA/gitblob exact，唯一新P13 [6434515450](https://github.com/Yredxin/YDental/issues/37#issuecomment-6434515450) 全文5784B exact，旧14 id/body全部exact含P12原19320B，#23/36/37 title/body/state保持、37OPEN36CLOSED：**f57fa376634709c866951c420ea215a93b2d3d7c868af2f2412bb81e0494dc0e**。T12远端子项实际成立，当前TECHNICALLY_COMPLETE（限定P13）/ SYNCED（仅传输）/ STOPPED；原P12 PARTIAL、旧A04FAIL和用户效果pending不变。
+
+原首次SYNC_PENDING时点留在Git及同一评论。本次仅登记已发生metadata；最终这次变化全文/ref/同一P13评论由正常独立读回旁签记录，不自嵌未来hash，不重开app/DB/browser，不合产品不部署。最终报告固定候选由本提交及私有 `acceptance/final-complete-sync-independent.json` 实际收据记录，不循环生成报告版本。

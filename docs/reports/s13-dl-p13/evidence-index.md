@@ -1,6 +1,6 @@
 # DL-P13｜原件、固定候选与独立签署索引
 
-**TECHNICALLY_COMPLETE（仅限定P13） / SYNC_PENDING / STOPPED**。本文公开aggregate/SHA，原始输出只在本机忽略的0700 `.local/dl-p13/`；所有下列私有路径均相对该目录，不能把GitHub公开仓库当私包下载处。没有配置、秘密值、可逆秘密、session/profile、完整请求体或原PDF进入Git/Issue/新ZIP。
+**TECHNICALLY_COMPLETE（仅限定P13） / SYNCED（仅传输） / STOPPED**。本文公开aggregate/SHA，原始输出只在本机忽略的0700 `.local/dl-p13/`；所有下列私有路径均相对该目录，不能把GitHub公开仓库当私包下载处。没有配置、秘密值、可逆秘密、session/profile、完整请求体或原PDF进入Git/Issue/新ZIP。
 
 产品83d5a002ee29dbb10177c773a81f7c2acae8b583；主工具/最后实际应用42e6bd84a5ab0cc194e64db75fd4bfba88e79618；最后工具3d5ecabdfdfe451df21f8f79d3a57c6268d60700仅机械SOURCE/PURE。before850d9554891db166a47e6db23e1f02db9b5123b8，首after ec50407c91d9084b37ba5be95e42933e13efa2ba原失败保。helper执行源逐次归档，最后工具不反签全部actual同源。
 
@@ -34,6 +34,7 @@
 |工具公开隐私独核|`acceptance/fixed-tools-3d5-public-delivery-independent.json`|`44d66db9daeeb78040bd574b37ead72ffdd2b77e630109bfb8aa419bd36d72e6`|
 |owned正常收尾|`acceptance/final-runtime-cleanup-independent-review.json`|`a482f6aa69420dbe9f91ada0a3114b4232661c9a4e33841329ed9105e2c46e4b`|
 |本地技术总签|`acceptance/local-total-independent-signature.json`|`ca9ab170684e238c092282eb5259c4d36a407fb80fd25478da33d8b75c3826f5`|
+|首完整远端独立读回|`acceptance/first-complete-sync-independent.json`|`f57fa376634709c866951c420ea215a93b2d3d7c868af2f2412bb81e0494dc0e`|
 
 SOURCE/PURE最后命令：Python compile、3个CJS `node --check`、`source_contracts.py --phase after`，均0；没有在工具发布后重开浏览器或数据库。594旧addon inventory SHA27f9cd051aed9f608737118bb87e00169fdeb8cc8c14299318ef18918b19bd0c；独立Sass18431B/SHA42e8458d3aa861d2f578ca7ad824dd44e6cc80249b3692119c56069c5fddec21，75selector arm全root内；实际618808B bundle SHA7d5f8b41efde7925d5717c7627f519e03724fef423010fc6996a691e7e389416须另层，不能互代。
 
@@ -49,4 +50,11 @@ SOURCE/PURE最后命令：Python compile、3个CJS `node --check`、`source_cont
 
 最终新physical869346 snapshot SHA64da0cdd16561af5786eb1d4c2b35c6a9a6160d9b505163caedab27267107ed6；目标OID2171423/cluster7694897083368259627、RO/RR/rollbackclosed，同事务其它targetconn[]。83业务附件引用/80唯一真实文件/三共享逐完整bytes/size/SHA保，原audit31622逐row保、新941auth/read/旁路另列。旧18818/25819/27673及P12/A04/RWD PARTIAL/UNKNOWN原层不改。
 
-7步普通角色复现、局部padding责任表、动作映射和所有失败/UNKNOWN见summary；12项逐标准见acceptance-matrix。本P13原要求可达，与旧P12 A04原一次Tab门槛分别签署。本地总签ca9ab170已成立；远端全文refs与唯一新P13评论实际读回尚待追加，不冒SYNCED；#37 OPEN/#36 CLOSED，旧14评论包括P12唯一6422670245全文不改。
+7步普通角色复现、局部padding责任表、动作映射和所有失败/UNKNOWN见summary；12项逐标准见acceptance-matrix。本P13原要求可达，与旧P12 A04原一次Tab门槛分别签署。本地总签ca9ab170已成立；远端全文refs与唯一新P13评论已实际独立读回f57fa376；最后metadata旁签另存；#37 OPEN/#36 CLOSED，旧14评论包括P12唯一6422670245全文不改。
+
+
+## 已实际独立首同步
+
+首报告 **225fd71fbba352610bd46104ad401c782affb618** 与main仅两路由 **1f538943f0fc78b6c91114092f9cd20a15a13c09** 已正常push0。未实现者经正常GitHub插件实际32请求读回两refs、24业务变化+main2共26文件完整bytes/SHA/gitblob exact，唯一新P13 [6434515450](https://github.com/Yredxin/YDental/issues/37#issuecomment-6434515450) 全文5784B exact，旧14 id/body全部exact含P12原19320B，#23/36/37 title/body/state保持、37OPEN36CLOSED：**f57fa376634709c866951c420ea215a93b2d3d7c868af2f2412bb81e0494dc0e**。T12远端子项实际成立，当前TECHNICALLY_COMPLETE（限定P13）/ SYNCED（仅传输）/ STOPPED；原P12 PARTIAL、旧A04FAIL和用户效果pending不变。
+
+原首次SYNC_PENDING时点留在Git及同一评论。本次仅登记已发生metadata；最终这次变化全文/ref/同一P13评论由正常独立读回旁签记录，不自嵌未来hash，不重开app/DB/browser，不合产品不部署。最终报告固定候选由本提交及私有 `acceptance/final-complete-sync-independent.json` 实际收据记录，不循环生成报告版本。

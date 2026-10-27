@@ -1,6 +1,6 @@
 # DL-P13｜P13-T01—T12
 
-**TECHNICALLY_COMPLETE（仅限定P13） / SYNC_PENDING / STOPPED**。PASS仅按原P13适用标准；附加native一次Tab圈指标108FAIL完整公开，不回填P12。本地总签ca9ab170684e238c092282eb5259c4d36a407fb80fd25478da33d8b75c3826f5已实际成立；T12远端读回尚待实际，不预签。
+**TECHNICALLY_COMPLETE（仅限定P13） / SYNCED（仅传输） / STOPPED**。PASS仅按原P13适用标准；附加native一次Tab圈指标108FAIL完整公开，不回填P12。本地总签ca9ab170684e238c092282eb5259c4d36a407fb80fd25478da33d8b75c3826f5已实际成立；T12远端已由实际f57fa376独立完整读回；最后metadata仅正常旁签。
 
 |ID|状态/层级|结论与界限|独立/原件索引|
 |---|---|---|---|
@@ -15,6 +15,13 @@
 |T09|PASS（仅P13）|两engine真context JS-off与JS-on实际原生开合/表单/取消/读取/键盘；P12 A04未重跑、不改判，旧真off36/26/50 FAIL及超高候选限制保。|188全矩阵 / P12原报告|
 |T10|PASS（有限影响验证）|P12 lookup DOM有限对照及全SOURCE/JS15839保持；其它办理原class/summary/padding；P11原source GET200、库存/文书/报表只读旁路无P13scope。未重跑历史经济/PDF/库存链。|SOURCE / p11-source-detail / bypass|
 |T11|PASS（独立newphysical）|869346真实RO/RR全部145/13九区exactfinal、83/80/3全bytes/SHA/旧审计保；941新auth/read/旁路与唯一-u/派生CSS分列，0新经济库存/原件PDF打印签署/持久fee。|962ae442 / 4e21a796|
-|T12|LOCAL_PASS / SYNC_PENDING|产品83d/主运行42e/工具PURE3d5固定；2637原PNG、48原PNG私包/SHA、旧失败UNKNOWN、7步复现及STOP全保。独立包99730027和全原件b60d5c1a已签；正文总签ca9ab170已成；正常push-readback待实际追加，#37新一份P13、旧14不改、37OPEN36CLOSED。|evidence-index / 最后独立收据待追加|
+|T12|PASS / SYNCED|产品83d/主运行42e/工具PURE3d5固定；2637原PNG、48原PNG私包/SHA、旧失败UNKNOWN、7步复现及STOP全保。独立包99730027和全原件b60d5c1a已签；正文总签ca9ab170已成；正常push-readback已由f57fa376实签，#37唯一P13 6434515450、旧14不改、37OPEN36CLOSED。|evidence-index / 最后独立收据待追加|
 
 P13的正文、native控件、背景和完整焦点可达，与P12旧A04一次Tab严格门槛分别判断。P12整体继续PARTIAL；用户亲手效果、Safari/iOS/屏读/实机、完整S13与生产均未验收或启用。
+
+
+## 已实际独立首同步
+
+首报告 **225fd71fbba352610bd46104ad401c782affb618** 与main仅两路由 **1f538943f0fc78b6c91114092f9cd20a15a13c09** 已正常push0。未实现者经正常GitHub插件实际32请求读回两refs、24业务变化+main2共26文件完整bytes/SHA/gitblob exact，唯一新P13 [6434515450](https://github.com/Yredxin/YDental/issues/37#issuecomment-6434515450) 全文5784B exact，旧14 id/body全部exact含P12原19320B，#23/36/37 title/body/state保持、37OPEN36CLOSED：**f57fa376634709c866951c420ea215a93b2d3d7c868af2f2412bb81e0494dc0e**。T12远端子项实际成立，当前TECHNICALLY_COMPLETE（限定P13）/ SYNCED（仅传输）/ STOPPED；原P12 PARTIAL、旧A04FAIL和用户效果pending不变。
+
+原首次SYNC_PENDING时点留在Git及同一评论。本次仅登记已发生metadata；最终这次变化全文/ref/同一P13评论由正常独立读回旁签记录，不自嵌未来hash，不重开app/DB/browser，不合产品不部署。最终报告固定候选由本提交及私有 `acceptance/final-complete-sync-independent.json` 实际收据记录，不循环生成报告版本。
