@@ -1,5 +1,5 @@
 // Original first bill panel only. FormData stays local; no bill activation.
-const fs=require('node:fs'),assert=require('node:assert/strict');
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
 const geometry=require('./browser_geometry.cjs');
 const panelSelector='details[name="settlement-operation"]:has(form input[name="operation"][value="bill"])';
 const secretNames=['csrf_token','revision','key'];
@@ -47,7 +47,20 @@ exports.run=async env=>{
         assert(value.fields.filter(x=>x.name==='fee_ids').every(x=>x.type==='checkbox'));
         assert(!value.submitter.disabled&&value.submitter.formOwnerPreserved);
         value.cancel=await panel(p).locator('a').evaluate(e=>({href:e.getAttribute('href'),formAncestor:!!e.closest('form'),text:e.textContent.trim()}));
-        assert(!value.cancel.formAncestor);save(tag+'-native-form-contract.json',value);return value;
+        assert(!value.cancel.formAncestor);
+        if(!before&&arg('before-result')&&mode!=='components'){
+            const oldFile=path.join(path.dirname(arg('before-result')),tag+'-native-form-contract.json');
+            if(fs.existsSync(oldFile)){
+                const old=JSON.parse(fs.readFileSync(oldFile));
+                // Cross-request comparison includes only already-redacted tokens.
+                // Actual nonce equality is asserted solely inside each current DOM.
+                for(const key of ['method','action','fields','serialized','submitter','cancel'])
+                    assert.deepEqual(value[key],old[key],'Original redacted contract field '+key);
+                value.before_redacted_contract_exact=true;
+                value.cross_request_native_secret_equality_claimed=false;
+            }
+        }
+        save(tag+'-native-form-contract.json',value);return value;
     }
     async function fieldsInteract(p,tag){
         const f=panel(p).locator('form').filter({has:p.locator('input[name=operation][value=bill]')});await contract(p,tag+'-default');
@@ -56,10 +69,16 @@ exports.run=async env=>{
         if(await first.count()){
             await first.focus();await p.keyboard.press('Space');assert(await first.isChecked());
             await f.locator('[name=discount]').fill('1.23');await f.locator('[name=reason]').fill('P13只读表单序列化测试，不提交');
-            const selected=await contract(p,tag+'-selected');assert.equal(selected.serialized.filter(x=>x.name==='fee_ids').length,1);
+            const selected=await contract(p,tag+'-selected');assert.equal(selected.serialized.filter(x=>x.name==='fee_ids').length,1);if(!before)await shot(tag+'-native-checkbox-selected-no-submit',p);
             await first.focus();await p.keyboard.press('Space');assert(!await first.isChecked());
             await f.locator('[name=discount]').fill('0');await f.locator('[name=reason]').fill('');
             await contract(p,tag+'-restored');
+            if(!before){
+                const label=await first.evaluateHandle(e=>e.labels[0]);await label.evaluate(e=>e.scrollIntoView({block:'center',inline:'nearest'}));
+                const b=await label.evaluate(e=>e.getBoundingClientRect().toJSON());assert(b.width>0&&b.height>0);await p.mouse.click(b.x+b.width/2,b.y+b.height/2);assert(await first.isChecked(),'Original associated-label native activation');
+                await p.mouse.click(b.x+b.width/2,b.y+b.height/2);assert(!await first.isChecked());await label.dispose();
+                save(tag+'-native-label-click.json',{checkbox_original_label_association:true,whole_label_native_click_toggled_and_restored:true,bill_submit_activated:false});
+            }
         }
     }
     async function segment(p,e,tag){
@@ -107,7 +126,7 @@ exports.run=async env=>{
             if(i===0)await summary.focus();else if(continuous)await p.keyboard.press('Tab');
             else await e.focus();
             await p.waitForTimeout(180);const native=await e.evaluate(geometry.observe);assert(native.focused,'Original native Tab order '+i);
-            const record={index:i,native,continuous_native_Tab:continuous};
+            const record={index:i,native,continuous_native_Tab:continuous&&i>0,entry:i===0?'INITIAL_ORIGINAL_SUMMARY_PROGRAMMATIC_SEED_THEN_NATIVE_ENTER_SPACE':continuous?'CONTINUOUS_ENGINE_NATIVE_TAB':'EXPLICIT_ORIGINAL_FOCUS_SEED'};
             const clickOwner=native.name==='fee_ids'?native.associatedLabel:null;
             const targetHeight=clickOwner?clickOwner.box.height:native.box.height;
             const rootFont=parseFloat(native.viewport.rootFont),largeTextOwner=(clickOwner?clickOwner.box.height:native.box.height)>native.viewport.height;
@@ -168,7 +187,7 @@ exports.run=async env=>{
                         if(!old||t.content.children.length!==1)throw Error('One native bill panel replacement required');
                         // Same-response native secrets remain only in memory.
                         const next=t.content.firstElementChild;
-                        for(const name of ['csrf_token','revision','key']){const a=old.querySelector('[name="'+name+'"]'),b=next.querySelector('[name="'+name+'"]');if(a&&b)b.value=a.value;}
+                        for(const name of ['csrf_token','revision','key']){const a=old.querySelector('[name="'+name+'"]'),b=next.querySelector('[name="'+name+'"]');if(a&&b)b.setAttribute('value',a.value);}
                         old.replaceWith(next);return '<!doctype html>'+d.documentElement.outerHTML;
                     },{html:await response.text(),replacement:item.html,selector:panelSelector});
                     replaced++;await route.fulfill({response,body});

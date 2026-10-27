@@ -107,19 +107,19 @@
                         </section>
                     </div>
                 </div>
-                <details name="settlement-operation" class="o_ydental_access_operation" t-if="can_write and (today or history)"><summary>Select fees to bill</summary><form method="post" action="/ydental/settlement/action">
+                <details name="settlement-operation" class="o_ydental_access_operation o_ydental_settlement_bill_panel" t-if="can_write and (today or history)" data-dl-scope="settlement-bill-panel"><summary class="o_ydental_settlement_bill_disclosure" data-dl-actions="settlement-bill-panel-actions">Select fees to bill</summary><form method="post" action="/ydental/settlement/action" class="o_ydental_settlement_bill_form">
                     <t t-call="ydental_settlement.ydental_settlement_tokens"/>
                     <input type="hidden" name="operation" value="bill"/>
-                    <h3>选择本店已确认费用出账</h3>
-                    <label t-foreach="today | history" t-as="fee" style="display:block">
+                    <div class="o_ydental_settlement_bill_fee_group"><h3 class="o_ydental_settlement_bill_heading">选择本店已确认费用出账</h3>
+                    <div class="o_ydental_settlement_bill_fees"><label t-foreach="today | history" t-as="fee" class="o_ydental_settlement_bill_fee">
                         <input type="checkbox" name="fee_ids" t-att-value="fee.id"/>
-                        <span t-out="fee.ydental_event_id.ydental_catalog_id.name"/> · <span t-out="fee.ydental_patient_id.ydental_number"/> · <span t-out="fee.ydental_event_id.ydental_business_date"/>：<span t-out="money(fee.ydental_amount, fee.ydental_currency_id)"/>
-                    </label>
-                    <label>明确折扣金额 <input type="number" name="discount" min="0" step="0.01" value="0"/></label>
-                    <label>折扣原因 <input type="text" name="reason" maxlength="300"/></label>
-                    <button type="submit">生成原生过账账单</button>
+                        <span class="o_ydental_settlement_bill_fee_text"><span t-out="fee.ydental_event_id.ydental_catalog_id.name"/> · <span t-out="fee.ydental_patient_id.ydental_number"/> · <span t-out="fee.ydental_event_id.ydental_business_date"/>：<span t-out="money(fee.ydental_amount, fee.ydental_currency_id)"/>
+                    </span></label></div></div>
+                    <div class="o_ydental_settlement_bill_fields"><label class="o_ydental_settlement_bill_field">明确折扣金额 <input type="number" name="discount" min="0" step="0.01" value="0"/></label>
+                    <label class="o_ydental_settlement_bill_field">折扣原因 <input type="text" name="reason" maxlength="300"/></label></div>
+                    <div class="o_ydental_settlement_bill_submit"><button type="submit" class="o_ydental_settlement_bill_action o_ydental_settlement_bill_action_primary" data-dl-actions="settlement-bill-panel-actions"><span class="o_ydental_settlement_bill_action_label" t-translation="on">生成原生过账账单</span></button></div>
                 </form>
-                <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'">Cancel and return to viewing</a></details><section><h2>已出账未付清</h2><p t-if="not invoices">无</p>
+                <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'" class="o_ydental_settlement_bill_action o_ydental_settlement_bill_action_quiet" data-dl-actions="settlement-bill-panel-actions"><span class="o_ydental_settlement_bill_action_label" t-translation="on">Cancel and return to viewing</span></a></details><section><h2>已出账未付清</h2><p t-if="not invoices">无</p>
                     <div class="o_ydental_access_scroll" tabindex="0" aria-label="Scrollable details"><table t-if="invoices" class="table"><thead><tr><th>原生单号</th><th>业务日</th><th>原金额</th><th>应收余额</th><th>内部账单</th></tr></thead>
                         <tbody><tr t-foreach="invoices" t-as="invoice" t-att-id="'invoice-%s' % invoice.id">
                             <td t-out="invoice.name"/><td t-out="invoice.invoice_date"/>

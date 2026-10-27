@@ -5,6 +5,8 @@
 - 现场起点4e3e3aa1027286de473044d23f54d5faa81c9384与origin同、工作树clean；正常新建`codex/s13-dl-p13-settlement-bill-panel-r1`。P12产品f3c63b6及三报告/原回执6422670245/全部PARTIAL/原件保持；main仅路由，不从main重建，不reset/clean/强推。
 - root唯一产品/报告/CURRENT/main路由写者；复用runtime_rwd/testing_rwd/acceptance_rwd三个已响应协作者分别承担P13运行保护/测试/未实现者独验，职责写路径另在本机P13证据；同OS非隔离。新私有`.local/dl-p13/`，不改旧scope/STOP/账本/包。
 - 新鲜核同合成目标OID2171423/cluster7694897083368259627/filestore，原31622审计及83引用80真实文件3共享完整保全；正常新读/技术缓存另计。必要XML加载需全即时pre/post及独核；纯CSS不重复-u。
+- W0真实已成：before850d955，EN/ZH实际合成继承1602/1620首bill条件/字段序/tokens call/Cancel外form核同；5browser/native0关闭、198原PNG/319raw/15无网络FormData原nonce仅内存比对。前态font14/root200为28、常规37px/Cancel inline16px、焦点viewport缺口保，不写before布局PASS。独立fresh pre848547全145/13/九区+83/80/3 exact旧RWDfinal；before正常stop后新160audit→31782，其余保护同。
+- W1工作树SOURCE/PURE已独审：仅XML首bill有限呈现、一个新SCSS、manifest单资产；594其它addon和完整prefix/后suffix原bytes，白名单剥呈现后原业务C14N exact。共享动作primary/quiet/disclosure，checkbox视觉1.25rem/label点击区min2.75rem；form组gap1.5、费项.75、字段1/标签.5、summary展开.75单owner，flex 28rem随根字号变窄单列。75CSS selector arms全局部；必要-u和after尚待固定候选，不先签实测PASS。
 - P12整体继续PARTIAL：真off A04原768横读36→Tab仍36/26/50 FAIL，超高候选圈限制保。P13新超高分段约定不回填P12。P13独立结论另判。
 - 仅计划结束#37新增一份P13最终结果，保旧14评论/P12全文；37OPEN/36CLOSED。main仅必要路由，不合产品/部署。P13结束停止，不自动改第二办理或P14；完整S13/负载恢复/实机/政策/组合扫码/真实资金外部生产未启用，用户效果待确认。
 
