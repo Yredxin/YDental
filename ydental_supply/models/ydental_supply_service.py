@@ -1,15 +1,62 @@
 import hashlib
 import json
+import os
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
+import psycopg2
 from odoo import api, fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
+
+
+def _is_allowed_isolated_test_target(enabled, database, oid, cluster, store_id):
+    return (enabled == '1' and database == 'ydental_s11_synth_20261023_01' and oid == 2171423
+            and cluster == '7694897083368259627' and store_id in (541, 542))
 
 
 class YDentalSupplyService(models.AbstractModel):
     _name = 'ydental.supply.service'
     _description = 'Validated schedule and shared capacity transactions'
+
+    def _isolated_test_allowed(self, store):
+        """Default closed: only the specifically authorized E2E target can opt in.
+
+        Process configuration and database identity are not proof of isolation;
+        operators must separately verify environment, contents and network.
+        """
+        if os.environ.get('YDENTAL_E2E_ISOLATED_SUPPLY') != '1' or store.id not in (541, 542):
+            return False
+        try:
+            # A failed system identity query must not leave the transaction aborted.
+            with self.env.cr.savepoint(flush=False):
+                self.env.cr.execute("""SELECT current_database(),
+                    (SELECT oid FROM pg_database WHERE datname=current_database()),
+                    (pg_control_system()).system_identifier::text""")
+                identity = self.env.cr.fetchone()
+        except psycopg2.Error:
+            return False
+        return _is_allowed_isolated_test_target(
+            os.environ.get('YDENTAL_E2E_ISOLATED_SUPPLY'), *identity, store.id)
+
+    def _check_test_policy(self, store, policy):
+        if policy.ydental_mode == 'isolated_test' and not self._isolated_test_allowed(store):
+            raise AccessError(self.env._('access_denied: Isolated synthetic capacity is unavailable in this environment.'))
+
+    def _check_test_receipt(self, store, operation, payload, receipt):
+        """Replays must not authorize new downstream work after the scope closes."""
+        if operation == 'policy' and payload.get('mode') == 'isolated_test':
+            if not self._isolated_test_allowed(store):
+                raise AccessError(self.env._('access_denied: Isolated synthetic capacity is unavailable in this environment.'))
+        elif operation == 'slot' and receipt.ydental_result.get('policy_id'):
+            self._check_test_policy(store, self._get('policy', receipt.ydental_result['policy_id'], store))
+        elif operation in ('publish', 'resize', 'extend', 'convert'):
+            self._check_test_policy(store, self._get('slot', payload['id'], store).ydental_policy_id)
+        elif operation in ('consume', 'reschedule', 'reassign'):
+            self._check_test_policy(store, self._get('claim', payload['id'], store).ydental_slot_id.ydental_policy_id)
+            if operation == 'reschedule' and receipt.ydental_result.get('id'):
+                self._check_test_policy(store, self._get('claim', receipt.ydental_result['id'], store).ydental_slot_id.ydental_policy_id)
+        elif operation == 'acquire' and receipt.ydental_result.get('id'):
+            self._check_test_policy(store, self._get('claim', receipt.ydental_result['id'], store).ydental_slot_id.ydental_policy_id)
 
     def _now(self):
         return fields.Datetime.now()
@@ -143,6 +190,7 @@ class YDentalSupplyService(models.AbstractModel):
             if receipt:
                 if receipt.ydental_fingerprint != fingerprint:
                     raise UserError(self.env._('version_conflict: This key belongs to another request.'))
+                self._check_test_receipt(store, operation, payload, receipt)
                 return dict(receipt.ydental_result, result='already_accepted')
             handlers = {'policy': self._policy, 'assign': self._assign, 'adjust': self._adjust_assignment,
                 'cancel_assignment': self._cancel_assignment, 'copy': self._copy_week, 'batch': self._batch,
@@ -173,9 +221,16 @@ class YDentalSupplyService(models.AbstractModel):
 
     def _policy(self, store, p):
         self._keys(p, ('name', 'rounding', 'phone_pool', 'cutoff_minutes', 'reason', 'mode'),
-                   ('station_id', 'area_id', 'reservation_weight', 'walkin_weight', 'approved'))
-        if p['mode'] not in ('demo', 'published') or p['mode'] == 'published' and p.get('approved') is not True:
+                   ('station_id', 'area_id', 'reservation_weight', 'walkin_weight', 'approved', 'isolated_test_approved'))
+        if p['mode'] not in ('demo', 'published', 'isolated_test') or p['mode'] == 'published' and p.get('approved') is not True:
             raise ValidationError(self.env._('Formal publication requires explicit approval.'))
+        if p['mode'] == 'isolated_test':
+            if p.get('isolated_test_approved') is not True or p.get('approved'):
+                raise ValidationError(self.env._('Isolated synthetic capacity requires its own test approval.'))
+            if not self._isolated_test_allowed(store):
+                raise AccessError(self.env._('access_denied: Isolated synthetic capacity is unavailable in this environment.'))
+        elif p.get('isolated_test_approved'):
+            raise ValidationError(self.env._('Test approval applies only to isolated synthetic capacity.'))
         if p['rounding'] not in ('floor', 'nearest') or p['phone_pool'] not in ('reservation', 'walkin'):
             raise ValidationError(self.env._('Select a supported rounding and telephone pool strategy.'))
         station = self._space('station', p['station_id'], store) if p.get('station_id') else False
@@ -360,6 +415,7 @@ class YDentalSupplyService(models.AbstractModel):
         if len(capabilities) != len(set(ids)) or not all(capabilities.mapped('active')) or not set(ids) <= set(station.ydental_capability_ids.ids):
             raise ValidationError(self.env._('Choose active workstation capabilities.'))
         policy = self._select_policy(store, station)
+        self._check_test_policy(store, policy)
         total = self._integer(p['total'], 1)
         reservation, walkin = policy._split(total)
         record = self._new('slot', store, {'name': station.name, 'ydental_station_id': station.id,
@@ -390,6 +446,7 @@ class YDentalSupplyService(models.AbstractModel):
     def _publish(self, store, p):
         self._keys(p, ('id', 'version', 'user_ids', 'reason'))
         slot = self._get('slot', p['id'], store)
+        self._check_test_policy(store, slot.ydental_policy_id)
         self._version(slot, p['version'])
         self._space('station', slot.ydental_station_id.id, store)
         if not set(slot.ydental_capability_ids.ids) <= set(slot.ydental_station_id.ydental_capability_ids.filtered('active').ids):
@@ -414,6 +471,7 @@ class YDentalSupplyService(models.AbstractModel):
     def _resize(self, store, p):
         self._keys(p, ('id', 'version', 'total', 'reason'))
         slot = self._get('slot', p['id'], store)
+        self._check_test_policy(store, slot.ydental_policy_id)
         self._version(slot, p['version'])
         total = self._integer(p['total'])
         before = self._snapshot(slot)
@@ -442,6 +500,7 @@ class YDentalSupplyService(models.AbstractModel):
     def _extend(self, store, p):
         self._keys(p, ('id', 'version', 'end', 'reason'))
         slot = self._get('slot', p['id'], store)
+        self._check_test_policy(store, slot.ydental_policy_id)
         self._version(slot, p['version'])
         _, end = self._interval(slot.ydental_start, p['end'])
         if end <= slot.ydental_end or self._date(store, end - timedelta(microseconds=1)) != self._date(store, slot.ydental_start):
@@ -455,6 +514,7 @@ class YDentalSupplyService(models.AbstractModel):
         return {'id': slot.id}
 
     def _convert_slot(self, store, slot):
+        self._check_test_policy(store, slot.ydental_policy_id)
         if slot.ydental_converted:
             return
         if not slot.ydental_start <= self._now() < slot.ydental_end:
@@ -505,6 +565,8 @@ class YDentalSupplyService(models.AbstractModel):
         return False
 
     def _saleable(self, store, slot, pool):
+        if slot.ydental_policy_id.ydental_mode == 'isolated_test' and not self._isolated_test_allowed(store):
+            return False
         if slot.ydental_policy_id.ydental_mode == 'demo' and not self._allow_demo_supply():
             return False
         now = self._now()
@@ -579,6 +641,7 @@ class YDentalSupplyService(models.AbstractModel):
     def _consume(self, store, p):
         self._keys(p, ('id',))
         claim = self._get('claim', p['id'], store)
+        self._check_test_policy(store, claim.ydental_slot_id.ydental_policy_id)
         if claim.state == 'cancelled':
             raise UserError(self.env._('Cancelled capacity cannot start execution.'))
         if claim.state == 'held':
@@ -589,6 +652,7 @@ class YDentalSupplyService(models.AbstractModel):
     def _reschedule(self, store, p):
         self._keys(p, ('id', 'target', 'reason'))
         old = self._get('claim', p['id'], store)
+        self._check_test_policy(store, old.ydental_slot_id.ydental_policy_id)
         if old.state != 'held':
             raise UserError(self.env._('Only an unused entitlement can be rescheduled.'))
         target = dict(p['target'])
@@ -604,6 +668,8 @@ class YDentalSupplyService(models.AbstractModel):
         claim = self._get('claim', p['id'], store)
         target = self._get('slot', p['slot_id'], store)
         old = claim.ydental_slot_id
+        self._check_test_policy(store, old.ydental_policy_id)
+        self._check_test_policy(store, target.ydental_policy_id)
         if claim.state != 'held' or (old.ydental_area_id, old.ydental_start, old.ydental_end) != (target.ydental_area_id, target.ydental_start, target.ydental_end):
             raise UserError(self.env._('Reassignment requires an unused entitlement in the same area and time.'))
         if old == target:
@@ -745,6 +811,7 @@ class YDentalSupplyService(models.AbstractModel):
         slots = self._model('slot').search([('ydental_store_id', '=', store.id)], order='ydental_start desc, id desc')
         return {'store': store, 'revision': access._scope().ydental_revision,
             'can_write': access._levels(access._membership(self.env.uid, store.id))['capacity'] == 'write',
+            'can_use_isolated_test': self._isolated_test_allowed(store),
             'week': week, 'previous_week': week - timedelta(days=7), 'next_week': week + timedelta(days=7),
             'group_by': group_by if group_by in ('station', 'person') else 'station',
             'assignments': assignments, 'members': members, 'stations': stations, 'areas': areas,

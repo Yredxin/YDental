@@ -208,3 +208,20 @@ class TestSupplyHTTP(HttpCase):
         self.assertEqual(result.json()['preview'][3]['reservation'], 2)
         self.assertEqual(self.action('business', {'area_id': self.area.id, 'state': 'open', 'reason': 'HTTP explicit open'}).status_code, 200)
         self.assertEqual(record.ydental_total, 6)
+
+    def test_isolated_policy_hidden_and_forged_request_denied(self):
+        self.authenticate(self.writer.login, 's03-test-password')
+        self.select()
+        page = self.url_open('/ydental/supply')
+        self.assertEqual(page.status_code, 200)
+        self.assertNotIn('name="isolated_test_approved"', page.text)
+        values = {'name': 'Synthetic scope', 'mode': 'isolated_test', 'rounding': 'floor',
+            'phone_pool': 'reservation', 'cutoff_minutes': 0, 'reason': 'Synthetic request',
+            'isolated_test_approved': True}
+        response = self.action('policy', values)
+        self.assertEqual(response.status_code, 403)
+        self.assertFalse(self.root['ydental.supply.policy'].search([
+            ('ydental_store_id', '=', self.stores[0].id), ('ydental_mode', '=', 'isolated_test')]))
+        denied = self.action('policy', values | {'mode': 'published', 'approved': False,
+                                                 'isolated_test_approved': False})
+        self.assertEqual(denied.status_code, 409)

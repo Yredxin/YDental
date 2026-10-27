@@ -598,3 +598,61 @@ class TestSupply(TransactionCase):
             with self.assertRaises(AccessError):
                 self.service._operate('assign', {'user_id': self.staff.id, 'area_id': self.area.id,
                     'start': fields.Datetime.to_string(self.start), 'end': fields.Datetime.to_string(self.end)}, 'other-store-execution')
+
+    def test_isolated_policy_requires_explicit_scope_and_approval(self):
+        values = {'name': 'Synthetic scope', 'mode': 'isolated_test', 'rounding': 'floor',
+            'phone_pool': 'reservation', 'cutoff_minutes': 0, 'reason': 'Approved isolated test',
+            'isolated_test_approved': True}
+        # Tests exercise the default-closed guard in this separate test database.
+        with patch.dict('os.environ', {'YDENTAL_E2E_ISOLATED_SUPPLY': '0'}):
+            self.assertFalse(self.service._isolated_test_allowed(self.stores[0]))
+            with self.assertRaises(AccessError):
+                self.service._operate('policy', values, 'isolated-closed')
+        with self.assertRaises(ValidationError):
+            self.service._operate('policy', values | {'isolated_test_approved': False}, 'isolated-unapproved')
+        with self.assertRaises(ValidationError):
+            self.service._operate('policy', values | {'mode': 'published', 'approved': False}, 'formal-unapproved')
+        self.assertFalse(self.root['ydental.supply.policy'].search([
+            ('ydental_store_id', '=', self.stores[0].id), ('ydental_mode', '=', 'isolated_test')]))
+
+    def test_isolated_policy_scope_rechecked_and_cancel_remains_available(self):
+        values = {'name': 'Synthetic scope', 'mode': 'isolated_test', 'rounding': 'floor',
+            'phone_pool': 'reservation', 'cutoff_minutes': 0, 'reason': 'Approved isolated test',
+            'isolated_test_approved': True}
+        service_type = type(self.service)
+        # Scope is patched only in this isolated unit test to exercise both branches;
+        # it is not an end-to-end environment or authorization proof.
+        with patch.object(service_type, '_isolated_test_allowed', return_value=True):
+            policy = self.service._operate('policy', values, 'isolated-policy')
+            capacity = slot(self, key='isolated-slot')
+            self.assertEqual(capacity.ydental_policy_id.id, policy['id'])
+            claim = acquire(self, capacity, key='isolated-source')
+            self.assertEqual(claim.state, 'held')
+        with patch.object(service_type, '_isolated_test_allowed', return_value=False):
+            self.assertFalse(self.service._saleable(self.stores[0], capacity, 'reservation'))
+            with self.assertRaises(AccessError):
+                self.service._operate('policy', values, 'isolated-policy')
+            with self.assertRaises(AccessError):
+                self.service._capacity_action('acquire', acquire_args(self, capacity, key='isolated-source'), 'acquire-isolated-source')
+            with self.assertRaises(AccessError):
+                self.service._capacity_action('consume', {'id': claim.id}, 'isolated-consume')
+            with self.assertRaises(AccessError):
+                self.service._capacity_action('reschedule', {'id': claim.id,
+                    'target': acquire_args(self, capacity, key='new-source'), 'reason': 'Move'}, 'isolated-move')
+            with self.assertRaises(AccessError):
+                self.service._capacity_action('reassign', {'id': claim.id, 'slot_id': capacity.id,
+                    'reason': 'Move'}, 'isolated-reassign')
+            self.assertEqual(claim.state, 'held')
+            self.service._capacity_action('cancel', {'id': claim.id, 'reason': 'Cancel safely'}, 'isolated-cancel')
+            self.assertEqual(claim.state, 'cancelled')
+
+    def test_isolated_target_requires_every_server_identity_component(self):
+        from odoo.addons.ydental_supply.models.ydental_supply_service import _is_allowed_isolated_test_target
+
+        identity = ('1', 'ydental_s11_synth_20261023_01', 2171423, '7694897083368259627', 541)
+        self.assertTrue(_is_allowed_isolated_test_target(*identity))
+        self.assertTrue(_is_allowed_isolated_test_target(*identity[:4], 542))
+        for index, other in enumerate(('0', 'other_database', 123, 'other_cluster', 543)):
+            changed = list(identity)
+            changed[index] = other
+            self.assertFalse(_is_allowed_isolated_test_target(*changed))

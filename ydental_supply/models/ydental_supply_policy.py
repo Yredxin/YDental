@@ -9,7 +9,9 @@ class YDentalSupplyPolicy(models.Model):
 
     ydental_area_id = fields.Many2one('ydental.space.area', ondelete='restrict', string='Area')
     ydental_station_id = fields.Many2one('ydental.space.station', ondelete='restrict', string='Workstation')
-    ydental_mode = fields.Selection([('demo', 'Demonstration'), ('published', 'Approved publication')], required=True, string='Publication mode')
+    ydental_mode = fields.Selection([
+        ('demo', 'Demonstration'), ('published', 'Approved publication'),
+        ('isolated_test', 'Isolated synthetic test')], required=True, string='Publication mode')
     ydental_reservation_weight = fields.Integer(default=1, required=True, string='Reservation weight')
     ydental_walkin_weight = fields.Integer(default=2, required=True, string='Walk-in weight')
     ydental_rounding = fields.Selection([('floor', 'Round reservation down'), ('nearest', 'Round reservation to nearest')], required=True, string='Rounding')

@@ -63,10 +63,13 @@ class YDentalSupply(http.Controller):
             return fields.Datetime.to_string(service._local_to_utc(store, form[name]))
 
         if operation == 'policy':
-            return {'name': form['name'], 'rounding': form['rounding'], 'phone_pool': form['phone_pool'],
+            values = {'name': form['name'], 'rounding': form['rounding'], 'phone_pool': form['phone_pool'],
                 'cutoff_minutes': int(form['cutoff_minutes']), 'mode': form['mode'], 'approved': form.get('approved') == 'yes',
                 'station_id': int(form.get('station_id') or 0), 'area_id': int(form.get('area_id') or 0),
                 'reservation_weight': int(form['reservation_weight']), 'walkin_weight': int(form['walkin_weight']), 'reason': form['reason']}
+            if form['mode'] == 'isolated_test' or form.get('isolated_test_approved') == 'yes':
+                values['isolated_test_approved'] = form.get('isolated_test_approved') == 'yes'
+            return values
         if operation in ('assign', 'adjust'):
             values = {'user_id': int(form['user_id']), 'station_id': int(form.get('station_id') or 0),
                 'area_id': int(form.get('area_id') or 0), 'start': utc('start'), 'end': utc('end'), 'reason': form['reason']}

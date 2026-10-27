@@ -1530,3 +1530,32 @@ msgstr "安排的员工已停用，需要替班处理。"
 #: code:addons/ydental_supply/models/ydental_supply_service.py:0
 msgid "Assignment conflict: %s"
 msgstr "排期冲突：%s"
+
+#. module: ydental_supply
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_policy__ydental_mode__isolated_test
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Isolated synthetic test"
+msgstr "隔离合成测试"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "I confirm approval for this isolated synthetic test only"
+msgstr "我确认仅批准本次隔离合成测试"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "access_denied: Isolated synthetic capacity is unavailable in this environment."
+msgstr "access_denied: 当前环境不可使用隔离合成测试容量。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Isolated synthetic capacity requires its own test approval."
+msgstr "隔离合成测试容量需要单独的测试批准。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Test approval applies only to isolated synthetic capacity."
+msgstr "测试批准仅适用于隔离合成测试容量。"
