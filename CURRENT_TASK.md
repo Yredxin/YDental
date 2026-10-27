@@ -1,3 +1,15 @@
+# DL-P12 响应式增量开工｜2026-10-27
+
+**IN_PROGRESS / YD-S13-DL-P12-RWD / 1.0**。用户本会话明确启用 DL-27—30、RWD-W0—W3、RWD-T01—T10；完整附件要求见 [本增量计划](docs/execution/YDental_DL_P12_Responsive_Readability_Padding_Addendum_v1.md)。仅原 `/ydental/settlement` lookup，在首 Select fees to bill 办理 details 前闭合；不是 P13，不重做 P12 或扩全站。
+
+- 实际分支 `codex/s13-dl-p12-settlement-readonly-actions-spacing-r1`，开工 HEAD/origin 同为 `d3ac2d3d846d0dec3fbbe3bdd9ed54e7f6db839c`，工作树 clean。产品/最后运行 `78c3650e0eeb1fcd3a970ed0693cfe9354e51cbc`、工具 `e4569c50d8dfac204028b5429abe190c05a7dfa2` 与旧原件全部保留。无 reset/clean/强推。
+- root 唯一产品/CURRENT/三报告写者；runtime_rwd 负责新运行/保护工具及服务调度，testing_rwd 负责真实双引擎测试，acceptance_rwd 未实现者独立验收；同 OS 非隔离。新私有范围 `.local/dl-p12-rwd/`，不覆盖旧 P12/A04 包、scope、STOP 或账本。
+- W0 先核真实 CSS/computed/盒/文字/焦点裁切及可比 before。新运行前核原目标 OID2171423/cluster7694897083368259627/filestore，保 83 引用/80 物理文件/3 共享及原业务审计；正常新增审计另记，不造持久费用、不重放经济库存/PDF。
+- 原 P12 **PARTIAL / A04 真 JS-off FAIL** 保持；JS-on 一次可信 Tab 增强不得回退。两结论分别验收，无法通过严格原36横读场景则继续 FAIL。
+- GitHub #23/#36/#37 正文及 #37 全评论正常读取，#37 OPEN/#36 CLOSED；本增量结束后只在唯一 `6422670245` 保留原全文追加结果，过程中不发 Issue 进度。未合并、未部署，用户亲手效果待确认。完整 S13/P13/其它办理/生产均未启用。
+
+以下是原 A04/P12 及更早历史全文，不反签过去。
+
 # DL-P12 A04 续办收口｜2026-10-27
 
 **PARTIAL（JS-on一次Tab增强已修复，真JS-off原A04仍FAIL）/ SYNCED（仅传输）/ 软件已STOPPED。** 同原YD-S13-DL-P12 / 1.0与原T01—12门槛，不启P13。原2399983 PARTIAL/失败/UNKNOWN/全部原件和旧包保持。
