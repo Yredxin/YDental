@@ -71,10 +71,11 @@
 
     // Keep the native marker and Chinese label on one line in the original
     // trace column when it fits. At large text sizes or narrow scrollports,
-    // wrap the original label inside the local viewport, including both rings.
+    // wrap inside the local viewport with the existing .5rem scroll margin
+    // on each side, which also contains the .375rem focus-ring outset.
     // Auto width still follows the original table cell; no column is resized.
     .o_ydental_settlement_disclosure[data-dl-actions="settlement-readonly-actions"] {
-        max-inline-size: calc(100cqi - 0.75rem);
+        max-inline-size: calc(100cqi - 1rem);
         padding-inline: 0.5em;
     }
 
