@@ -1,3 +1,23 @@
+# YDental 当前路由｜P12 RWD增量收口
+
+2026-10-27，用户明确启用 **YD-S13-DL-P12-RWD / 1.0**，同一P12的DL-27—30响应式限定增量，W0—W3已执行。技术 **PARTIAL**：新极窄summary横裁/真off右圈已修，原768 retained36 A04真JS-off仍FAIL，超高候选整圈同屏限制保；不是P13，不TECHNICALLY_COMPLETE。同步 **SYNC_PENDING（仅传输）**，软件 **STOPPED**，用户亲手效果待确认。
+
+活动分支仍 `codex/s13-dl-p12-settlement-readonly-actions-spacing-r1`。[唯一活动CURRENT](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p12-settlement-readonly-actions-spacing-r1/CURRENT_TASK.md) · [完整增量合同](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p12-settlement-readonly-actions-spacing-r1/docs/execution/YDental_DL_P12_Responsive_Readability_Padding_Addendum_v1.md) · [结果/责任表/7步](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p12-settlement-readonly-actions-spacing-r1/docs/reports/s13-dl-p12/summary.md) · [RWD十项矩阵](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p12-settlement-readonly-actions-spacing-r1/docs/reports/s13-dl-p12/acceptance-matrix.md) · [全SHA/独签](https://github.com/Yredxin/YDental/blob/codex/s13-dl-p12-settlement-readonly-actions-spacing-r1/docs/reports/s13-dl-p12/evidence-index.md)。main仍只路由，不是业务基线；不从main重建产品、不reset/clean/强推，不合产品不部署。
+
+产品/主工具/最后实际运行 **f3c63b6f2ec86f0518d6f0dae9b19de633085ac1**；仅lookup readonly_actions.scss，595其它addon/fullXML/JS/表/业务/权限原bytes。真实双engine五view/两种200/两JS，原JSon168路径PASS，原strict真off4FAIL；核心186几何3016控制横盒/文字完整，66超高候选圈FAIL保。正常双向分页60完整，22超高目标原生上下键可达不代整圈。69actual=57Node0/10Node2/2Node1，67native0/closed；4553raw/1657原PNG与所有旧失败/UNKNOWN/两包保持。
+
+全145/13/九区，旧27673audit逐row保+3949正常read=31622；83引用80真实文件三共享原bytes/SHA保，newphysical835708 RO/RR/rollbackclosed/其它targetconn[]，仅派生CSS缓存变更。5owned正常0/配置移除，末stop02:55:44.224093Z；全期4ERROR/两次nativeCSS重试和200恢复保，r3 ERROR0。此后不为报告同步复开app/DB/browser，共享主服务未动。
+
+新私有0400RWD包8240905B/SHAf579d5165fa0a33481d2bc039397e784366beace39676b52fd931c15a00e0c36，143成员109原PNG/32JSON，不覆盖旧P12/A04包、不Public上传。未实现者本地总签 **378c09b3851f72087220911db4e60577f641e041e5d0f1b0e13c0dafd17c577d** 已实际接受真实PARTIAL交付记录，源/实测/完整保护/包/正常停止与全文均成立；不签TECHNICALLY_COMPLETE或用户效果，远端读回尚待实际发生。
+
+#37仅原唯一6422670245保原PARTIAL及续办全文后追加，37OPEN/36CLOSED、旧13不改。main只本两路由，交付后停止；P13/其它办理或全站/完整S13/负载恢复/实机/正式政策/组合扫码/真实患者资金外部通道/生产未启用。
+
+
+
+---
+
+以下完整保留旧main路由/交接历史时点，不反签过去。
+
 # YDental 当前路由｜P12 A04续办
 
 2026-10-27。继续同一 **YD-S13-DL-P12 / 1.0** 的A04限定续办，技术 **PARTIAL**：JS-on一次Tab经局部原生Interaction显现增强已修复，真正JS-off的原完整焦点门槛仍FAIL；不能TECHNICALLY_COMPLETE。软件已正常STOPPED，报告/原唯一回执已正常独立SYNCED（仅传输），用户亲手效果待确认。
