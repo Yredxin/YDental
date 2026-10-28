@@ -10,7 +10,7 @@ W4 [阶段报告](docs/reports/s13-e2e-r2/phase-W4.md)，BUG-001 [登记](docs/r
 
 W5 [阶段报告](docs/reports/s13-e2e-r2/phase-W5.md) PARTIAL：原件310 download/print及311/312 download同存档，旧店65及账单1无本轮既有读取权NOT_RUN；末尾保护 `ba63ed3f98fd41e8b1c1611b14062b4ac70ffb5d29a245ce00070cb3af1d6e4f`。W6全新团队进行独立验收及账号/运行资源处置；历史服务18554运行，8个R2账号active，必须核正常停用对旧时段/责任的联动，旧Session UNKNOWN。
 
-W6 [最终结果](docs/reports/s13-e2e-r2/summary.md) **PARTIAL**：最终产品 `ca07961da750dd5c58342cfe5759f45c1f806d5e`；W1最终scratch升级与MODEL竞争、W4最终scratch真实403/409和已提交审计独核，历史目标未升级，W2/W3旧代码证据不混签。8个历史R2账号已正常停用，slot1239 suspended、处置57 pending、8新讨论成员移除，8新用户tracking消息及提交前钩子遗漏已分类；R2文书负责人现inactive，入口可用性UNKNOWN。历史服务孤儿精确停止，原退出码UNKNOWN，7自有容器停止；本轮initial provider和历史临时config移除，scratch私有配置留存。旧Session、旧缺失前像及未测范围保持UNKNOWN；#37 OPEN、P14未授权。GitHub同步待实际结果。
+W6 [最终结果](docs/reports/s13-e2e-r2/summary.md) **PARTIAL**：最终产品 `ca07961da750dd5c58342cfe5759f45c1f806d5e`；W1最终scratch升级与MODEL竞争、W4最终scratch真实403/409和已提交审计独核，历史目标未升级，W2/W3旧代码证据不混签。8个历史R2账号已正常停用，slot1239 suspended、处置57 pending、8新讨论成员移除，8新用户tracking消息及提交前钩子遗漏已分类；R2文书负责人现inactive，入口可用性UNKNOWN。历史服务孤儿精确停止，原退出码UNKNOWN，7自有容器停止；本轮initial provider和历史临时config移除，scratch私有配置留存。旧Session、旧缺失前像及未测范围保持UNKNOWN；#37 OPEN、P14未授权。GitHub 已同步：报告 `a9de7f6e659afedf7af8159f5b6afe458241c796` 推送且远端ref匹配；#37 最终评论 [6476371174](https://github.com/Yredxin/YDental/issues/37#issuecomment-6476371174) 正常发表并逐字读回，#37 OPEN。技术仍 PARTIAL。
 
 
 ---
