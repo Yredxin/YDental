@@ -1,3 +1,20 @@
+# YD-S13-E2E-R2 / 1.0｜执行中
+
+2026-10-27 用户授权限定 R2，活动分支 `codex/s13-e2e-r2` 从 R1 报告 HEAD `d0b79a9edfeb725a5a7706ef3f60232be725288c` 承接；R1 产品 `dca4e1d2821b20df7b4b940d28d461270c310225`。W0、W1 已完成限定核验；W2 进行中，未授权对历史目标升级。#36 CLOSED、#37 OPEN；P14 未授权。原 11 账号及历史资金、库存、原件和责任保持保护；旧 Session 与缺失前像仍 UNKNOWN。最终证据和状态以后续实际记录为准。
+
+W0 限定准出：[只读阶段记录](docs/reports/s13-e2e-r2/phase-W0.md)。[W1](docs/reports/s13-e2e-r2/phase-W1.md) scratch 真实升级和 MODEL 库存竞争限定通过，历史目标升级 NOT_RUN，BUG-002 仍 OPEN；自建容器已正常停止。历史目标禁止升级，仅对已核新合成对象操作。W2 全新 A/B/C 已建独立 scratch cluster `7701481100419571743` / OID `16384`；5 个 R2 账号、一个新店、岗位授权、能力/资质、目录/合成价及部分空间已提交并独立读回，该 scratch 未产生患者治疗、费用或库存移动。5 个新 scratch 账号已正常停用并独核，其自建 Odoo 服务及 PostgreSQL 容器正常停止；原有受限讨论成员联动与 session UNKNOWN 分开记录。初始口令仅本机 0600 provider。历史目标新 RO/RR 基线已采：158表全部行的非敏感字段、459附件引用，私有回执 SHA `58b2aa52b844b4d186b04b39e90034081dc5f7eaeb611b45d825ebaebad2b3e3`；仅该覆盖范围的当前事实，不补旧前像。历史合成目标六新账号1553–1558已建并正常登录；患者1651、D1文书515、检查任务907/908和D2文书516为本轮新对象。全景event359/fee357=80已完成，CBCT908 pending；D2治疗event360/fee358=600、耗材lot282实耗1（余2），已交还产生task910，文书515/516均pending；不得重放。专用服务18554曾运行，当前状态待现场核；D1 已补记doc515/v3并释放编辑占用，费用/库存不变（独核 `e5892532bf1e3133a7ebb93e9af1cf6c788b6bd7d9d9a956fca1746a5549d633`）。不足库存新执行553/doc517请求返回409但正文UNKNOWN，无新event/fee/出库；lease558仍active且editor1556，必须核实并正常收尾，禁止盲重试（`40d84ddbd00bdc6dd1042c209e739cbfa7d8324caa638d600c303561c74bebd3`）。W2 [阶段报告](docs/reports/s13-e2e-r2/phase-W2.md) 为 PARTIAL：D1补记及D2治疗/耗材、全景和独立不足库存409已验，D2交还而非本段最终完成；doc515–518、CBCT908、continuation911待处理保留。lease558/559 inactive，W2末保护 `3e5ef8f407098b589e402e4bd0735ce0dd8ac9d1cc690555866ec6a1142ea4fc`。首409正文、楼层/区域客户端白名单错误及主控定向复验、资格前端 UNKNOWN 均保留。W3全新A/B/C只读准备中，专用服务18554仍运行；历史目标六个R2身份仍active，计划末须合法处置。
+
+W3 [阶段报告](docs/reports/s13-e2e-r2/phase-W3.md) PARTIAL：新处方35发4/6、唯一余量916 pending、退药769隔离待核；无权403、同key、超额及HTTP竞争限定证据已采，真实浏览器完成事件重复点击 NOT_RUN，首次错误编码400正文 UNKNOWN。末尾保护 `ec1ca44657afb303803ee008aa5c66e8efd6c662ea1332da8a063b0b182b9d54`；R2七账号1553–1559 active，专用服务18554运行，须计划末处置。W4全新团队只读准备。
+
+W4 [阶段报告](docs/reports/s13-e2e-r2/phase-W4.md)，BUG-001 [登记](docs/reports/s13-e2e-r2/bug-register.md)：最终产品/实测树 `ca07961da750dd5c58342cfe5759f45c1f806d5e`，独立scratch真实直接写及撤权403与拒绝审计已提交；历史服务仍运行旧代码 `d0b79a9`，不可混签。scratch账号正常停用、服务容器停止。历史最终保护 `f58252e52458073088b936c4e2cdeca376cd9c57756f226861577b0574194706`，临时B patient与export恢复none。W5全新团队只读核验；历史服务18554仍运行，8个R2账号仍active，最终须按影响处置。
+
+W5 [阶段报告](docs/reports/s13-e2e-r2/phase-W5.md) PARTIAL：原件310 download/print及311/312 download同存档，旧店65及账单1无本轮既有读取权NOT_RUN；末尾保护 `ba63ed3f98fd41e8b1c1611b14062b4ac70ffb5d29a245ce00070cb3af1d6e4f`。W6全新团队进行独立验收及账号/运行资源处置；历史服务18554运行，8个R2账号active，必须核正常停用对旧时段/责任的联动，旧Session UNKNOWN。
+
+W6 [最终结果](docs/reports/s13-e2e-r2/summary.md) **PARTIAL**：最终产品 `ca07961da750dd5c58342cfe5759f45c1f806d5e`；W1最终scratch升级与MODEL竞争、W4最终scratch真实403/409和已提交审计独核，历史目标未升级，W2/W3旧代码证据不混签。8个历史R2账号已正常停用，slot1239 suspended、处置57 pending、8新讨论成员移除，8新用户tracking消息及提交前钩子遗漏已分类；R2文书负责人现inactive，入口可用性UNKNOWN。历史服务孤儿精确停止，原退出码UNKNOWN，7自有容器停止；本轮initial provider和历史临时config移除，scratch私有配置留存。旧Session、旧缺失前像及未测范围保持UNKNOWN；#37 OPEN、P14未授权。GitHub同步待实际结果。
+
+
+---
+
 # E2E-R1 开工｜2026-10-27
 
 **YD-S13-E2E-R1 / 1.1｜W0 限定准出 / W1 PARTIAL / W2 续行 / W6 PARTIAL**。用户已交付并启用隔离合成端到端验收；完整范围和验收标准以本会话用户计划为准。P13报告基线 `6b28f5ed4192610e9bbb535f6013d08f66ba85a6`、产品 `83d5a002ee29dbb10177c773a81f7c2acae8b583`；新活动分支 `codex/s13-e2e-r1`。不启动P14、不重判P12、不合并或部署。
