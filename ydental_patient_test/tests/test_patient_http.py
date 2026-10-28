@@ -157,17 +157,35 @@ class TestPatientHTTP(HttpCase):
             response = self.action('create', payload)
         self.assertEqual(response.status_code, 403)
         self.assertIn('access_denied', response.json()['error'])
-        for method in ('_denial', '_existing_session_for_key'):
-            with mute_logger('odoo.addons.ydental_patient.controllers.patient'), \
-                    patch.object(model, method, side_effect=RuntimeError('synthetic collection failure')):
-                response = self.action('create', payload)
-            self.assertEqual(response.status_code, 403)
-            self.assertIn('access_denied', response.json()['error'])
-
-        before_sessions = set(self.root['ydental.access.session'].search([]).ids)
-        with patch.object(model, '_existing_session_for_key', return_value=self.root['ydental.access.session']):
+        with mute_logger('odoo.addons.ydental_patient.controllers.patient'), \
+                patch.object(model, '_denial', side_effect=RuntimeError('synthetic log failure')):
             response = self.action('create', payload)
         self.assertEqual(response.status_code, 403)
+        self.assertIn('access_denied', response.json()['error'])
+
+        original_lookup = model._existing_session_for_key
+        calls = []
+        def audit_lookup(service, key):
+            calls.append(key)
+            if len(calls) == 1:
+                return original_lookup(service, key)
+            raise RuntimeError('synthetic audit lookup failure')
+        with mute_logger('odoo.addons.ydental_patient.controllers.patient'), \
+                patch.object(model, '_existing_session_for_key', autospec=True, side_effect=audit_lookup):
+            response = self.action('create', payload)
+        self.assertEqual(response.status_code, 403)
+        self.assertIn('access_denied', response.json()['error'])
+        self.assertEqual(len(calls), 2)
+
+        before_sessions = set(self.root['ydental.access.session'].search([]).ids)
+        calls = []
+        def missing_audit_session(service, key):
+            calls.append(key)
+            return original_lookup(service, key) if len(calls) == 1 else service.env['ydental.access.session']
+        with patch.object(model, '_existing_session_for_key', autospec=True, side_effect=missing_audit_session):
+            response = self.action('create', payload)
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(len(calls), 2)
         self.assertEqual(set(self.root['ydental.access.session'].search([]).ids), before_sessions)
 
     def test_http_selected_patient_attachment_scope_and_revocation(self):
