@@ -1,10 +1,13 @@
 import json
+import logging
 import secrets
 
 from odoo import http
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.http import request
 from odoo.addons.ydental_access.controllers.access import YDentalDataSet
+
+_logger = logging.getLogger(__name__)
 
 
 class YDentalPatientDataSet(YDentalDataSet):
@@ -132,12 +135,22 @@ class YDentalPatient(http.Controller):
                 else:
                     result = service._operate(operation, args, key)
         except (AccessError, UserError, TypeError, ValueError, KeyError) as error:
-            if service:
-                access = service.env['ydental.access.service']
+            access = request.env['ydental.access.service']
+            try:
                 access._denial('patient.action')
-                session = access._scope()
-                access._audit('patient.action.denied', 'patient', session, session.ydental_store_id.id,
-                              result='denied', reason='access_denied_or_invalid_action', source='http_adapter')
+            except Exception as log_error:
+                _logger.error('Patient denial log failed: %s', type(log_error).__name__)
+            try:
+                # Bind the existing server session, not the stale client revision.
+                # Keep a failure to record the denial separate from the first error.
+                with request.env.cr.savepoint():
+                    session = access._existing_session_for_key(request.session.sid[:42])
+                    if session:
+                        access = access._bind(session)
+                        access._audit('patient.action.denied', 'patient', session, session.ydental_store_id.id,
+                                      result='denied', reason='access_denied_or_invalid_action', source='http_adapter')
+            except Exception as audit_error:
+                _logger.error('Patient denial audit failed: %s', type(audit_error).__name__)
             return request.make_json_response({'error': str(error)}, status=403 if isinstance(error, AccessError) else 409,
                                               headers=[('Cache-Control', 'no-store')])
         if output == 'json' or operation == 'export':

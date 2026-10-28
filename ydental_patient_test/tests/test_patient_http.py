@@ -1,8 +1,10 @@
 import json
 import re
 import secrets
+from unittest.mock import patch
 
 from odoo.tests import HttpCase
+from odoo.tools import mute_logger
 from odoo.tools.misc import limited_field_access_token
 
 from .common import clinical, create, merge, setup_patient
@@ -126,6 +128,47 @@ class TestPatientHTTP(HttpCase):
         response = self.url_open('/ydental/patients/action', data={'operation': 'create', 'revision': self.revision,
             'key': 'csrf-forged', 'payload': json.dumps({'values': {'name': 'Denied'}})})
         self.assertEqual(response.status_code, 400)
+
+    def test_http_patient_denial_audit_and_audit_failure(self):
+        self.select('reader')
+        Audit = self.root['ydental.access.audit']
+        domain = [('ydental_event', '=', 'patient.action.denied'),
+                  ('ydental_user_id', '=', self.users['reader'].id)]
+        before = set(Audit.search(domain).ids)
+        payload = {'values': {'name': 'S04 denied synthetic'}}
+        response = self.action('create', payload)
+        self.assertEqual(response.status_code, 403)
+        denial = Audit.browse(list(set(Audit.search(domain).ids) - before))
+        self.assertEqual(len(denial), 1)
+        self.assertEqual(denial.ydental_result, 'denied')
+        self.assertEqual(denial.ydental_store_id, self.stores[0])
+
+        before = set(Audit.search(domain).ids)
+        response = self.action('create', payload, revision=self.revision - 1)
+        self.assertEqual(response.status_code, 409)
+        self.assertIn('version_conflict', response.json()['error'])
+        denial = Audit.browse(list(set(Audit.search(domain).ids) - before))
+        self.assertEqual(len(denial), 1)
+        self.assertEqual(denial.ydental_result, 'denied')
+
+        model = type(self.root['ydental.access.service'])
+        with mute_logger('odoo.addons.ydental_patient.controllers.patient'), \
+                patch.object(model, '_audit', side_effect=RuntimeError('synthetic audit failure')):
+            response = self.action('create', payload)
+        self.assertEqual(response.status_code, 403)
+        self.assertIn('access_denied', response.json()['error'])
+        for method in ('_denial', '_existing_session_for_key'):
+            with mute_logger('odoo.addons.ydental_patient.controllers.patient'), \
+                    patch.object(model, method, side_effect=RuntimeError('synthetic collection failure')):
+                response = self.action('create', payload)
+            self.assertEqual(response.status_code, 403)
+            self.assertIn('access_denied', response.json()['error'])
+
+        before_sessions = set(self.root['ydental.access.session'].search([]).ids)
+        with patch.object(model, '_existing_session_for_key', return_value=self.root['ydental.access.session']):
+            response = self.action('create', payload)
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(set(self.root['ydental.access.session'].search([]).ids), before_sessions)
 
     def test_http_selected_patient_attachment_scope_and_revocation(self):
         a, b = create(self), create(self)
