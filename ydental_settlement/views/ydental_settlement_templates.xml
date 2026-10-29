@@ -126,7 +126,11 @@
                             <td t-out="money(invoice.amount_total, invoice.currency_id)"/><td t-out="money(invoice.amount_residual, invoice.currency_id)"/>
                             <td><a t-if="can_export" t-att-href="'/ydental/settlement/pdf/bill/%s' % invoice.id" class="o_ydental_settlement_unpaid_action o_ydental_settlement_unpaid_action_quiet" data-dl-actions="settlement-unpaid-actions">下载中文 PDF</a>
                                 <span t-else="">仅供查阅</span>
-                                <details name="settlement-operation" class="o_ydental_access_operation o_ydental_settlement_unpaid_panel" t-if="can_write"><summary class="o_ydental_settlement_unpaid_disclosure" data-dl-actions="settlement-unpaid-actions">Waive receivable with evidence</summary><form method="post" action="/ydental/settlement/action" class="o_ydental_settlement_unpaid_form">
+                                <a t-if="can_write" t-att-href="'#waive-invoice-%s' % invoice.id" t-att-aria-label="'办理账单 %s 的有据免单' % invoice.name" class="o_ydental_settlement_unpaid_action o_ydental_settlement_unpaid_action_quiet" data-dl-actions="settlement-unpaid-actions">办理有据免单</a></td>
+                        </tr></tbody></table>
+                    </div>
+                    <t t-foreach="invoices" t-as="invoice">
+                        <details name="settlement-operation" class="o_ydental_access_operation o_ydental_settlement_unpaid_panel" t-if="can_write"><summary t-att-id="'waive-invoice-%s' % invoice.id" class="o_ydental_settlement_unpaid_disclosure" data-dl-actions="settlement-unpaid-actions"><span>Waive receivable with evidence</span> · <span t-out="invoice.name"/> · 应收余额 <span t-out="money(invoice.amount_residual, invoice.currency_id)"/></summary><form method="post" action="/ydental/settlement/action" class="o_ydental_settlement_unpaid_form">
                                     <t t-call="ydental_settlement.ydental_settlement_tokens"/>
                                     <input type="hidden" name="operation" value="waive"/>
                                     <input type="hidden" name="invoice_id" t-att-value="invoice.id"/>
@@ -134,9 +138,9 @@
                                     <label class="o_ydental_settlement_unpaid_field">有据免单原因 <input type="text" name="reason" maxlength="300" required="required"/></label>
                                     <button type="submit" class="o_ydental_settlement_unpaid_action o_ydental_settlement_unpaid_action_primary" data-dl-actions="settlement-unpaid-actions">原生贷项冲减未收应收</button>
                                 </form>
-                            <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'" class="o_ydental_settlement_unpaid_action o_ydental_settlement_unpaid_action_quiet" data-dl-actions="settlement-unpaid-actions">Cancel and return to viewing</a></details></td>
-                        </tr></tbody></table>
-                    </div><t t-set="page_kind" t-value="'invoices'"/><t t-call="ydental_settlement.ydental_settlement_page_links"/>
+                            <a t-att-href="'/ydental/settlement?patient_id=%s' % patient.id if patient else '/ydental/settlement'" class="o_ydental_settlement_unpaid_action o_ydental_settlement_unpaid_action_quiet" data-dl-actions="settlement-unpaid-actions">Cancel and return to viewing</a></details>
+                    </t>
+                    <t t-set="page_kind" t-value="'invoices'"/><t t-call="ydental_settlement.ydental_settlement_page_links"/>
                 </section>
                 <details name="settlement-operation" class="o_ydental_access_operation" t-if="can_write and invoices"><summary>Record actual collection</summary><form method="post" action="/ydental/settlement/action">
                     <t t-call="ydental_settlement.ydental_settlement_tokens"/>
