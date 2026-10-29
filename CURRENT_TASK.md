@@ -2,6 +2,8 @@
 
 2026-10-29 用户交付 P14；最终产品候选 `39038bd8b84ef00fe46dc37973e05a0e46d12796`，产品树等同实测 `d70793d98c7cedbe7836900a811e517c8b9a47c8`。局部未付清列表和 waive 呈现已实施，独立源码合同、独立 scratch 已加载 QWeb 合成分支与双浏览器合成证据已采；Tab 焦点裁切未解决，真实岗位 GET、完整 HTTP 资产与历史保护独立前后读回未完成，技术 PARTIAL。[总结](docs/reports/s13-dl-p14/summary.md)、[矩阵](docs/reports/s13-dl-p14/acceptance-matrix.md)、[证据](docs/reports/s13-dl-p14/evidence-index.md)。无经济 POST；不能声称全库无变化。新建 scratch 容器已停止；原历史对象和待办继续保护。#37 OPEN、#36 CLOSED，R3/R1/R2/P12 历史 PARTIAL、E2E-BUG-002 OPEN 保留；不合并、不部署、不启动 P15。
 
+同步：报告提交 `eefc016acab9f2389b23eca09ab7fb67896ee1d6` 已推送；#37 最终评论 [6488985588](https://github.com/Yredxin/YDental/issues/37#issuecomment-6488985588) JSON body 与提交文本逐字一致，旧18评论未改、#37 OPEN。首轮 `gh --jq` 输出额外换行致 cmp exit 1；改读 JSON 原始 body 后比对通过，未重发评论。
+
 ---
 
 # YD-S13-E2E-R3-BUG001-VERIFY / 1.2｜限定验收完成，资源已停止
