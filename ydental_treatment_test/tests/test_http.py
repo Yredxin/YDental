@@ -1,5 +1,6 @@
 import json
 import re
+from unittest.mock import patch
 
 from odoo.tests import HttpCase, tagged
 
@@ -48,6 +49,19 @@ class TestClinicalHTTP(HttpCase):
         a=self.args()|{'lease_id':self.lease['lease_id'],'lease_token':self.lease['token']}
         r=self.action('handover',a);self.assertEqual(r.status_code,200,r.text)
         page=self.url_open('/ydental/clinical?document_id='+str(self.doc['document_id']));self.assertIn('pending',page.text)
+
+    def test_connection_expired_http_result_and_telemetry(self):
+        self.select()
+        service = self.env['ydental.clinical.service']
+        with patch.object(type(service), '_operate', return_value={
+                'result': 'connection_expired', 'verification_required': True,
+        }), patch('odoo.addons.ydental_clinical.controllers.clinical.emit_event') as emit:
+            response = self.action('complete', {})
+        self.assertEqual(response.status_code, 409)
+        self.assertEqual(response.json()['result'], 'connection_expired')
+        returned = [call for call in emit.call_args_list if call.args[0] == 'business.returned']
+        self.assertEqual(len(returned), 1)
+        self.assertEqual(returned[0].kwargs['outcome'], 'connection_expired')
 
     def test_rpc_private_and_mutation_forgery(self):
         self.begin_reception()

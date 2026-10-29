@@ -77,8 +77,10 @@ class YDentalClinical(http.Controller):
             update_context(stage='business.call')
             emit_event('business.start', component='clinical.action', stage='business.start')
             result = service._operate(operation, args)
-            emit_event('business.returned', component='clinical.action', stage='business.returned', outcome='accepted')
-            return request.make_json_response(result, headers=[('Cache-Control', 'no-store')])
+            outcome = result.get('result', 'accepted')
+            emit_event('business.returned', component='clinical.action', stage='business.returned', outcome=outcome)
+            return request.make_json_response(result, status=409 if outcome == 'connection_expired' else 200,
+                headers=[('Cache-Control', 'no-store')])
         except (AccessError, UserError, ValueError, TypeError, KeyError) as error:
             record_exception(error, 'clinical.action')
             request.env['ydental.access.service']._denial('clinical.action')

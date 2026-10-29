@@ -98,7 +98,7 @@ if (root) {
             csrf_token: root.querySelector('[name=csrf_token]').value,
         })});
         const data = await response.json();
-        if (!response.ok) { throw new Error(data.error); }
+        if (!response.ok) { throw new Error(data.error || data.result); }
         if (data.result !== 'accepted') { throw new Error(data.result || 'Operation outcome requires verification.'); }
         return data;
     }
