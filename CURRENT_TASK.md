@@ -1,3 +1,9 @@
+# YD-S13-DL-P14 / 1.0｜PARTIAL，最终收口
+
+2026-10-29 用户交付 P14；最终产品候选 `39038bd8b84ef00fe46dc37973e05a0e46d12796`，产品树等同实测 `d70793d98c7cedbe7836900a811e517c8b9a47c8`。局部未付清列表和 waive 呈现已实施，独立源码合同、独立 scratch 已加载 QWeb 合成分支与双浏览器合成证据已采；Tab 焦点裁切未解决，真实岗位 GET、完整 HTTP 资产与历史保护独立前后读回未完成，技术 PARTIAL。[总结](docs/reports/s13-dl-p14/summary.md)、[矩阵](docs/reports/s13-dl-p14/acceptance-matrix.md)、[证据](docs/reports/s13-dl-p14/evidence-index.md)。无经济 POST；不能声称全库无变化。新建 scratch 容器已停止；原历史对象和待办继续保护。#37 OPEN、#36 CLOSED，R3/R1/R2/P12 历史 PARTIAL、E2E-BUG-002 OPEN 保留；不合并、不部署、不启动 P15。
+
+---
+
 # YD-S13-E2E-R3-BUG001-VERIFY / 1.2｜限定验收完成，资源已停止
 
 2026-10-29 用户授权继续同一独立 scratch，承接报告 `75adaf1213d92b1a14e4f490f02c70c6f8bdb4d1`、产品 `f9c4778e584e0513bcaf46cee3a76fd6883b76af`。原数据库容器经身份核对后启动，B 已独核租约按时间过期；固定原生 timeout cron 单次执行后 lease1 timeout、execution1/entry1 verify，治疗与库存不变。V1 原生现场接手后 execution1 interrupted、execution2 同 task3 接续；医生真实打开新 doc2 后单次正常完成，B 独核 execution2 completed、task3 done、doc2 pending、无续诊，event1/fee1/耗材不变，lease2 保留。同 key 与旧版本重发各403且无新增副作用；V2 完成来源转派、接手补记及限定权限负例经独核，未重放治疗、费用或库存；BUG-001 FIXED_VERIFIED（仅本次接续完成、防重与文书责任所测范围）；文书1 pending 责任6、文书2 pending 责任7，UID6/7 active；最终 lease2 active 字段不代表停机后释放，浏览器/Odoo/独立数据库已停止。#37 OPEN，P14 未授权。
