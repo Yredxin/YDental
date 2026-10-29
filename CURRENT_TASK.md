@@ -1,3 +1,11 @@
+# YD-S13-DL-P14-V2-REVIEW-PREP / 1.0｜材料完成，停止
+
+材料 **REVIEW_MATERIALS_READY（仅材料）**：私有包 `.local/p14-v2/user-review/P14-V2-user-view-only.zip`，SHA256 `88ab0f5361f35f9bba3d07b910ea356defa09bfff3e007b819519867d6266202`；三档真实截图、分岗位 PDF、T09 原始失败和反馈模板均已整理，旧版同条件对照 EVIDENCE_MISSING。独立 B 核验 ZIP 12项 CRC、11项 SHA、6原图及静态离线链接；未启动浏览器作渲染测试。两份公开文字记录：[评审准备](docs/reports/s13-dl-p14-v2/user-review-prep.md)、[素材索引](docs/reports/s13-dl-p14-v2/user-review-evidence-index.md)。未启动服务或数据库、未修改产品或账号。P14-V2 技术 PARTIAL/T09 FAIL、#37 OPEN保持；本工作包完成后停止，不自动开展用户评审、P15、合并、部署或演示。
+
+2026-10-29 用户授权离线材料准备，文档分支 `codex/s13-dl-p14-v2-review-prep-r1` 从已核报告远端 HEAD `6a5b5014c768ccb528a37078fd261f3fb93cd8e6` 建立。只整理既有证据与私有观看包，不启动服务/数据库/浏览器，不改产品或账号；产品候选 `12f3f299b07ab324f7279413a928097b7ce858a8` 仍 PARTIAL、T09 FAIL，#37 OPEN。原始截图只保留于私有目录，禁止公开上传敏感材料；旧文书、账号责任与 UNKNOWN 按原记录保护。
+
+---
+
 # YD-S13-DL-P14-V2 / 1.0｜PARTIAL，T09 FAIL，停止收尾
 
 最终产品 `12f3f299b07ab324f7279413a928097b7ce858a8` 为 **PARTIAL / T09 FAIL**：真实 WebKit、320×800 CSS px、root 200%、真正 JS-off，Tab 到 amount/reason 轮廓底部 803.59375 超出视口800；依计划停止，不继续堆叠。设计规范、[结果](docs/reports/s13-dl-p14-v2/summary.md)、[T01—T12](docs/reports/s13-dl-p14-v2/acceptance-matrix.md)与[证据索引](docs/reports/s13-dl-p14-v2/evidence-index.md)。独立源码28项通过；真实双引擎、PDF岗位和焦点结果按实际范围记录。历史 P14/T09 与 P12 A04 FAIL、R1/R2/R3 PARTIAL、BUG-002 OPEN、#37 OPEN不改。
