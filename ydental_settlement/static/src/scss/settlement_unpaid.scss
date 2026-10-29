@@ -27,6 +27,7 @@
     }
 
     .o_ydental_settlement_unpaid_scroll {
+        container-type: inline-size;
         max-inline-size: 100%;
         overflow-x: auto;
     }
@@ -72,7 +73,8 @@
     .o_ydental_settlement_unpaid_panel {
         box-sizing: border-box;
         min-inline-size: 0;
-        max-inline-size: 100%;
+        inline-size: calc(100cqi - 3rem);
+        max-inline-size: 20rem;
         margin-block-start: 0.75rem;
         padding: 0.75rem;
         border-color: var(--ydental-unpaid__divider-color);
