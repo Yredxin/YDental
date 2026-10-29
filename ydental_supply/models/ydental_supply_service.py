@@ -1,6 +1,7 @@
 import hashlib
 import json
 import os
+import re
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
@@ -14,17 +15,47 @@ def _is_allowed_isolated_test_target(enabled, database, oid, cluster, store_id):
             and cluster == '7694897083368259627' and store_id in (541, 542))
 
 
+def _is_configured_isolated_test_target(enabled, database, oid, cluster, store_id, config):
+    """Match one explicitly configured target; malformed configuration fails closed."""
+    if enabled != '1' or not isinstance(config, str) or len(config) > 512:
+        return False
+
+    def unique_pairs(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError('duplicate target field')
+            result[key] = value
+        return result
+
+    try:
+        target = json.loads(config, object_pairs_hook=unique_pairs)
+    except (ValueError, TypeError, RecursionError):
+        return False
+    if not isinstance(target, dict) or set(target) != {'database', 'oid', 'cluster', 'store_id'}:
+        return False
+    if (not isinstance(target['database'], str)
+            or not re.fullmatch(r'[A-Za-z0-9_]{1,63}', target['database'])
+            or type(target['oid']) is not int or not 0 < target['oid'] < 2**32
+            or not isinstance(target['cluster'], str)
+            or not re.fullmatch(r'[1-9][0-9]{0,19}', target['cluster'])
+            or type(target['store_id']) is not int or target['store_id'] <= 0):
+        return False
+    return (target['database'], target['oid'], target['cluster'], target['store_id']) == (
+        database, oid, cluster, store_id)
+
+
 class YDentalSupplyService(models.AbstractModel):
     _name = 'ydental.supply.service'
     _description = 'Validated schedule and shared capacity transactions'
 
     def _isolated_test_allowed(self, store):
-        """Default closed: only the specifically authorized E2E target can opt in.
+        """Default closed: only an explicitly authorized E2E target can opt in.
 
         Process configuration and database identity are not proof of isolation;
         operators must separately verify environment, contents and network.
         """
-        if os.environ.get('YDENTAL_E2E_ISOLATED_SUPPLY') != '1' or store.id not in (541, 542):
+        if os.environ.get('YDENTAL_E2E_ISOLATED_SUPPLY') != '1':
             return False
         try:
             # A failed system identity query must not leave the transaction aborted.
@@ -35,8 +66,10 @@ class YDentalSupplyService(models.AbstractModel):
                 identity = self.env.cr.fetchone()
         except psycopg2.Error:
             return False
-        return _is_allowed_isolated_test_target(
-            os.environ.get('YDENTAL_E2E_ISOLATED_SUPPLY'), *identity, store.id)
+        enabled = os.environ.get('YDENTAL_E2E_ISOLATED_SUPPLY')
+        return (_is_allowed_isolated_test_target(enabled, *identity, store.id)
+                or _is_configured_isolated_test_target(
+                    enabled, *identity, store.id, os.environ.get('YDENTAL_E2E_ISOLATED_TARGET')))
 
     def _check_test_policy(self, store, policy):
         if policy.ydental_mode == 'isolated_test' and not self._isolated_test_allowed(store):

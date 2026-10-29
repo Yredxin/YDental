@@ -657,6 +657,22 @@ class TestSupply(TransactionCase):
             changed[index] = other
             self.assertFalse(_is_allowed_isolated_test_target(*changed))
 
+    def test_configured_isolated_target_requires_one_exact_well_formed_identity(self):
+        from odoo.addons.ydental_supply.models.ydental_supply_service import _is_configured_isolated_test_target
+
+        identity = ('1', 'new_scratch', 16384, '7701894029317693484', 8)
+        config = '{"database":"new_scratch","oid":16384,"cluster":"7701894029317693484","store_id":8}'
+        self.assertTrue(_is_configured_isolated_test_target(*identity, config))
+        for index, other in enumerate(('0', 'other_db', 16385, '7701894029317693485', 9)):
+            changed = list(identity)
+            changed[index] = other
+            self.assertFalse(_is_configured_isolated_test_target(*changed, config))
+        for invalid in (None, '', '{}', '[]', config.replace('new_scratch', '*'),
+                        config.replace('16384', 'true'), config.replace('"store_id":8', '"store_id":0'),
+                        config.replace('"store_id":8', '"store_id":8,"store_id":8'),
+                        config.replace('"store_id":8', '"store_id":8,"other":1')):
+            self.assertFalse(_is_configured_isolated_test_target(*identity, invalid))
+
     def test_disabled_isolated_slot_does_not_block_current_formal_slot(self):
         service_type = type(self.service)
         test_policy = {'name': 'Isolated scope', 'mode': 'isolated_test', 'rounding': 'floor',
