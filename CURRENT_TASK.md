@@ -1,3 +1,9 @@
+# YD-UAT-L1-USER-ACCESS / 1.0 当前状态
+
+用户交付连接验证工作包；本分支基于 `37c83d31fb5155daf174d18993f27789c6fb094e`，产品候选 `12f3f299b07ab324f7279413a928097b7ce858a8`。独立只读核产品工作树干净、指定容器已停止；目前仅证实本机回环，尚无已获授权用户端访问或安全交付渠道证据。依计划停止连接尝试，保持 USER_ACCESS_UNVERIFIED，等待用户选择；未启动服务、未改网络、未验证用户当前门店，所有49例NOT_RUN。不得改产品、重放业务或开放未获准通道；#37 OPEN，历史FAIL/PARTIAL保留。
+
+---
+
 # YD-UAT-R1.1-L1-READINESS / 1.0 当前状态
 
 用户交付L1只读准出工作包；独立分支 `codex/yd-uat-r1-l1-readiness` 基于 `163b2bc2ebcb8a2db08066a2be63658fa1846040`，产品固定 `12f3f299b07ab324f7279413a928097b7ce858a8`。W0–W4完成限定只读、实测及独立复核；两轮本机受控启动/登录/只读GET/停止，最终 L1_ENV_PREPARED_STOPPED（本机有限）/ USER_ACCESS_UNVERIFIED，UAT_L1_READY未满足；证据见 docs/uat/YD-UAT-R1/00-guide/l1-readiness-review.md。用户结果49例均 NOT_RUN，USER_ACCESS_UNVERIFIED，禁止治疗、发药、结算、退款、日结、文书确认等业务提交，禁止改变网络认证或保护对象。P14-V2 PARTIAL/T09 FAIL、P12 A04 FAIL、R3整体PARTIAL及旧UNKNOWN保留；#37 OPEN。
