@@ -2,6 +2,8 @@
 
 当前准备：**ENVIRONMENT_NOT_READY**。本页是流程导航；所有用户用例初始 NOT_RUN，用户结果只填写在各功能用例中。
 
+**逻辑对象：** `SC01-ORG-A`、`SC01-STAFF-A`、`SC01-SPACE-A`、`SC01-RESOURCE-A`、`SC01-SCHEDULE-A`、`SC01-SUPPLY-A`、`SC01-DAY-A`、`SC01-PRICE-A` 与 `SC05-LOT-A`。这些是未来分配的逻辑编号，并非数据库 ID；先按[合成对象映射](../../00-guide/scenario-data-map.md)由负责人核验实际对应与状态，再按[唯一执行清单](../../00-guide/execution-checklist.md)执行或接续。结果记录在唯一原始用例对应 RUN-ID；同一来源已执行动作只引用原记录，不重复提交。
+
 **目的与价值：** 准备组织、人员、空间和合法容量，为后续岗位提供可追溯的合成测试基础。
 **参与岗位与交接：** [集团管理](../../10-roles/group-admin/README.md) → [店长](../../10-roles/store-manager/README.md) → [仓库](../../10-roles/warehouse/README.md) → [前台](../../10-roles/front-desk/README.md)。箭头表示主要协作，并非授权或严格身份切换；各步骤以其岗位为准。
 **前置准备：** 已确认固定候选的独立环境、获授权组织管理员、唯一合成员工信息、两门店和空间方案；不得使用历史账号。
@@ -25,3 +27,9 @@
 每步只在对应功能用例执行并记录。已提交的同一业务来源不得重放；若需验收另一独立支线，按用例前置准备不同的新合成对象，可再次执行该用例并分别记录。场景引用已有结果时只接续或查看，不重复提交。若指定用例前置不足，记录 BLOCKED。
 
 **结束与后续：** 达到上方终止状态后，可进入 [下一场景](../02-intake-queue/README.md)，或返回 [场景与手册总入口](../../README.md) 选择支线。
+
+## 1.1 独立补充支线
+
+[UAT-ACC-004](../../30-functions/rework-access-patient/cases/UAT-ACC-004.md) · [UAT-ACC-005](../../30-functions/rework-access-patient/cases/UAT-ACC-005.md)
+
+以[执行清单](../../00-guide/execution-checklist.md)新增独立分支和[对象映射](../../00-guide/scenario-data-map.md)为准；仅接续已明确关联的原始 RUN，同一已提交来源不重放，数据未准备时停止。

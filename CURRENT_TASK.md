@@ -1,3 +1,9 @@
+# YD-UAT-R1-HANDBOOK-REWORK / 1.1 当前状态
+
+用户授权实施手册修订与独立合成环境准备；分支 `codex/yd-uat-r1-handbook-v11` 从 `0df9d14275e1bb4bed971afc684ee513914b7081` 建立，产品固定 `12f3f299b07ab324f7279413a928097b7ce858a8`。W0–W6限定SOURCE/文档、环境与ZIP独立复核完成；原35 ID保留并新增14例，交付 HANDBOOK_PARTIAL；包外记录 docs/uat/YD-UAT-R1.1-delivery-review.md。W5新独立scratch部分前置准备并独立核验后已停止；详情见 docs/uat/YD-UAT-R1/00-guide/environment-readiness.md。手册 HANDBOOK_PARTIAL，环境 ENVIRONMENT_NOT_READY，全部用户结果 NOT_RUN。不得修改产品规则、重放保护业务、启动真实外部通道或代用户执行验收；已提交文书、财务、库存、原件及历史账号责任继续保护。P14-V2 PARTIAL/T09 FAIL、P12 A04 FAIL、R3整体PARTIAL与限定修复、#37 OPEN保持。
+
+---
+
 # YD-UAT-R1-HANDBOOK 当前状态
 
 工作包进行中；独立文档分支 `codex/yd-uat-r1-handbook` 基于 `c6cd8cbb6bef956ab05d7b9c7ecfd6d4d150cb0a`，产品候选 `12f3f299b07ab324f7279413a928097b7ce858a8`。仅资料生产，不启动服务或业务操作；用户环境 ENVIRONMENT_NOT_READY。W0 分配表经独立条件复核；W1 A–H 已完成逐文件限定源码文档复核；W2 12岗位及10场景已通过限定源码文档复核，W3 指南与结果模板已通过限定源码文档复核；W4 全局独立限定 SOURCE/文档复核完成；交付 HANDBOOK_PARTIAL，入口和覆盖缺口详见 docs/uat/YD-UAT-R1/00-guide/handbook-production-report.md；ACC-003 入口未知、同工位检查及其它覆盖缺口须保留。所有用户验收 NOT_RUN。#37 OPEN；P14-V2 PARTIAL/T09 FAIL，R3 PARTIAL，R3-BUG-001 仅限定 FIXED_VERIFIED，历史失败及保护继续保留。历史受保护文书、库存、资金、原件、账号责任不得重放或覆盖。

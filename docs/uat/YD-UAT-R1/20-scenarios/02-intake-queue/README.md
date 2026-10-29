@@ -2,9 +2,13 @@
 
 当前准备：**ENVIRONMENT_NOT_READY**。本页是流程导航；所有用户用例初始 NOT_RUN，用户结果只填写在各功能用例中。
 
+**逻辑对象：** `SC02-PAT-A`、`SC02-TASK-A`、`SC03-EXEC-C`。这些是未来分配的逻辑编号，并非数据库 ID；先按[合成对象映射](../../00-guide/scenario-data-map.md)由负责人核验实际对应与状态，再按[唯一执行清单](../../00-guide/execution-checklist.md)执行或接续。结果记录在唯一原始用例对应 RUN-ID；同一来源已执行动作只引用原记录，不重复提交。
+
 **目的与价值：** 把合成患者从登记导向正确的门店和岗位队列。
 **参与岗位与交接：** [前台](../../10-roles/front-desk/README.md) → [治疗医生](../../10-roles/treatment-doctor/README.md)。箭头表示主要协作，并非授权或严格身份切换；各步骤以其岗位为准。
 **前置准备：** 场景01所需授权、合成患者信息、可售时段、当日营业及排他测试队列已准备；未来时段须等符合到店资格后再进行下一步。
+SC03-EXEC-C 是本场景的接诊；SC04、SC05、SC07 与 SC10 支线各使用新患者及任务，按清单单独记录，不套用此处已提交到店。
+
 **起始对象与终止状态：** 起始：未创建的新合成患者；终止：对应任务进入服务执行，或记录阻断。
 
 | 步骤 | 承接岗位 | 流程动作 | 唯一功能用例 | 用户应观察 |
@@ -20,3 +24,9 @@
 每步只在对应功能用例执行并记录。已提交的同一业务来源不得重放；若需验收另一独立支线，按用例前置准备不同的新合成对象，可再次执行该用例并分别记录。场景引用已有结果时只接续或查看，不重复提交。若指定用例前置不足，记录 BLOCKED。
 
 **结束与后续：** 达到上方终止状态后，可进入 [下一场景](../03-treatment-record/README.md)，或返回 [场景与手册总入口](../../README.md) 选择支线。
+
+## 1.1 独立补充支线
+
+[UAT-INT-004](../../30-functions/rework-access-patient/cases/UAT-INT-004.md) · [UAT-PAT-002](../../30-functions/rework-access-patient/cases/UAT-PAT-002.md) · [UAT-PAT-003](../../30-functions/rework-access-patient/cases/UAT-PAT-003.md)
+
+以[执行清单](../../00-guide/execution-checklist.md)新增独立分支和[对象映射](../../00-guide/scenario-data-map.md)为准；仅接续已明确关联的原始 RUN，同一已提交来源不重放，数据未准备时停止。

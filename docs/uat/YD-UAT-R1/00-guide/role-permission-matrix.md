@@ -1,6 +1,6 @@
 # 岗位与权限矩阵
 
-岗位是体验视角，不是系统固定权限模板；实际授权是**用户 × 门店 × 类别 × 等级**。`none` 无权限、`read` 只读、`write` 包含读写；更高等级不代替公司范围、对象状态、工位能力、资格或额外组。此表是本手册案例所需条件索引，不是默认授予清单；未列类别不应推断为 none 或 write。具体动作以各用例的权限和源码合同为准。来源：[16类和等级](../../../../ydental_access/models/constants.py)、[授权服务](../../../../ydental_access/models/ydental_access_service.py)。
+岗位是体验视角，不是系统固定权限模板；实际授权是**用户 × 门店 × 类别 × 等级**。`none` 无权限、`read` 只读、`write` 包含读写；更高等级不代替公司范围、对象状态、工位能力、资格或额外组。此表是本手册案例所需条件索引，不是默认授予清单；未列类别不应推断为 none 或 write。具体动作以各用例的权限和源码合同为准。来源：[16类和等级](https://github.com/Yredxin/YDental/blob/12f3f299b07ab324f7279413a928097b7ce858a8/ydental_access/models/constants.py)、[授权服务](https://github.com/Yredxin/YDental/blob/12f3f299b07ab324f7279413a928097b7ce858a8/ydental_access/models/ydental_access_service.py)。
 
 | 真实类别 | 功能视角 | 常见执行条件（按实际用例核对） |
 |---|---|---|

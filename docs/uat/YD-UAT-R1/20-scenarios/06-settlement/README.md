@@ -2,21 +2,30 @@
 
 当前准备：**ENVIRONMENT_NOT_READY**。本页是流程导航；所有用户用例初始 NOT_RUN，用户结果只填写在各功能用例中。
 
+**逻辑对象：** `SC06-BILL-A`、`SC06-BILL-B`、`SC06-REFUND-A`、`SC06-CLOSE-A`。这些是未来分配的逻辑编号，并非数据库 ID；先按[合成对象映射](../../00-guide/scenario-data-map.md)由负责人核验实际对应与状态，再按[唯一执行清单](../../00-guide/execution-checklist.md)执行或接续。结果记录在唯一原始用例对应 RUN-ID；同一来源已执行动作只引用原记录，不重复提交。
+
 **目的与价值：** 将经确认的合成费用转成账单，并区分收款、审批、实退及收费员日结。
 **参与岗位与交接：** [收费](../../10-roles/cashier/README.md) → [财务审批](../../10-roles/finance-approver/README.md)。箭头表示主要协作，并非授权或严格身份切换；各步骤以其岗位为准。
 **前置准备：** 新合成费用来源已确认、完整四渠道合成会计配置就绪、独立审批人及日结范围可核定；不使用真实资金。
-**起始对象与终止状态：** 起始：尚未出账的唯一合成费用；终止：账单、模拟收款及退款、日结范围可核对，或阻断。
+**起始对象与终止状态：** 起始：A 引用场景03的 SC03-EXEC-C 患者及 TRT-002 原 RUN 产生的已确认未出账费用，B 为另一个独立患者及不同费用；终止：A 全额收款、退款与日结可核对，B 未付余额可只读观察，或对应支线阻断。
 
 | 步骤 | 承接岗位 | 流程动作 | 唯一功能用例 | 用户应观察 |
 | --- | --- | --- | --- | --- |
-| 1 | 收费 | 对唯一费用来源出账 | [UAT-FIN-001](../../30-functions/settlement/cases/UAT-FIN-001.md) | 账单金额和来源匹配；不得主动重复出账。 |
+| 1 | 收费 | 对唯一费用来源出账 | [UAT-FIN-001](../../30-functions/settlement/cases/UAT-FIN-001.md) | 账单 A 对应 SC03-EXEC-C 已确认治疗费及原 RUN，金额和来源匹配；不得主动重复出账。 |
 | 2 | 收费 | 登记模拟线下收款 | [UAT-FIN-002](../../30-functions/settlement/cases/UAT-FIN-002.md) | 已确认的收款和账单余额可对照。 |
+| 2B | 收费 | 对另一独立来源 B 出账后只读查看未付余额 | [UAT-FIN-001](../../30-functions/settlement/cases/UAT-FIN-001.md) | A 的全额收款后余额为零；欠款只观察独立 B，不能重复出账 B。 |
 | 3 | 收费→不同账号财务审批→收费 | 申请、审批并登记模拟实退 | [UAT-FIN-003](../../30-functions/settlement/cases/UAT-FIN-003.md) | 批准是待实退，实退后才能核金额与状态。 |
 | 4 | 收费 | 按完整门店、收费员和业务日范围日结 | [UAT-FIN-004](../../30-functions/settlement/cases/UAT-FIN-004.md) | 比较负责人预先核定的全范围收款、实退及未终结退款。 |
 
 **一次性业务提交：** 出账、收款、审批、退款及日结各为持久提交，不能将示例金额或历史记录重放。
-**停止而非重放：** 费用来源不唯一、政策或审批人不符、完整日结范围无法核实、提交未知时停止；免单、跨法人及部分更正未覆盖。
+**停止而非重放：** 费用来源不唯一、政策或审批人不符、完整日结范围无法核实、提交未知时停止；本场景主线不包含免单；[UAT-FIN-005](../../30-functions/rework-clinical-finance/cases/UAT-FIN-005.md) 提供限定部分免单独立支线，跨法人及部分更正仍未覆盖。
 
 每步只在对应功能用例执行并记录。已提交的同一业务来源不得重放；若需验收另一独立支线，按用例前置准备不同的新合成对象，可再次执行该用例并分别记录。场景引用已有结果时只接续或查看，不重复提交。若指定用例前置不足，记录 BLOCKED。
 
 **结束与后续：** 达到上方终止状态后，可进入 [下一场景](../09-documents-reports/README.md)，或返回 [场景与手册总入口](../../README.md) 选择支线。
+
+## 1.1 独立补充支线
+
+[UAT-FIN-005](../../30-functions/rework-clinical-finance/cases/UAT-FIN-005.md) · [UAT-FIN-006](../../30-functions/rework-clinical-finance/cases/UAT-FIN-006.md) · [UAT-FIN-007](../../30-functions/rework-clinical-finance/cases/UAT-FIN-007.md)
+
+以[执行清单](../../00-guide/execution-checklist.md)新增独立分支和[对象映射](../../00-guide/scenario-data-map.md)为准；仅接续已明确关联的原始 RUN，同一已提交来源不重放，数据未准备时停止。

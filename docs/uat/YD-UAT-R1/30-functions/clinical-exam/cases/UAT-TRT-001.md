@@ -13,7 +13,7 @@
 
 ## 页面与前置条件
 
-从已完成 UAT-QUE-001 的新合成医疗任务开始，当前医生持有原工位且患者与门店匹配；页面为 YDental → Treatment workbench（`/ydental/clinical`）。仅填写预先约定的合成内容，不使用真实患者资料。此例保存后须先按后续业务决定是否确认；已确认文本不能再用普通保存改写。
+从已完成 UAT-QUE-001 的新合成医疗任务开始，当前医生持有原工位且患者与门店匹配；页面为 YDental → Treatment workbench（`/ydental/clinical`）。仅填写预先约定的合成内容，不使用真实患者资料。本例分为共同的保存路径 S 和可选的确认路径 C：先执行步骤 1–5 并记录 S；只有该对象明确用于文字确认时才继续 C（步骤 6）。交还及待完善责任的 A 必须只执行 S，保持 pending，绝不执行 C；确认须使用另一个独立合成接诊。已确认文本不能再用普通保存改写。
 
 ## 有序操作和预期结果
 
@@ -24,7 +24,7 @@
 | 3 | 在 Structured clinical draft 输入约定的合成文本；可选择一颗牙位及明确状态。 | 输入出现在选定字段；无牙位可选 No corresponding tooth；未观察不能写成已观察。页面约 900ms 后可能自动保存并创建持久版本。 |
 | 4 | 点击 Save draft 一次，记录服务器版本与时间。 | 页面显示服务器已保存并记录 Server version 与时间；自动保存可能先产生版本，因此不能预设仅增加一次。若没有成功确认则停下核对。 |
 | 5 | 刷新或重新打开并核对刚保存的内容、原作者和责任人。 | 服务端内容与合成文本一致，刷新后查看 Authored version history 中的保存版本、原作者和责任人；不一致则保留本页并记录差异。 |
-| 6 | 若此合成文本已准备确认，取得编辑权并点击 Confirm text only 一次。 | 文字状态为 confirmed，服务器版本增加；刷新后查看版本历史中的确认版本，不表示治疗执行、接诊完成或正式签署。 |
+| 6（仅 C，独立确认接诊） | 对步骤 1–5 已保存的独立确认接诊，记录已保存版本后，取得编辑权并点击 Confirm text only 一次。交还 A 跳过本步骤并记录 S 完成。 | 文字状态为 confirmed，服务器版本增加；刷新后查看版本历史中的确认版本，不表示治疗执行、接诊完成或正式签署。 |
 | 7 | 查看后续操作入口，决定进入实际治疗或保留未完成责任流程。 | 未见新增治疗事实或费用即可继续；若已确认需更正，使用有原因的追加更正，不覆盖旧版本。 |
 
 ## 异常与权限负例
@@ -39,37 +39,68 @@ P0 数据、资金、临床安全或严重越权异常应停止受影响操作�
 
 ## 结束条件及后续衔接
 
-记录版本与文本状态；治疗执行转 UAT-TRT-002，结束和待完善责任转 UAT-TRT-003。
+路径 S：记录已保存的版本、责任人与 pending，交还 A 只接 UAT-TRT-003 的 A；路径 C：在不同接诊记录 confirmed 与版本。任何选择都不代表实际治疗；满足前置后按相应独立对象进入 UAT-TRT-002 或 UAT-TRT-003。
 
 ## 源码依据与证据层级
 
 固定候选 `12f3f299b07ab324f7279413a928097b7ce858a8` 的 SOURCE；源码不证明该环境已部署，也不等于用户验收或实际浏览器通过。
-- [ydental_clinical/views/ydental_clinical_templates.xml](../../../../../../ydental_clinical/views/ydental_clinical_templates.xml)
-- [ydental_clinical/controllers/clinical.py](../../../../../../ydental_clinical/controllers/clinical.py)
-- [ydental_clinical/models/ydental_clinical_service.py](../../../../../../ydental_clinical/models/ydental_clinical_service.py)
-- [ydental_clinical/models/ydental_queue_service.py](../../../../../../ydental_clinical/models/ydental_queue_service.py)
+- [ydental_clinical/views/ydental_clinical_templates.xml](https://github.com/Yredxin/YDental/blob/12f3f299b07ab324f7279413a928097b7ce858a8/ydental_clinical/views/ydental_clinical_templates.xml)
+- [ydental_clinical/controllers/clinical.py](https://github.com/Yredxin/YDental/blob/12f3f299b07ab324f7279413a928097b7ce858a8/ydental_clinical/controllers/clinical.py)
+- [ydental_clinical/models/ydental_clinical_service.py](https://github.com/Yredxin/YDental/blob/12f3f299b07ab324f7279413a928097b7ce858a8/ydental_clinical/models/ydental_clinical_service.py)
+- [ydental_clinical/models/ydental_queue_service.py](https://github.com/Yredxin/YDental/blob/12f3f299b07ab324f7279413a928097b7ce858a8/ydental_clinical/models/ydental_queue_service.py)
 
-## 用户填写区
+## 用户填写区：每次执行分别记录
 
+以下内容可暂时留空。先复制一份“执行记录”及需要的问题和 UI 意见模板，保留旧记录，再为本次使用未占用的 RUN-ID，例如 `RUN-UAT-TRT-001-001`、`RUN-UAT-TRT-001-002`。桌面、平板、手机及修复后的复验分别使用新 RUN-ID。一个 RUN 可关联多个 ISSUE-ID；不要为了截图或复现而重新提交治疗、库存、收费、退款等已提交来源。结果不明先停止并由负责人核实。
+
+### 执行记录（复制本节以追加下一轮）
+
+- RUN-ID：
 - 测试日期：
-- 实际使用版本或测试环境：
+- 实际产品版本：
+- 测试环境标识：
 - 实际岗位及门店：
-- 浏览器、窗口宽度、缩放：
-- 用户验收结果：NOT_RUN（可选 NOT_RUN / PASS / PARTIAL / FAIL / BLOCKED / N/A）
-- 实际观察：
+- 合成业务对象逻辑标识：
+- 浏览器及版本：
+- CSS 视口宽度 × 高度：
+- 浏览器缩放：
+- 实际执行步骤及观察结果：
 - 与预期是否一致：
-- 失败步骤：
-- 问题描述：
-- 具体复现步骤：
-- 复现次数／是否稳定：
-- 问题等级：P0 / P1 / P2 / P3（留空待定）
-- 是否阻断下一项验收：
+- 用户验收结果：NOT_RUN（可选 NOT_RUN / PASS / PARTIAL / FAIL / BLOCKED / N/A）
+- 失败步骤及阻断下一项的原因：
+- 关联问题 ID（可填写多个，例如 UAT-ISS-0001、UAT-ISS-0002）：
 - 截图相对路径：
-- UI满意程度：满意 / 基本可用但需优化 / 需要重新设计 / 不适用（留空待定）
-- 不满意的页面、位置和原因：
-- 希望如何调整：
-- 是否涉及需求变更：
 - 用户最终意见：
-- 修复后复测结果：
+- 若为修复后复验，原问题 ID、原 RUN-ID、修复版本及复验结果：
 
-截图目录：[本用例截图目录](../images/UAT-TRT-001/)。例如 `![步骤3](../images/UAT-TRT-001/03-用途.png)`；保留原图，不覆盖失败截图，实际填写及截图放私有副本。
+### 问题记录（一个问题复制一份，可关联多个问题）
+
+- 问题 ID（格式 `UAT-ISS-0001`，全套材料中唯一）：
+- 对应用例及 RUN-ID：
+- 发生页面和位置：
+- 前置条件及合成对象：
+- 首次发生的实际步骤：
+- 预期与实际差异：
+- 具体复现步骤（仅记录已安全观察到的事实）：
+- 复现次数／是否稳定：
+- 问题等级：P0 / P1 / P2 / P3（留空待定）：
+- 分类：功能 / UI / 需求 / 环境（可多选）：
+- 截图相对路径：
+- 是否阻断下一项验收：
+
+### UI/UX 意见（可按 RUN-ID 重复）
+
+- RUN-ID、页面及位置：
+- 桌面 / 平板 / 手机及实际视口、缩放：
+- 信息布局：
+- 操作流程：
+- 字号与可读性：
+- 间距、颜色和按钮：
+- 桌面／平板／手机差异：
+- UI 满意度：满意 / 基本可用但需优化 / 需要重新设计 / 不适用（留空待定）：
+- 不满意原因及希望如何调整：
+- 优先意见：必须修改 / 希望优化 / 可接受（留空待定）：
+- 是否涉及需求变更：
+- 截图相对路径：
+
+本用例截图放在私有副本的 [截图目录](../images/UAT-TRT-001/) 下，按 RUN 分目录，例如先创建 `RUN-001`，然后在本文件写 `![步骤3：用途](../images/UAT-TRT-001/RUN-001/03-用途.png)`。不同轮次用不同目录；原图和失败图不得覆盖，标注图另存。实际图片、账号、口令、Session 或未经授权的患者及财务信息不得上传公共仓库。

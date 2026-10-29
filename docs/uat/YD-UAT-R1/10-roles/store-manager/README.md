@@ -33,3 +33,9 @@
 ## 阶段记录入口
 
 先在对应功能用例中填写实际结果，再在 [阶段完成登记](../../40-results/stage-status.md) 引用用例及问题编号；[问题汇总](../../40-results/issues.md) 和 [UI 意见](../../40-results/ui-feedback.md) 只索引原始记录。
+
+## 1.1 补充用例
+
+[UAT-ACC-004](../../30-functions/rework-access-patient/cases/UAT-ACC-004.md) · [UAT-ACC-005](../../30-functions/rework-access-patient/cases/UAT-ACC-005.md)
+
+先核用例真实权限、前置和独立逻辑对象；其他岗位的动作由相应有权人员执行。

@@ -2,6 +2,8 @@
 
 当前准备：**ENVIRONMENT_NOT_READY**。本页是流程导航；所有用户用例初始 NOT_RUN，用户结果只填写在各功能用例中。
 
+**逻辑对象：** `SC08-FUP-A`、`SC08-REF-A`、`SC08-VENDOR-A`、`SC08-LAB-A`。这些是未来分配的逻辑编号，并非数据库 ID；先按[合成对象映射](../../00-guide/scenario-data-map.md)由负责人核验实际对应与状态，再按[唯一执行清单](../../00-guide/execution-checklist.md)执行或接续。结果记录在唯一原始用例对应 RUN-ID；同一来源已执行动作只引用原记录，不重复提交。
+
 **目的与价值：** 跟踪独立复诊、跨店承接和外加工任务及入库后的计划状态。
 **参与岗位与交接：** [治疗医生](../../10-roles/treatment-doctor/README.md) → [前台](../../10-roles/front-desk/README.md) → [复诊联络](../../10-roles/followup-contact/README.md) → [外加工协调](../../10-roles/lab-coordinator/README.md) → [仓库](../../10-roles/warehouse/README.md)。箭头表示主要协作，并非授权或严格身份切换；各步骤以其岗位为准。
 **前置准备：** 另备适用状态的合成治疗事件、两店授权、供应商资质和已确认合成采购行；本场景为多条独立支线，不假设同一患者全部执行。
@@ -15,8 +17,14 @@
 | 4 | 治疗医生→仓库→复诊联络 | 执行合成工单、回货及入库 | [UAT-LAB-002](../../30-functions/followup-lab/cases/UAT-LAB-002.md) | 工单自动关联 waiting 计划，入库后观察 ready，不再用 FUP-001 重复创建计划。 |
 
 **一次性业务提交：** 复诊创建、转诊发起／接收、合作、工单及入库会持久提交；各支线独立合成对象。
-**停止而非重放：** 目标无法唯一辨认、源接诊未释放、采购行／责任人不符或结果未知时停止；真实外联、有时段转诊、戴用返工未覆盖。
+**停止而非重放：** 目标无法唯一辨认、源接诊未释放、采购行／责任人不符或结果未知时停止；有时段转诊、未戴用返工及独立工单戴用分别见 [UAT-FUP-003](../../30-functions/rework-lab-evidence/cases/UAT-FUP-003.md)、[UAT-LAB-003](../../30-functions/rework-lab-evidence/cases/UAT-LAB-003.md) 和 [UAT-LAB-004](../../30-functions/rework-lab-evidence/cases/UAT-LAB-004.md) 的限定支线；戴用后返修和真实外联仍未覆盖。
 
 每步只在对应功能用例执行并记录。已提交的同一业务来源不得重放；若需验收另一独立支线，按用例前置准备不同的新合成对象，可再次执行该用例并分别记录。场景引用已有结果时只接续或查看，不重复提交。若指定用例前置不足，记录 BLOCKED。
 
 **结束与后续：** 达到上方终止状态后，可进入 [下一场景](../09-documents-reports/README.md)，或返回 [场景与手册总入口](../../README.md) 选择支线。
+
+## 1.1 独立补充支线
+
+[UAT-FUP-003](../../30-functions/rework-lab-evidence/cases/UAT-FUP-003.md) · [UAT-LAB-003](../../30-functions/rework-lab-evidence/cases/UAT-LAB-003.md) · [UAT-LAB-004](../../30-functions/rework-lab-evidence/cases/UAT-LAB-004.md)
+
+以[执行清单](../../00-guide/execution-checklist.md)新增独立分支和[对象映射](../../00-guide/scenario-data-map.md)为准；仅接续已明确关联的原始 RUN，同一已提交来源不重放，数据未准备时停止。

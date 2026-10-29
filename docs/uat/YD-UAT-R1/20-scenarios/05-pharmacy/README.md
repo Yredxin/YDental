@@ -2,6 +2,8 @@
 
 当前准备：**ENVIRONMENT_NOT_READY**。本页是流程导航；所有用户用例初始 NOT_RUN，用户结果只填写在各功能用例中。
 
+**逻辑对象：** `SC05-EXEC-A`、`SC05-RX-A`、`SC05-LOT-A`、`SC05-RETURN-A`。这些是未来分配的逻辑编号，并非数据库 ID；先按[合成对象映射](../../00-guide/scenario-data-map.md)由负责人核验实际对应与状态，再按[唯一执行清单](../../00-guide/execution-checklist.md)执行或接续。结果记录在唯一原始用例对应 RUN-ID；同一来源已执行动作只引用原记录，不重复提交。
+
 **目的与价值：** 观察医嘱冻结、两次执行和库存费用来源之间的关系。
 **参与岗位与交接：** [治疗医生](../../10-roles/treatment-doctor/README.md) → [前台](../../10-roles/front-desk/README.md) → [药房](../../10-roles/pharmacy/README.md) → [仓库](../../10-roles/warehouse/README.md)。箭头表示主要协作，并非授权或严格身份切换；各步骤以其岗位为准。
 **前置准备：** 已用 INV-001 准备的独立合成批次、药品映射和价目可用；新合成医疗接诊已保存当前文书，且药房人员授权就绪。
@@ -9,7 +11,7 @@
 
 | 步骤 | 承接岗位 | 流程动作 | 唯一功能用例 | 用户应观察 |
 | --- | --- | --- | --- | --- |
-| 1 | 治疗医生／前台 | 创建并冻结合成处方 | [UAT-PHA-001](../../30-functions/inventory-pharmacy/cases/UAT-PHA-001.md) | 处方已冻结并产生对应任务，尚不是发药。 |
+| 1 | 治疗医生 | 创建并冻结合成处方 | [UAT-PHA-001](../../30-functions/inventory-pharmacy/cases/UAT-PHA-001.md) | medical write 医生开方并冻结；前台只在 PHA-002 为该任务报到，尚不是发药。 |
 | 2 | 前台／药房 | 报到并分次发药 | [UAT-PHA-002](../../30-functions/inventory-pharmacy/cases/UAT-PHA-002.md) | 两段各开始执行；核对每次已确认事件、剩余数量及库存费用来源。 |
 | 3 | 仓库 | 按唯一可见移动核查来源并按用例隔离退回 | [UAT-INV-002](../../30-functions/inventory-pharmacy/cases/UAT-INV-002.md) | 负责人可唯一标定来源才继续；隔离品不恢复可用发药额度。 |
 
