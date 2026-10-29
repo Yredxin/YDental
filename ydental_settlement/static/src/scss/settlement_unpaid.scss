@@ -1,3 +1,7 @@
+html:has(.o_ydental_settlement_unpaid :focus-visible) {
+    scroll-padding-block: 2rem;
+}
+
 .o_ydental_settlement_unpaid[data-dl-scope="settlement-unpaid"] {
     --ydental-unpaid__space-xs: 0.5rem;
     --ydental-unpaid__space-sm: 0.75rem;
