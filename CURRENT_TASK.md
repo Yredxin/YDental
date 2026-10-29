@@ -1,3 +1,9 @@
+# YD-S13-DL-P14-REVERT-CLOSEOUT / 1.0｜源码回退完成
+
+2026-10-29 用户与 GPT 裁定不采纳 P14 原版及结构版。本分支从原远端 `d05864510987b4b0b4236938a5ccd1386f9431cd` 正常承接；产品回退 `b5b1770d65a2f4f6f22ddfc5692eaf98639757aa` 的完整结算 addon 与 R3 报告基线 `c663557eeb30b9bb43f07f3ff8130c8cd3bc4382` 独立 SOURCE 对比 exit 0，其余产品未回退。[产品取舍与核验](docs/reports/s13-dl-p14/rollback-decision.md)。P14 历史 PARTIAL、T09 FAIL、旧320放大问题与所有 UNKNOWN 保留；未做新浏览器或数据库验证。各库已提交对象、审计及责任身份按原状态保护，不跨库混用；无服务或数据库动作。#37 OPEN，不启 P15、不合并、不部署、不重新设计。
+
+---
+
 # YD-S13-DL-P14-STRUCTURE / 1.0｜PARTIAL，T09 FAIL，资源停止
 
 2026-10-29 交付结构性收口计划。候选 `34f7681797f4ad4aec0b3aa7201b9bf9d02761d8` 将原免单表单移出表格滚动框；真实 Chromium 岗位 9 场景中3个新增表内锚点焦点仍裁切，T09 FAIL，停止继续试验，候选保留供用户与 GPT 决定保留或回退。[结果](docs/reports/s13-dl-p14/structure-summary.md)、[矩阵](docs/reports/s13-dl-p14/structure-matrix.md)、[独立复核](docs/reports/s13-dl-p14/structure-s4-review.md)。指定 scratch 实际加载候选，真实写/只读 GET、HTTP CSS、FormData 与合成双账单对应已验；event1/fee1/invoice1 不重放，无经济 POST。升级前后34表一致但前像未独采；HTTP 后附件具体变化 UNKNOWN，正常审计新增32条。指定容器/端口已停并独核；UID6/7 证据仍 active、Session 未测。P14 PARTIAL、#37 OPEN；不启 P15、不合并、不部署、不安排演示。
