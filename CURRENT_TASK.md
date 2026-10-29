@@ -1,3 +1,9 @@
+# YD-S13-E2E-R3-BUG001-VERIFY / 1.2｜限定验收完成，资源已停止
+
+2026-10-29 用户授权继续同一独立 scratch，承接报告 `75adaf1213d92b1a14e4f490f02c70c6f8bdb4d1`、产品 `f9c4778e584e0513bcaf46cee3a76fd6883b76af`。原数据库容器经身份核对后启动，B 已独核租约按时间过期；固定原生 timeout cron 单次执行后 lease1 timeout、execution1/entry1 verify，治疗与库存不变。V1 原生现场接手后 execution1 interrupted、execution2 同 task3 接续；医生真实打开新 doc2 后单次正常完成，B 独核 execution2 completed、task3 done、doc2 pending、无续诊，event1/fee1/耗材不变，lease2 保留。同 key 与旧版本重发各403且无新增副作用；V2 完成来源转派、接手补记及限定权限负例经独核，未重放治疗、费用或库存；BUG-001 FIXED_VERIFIED（仅本次接续完成、防重与文书责任所测范围）；文书1 pending 责任6、文书2 pending 责任7，UID6/7 active；最终 lease2 active 字段不代表停机后释放，浏览器/Odoo/独立数据库已停止。#37 OPEN，P14 未授权。
+
+---
+
 # YD-S13-E2E-R3-BUG001-VERIFY / 1.1｜PARTIAL，资源已停止
 
 2026-10-29 用户授权新 scratch 的精确隔离测试供给准入及原定真实验收；承接 `24f1384fc0ccb41a713decf8d93fdbfd86bcffcd`，原产品 `c50688ba806c69a624c3bf9b171b10ea164bfeec`。新准入候选 `f9c4778e584e0513bcaf46cee3a76fd6883b76af` 已固定并安装至新网络隔离 scratch；安装 exit 0，B 独立读回模块和数据库身份。V0-B 真实网页正向策略与 B 独立提交读回、相关 HTTP 负例及无策略副作用已采；demo 已发布时段上的真实预约返回409，B 核无 claim/task 等副作用。新合成患者2经 UID9 真实现场报到，B 独核 claim2、task3、position1、entry1 waiting；禁止重放该来源报到。首次409因队列配置缺失，独核无业务副作用后配置并重试成功；新耗材入库 event1/move1 数量3 已独核，不得重放；医生 UID6 已正常领取患者2 并创建 execution1、doc1；单次治疗 event1、fee1=600、consumption1、inventory event2/move2 已由 B 独核，禁止重复治疗或耗材。V1 正常完成入口在原页面 DOM 存在但禁用，驱动未能再次点击正常打开编辑，未发完成 POST；B 独核 execution1 serving、doc1 draft、经济库存不变。此为工具遗漏的源码归因，恢复操作未实测；V2 前置未满足。最终读回时 lease1 仍 active、接诊与文书未完成；浏览器、Odoo 和独立数据库已停止，旧记录和待办保留。新 UID5/8/9 正常离职并独核，UID6 保留接诊与文书责任、UID7 为唯一店长且均 active。受控同 key 与旧页重发机制缺失，须如实保留 NOT_RUN 风险。V0-C 准备中，旧 1.0 BLOCKED 事实保留；不触及历史受保护库及对象。新候选及实际测试结果以本次记录为准；BUG-001 OPEN，#37 OPEN，P14 未授权。

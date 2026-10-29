@@ -55,3 +55,39 @@ B 从新物理数据库连接独立读回：execution1／entry1 仍 serving，ta
 医生 Context 和 Chromium 正常关闭、控制 socket 消失；A 随后观察驱动 PID 为 zombie，主控再核时 PID 已无记录，驱动退出码 UNKNOWN。Odoo 服务正常停止、端口不再监听，进程退出码 UNKNOWN。新 scratch PostgreSQL 容器停止 exit 0，数据库及证据在本机保留；私有 provider 保留以便后续合法处置，不进入 Git 或公开报告。所有本次服务均停止；这不等于所有本次账号已停用或租约已释放。
 
 **本次工作包结果 PARTIAL：** 没有正常完成提交，V2 completed 来源文书验证 NOT_RUN，同 key 与旧页重发 NOT_RUN；测试工具的问题和已发生失败如上保留。R3-BUG-001 保持 OPEN，R3 仍 PARTIAL，#37 OPEN，P14 未授权。未对历史保护库升级、未重放旧治疗或修改旧责任；不合并、不部署。
+
+---
+
+## 1.2 增量：原生失效核实、接续与正常结束｜2026-10-29
+
+承接报告 `75adaf1213d92b1a14e4f490f02c70c6f8bdb4d1`，本轮实际产品仍为 `f9c4778e584e0513bcaf46cee3a76fd6883b76af`；不将前述 1.1 阶段未通过回写为当时通过。B 以新物理数据库连接核实保留的 scratch 与指定身份、门店及公司匹配，原患者2、任务3、执行段1、文书1、治疗 event1、fee1 和耗材库存保持；原 lease1 的数据库 active 标志虽仍为 true，其到期时间与编辑占用截止时间均早于现场核对时刻，故不能称仍有效。
+
+在 B 独立核实过期租约及其他待处理对象范围后，按 Odoo 原生 `ydental_queue_timeout_cron` 的 `method_direct_trigger` 单次触发固定超时任务。B 新连接读回：lease1 inactive、原因 timeout；execution1／entry1 进入 verify，任务仍 started、无后继；原治疗、费用、耗材、文书版本不变，系统超时审计已提交。这里是实际产品超时流程，不是直接数据库状态改写。医生 UID6 在独立新 Context 正常表单登录，真实 UI 对原站点进行一次现场核实与接续；B 独立读回 execution1 interrupted、新 execution2 serving 且 `resumed_from=1`，沿用任务3，新 lease2 为医生在原牙椅合法持有；doc1 随原段成为 pending、保留原作者和版本。原 event1／fee1 仍属于 execution1；本次没有在 execution2 重放治疗。
+
+在新执行段的临床页面，实际按钮状态及遮罩截图记录于本机私有证据：打开前 `#open-document` 可见可用、`#complete-document` 可见但禁用；医生真实点击“打开编辑”，服务返回 HTTP 200，随后页面报告 holder 存在、编辑凭据存在（仅布尔值）、完成与交还按钮均可见且启用，B 独立读回新 doc2 的编辑占用。该操作是接续后首次创建／打开 doc2，**不是**对 doc1 或同一文书刷新后再次恢复编辑的动态试验；1.1 的禁用原因仍是前述源码归因，不能把本次操作冒称对旧现象的动态复现。`saving`／`failed` 是页面闭包变量，按响应、提示和按钮状态间接判断，不声称直接读取其值。
+
+医生在同一持租约 Context 的真实临床页单次点击正常完成，HTTP 200；该浏览器日志中的 `result`、`state`、`version` 均为空，**响应正文 accepted 字段 UNKNOWN**，不以 HTTP 200 代替提交。B 在新的只读物理数据库连接独立读回：execution2 completed、原任务3 done、entry1 completed、患者号位 inactive；lease2 按原合同仍 active；doc2 pending、作者和负责人 UID6、编辑占用释放，doc1 仍 pending，均未自动确认或签署；无新增 continuation。审计保留 UID6 的 `clinical.completion_save_verified`、`clinical.completion_edit_release` 和 `queue.medical_completed`。event1 仍唯一且来自旧 execution1，fee1 仍唯一为600，consumption1 仍唯一为1，原收货及治疗库存移动各一次，材料库存2；这些数值在独立读回中保持。
+
+在 B 确认完成已持久提交后，才在同一已授权浏览器 Context 内对真实完成请求进行一次同 key 重发和一次保留原页面版本但换新 key 的受控 HTTP 重发；两次服务端均返回 HTTP 403，B 分别以新连接核实无第二次完成、费用、耗材移动或非法任务。第二项是实际完成前版本的受控 HTTP 负例，**不是**虚构的旧页再次点击；完成后实际页面的完成按钮仍存在但 disabled。两次 403 的具体服务端拒绝类别未在此记录中细分；不能将其称为幂等 accepted。前后页面遮罩截图、请求分类和独立快照保存在本机私有证据目录，未公开认证材料或请求正文。
+
+以上是 V0／V1 实际结果。完成来源 doc2 的合法转派、接手与权限负例仍须 V2 独立验证；账号、租约及服务收尾以最终实际读回为准。在全部适用门槛满足前，R3-BUG-001 仍 OPEN，#37 OPEN，P14 未授权。
+
+## 1.2 增量：completed 来源文书与权限｜2026-10-29
+
+V2 使用全新 A/B/C 线程，在同一新 scratch 的已完成 execution2、pending 文书2 上验证；线程共享主机，不声称 OS 隔离。UID7 以普通网页登录和本店负责人身份，真实网页单次将文书2责任从原作者 UID6 转给具备医疗写权限与来源能力的 UID7，HTTP 200；B 分别从新物理数据库连接核实责任转派及审计已提交。UID7 随后通过真实页面取得编辑权，使用同一 Context 和页面刷新：刷新后保存及释放按钮禁用，点击可见的“打开编辑”，实际 heartbeat 返回 HTTP 200，页面重新获得编辑能力。截图遮罩输入内容，只记录已持有编辑凭据的布尔状态；B 独立读回编辑占用。此为同一已完成来源的文书刷新后**真实编辑恢复**，不是将已结束接诊的正常完成入口重新启用。
+
+UID7 一次真实保存合成补记并释放编辑占用，两个请求均 HTTP 200，B 独立读回 doc2 仍 pending、责任人为 UID7，原作者 UID6 与版本1保留，新增版本2作者 UID7；doc1 仍 pending、原作者和责任 UID6。没有自动确认或签署，原 event1、fee1=600、consumption1、两次既有库存移动及材料余量保持；接诊任务无额外后继。截图与非敏感操作记录在本机私有证据目录，A 记录 SHA-256 `a4659cc96f7e268b6ab8774dcc8ded8c758e14c952372db2126e76c68c2620bc`，B 末次独立读回 SHA-256 `f352189322d0e8d17d1fc57cf2c75beaa1e9c91b58f5cd643df6b7a55a506f66`。
+
+权限负例均使用各自独立 Context 的正常网页登录及当前页同源受控 HTTP，而非虚构 UI 点击。新 scratch 原生初始化管理员 UID2 虽是 group/system manager，但没有 medical 写权限；其 acquire 和 confirm 请求均实际返回 403，安全分类为缺少业务权限。原医生 UID6 保有医疗写权限，但文书2转派后已非负责人：其 acquire 实际返回 403，安全分类为非责任人；confirm 返回 403，安全分类为编辑权无效。两个 confirm 负例均使用刻意无效的合成编辑凭据，没有取得、复制或使用他人凭据；故该结论限定于实际无有效编辑凭据的请求，不能外推为对有效凭据的代签测试，也不能将 UID2 冒称普通前台。B 对每项负例分别新连接核实文书、版本、治疗、费用和库存没有对应新增业务副作用。没有重新启用旧账号，也未新增本轮账号。
+
+V2 工具首次以 shell 后台方式启动管理页面驱动时提前退出，尚未启动浏览器或执行任何业务；随后用持续会话正常启动，未重复业务动作。A 的各浏览器 Context 已正常关闭，B 独立核验结果与上述范围一致。最终总体结论、责任和服务收尾以本报告后续实际记录为准。
+
+## 1.2 限定独立验收与收尾｜2026-10-29
+
+B 以独立新物理数据库连接对真实浏览器、实际服务端及已提交业务结果核验后，支持 **R3-BUG-001 → FIXED_VERIFIED（仅本轮已测范围）**：合成患者经正常现场核实接续，医生真实打开文书并正常结束，任务及接诊持久完成；限定同 key 与旧版本 HTTP 重发没有重复业务副作用；已完成来源的 pending 文书转派、编辑恢复、补记和所列权限负例已有相应证据。该结论以产品候选 `f9c4778e584e0513bcaf46cee3a76fd6883b76af` 为准，R3 整体仍为 PARTIAL，不外推到正式临床业务或未测权限场景。
+
+原治疗 event1 属于因连接超时后 interrupted 的 execution1，正常完成属于接续后的 execution2，二者关联同一 task3；不把治疗与完成拼称发生于同一执行段。正常完成响应中的 accepted 等白名单字段仍为 UNKNOWN，但 B 新连接确认了真实持久完成。确认权限负例仅使用无效合成编辑凭据，不能外推为有效凭据的代签测试；旧缺失前像、历史 Session 失效及其他原 UNKNOWN 不因此补为通过。E2E-BUG-002 继续 OPEN；以上原失败与历史状态不改写。
+
+新 scratch UID6 仍 active，承担 doc1 pending 责任；UID7 仍 active，为唯一有效店长并承担 doc2 pending 责任。UID5、UID8、UID9 已于 1.1 正常停用并独立读回，未为本轮负例重新启用。B 最终于 05:23 UTC 读回 lease2 的 active 字段仍为 true、有效期尚未到；不能把随后停止服务冒称租约释放或 Session 失效，现有文书责任须保留。
+
+本轮各实际浏览器驱动正常退出 exit 0；Odoo 接收 SIGTERM 后监听端口已释放，进程退出码 UNKNOWN。独立 PostgreSQL 容器正常停止 exit 0，数据库及必要本机私有证据保留；不公开凭据、Session 或请求正文。#37 保持 OPEN，P14 NOT_AUTHORIZED；不合并、不部署。
