@@ -1,3 +1,18 @@
+# YD-S13-E2E-R3-CLOSEOUT / 1.0｜PARTIAL，最终交付
+
+最终结果 **PARTIAL**：[总结](docs/reports/s13-e2e-r3/summary.md)、[W4](docs/reports/s13-e2e-r3/phase-W4.md)。产品候选 `c50688ba806c69a624c3bf9b171b10ea164bfeec`，R3-BUG-001 OPEN：最终候选真实浏览器正常结束及提交验收未完成；W2旧服务真实文书转派和D2补记有独立读回，不能混签最终候选。1561–1563 inactive，1564承担doc520 pending责任且active，1565为唯一有效店长且active，后续处置待用户决定；新处置59 pending。专用服务已停止，最终保护快照 `35ceed0db0b529fa15b870a23d23d067683f1999c52cdddebed62a75501fafc7`，所采旧保护不变；Session及服务退出码 UNKNOWN。历史BUG-002 OPEN、目标升级NOT_RUN、R1/R2/P12 PARTIAL、#37 OPEN、P14未授权。
+
+W2 [阶段报告](docs/reports/s13-e2e-r3/phase-W2.md)：新增 D2 UID1564 和负责人 UID1565；1565 为当前 A 店唯一有效店长，最终停用须先解决原生最后店长保护，用户决定待复。新 D1 UID1563 正常离职并独核，新 slot1240 suspended、处置59 pending、tracking 保留。doc520 已正常转派给1564，原作者1563及v1保留；D2保存合成补记为v2后释放，仍pending。前台无医疗权真实HTTP acquire/transfer均403、独核无业务副作用；转派响应正文 UNKNOWN 但提交已独核，不得重试。旧文书515–519只读；新身份停用及 Session 失效未完成。W3全新团队进行最终候选影响面验证。
+
+W3 [阶段报告](docs/reports/s13-e2e-r3/phase-W3.md)：最终候选 `c50688b` 的独立 scratch MODEL/限定 HTTP 和经济影响专项通过；使用供给替身、事务回滚，真实浏览器正常完成及独立持久提交未验，R3-BUG-001仍 OPEN。W4全新团队核验及收尾，旧业务与新责任不可重放或删除。
+
+2026-10-28 用户启用限定医疗正常结束和未完成文书合法接手。活动分支 `codex/s13-e2e-r3-closeout` 从 R2 远端报告 HEAD `e06ae79efe6650e89deff7179cf16cf98daa59e5` 正常承接，R2产品 `ca07961da750dd5c58342cfe5759f45c1f806d5e`。W0 [只读报告](docs/reports/s13-e2e-r3/phase-W0.md) 限定准出：19旧账号inactive，处置45–55及57 pending；158表非敏感字段与539文件同R2终态（`898ecb25717caf121e6a0ec510abec051310d7bc2b28f947c86d9f9de308286d`）。新scratch尚未创建；W1全新团队准备动态验收。不得升级受保护历史库、启用原19账号或重放旧治疗/费用/库存/原件；保留处置45–55及57、文书及待办。E2E-BUG-002 OPEN、历史目标升级 NOT_RUN，R1/R2及P12 PARTIAL，#37 OPEN，P14未授权。当前尚无R3业务写入，动态证据及后续状态以实际记录为准。
+
+W1 真实合成患者1652/任务917：治疗event367 confirmed、唯一fee362=600，原execution559在自然超时后经B正常现场接续为execution560，doc520 pending/原作者责任1563；不得重放。A及B在有效持租约页面均未见医疗正常结束入口，主控登记 R3-BUG-001；D修复候选已集成 `c50688b`，有限MODEL/HTTP测试含替身；R3-BUG-001 OPEN，真实最终候选浏览器验收未完成，详见 [W1](docs/reports/s13-e2e-r3/phase-W1.md)。当前历史服务PID3315345/18601运行，本轮新账号1561–1563 active；B的Context已关，lease564/565自然超时并独核inactive；execution560/entry569 verify、task917 started、doc520 pending，责任保留。W2全新团队准备接手续验。
+
+
+---
+
 # YD-S13-E2E-R2 / 1.0｜执行中
 
 2026-10-27 用户授权限定 R2，活动分支 `codex/s13-e2e-r2` 从 R1 报告 HEAD `d0b79a9edfeb725a5a7706ef3f60232be725288c` 承接；R1 产品 `dca4e1d2821b20df7b4b940d28d461270c310225`。W0、W1 已完成限定核验；W2 进行中，未授权对历史目标升级。#36 CLOSED、#37 OPEN；P14 未授权。原 11 账号及历史资金、库存、原件和责任保持保护；旧 Session 与缺失前像仍 UNKNOWN。最终证据和状态以后续实际记录为准。
