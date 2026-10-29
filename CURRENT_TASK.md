@@ -2,6 +2,8 @@
 
 2026-10-29 用户与 GPT 裁定不采纳 P14 原版及结构版。本分支从原远端 `d05864510987b4b0b4236938a5ccd1386f9431cd` 正常承接；产品回退 `b5b1770d65a2f4f6f22ddfc5692eaf98639757aa` 的完整结算 addon 与 R3 报告基线 `c663557eeb30b9bb43f07f3ff8130c8cd3bc4382` 独立 SOURCE 对比 exit 0，其余产品未回退。[产品取舍与核验](docs/reports/s13-dl-p14/rollback-decision.md)。P14 历史 PARTIAL、T09 FAIL、旧320放大问题与所有 UNKNOWN 保留；未做新浏览器或数据库验证。各库已提交对象、审计及责任身份按原状态保护，不跨库混用；无服务或数据库动作。#37 OPEN，不启 P15、不合并、不部署、不重新设计。
 
+同步：报告 `1541e20591437d210704a36683576b1f43b0607c` 已推送，#37 原 P14 回执 [6488985588](https://github.com/Yredxin/YDental/issues/37#issuecomment-6488985588) 追加一次产品取舍并逐字读回，原文及其余18条评论保留、#37 OPEN。
+
 ---
 
 # YD-S13-DL-P14-STRUCTURE / 1.0｜PARTIAL，T09 FAIL，资源停止
