@@ -1,3 +1,9 @@
+# YD-S13-E2E-R3-BUG001-VERIFY / 1.1｜PARTIAL，资源已停止
+
+2026-10-29 用户授权新 scratch 的精确隔离测试供给准入及原定真实验收；承接 `24f1384fc0ccb41a713decf8d93fdbfd86bcffcd`，原产品 `c50688ba806c69a624c3bf9b171b10ea164bfeec`。新准入候选 `f9c4778e584e0513bcaf46cee3a76fd6883b76af` 已固定并安装至新网络隔离 scratch；安装 exit 0，B 独立读回模块和数据库身份。V0-B 真实网页正向策略与 B 独立提交读回、相关 HTTP 负例及无策略副作用已采；demo 已发布时段上的真实预约返回409，B 核无 claim/task 等副作用。新合成患者2经 UID9 真实现场报到，B 独核 claim2、task3、position1、entry1 waiting；禁止重放该来源报到。首次409因队列配置缺失，独核无业务副作用后配置并重试成功；新耗材入库 event1/move1 数量3 已独核，不得重放；医生 UID6 已正常领取患者2 并创建 execution1、doc1；单次治疗 event1、fee1=600、consumption1、inventory event2/move2 已由 B 独核，禁止重复治疗或耗材。V1 正常完成入口在原页面 DOM 存在但禁用，驱动未能再次点击正常打开编辑，未发完成 POST；B 独核 execution1 serving、doc1 draft、经济库存不变。此为工具遗漏的源码归因，恢复操作未实测；V2 前置未满足。最终读回时 lease1 仍 active、接诊与文书未完成；浏览器、Odoo 和独立数据库已停止，旧记录和待办保留。新 UID5/8/9 正常离职并独核，UID6 保留接诊与文书责任、UID7 为唯一店长且均 active。受控同 key 与旧页重发机制缺失，须如实保留 NOT_RUN 风险。V0-C 准备中，旧 1.0 BLOCKED 事实保留；不触及历史受保护库及对象。新候选及实际测试结果以本次记录为准；BUG-001 OPEN，#37 OPEN，P14 未授权。
+
+---
+
 # YD-S13-E2E-R3-BUG001-VERIFY / 1.0｜BLOCKED，收尾
 
 2026-10-29 用户启动限定验收；分支 `codex/s13-e2e-r3-bug001-verify-r1` 从报告 `6cbc6e3618dc584dd775b893ab254e937c8d80b0` 承接，产品候选 `c50688ba806c69a624c3bf9b171b10ea164bfeec`。新独立 PostgreSQL 身份探针不满足候选 isolated_test 供给守卫；demo 不可售，正式发布需要本次未授权的正式生产政策批准。B 独立新连接核实探针身份，SOURCE/PURE 判断不允许；V0 BLOCKED，V1/V2 未进入。[限定验收报告](docs/reports/s13-e2e-r3/bug001-browser-verification.md)。本轮探针容器已停止，未创建用户或执行治疗；保留历史保护，BUG-001 OPEN，R3 PARTIAL，#37 OPEN，P14 未授权。
