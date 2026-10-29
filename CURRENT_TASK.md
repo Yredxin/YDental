@@ -4,6 +4,8 @@
 
 独立最终保护读回：33受采非附件表不变、资产CSS附件一条替换、旧535审计完整保留并新增252条分类；UID8/9与其成员/员工均inactive、权限none，UID5/6/7及原账单来源保持；Session失效UNKNOWN、非全库证明。本轮Odoo退出0、指定scratch容器停止exit0、18632端口无监听；独立收尾与最终GitHub同步待实际读回。停止不启P15、不合并、不部署、不演示。
 
+同步结果：报告 HEAD `3a6f53ed1bb0bd1dc98e32f848dfeaddfcdd63fb` 已推送并核远端 ref；#37 新增唯一 P14-V2 结果 [6490372313](https://github.com/Yredxin/YDental/issues/37#issuecomment-6490372313) 已正常发布且正文逐字读回，#37 OPEN。首次比较因去掉本地末尾换行而报不等，按原始正文比较相等；未重发评论。独立收尾确认容器停止、端口关闭、指定标记进程无残留；私有记录 `.local/p14-v2/final-review-c/`。最终技术状态仍 PARTIAL / T09 FAIL，不以同步代通过。
+
 ---
 
 2026-10-29 用户启用三档响应式重新实施。活动分支 `codex/s13-dl-p14-rwd-v2-r1` 从已核远端回退 HEAD `900ce9d01a029fdfcec17f192fe999ef6ac9db50` 建立；W0 只读设计与历史核查进行中。仅 P14 未付清账单和有据免单呈现，三档规范与真实浏览器独立验收；不发送经济 POST，不重放旧业务，不自动 P15、合并、部署或演示。原 P14/T09 FAIL、P12 A04 FAIL、R1/R2/R3 PARTIAL、E2E-BUG-002 OPEN、旧 UNKNOWN 不改。指定 scratch 已提交 event1/fee1/invoice1 和各库文书责任、身份、审计及附件继续保护，不跨库混用。
