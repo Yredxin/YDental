@@ -1,3 +1,9 @@
+# YD-S13-DL-P14-V2 / 1.0｜实施中
+
+2026-10-29 用户启用三档响应式重新实施。活动分支 `codex/s13-dl-p14-rwd-v2-r1` 从已核远端回退 HEAD `900ce9d01a029fdfcec17f192fe999ef6ac9db50` 建立；W0 只读设计与历史核查进行中。仅 P14 未付清账单和有据免单呈现，三档规范与真实浏览器独立验收；不发送经济 POST，不重放旧业务，不自动 P15、合并、部署或演示。原 P14/T09 FAIL、P12 A04 FAIL、R1/R2/R3 PARTIAL、E2E-BUG-002 OPEN、旧 UNKNOWN 不改。指定 scratch 已提交 event1/fee1/invoice1 和各库文书责任、身份、审计及附件继续保护，不跨库混用。
+
+---
+
 # YD-S13-DL-P14-REVERT-CLOSEOUT / 1.0｜源码回退完成
 
 2026-10-29 用户与 GPT 裁定不采纳 P14 原版及结构版。本分支从原远端 `d05864510987b4b0b4236938a5ccd1386f9431cd` 正常承接；产品回退 `b5b1770d65a2f4f6f22ddfc5692eaf98639757aa` 的完整结算 addon 与 R3 报告基线 `c663557eeb30b9bb43f07f3ff8130c8cd3bc4382` 独立 SOURCE 对比 exit 0，其余产品未回退。[产品取舍与核验](docs/reports/s13-dl-p14/rollback-decision.md)。P14 历史 PARTIAL、T09 FAIL、旧320放大问题与所有 UNKNOWN 保留；未做新浏览器或数据库验证。各库已提交对象、审计及责任身份按原状态保护，不跨库混用；无服务或数据库动作。#37 OPEN，不启 P15、不合并、不部署、不重新设计。
