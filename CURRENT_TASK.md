@@ -1,3 +1,9 @@
+# YD-S13-DL-P14-STRUCTURE / 1.0｜PARTIAL，T09 FAIL，资源停止
+
+2026-10-29 交付结构性收口计划。候选 `34f7681797f4ad4aec0b3aa7201b9bf9d02761d8` 将原免单表单移出表格滚动框；真实 Chromium 岗位 9 场景中3个新增表内锚点焦点仍裁切，T09 FAIL，停止继续试验，候选保留供用户与 GPT 决定保留或回退。[结果](docs/reports/s13-dl-p14/structure-summary.md)、[矩阵](docs/reports/s13-dl-p14/structure-matrix.md)、[独立复核](docs/reports/s13-dl-p14/structure-s4-review.md)。指定 scratch 实际加载候选，真实写/只读 GET、HTTP CSS、FormData 与合成双账单对应已验；event1/fee1/invoice1 不重放，无经济 POST。升级前后34表一致但前像未独采；HTTP 后附件具体变化 UNKNOWN，正常审计新增32条。指定容器/端口已停并独核；UID6/7 证据仍 active、Session 未测。P14 PARTIAL、#37 OPEN；不启 P15、不合并、不部署、不安排演示。
+
+---
+
 # YD-S13-DL-P14-T09 / 1.0｜PARTIAL，T09 FAIL，资源已停止
 
 2026-10-29 用户交付定向续办。固定产品 `39038bd8b84ef00fe46dc37973e05a0e46d12796` 不变；同内容对照定位 P14 增加的焦点裁切，两个局部探针因遮挡余额或继续裁切未采纳。本次无产品代码修改，双引擎 loaded QWeb 合成矩阵仍 FAIL。新独立 scratch 以 bf60346 同一产品树安装，正常来源单次产生合成 event1/fee1/posted invoice1（100/余额100），不得重放；真实写/只读岗位 GET、HTTP 前端 CSS、内存 FormData 及部分相邻区已核；未发 waive/pay/refund/close POST。只读和相邻 GET 前后覆盖34表摘要相等，正常审计新增；历史前像与未覆盖范围 UNKNOWN。自有服务、浏览器、容器停止并独核。[续办结果](docs/reports/s13-dl-p14/t09-addendum.md) · [独立复核](docs/reports/s13-dl-p14/t09-independent.md)。P14 仍 PARTIAL、#37 OPEN；不启动 P15、不合并、不部署。
