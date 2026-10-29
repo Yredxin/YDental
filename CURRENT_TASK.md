@@ -1,6 +1,18 @@
-# YD-S13-DL-P14-V2 / 1.0｜实施中
+# YD-S13-DL-P14-V2 / 1.0｜PARTIAL，T09 FAIL，停止收尾
+
+最终产品 `12f3f299b07ab324f7279413a928097b7ce858a8` 为 **PARTIAL / T09 FAIL**：真实 WebKit、320×800 CSS px、root 200%、真正 JS-off，Tab 到 amount/reason 轮廓底部 803.59375 超出视口800；依计划停止，不继续堆叠。设计规范、[结果](docs/reports/s13-dl-p14-v2/summary.md)、[T01—T12](docs/reports/s13-dl-p14-v2/acceptance-matrix.md)与[证据索引](docs/reports/s13-dl-p14-v2/evidence-index.md)。独立源码28项通过；真实双引擎、PDF岗位和焦点结果按实际范围记录。历史 P14/T09 与 P12 A04 FAIL、R1/R2/R3 PARTIAL、BUG-002 OPEN、#37 OPEN不改。
+
+独立最终保护读回：33受采非附件表不变、资产CSS附件一条替换、旧535审计完整保留并新增252条分类；UID8/9与其成员/员工均inactive、权限none，UID5/6/7及原账单来源保持；Session失效UNKNOWN、非全库证明。本轮Odoo退出0、指定scratch容器停止exit0、18632端口无监听；独立收尾与最终GitHub同步待实际读回。停止不启P15、不合并、不部署、不演示。
+
+---
 
 2026-10-29 用户启用三档响应式重新实施。活动分支 `codex/s13-dl-p14-rwd-v2-r1` 从已核远端回退 HEAD `900ce9d01a029fdfcec17f192fe999ef6ac9db50` 建立；W0 只读设计与历史核查进行中。仅 P14 未付清账单和有据免单呈现，三档规范与真实浏览器独立验收；不发送经济 POST，不重放旧业务，不自动 P15、合并、部署或演示。原 P14/T09 FAIL、P12 A04 FAIL、R1/R2/R3 PARTIAL、E2E-BUG-002 OPEN、旧 UNKNOWN 不改。指定 scratch 已提交 event1/fee1/invoice1 和各库文书责任、身份、审计及附件继续保护，不跨库混用。
+
+W0 设计规范已固定 `43b0c8e`；W1 产品候选 `18ae7737e5438fa143552f03aae95692b6fc68ba`，独立 SOURCE 合同 20 项通过，真实浏览器验收进行中。指定 network-none scratch cluster `7701965376565411870`、OID `16384` 核实；未实现者独立升级前后采集34表、109附件及引用文件、105审计条目的同投影一致，不能外推全库。候选升级 exit 0，本轮专用服务 18632 及该 scratch 启动供真实验收；不得重放原账单及其来源。私有原件 `.local/p14-v2/w3-b/`，旧缺失前像和 Session UNKNOWN 不改。
+
+真实布局检查发现办理区双层 padding，定向修正仅局部 SCSS 后新固定候选 `30ac69a0a266087e78f775f14b00fe643e622202`；旧候选浏览器证据保留，不代新候选通过。为真实 PDF 权限场景，W3 C 在同一 scratch 经原生服务单次新建 UID8/membership4、结算只读与导出写权限；独立读回和最终处置尚待完成，凭据仅本机私有目录。旧 UID6/7 及已提交账单继续保护。新候选升级前须重新由未实现者采前像。
+
+候选 `30ac69a` WebKit 原生400%/实际320×200真JS-off 的正常Tab输入框轮廓纵向裁切，保留FAIL；保持焦点竖滚可完整看到。受控探针针对 P14 焦点使用根纵向 scroll-padding 在该场景通过，已限局部SCSS固定新候选 `12f3f299b07ab324f7279413a928097b7ce858a8`，完整真实回归尚待执行。UID8 经原生离职并独核 inactive、权限 none，旧 Session 失效 UNKNOWN；为最终候选 PDF 重新验证，新增合成 UID9（只读结算/导出），需独立核权及最终正常处置。33受采非附件表不变；HTTP后资产附件替换和审计新增按 `.local/p14-v2/w3-b/` 分类，非全库结论。
 
 ---
 
