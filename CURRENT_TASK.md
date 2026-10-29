@@ -1,3 +1,9 @@
+# YD-UAT-R1-HANDBOOK 当前状态
+
+工作包进行中；独立文档分支 `codex/yd-uat-r1-handbook` 基于 `c6cd8cbb6bef956ab05d7b9c7ecfd6d4d150cb0a`，产品候选 `12f3f299b07ab324f7279413a928097b7ce858a8`。仅资料生产，不启动服务或业务操作；用户环境 ENVIRONMENT_NOT_READY。W0 分配表经独立条件复核；W1 A–H 已完成逐文件限定源码文档复核；W2 12岗位及10场景已通过限定源码文档复核，W3 指南与结果模板已通过限定源码文档复核；W4 全局独立限定 SOURCE/文档复核完成；交付 HANDBOOK_PARTIAL，入口和覆盖缺口详见 docs/uat/YD-UAT-R1/00-guide/handbook-production-report.md；ACC-003 入口未知、同工位检查及其它覆盖缺口须保留。所有用户验收 NOT_RUN。#37 OPEN；P14-V2 PARTIAL/T09 FAIL，R3 PARTIAL，R3-BUG-001 仅限定 FIXED_VERIFIED，历史失败及保护继续保留。历史受保护文书、库存、资金、原件、账号责任不得重放或覆盖。
+
+---
+
 # YD-S13-DL-P14-V2-REVIEW-PREP / 1.0｜材料完成，停止
 
 材料 **REVIEW_MATERIALS_READY（仅材料）**：私有包 `.local/p14-v2/user-review/P14-V2-user-view-only.zip`，SHA256 `88ab0f5361f35f9bba3d07b910ea356defa09bfff3e007b819519867d6266202`；三档真实截图、分岗位 PDF、T09 原始失败和反馈模板均已整理，旧版同条件对照 EVIDENCE_MISSING。独立 B 核验 ZIP 12项 CRC、11项 SHA、6原图及静态离线链接；未启动浏览器作渲染测试。两份公开文字记录：[评审准备](docs/reports/s13-dl-p14-v2/user-review-prep.md)、[素材索引](docs/reports/s13-dl-p14-v2/user-review-evidence-index.md)。未启动服务或数据库、未修改产品或账号。P14-V2 技术 PARTIAL/T09 FAIL、#37 OPEN保持；本工作包完成后停止，不自动开展用户评审、P15、合并、部署或演示。
