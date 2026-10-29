@@ -2,6 +2,8 @@
 
 2026-10-29 交付结构性收口计划。候选 `34f7681797f4ad4aec0b3aa7201b9bf9d02761d8` 将原免单表单移出表格滚动框；真实 Chromium 岗位 9 场景中3个新增表内锚点焦点仍裁切，T09 FAIL，停止继续试验，候选保留供用户与 GPT 决定保留或回退。[结果](docs/reports/s13-dl-p14/structure-summary.md)、[矩阵](docs/reports/s13-dl-p14/structure-matrix.md)、[独立复核](docs/reports/s13-dl-p14/structure-s4-review.md)。指定 scratch 实际加载候选，真实写/只读 GET、HTTP CSS、FormData 与合成双账单对应已验；event1/fee1/invoice1 不重放，无经济 POST。升级前后34表一致但前像未独采；HTTP 后附件具体变化 UNKNOWN，正常审计新增32条。指定容器/端口已停并独核；UID6/7 证据仍 active、Session 未测。P14 PARTIAL、#37 OPEN；不启 P15、不合并、不部署、不安排演示。
 
+同步：报告 `de71ecc6c7fe2404c40a11e51f6eaa820c5d5735` 已推送；#37 原 P14 回执 [6488985588](https://github.com/Yredxin/YDental/issues/37#issuecomment-6488985588) 追加唯一结构增量并逐字读回，原文及其余18条评论保留、#37 OPEN。
+
 ---
 
 # YD-S13-DL-P14-T09 / 1.0｜PARTIAL，T09 FAIL，资源已停止
