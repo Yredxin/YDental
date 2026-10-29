@@ -5,7 +5,7 @@ from odoo.exceptions import UserError
 class YDentalQueueEntry(models.Model):
     _inherit = 'ydental.queue.entry'
 
-    state = fields.Selection(selection_add=[('completed', 'Actual pharmacy segment completed')],
+    state = fields.Selection(selection_add=[('completed', 'Actual segment completed')],
         ondelete={'completed': lambda rows: rows._prevent_terminal_removal()})
 
     def _prevent_terminal_removal(self):

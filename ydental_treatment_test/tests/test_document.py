@@ -85,6 +85,85 @@ class TestClinicalDocument(TransactionCase):
         self.assertEqual(retry['continuation_task_id'],r['continuation_task_id']);self.assertEqual(before,self.counts())
         self.assertFalse(q._busy(q._model('lease').browse(l['lease_id'])))
 
+    def test_medical_complete_replay_and_pending_transfer(self):
+        s, q, lease, execution, document = opened(self)
+        before = self.counts()
+        args = save_args(document) | {'lease_id': lease['lease_id'], 'lease_token': lease['token']}
+        result = s._operate('complete', args)
+        doc = s._model().browse(document['document_id'])
+        self.assertEqual(result['state'], 'completed')
+        self.assertEqual(execution.state, 'completed')
+        self.assertEqual(execution.ydental_task_id.state, 'done')
+        self.assertEqual(q._execution_entry(execution).state, 'completed')
+        self.assertEqual(doc.state, 'pending')
+        self.assertFalse(doc.ydental_editor_id)
+        self.assertEqual(doc.ydental_author_id, self.users['doctor'])
+        self.assertEqual(doc.ydental_responsible_id, self.users['doctor'])
+        self.assertFalse(self.root['ydental.intake.task'].search([('ydental_source_execution_id', '=', execution.id)]))
+        self.assertFalse(q._busy(q._model('lease').browse(lease['lease_id'])))
+        with self.assertRaises(AccessError):
+            s._operate('complete', args)
+        with self.assertRaises(AccessError):
+            q._operate('medical_complete', {'lease_id': lease['lease_id'], 'token': lease['token'], 'execution_id': execution.id})
+        self.assertEqual(before, self.counts())
+        s._operate('transfer', {'document_id': doc.id, 'expected_version': doc.ydental_version,
+                               'user_id': self.second.id, 'reason': 'Synthetic responsibility transfer'})
+        other = queue_bind(self, self.second).env[s._name]
+        received = other._operate('acquire', {'document_id': doc.id})
+        with self.assertRaises(UserError):
+            other._operate('acquire', {'document_id': doc.id})
+        other._operate('confirm', save_args(received))
+        self.assertEqual(doc.ydental_author_id, self.users['doctor'])
+        self.assertEqual(doc.state, 'confirmed')
+        self.assertEqual(before, self.counts())
+
+    def test_medical_complete_preserves_confirmed_document(self):
+        s, q, lease, execution, document = opened(self)
+        document.update(s._operate('confirm', save_args(document)))
+        content = s._model().browse(document['document_id']).ydental_content
+        args = {'document_id': document['document_id'], 'editor_token': document['editor_token'],
+                'expected_version': document['version'], 'content': content, 'key': key(),
+                'lease_id': lease['lease_id'], 'lease_token': lease['token']}
+        self.assertEqual(s._operate('complete', args)['state'], 'completed')
+        doc = s._model().browse(document['document_id'])
+        self.assertEqual(doc.state, 'confirmed')
+        self.assertEqual(doc.ydental_version, 1)
+        with self.assertRaises(AccessError):
+            s._operate('transfer', {'document_id': doc.id, 'expected_version': doc.ydental_version,
+                                    'user_id': self.second.id, 'reason': 'Synthetic transfer'})
+
+    def test_medical_complete_expiry_after_editor_check(self):
+        s, q, lease, execution, document = opened(self)
+        args = save_args(document) | {'lease_id': lease['lease_id'], 'lease_token': lease['token']}
+        original_expire = type(q)._expire
+
+        def expire_during_request(queue):
+            queue._model('lease').browse(lease['lease_id'])._save({
+                'ydental_expires_at': queue._now() - timedelta(seconds=1),
+            })
+            return original_expire(queue)
+
+        with patch.object(type(q), '_expire', expire_during_request):
+            result = s._operate('complete', args)
+        doc = s._model().browse(document['document_id'])
+        self.assertEqual(result['result'], 'connection_expired')
+        self.assertEqual(execution.state, 'verify')
+        self.assertEqual(doc.ydental_version, 1)
+        self.assertNotEqual(doc.state, 'confirmed')
+        self.assertFalse(q._model('lease').browse(lease['lease_id']).ydental_active)
+        self.assertNotEqual(execution.ydental_task_id.state, 'done')
+
+    def test_medical_complete_failure_rolls_back_draft(self):
+        s, q, lease, execution, document = opened(self)
+        args = save_args(document) | {'lease_id': lease['lease_id'], 'lease_token': lease['token']}
+        with patch.object(type(q), '_release_execution_documents', side_effect=UserError('Injected failure')):
+            with self.assertRaises(UserError):
+                s._operate('complete', args)
+        doc = s._model().browse(document['document_id'])
+        self.assertEqual(doc.ydental_version, 0)
+        self.assertTrue(doc.ydental_editor_id)
+        self.assertEqual(execution.state, 'serving')
+
     def test_handover_save_and_continuation_failure_roll_back(self):
         s,q,l,e,d=opened(self); a=handover_args(d,l)
         with patch.object(type(q),'_continuation',side_effect=UserError('Injected continuation failure')):

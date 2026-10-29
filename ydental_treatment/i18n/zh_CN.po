@@ -118,8 +118,8 @@ msgstr "实际材料数量"
 #. module: ydental_treatment
 #: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_queue_entry__state__completed
 #: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_queue_execution__state__completed
-msgid "Actual pharmacy segment completed"
-msgstr "本次药房执行段已完成"
+msgid "Actual segment completed"
+msgstr "本次执行段已完成"
 
 #. module: ydental_treatment
 #: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page

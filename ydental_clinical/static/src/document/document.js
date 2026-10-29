@@ -42,6 +42,8 @@ if (root) {
         root.querySelector('#confirm-document').disabled ||= state === 'confirmed';
         root.querySelector('#correct-document').disabled ||= state !== 'confirmed';
         root.querySelector('#handover-document').disabled ||= !holder || root.dataset.canHandover !== 'yes';
+        const completeButton = root.querySelector('#complete-document');
+        if (completeButton) { completeButton.disabled = !token || saving || failed || !holder || root.dataset.canHandover !== 'yes'; }
         root.querySelector('#tooth-state').disabled = !token || locked || selected === null;
         const row = teeth.get(selected);
         const allowed = ['M', 'D', 'B', 'L', selected % 10 <= 3 ? 'I' : 'O'];
@@ -97,6 +99,7 @@ if (root) {
         })});
         const data = await response.json();
         if (!response.ok) { throw new Error(data.error); }
+        if (data.result !== 'accepted') { throw new Error(data.result || 'Operation outcome requires verification.'); }
         return data;
     }
     function changed() {
@@ -129,7 +132,7 @@ if (root) {
             content: content(), key: crypto.randomUUID()};
         const submitted = JSON.stringify(payload.content);
         if (operation === 'correct') { payload.reason = root.querySelector('#correction-reason').value; }
-        if (operation === 'handover') {
+        if (operation === 'handover' || operation === 'complete') {
             payload.lease_id = holder?.lease_id;
             payload.lease_token = holder?.token;
         }
@@ -137,20 +140,20 @@ if (root) {
             const data = await action(operation, payload);
             committed = true;
             version = data.version;
-            state = data.state === 'handover' ? state : data.state;
+            state = ['handover', 'completed'].includes(data.state) ? state : data.state;
             root.querySelector('#server-version').textContent = version;
             root.querySelector('#server-save').textContent = data.saved_at || root.querySelector('#server-save').textContent;
             dirty = captured !== generation || submitted !== JSON.stringify(content());
             if (terminalPending) {
                 // The server operation is committed. Never retry or undo it from this page.
-                if (operation !== 'handover') {
+                if (!['handover', 'complete'].includes(operation)) {
                     await action('release', {document_id: documentId, editor_token: token});
                 }
                 token = null;
                 sessionStorage.removeItem(editorKey());
                 dirty ||= captured !== generation || submitted !== JSON.stringify(content());
                 if (dirty || failed || needsReconcile) {
-                    reconcile(operation === 'handover' ? 'handover-committed-message' : 'terminal-committed-message');
+                    reconcile(operation === 'handover' ? 'handover-committed-message' : operation === 'complete' ? 'completion-committed-message' : 'terminal-committed-message');
                     return;
                 }
                 terminalPending = false;
@@ -161,7 +164,7 @@ if (root) {
             }
         } catch (error) {
             if (terminalPending) {
-                reconcile(committed ? (operation === 'handover' ? 'handover-committed-message' : 'terminal-committed-message') : 'terminal-uncertain-message');
+                reconcile(committed ? (operation === 'handover' ? 'handover-committed-message' : operation === 'complete' ? 'completion-committed-message' : 'terminal-committed-message') : 'terminal-uncertain-message');
                 result.textContent += ' ' + failureMessage(error);
             } else {
                 failed = true;
@@ -210,6 +213,7 @@ if (root) {
     for (const [id, operation] of [['save-document', 'save'], ['confirm-document', 'confirm'], ['correct-document', 'correct'], ['handover-document', 'handover']]) {
         root.querySelector('#' + id).addEventListener('click', () => save(operation));
     }
+    root.querySelector('#complete-document')?.addEventListener('click', () => save('complete'));
     textFields.forEach(field => field.addEventListener('input', changed));
     root.querySelectorAll('[data-tooth]').forEach(button => button.addEventListener('click', () => select(Number(button.dataset.tooth))));
     root.querySelector('#no-tooth').addEventListener('click', () => {

@@ -6,6 +6,30 @@ from odoo.exceptions import AccessError
 class YDentalQueueService(models.AbstractModel):
     _inherit = 'ydental.queue.service'
 
+    def _handlers(self):
+        return super()._handlers() | {'medical_complete': self._medical_complete}
+
+    def _medical_complete(self, lease_id, token, execution_id):
+        lease = self._held(lease_id, token)
+        execution = self._source_execution(execution_id, lease)
+        if lease.ydental_category != 'medical' or execution.ydental_category != 'medical':
+            raise AccessError(self.env._('access_denied: Only the treating workstation may complete a medical reception.'))
+        if execution.state != 'serving':
+            raise AccessError(self.env._('access_denied: Only the current serving medical reception can be completed.'))
+        self.env['ydental.patient.service']._current_relation(execution.ydental_patient_id, lease.ydental_store_id)
+        self = self.with_context(ydental_medical_completion=True)
+        self._save_before_handover(execution)
+        self._release_execution_documents(execution)
+        execution._save({'state': 'completed', 'ydental_ended_at': self._now()})
+        execution.flush_recordset(['state'])
+        execution.ydental_task_id._save({'state': 'done'})
+        self._execution_entry(execution)._save({'state': 'completed'})
+        self._model('append.permit').search([
+            ('ydental_task_id', '=', execution.ydental_task_id.id), ('state', '=', 'started'),
+        ])._save({'state': 'ended'})
+        self._audit('medical_completed', execution, {'task_id': execution.ydental_task_id.id, 'lease_retained': True})
+        return {'execution_id': execution.id, 'state': 'completed'}
+
     def _finish_pharmacy_segment(self, execution):
         session, connection = self._connection()
         lease = execution.ydental_lease_id

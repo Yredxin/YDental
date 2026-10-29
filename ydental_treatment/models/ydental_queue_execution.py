@@ -5,7 +5,7 @@ from odoo.exceptions import UserError
 class YDentalQueueExecution(models.Model):
     _inherit = 'ydental.queue.execution'
 
-    state = fields.Selection(selection_add=[('completed', 'Actual pharmacy segment completed')],
+    state = fields.Selection(selection_add=[('completed', 'Actual segment completed')],
         ondelete={'completed': lambda rows: rows._prevent_terminal_removal()})
     _terminal_time = models.Constraint(
         "CHECK ((state IN ('serving', 'verify') AND ydental_ended_at IS NULL) OR (state IN ('reserved', 'handover', 'interrupted', 'completed') AND ydental_ended_at IS NOT NULL))",

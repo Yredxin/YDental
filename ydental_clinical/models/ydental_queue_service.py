@@ -38,7 +38,7 @@ class YDentalQueueService(models.AbstractModel):
             raise UserError(self.env._('save_required: The current draft and its immutable version must agree.'))
         doc.flush_recordset()
         version.flush_recordset()
-        service._audit('handover_save_verified', doc, after={'version': doc.ydental_version})
+        service._audit('completion_save_verified' if self.env.context.get('ydental_medical_completion') else 'handover_save_verified', doc, after={'version': doc.ydental_version})
         return True
 
     def _release_execution_documents(self, execution):
@@ -49,7 +49,7 @@ class YDentalQueueService(models.AbstractModel):
             service._clear_editor(doc)
             if doc.state != 'confirmed':
                 doc._save({'state': 'pending'})
-            service._audit('handover_edit_release', doc, after={'version': doc.ydental_version, 'state': doc.state})
+            service._audit('completion_edit_release' if self.env.context.get('ydental_medical_completion') else 'handover_edit_release', doc, after={'version': doc.ydental_version, 'state': doc.state})
 
     def _restore(self, lease_id, token, hold_id, confirmed):
         result = super()._restore(lease_id, token, hold_id, confirmed)

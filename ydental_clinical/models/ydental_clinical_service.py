@@ -104,7 +104,7 @@ class YDentalClinicalService(models.AbstractModel):
     def _operate(self, operation, payload):
         handlers = {'open': self._open, 'acquire': self._acquire, 'heartbeat': self._heartbeat,
                     'release': self._release, 'save': self._save, 'confirm': self._confirm,
-                    'correct': self._correct, 'handover': self._handover, 'transfer': self._transfer}
+                    'correct': self._correct, 'handover': self._handover, 'complete': self._complete, 'transfer': self._transfer}
         if operation not in handlers or not isinstance(payload, dict):
             raise ValidationError(self.env._('invalid_action: Unknown clinical document action.'))
         try:
@@ -118,7 +118,7 @@ class YDentalClinicalService(models.AbstractModel):
             # document locks and handover with patient/permission transactions.
             self._queue()._locks()
             self._access(write=True)
-            return handlers[operation](**payload) | {'result': 'accepted'}
+            return {'result': 'accepted'} | handlers[operation](**payload)
 
     def _open(self, execution_id, lease_id, lease_token):
         queue = self._queue()
@@ -264,10 +264,26 @@ class YDentalClinicalService(models.AbstractModel):
             'lease_id': lease_id, 'token': lease_token, 'execution_id': doc.ydental_current_execution_id.id,
             'mapping_id': mapping_id, 'reason': reason}) | {'document_id': doc.id, 'version': doc.ydental_version}
 
+    def _complete(self, document_id, editor_token, expected_version, content, key, lease_id, lease_token):
+        doc = self._held(document_id, editor_token)
+        if doc.ydental_current_execution_id.ydental_lease_id.id != lease_id:
+            raise AccessError(self.env._('access_denied: Completion must use the original reception.'))
+        if doc.state == 'confirmed':
+            if doc.ydental_version != expected_version or self._content(content) != doc.ydental_content:
+                raise UserError(self.env._('version_conflict: Confirmed text must be synchronized before completion.'))
+        else:
+            self._append(doc, expected_version, content, key, 'save')
+        intent = SaveIntent(self.env.uid, doc.ydental_current_execution_id.id, doc.id, doc.ydental_version)
+        result = self._queue().with_context(ydental_clinical_save=intent)._operate('medical_complete', {
+            'lease_id': lease_id, 'token': lease_token, 'execution_id': doc.ydental_current_execution_id.id,
+        })
+        return result | {'document_id': doc.id, 'version': doc.ydental_version}
+
     def _transfer(self, document_id, expected_version, user_id, reason):
         doc = self._document(document_id, True)
         member = self.env['ydental.access.service']._membership(self.env.uid, doc.ydental_store_id.id)
-        if doc.ydental_current_execution_id.state not in ('handover', 'interrupted') or doc.ydental_version != expected_version or (
+        if doc.ydental_current_execution_id.state not in ('handover', 'interrupted', 'completed') or (
+                doc.ydental_current_execution_id.state == 'completed' and doc.state != 'pending') or doc.ydental_version != expected_version or (
                 doc.ydental_responsible_id.id != self.env.uid and not member.ydental_is_manager):
             raise AccessError(self.env._('access_denied: Only its responsible person or store manager may transfer pending text.'))
         if self._valid_editor(doc):
