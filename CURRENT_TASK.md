@@ -1,3 +1,9 @@
+# YD-S13-E2E-R3-BUG001-VERIFY / 1.0｜BLOCKED，收尾
+
+2026-10-29 用户启动限定验收；分支 `codex/s13-e2e-r3-bug001-verify-r1` 从报告 `6cbc6e3618dc584dd775b893ab254e937c8d80b0` 承接，产品候选 `c50688ba806c69a624c3bf9b171b10ea164bfeec`。新独立 PostgreSQL 身份探针不满足候选 isolated_test 供给守卫；demo 不可售，正式发布需要本次未授权的正式生产政策批准。B 独立新连接核实探针身份，SOURCE/PURE 判断不允许；V0 BLOCKED，V1/V2 未进入。[限定验收报告](docs/reports/s13-e2e-r3/bug001-browser-verification.md)。本轮探针容器已停止，未创建用户或执行治疗；保留历史保护，BUG-001 OPEN，R3 PARTIAL，#37 OPEN，P14 未授权。
+
+---
+
 # YD-S13-E2E-R3-CLOSEOUT / 1.0｜PARTIAL，最终交付
 
 最终结果 **PARTIAL**：[总结](docs/reports/s13-e2e-r3/summary.md)、[W4](docs/reports/s13-e2e-r3/phase-W4.md)。产品候选 `c50688ba806c69a624c3bf9b171b10ea164bfeec`，R3-BUG-001 OPEN：最终候选真实浏览器正常结束及提交验收未完成；W2旧服务真实文书转派和D2补记有独立读回，不能混签最终候选。1561–1563 inactive，1564承担doc520 pending责任且active，1565为唯一有效店长且active，后续处置待用户决定；新处置59 pending。专用服务已停止，最终保护快照 `35ceed0db0b529fa15b870a23d23d067683f1999c52cdddebed62a75501fafc7`，所采旧保护不变；Session及服务退出码 UNKNOWN。历史BUG-002 OPEN、目标升级NOT_RUN、R1/R2/P12 PARTIAL、#37 OPEN、P14未授权。
