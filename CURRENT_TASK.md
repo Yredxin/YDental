@@ -1,3 +1,9 @@
+# YD-S13-DL-P14-T09 / 1.0｜PARTIAL，T09 FAIL，资源已停止
+
+2026-10-29 用户交付定向续办。固定产品 `39038bd8b84ef00fe46dc37973e05a0e46d12796` 不变；同内容对照定位 P14 增加的焦点裁切，两个局部探针因遮挡余额或继续裁切未采纳。本次无产品代码修改，双引擎 loaded QWeb 合成矩阵仍 FAIL。新独立 scratch 以 bf60346 同一产品树安装，正常来源单次产生合成 event1/fee1/posted invoice1（100/余额100），不得重放；真实写/只读岗位 GET、HTTP 前端 CSS、内存 FormData 及部分相邻区已核；未发 waive/pay/refund/close POST。只读和相邻 GET 前后覆盖34表摘要相等，正常审计新增；历史前像与未覆盖范围 UNKNOWN。自有服务、浏览器、容器停止并独核。[续办结果](docs/reports/s13-dl-p14/t09-addendum.md) · [独立复核](docs/reports/s13-dl-p14/t09-independent.md)。P14 仍 PARTIAL、#37 OPEN；不启动 P15、不合并、不部署。
+
+---
+
 # YD-S13-DL-P14 / 1.0｜PARTIAL，最终收口
 
 2026-10-29 用户交付 P14；最终产品候选 `39038bd8b84ef00fe46dc37973e05a0e46d12796`，产品树等同实测 `d70793d98c7cedbe7836900a811e517c8b9a47c8`。局部未付清列表和 waive 呈现已实施，独立源码合同、独立 scratch 已加载 QWeb 合成分支与双浏览器合成证据已采；Tab 焦点裁切未解决，真实岗位 GET、完整 HTTP 资产与历史保护独立前后读回未完成，技术 PARTIAL。[总结](docs/reports/s13-dl-p14/summary.md)、[矩阵](docs/reports/s13-dl-p14/acceptance-matrix.md)、[证据](docs/reports/s13-dl-p14/evidence-index.md)。无经济 POST；不能声称全库无变化。新建 scratch 容器已停止；原历史对象和待办继续保护。#37 OPEN、#36 CLOSED，R3/R1/R2/P12 历史 PARTIAL、E2E-BUG-002 OPEN 保留；不合并、不部署、不启动 P15。
