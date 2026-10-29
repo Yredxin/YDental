@@ -4,6 +4,8 @@
 
 从[唯一执行清单](00-guide/execution-checklist.md)与[逻辑对象映射](00-guide/scenario-data-map.md)安排本次来源，先读[验收计划与阶段登记](00-guide/acceptance-plan.md)、[使用与截图方法](00-guide/how-to-use.md)、[权限矩阵](00-guide/role-permission-matrix.md)和[已知限制](00-guide/known-limitations.md)。岗位是体验视角，实际操作取决于门店、能力等级及其他必要授权；不得使用历史受保护业务对象重放。具体步骤和记录只在各用例中。
 
+L1 首次体验请查看[只读路线](00-guide/l1-first-session.md)、[访问与受控启停](00-guide/l1-access-and-startup.md)及[L1 独立审查](00-guide/l1-readiness-review.md)。目前本机服务已停止、用户端访问未验证；实际操作时在该账号已授权的页面核对当前门店，无法核实时停止。
+
 ## 按岗位进入
 
 [集团管理](10-roles/group-admin/README.md) · [店长](10-roles/store-manager/README.md) · [前台](10-roles/front-desk/README.md) · [治疗医生](10-roles/treatment-doctor/README.md) · [检查医生](10-roles/exam-doctor/README.md) · [药房](10-roles/pharmacy/README.md) · [仓库](10-roles/warehouse/README.md) · [收费](10-roles/cashier/README.md) · [财务审批](10-roles/finance-approver/README.md) · [复诊联络](10-roles/followup-contact/README.md) · [外加工](10-roles/lab-coordinator/README.md) · [经营报表](10-roles/report-user/README.md)

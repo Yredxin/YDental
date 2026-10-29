@@ -1,3 +1,9 @@
+# YD-UAT-R1.1-L1-READINESS / 1.0 当前状态
+
+用户交付L1只读准出工作包；独立分支 `codex/yd-uat-r1-l1-readiness` 基于 `163b2bc2ebcb8a2db08066a2be63658fa1846040`，产品固定 `12f3f299b07ab324f7279413a928097b7ce858a8`。W0–W4完成限定只读、实测及独立复核；两轮本机受控启动/登录/只读GET/停止，最终 L1_ENV_PREPARED_STOPPED（本机有限）/ USER_ACCESS_UNVERIFIED，UAT_L1_READY未满足；证据见 docs/uat/YD-UAT-R1/00-guide/l1-readiness-review.md。用户结果49例均 NOT_RUN，USER_ACCESS_UNVERIFIED，禁止治疗、发药、结算、退款、日结、文书确认等业务提交，禁止改变网络认证或保护对象。P14-V2 PARTIAL/T09 FAIL、P12 A04 FAIL、R3整体PARTIAL及旧UNKNOWN保留；#37 OPEN。
+
+---
+
 # YD-UAT-R1-HANDBOOK-REWORK / 1.1 当前状态
 
 用户授权实施手册修订与独立合成环境准备；分支 `codex/yd-uat-r1-handbook-v11` 从 `0df9d14275e1bb4bed971afc684ee513914b7081` 建立，产品固定 `12f3f299b07ab324f7279413a928097b7ce858a8`。W0–W6限定SOURCE/文档、环境与ZIP独立复核完成；原35 ID保留并新增14例，交付 HANDBOOK_PARTIAL；包外记录 docs/uat/YD-UAT-R1.1-delivery-review.md。W5新独立scratch部分前置准备并独立核验后已停止；详情见 docs/uat/YD-UAT-R1/00-guide/environment-readiness.md。手册 HANDBOOK_PARTIAL，环境 ENVIRONMENT_NOT_READY，全部用户结果 NOT_RUN。不得修改产品规则、重放保护业务、启动真实外部通道或代用户执行验收；已提交文书、财务、库存、原件及历史账号责任继续保护。P14-V2 PARTIAL/T09 FAIL、P12 A04 FAIL、R3整体PARTIAL与限定修复、#37 OPEN保持。
