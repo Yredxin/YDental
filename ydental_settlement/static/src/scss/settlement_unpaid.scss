@@ -26,8 +26,7 @@
         min-inline-size: 0;
     }
 
-    .o_ydental_settlement_unpaid_card,
-    .o_ydental_settlement_unpaid_item {
+    .o_ydental_settlement_unpaid_card {
         box-sizing: border-box;
         min-inline-size: 0;
         padding: var(--ydental-unpaid__space-sm);
@@ -63,7 +62,9 @@
 
     .o_ydental_settlement_unpaid_item {
         display: grid;
+        grid-template-columns: minmax(0, 1fr);
         gap: var(--ydental-unpaid__space-sm);
+        min-inline-size: 0;
     }
 
     .o_ydental_settlement_unpaid_identity {
