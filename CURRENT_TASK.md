@@ -2,6 +2,8 @@
 
 2026-10-29 用户交付定向续办。固定产品 `39038bd8b84ef00fe46dc37973e05a0e46d12796` 不变；同内容对照定位 P14 增加的焦点裁切，两个局部探针因遮挡余额或继续裁切未采纳。本次无产品代码修改，双引擎 loaded QWeb 合成矩阵仍 FAIL。新独立 scratch 以 bf60346 同一产品树安装，正常来源单次产生合成 event1/fee1/posted invoice1（100/余额100），不得重放；真实写/只读岗位 GET、HTTP 前端 CSS、内存 FormData 及部分相邻区已核；未发 waive/pay/refund/close POST。只读和相邻 GET 前后覆盖34表摘要相等，正常审计新增；历史前像与未覆盖范围 UNKNOWN。自有服务、浏览器、容器停止并独核。[续办结果](docs/reports/s13-dl-p14/t09-addendum.md) · [独立复核](docs/reports/s13-dl-p14/t09-independent.md)。P14 仍 PARTIAL、#37 OPEN；不启动 P15、不合并、不部署。
 
+同步：报告 `8adbae0b1140003e6492d79e0663dedb84458005` 已推送；#37 原 P14 回执 [6488985588](https://github.com/Yredxin/YDental/issues/37#issuecomment-6488985588) 追加本次有界增量并 JSON 逐字读回，原文及其余18条评论保留，#37 OPEN。
+
 ---
 
 # YD-S13-DL-P14 / 1.0｜PARTIAL，最终收口
