@@ -57,6 +57,15 @@ class YDentalClinical(http.Controller):
             return request.render('ydental_clinical.ydental_clinical_configuration_required',
                 {'store': store}, status=422, headers=[('Cache-Control', 'no-store')])
         heartbeat = queue._settings()[0]
+        access = service.env['ydental.access.service']
+        scope = access._scope()
+        member = access._membership(service.env.uid, store.id)
+        lease = queue._own()
+        heartbeat_lease = bool(lease and lease.ydental_store_id == store
+            and lease.ydental_category == 'medical' and lease.ydental_active
+            and lease.ydental_expires_at > queue._now() and lease.ydental_session_id == scope
+            and lease.ydental_revision == scope.ydental_revision
+            and access._levels(member)['medical'] == 'write')
         return request.render('ydental_clinical.ydental_clinical_page', {
             'store': store, 'execution': execution, 'doc': doc, 'snapshot': snapshot, 'pending': pending,
             'tooth_labels': {'present': request.env._('Present'), 'missing': request.env._('Missing'),
@@ -72,6 +81,7 @@ class YDentalClinical(http.Controller):
             'versions': service._model('version').search([('ydental_document_id', '=', doc.id)], limit=50) if doc else [],
             'content': snapshot['content'] if snapshot else service._empty(), 'candidates': candidates,
             'status': queue._status(), 'heartbeat': heartbeat,
+            'heartbeat_lease_id': lease.id if heartbeat_lease else 0,
         }, headers=[('Cache-Control', 'no-store')])
 
     @http.route('/ydental/clinical/action', type='http', auth='user', methods=['POST'], max_content_length=100000)

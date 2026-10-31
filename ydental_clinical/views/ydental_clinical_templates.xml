@@ -22,7 +22,7 @@
     <template id="ydental_clinical_page" name="Treatment workbench">
         <t t-set="head"><meta name="viewport" content="width=device-width, initial-scale=1"/><t t-call-assets="web.assets_frontend" t-js="false"/><script type="module" src="/ydental_clinical/static/src/document/document.js"/><link rel="stylesheet" href="/ydental_clinical/static/src/document/document.css"/></t>
         <t t-call="web.layout" head="head">
-            <main class="container py-4 o_ydental_clinical" t-att-data-revision="revision" t-att-data-document="doc.id if doc else 0" t-att-data-execution="execution.id if execution else 0" t-att-data-version="doc.ydental_version if doc else 0" t-att-data-state="doc.state if doc else 'draft'" t-att-data-heartbeat="heartbeat" t-att-data-can-handover="'yes' if can_handover else 'no'">
+            <main class="container py-4 o_ydental_clinical" t-att-data-revision="revision" t-att-data-document="doc.id if doc else 0" t-att-data-execution="execution.id if execution else 0" t-att-data-version="doc.ydental_version if doc else 0" t-att-data-state="doc.state if doc else 'draft'" t-att-data-heartbeat="heartbeat" t-att-data-heartbeat-lease="heartbeat_lease_id" t-att-data-can-handover="'yes' if can_handover else 'no'">
                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                 <h1>Treatment workbench</h1>
                 <nav><a href="/ydental/queue">Workstation queue</a> | <a href="/ydental/patients">Patient records</a> | <a href="/ydental/intake/prices">Existing service and price sources</a></nav>

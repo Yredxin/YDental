@@ -17,6 +17,7 @@ if (root) {
     const result = root.querySelector('#clinical-result');
     const textFields = [...root.querySelectorAll('textarea[name]')];
     let connection = sessionStorage.getItem('ydental_queue_connection');
+    const holdingConnection = Boolean(connection);
     if (!connection) {
         connection = Array.from(crypto.getRandomValues(new Uint8Array(32)), b => b.toString(16).padStart(2, '0')).join('');
         sessionStorage.setItem('ydental_queue_connection', connection);
@@ -267,10 +268,13 @@ if (root) {
         teeth.set(Number(li.dataset.row), {tooth: Number(li.dataset.row), state: li.dataset.state, surfaces: li.dataset.surfaces.split(',').filter(Boolean)});
     }
     summary();
-    setInterval(async () => {
+    let heartbeatInFlight = false;
+    async function heartbeat() {
+        if (heartbeatInFlight) { return; }
+        heartbeatInFlight = true;
         try {
             if (saving || needsReconcile) { return; }
-            if (holder && Number(root.dataset.execution)) {
+            if (holdingConnection && holder && holder.lease_id === Number(root.dataset.heartbeatLease)) {
                 const response = await fetch('/ydental/queue/action', {method: 'POST', body: new URLSearchParams({
                     operation: 'heartbeat', revision: root.dataset.revision, connection,
                     csrf_token: root.querySelector('[name=csrf_token]').value, payload: JSON.stringify({lease_id: holder.lease_id, token: holder.token}),
@@ -281,8 +285,12 @@ if (root) {
         } catch (error) {
             // An earlier heartbeat must not replace the terminal reconciliation warning.
             if (!needsReconcile) { failed = true; result.textContent = failureMessage(error); permissions(); }
+        } finally {
+            heartbeatInFlight = false;
         }
-    }, Number(root.dataset.heartbeat) * 1000);
+    }
+    void heartbeat();
+    setInterval(heartbeat, Number(root.dataset.heartbeat) * 1000);
     window.addEventListener('offline', () => {
         failed = true;
         if (terminalPending) { reconcile('terminal-uncertain-message'); }

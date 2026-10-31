@@ -1,5 +1,6 @@
 import json
 import re
+from datetime import timedelta
 
 from odoo.tests import HttpCase, tagged
 
@@ -61,6 +62,14 @@ class TestClinicalHTTP(HttpCase):
         self.assertEqual(execution.state, 'handover')
         self.assertEqual(self.root['ydental.clinical.document'].browse(self.doc['document_id']).ydental_content['chief_complaint'], 'Synthetic HTTP content')
         page=self.url_open('/ydental/clinical?document_id='+str(self.doc['document_id']));self.assertIn('pending',page.text)
+        self.assertIn('data-heartbeat-lease="%s"' % self.lease['lease_id'], page.text)
+        self.assertEqual(self.action('heartbeat', {'lease_id': self.lease['lease_id'],
+            'token': self.lease['token']}, True).status_code, 200)
+        self.select()  # A new session cannot renew the old browser's lease.
+        page = self.url_open('/ydental/clinical?document_id='+str(self.doc['document_id']))
+        self.assertNotIn('data-heartbeat-lease="%s"' % self.lease['lease_id'], page.text)
+        self.assertEqual(self.action('heartbeat', {'lease_id': self.lease['lease_id'],
+            'token': self.lease['token']}, True).status_code, 403)
 
     def test_rpc_private_and_mutation_forgery(self):
         self.begin_reception()
@@ -110,6 +119,36 @@ class TestClinicalHTTP(HttpCase):
         self.assertEqual(self.action('invented',{}).status_code,409)
         r=self.url_open('/ydental/clinical/action',data={'operation':'save','revision':self.revision,'connection':self.connection,'payload':'{}'})
         self.assertEqual(r.status_code,400)
+
+    def test_handover_heartbeat_expired_no_projection(self):
+        self.begin_reception()
+        response = self.action('save', self.args())
+        self.assertEqual(response.status_code, 200, response.text)
+        self.doc.update(response.json())
+        payload = self.args() | {'lease_id': self.lease['lease_id'], 'lease_token': self.lease['token']}
+        self.assertEqual(self.action('handover', payload).status_code, 200)
+        lease = self.root['ydental.queue.lease'].browse(self.lease['lease_id'])
+        lease._save({'ydental_expires_at': self.front._now() - timedelta(seconds=1)})
+        page = self.url_open('/ydental/clinical?document_id=' + str(self.doc['document_id']))
+        self.assertEqual(page.status_code, 200)
+        self.assertNotIn('data-heartbeat-lease="%s"' % self.lease['lease_id'], page.text)
+        response = self.action('heartbeat', {'lease_id': self.lease['lease_id'], 'token': self.lease['token']}, True)
+        self.assertEqual(response.status_code, 409)
+        self.assertEqual(response.json()['result'], 'connection_expired')
+        self.assertFalse(lease.ydental_active)
+
+    def test_handover_heartbeat_revoked_no_projection(self):
+        self.begin_reception()
+        response = self.action('save', self.args())
+        self.assertEqual(response.status_code, 200, response.text)
+        self.doc.update(response.json())
+        payload = self.args() | {'lease_id': self.lease['lease_id'], 'lease_token': self.lease['token']}
+        self.assertEqual(self.action('handover', payload).status_code, 200)
+        self.admin._grant(self.users['doctor'].id, self.stores[0].id, {'medical': 'none'})
+        page = self.url_open('/ydental/clinical?document_id=' + str(self.doc['document_id']))
+        self.assertEqual(page.status_code, 403)
+        response = self.action('heartbeat', {'lease_id': self.lease['lease_id'], 'token': self.lease['token']}, True)
+        self.assertEqual(response.status_code, 403)
 
     def test_old_connection_and_shared_token_rejected(self):
         self.begin_reception();a=self.args();self.connection=key()+key();self.assertEqual(self.action('save',a).status_code,403)
