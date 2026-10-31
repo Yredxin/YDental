@@ -1,6 +1,6 @@
 # 按测试账号进行验收
 
-本页按账号说明职责、可看入口及后续要验收的功能。账号标签是本手册的索引，**不是登录名**；实际登录名、门店和密码由环境负责人通过获准的私有方式提供。十个普通合成账号已设置同一个测试密码，并分别以新会话完成本机登录核验；实际登录名与共同密码仅保存在本机私有清单；链接已提供，用户自述本次前台登录成功，其他岗位是否查阅或使用尚未核实。用户已自述本次 Windows 前台登录、当前门店及患者列表正常；这是该前台账号本次有限反馈，不代表其他账号或业务流程已验。服务现已停止，下次体验须由环境负责人另行安排运行窗口并核对状态，不能仅凭账号已创建就开始。见[账号设置记录](account-setup-status.md)、[环境状态](environment-readiness.md)与[局域网记录](l1-lan-access.md)。
+本页按账号说明职责、可看入口及后续要验收的功能。账号标签是本手册的索引，**不是登录名**；实际登录名、门店和密码由环境负责人通过获准的私有方式提供。十个普通合成账号已设置同一个测试密码，并分别以新会话完成本机登录核验；实际登录名与共同密码仅保存在本机私有清单；链接已提供；用户已更正此前成功反馈，随后确认 Windows 已看到登录页；账号登录、当前门店和患者列表尚未验证，其他岗位是否查阅或使用同样未知。此前服务已停止，03:23 UTC 已重新受控启动；服务实时状态以[本次用户会话](l1-user-session-current.md)及环境负责人核对为准，不能仅凭账号已创建就开始。见[账号设置记录](account-setup-status.md)、[环境状态](environment-readiness.md)与[局域网记录](l1-lan-access.md)。
 
 下表的类别和等级是指定合成门店授权；统一密码后独立读回确认授权未变，不是岗位名称自动赋权；账号须仍为有效成员，操作还受公司范围、对象、工位与资格约束。实际授予与可访问功能以负责人重新核查为准。所有原用例结果保持 **NOT_RUN**。
 
@@ -36,4 +36,4 @@
 | A09 | [外加工协调](../10-roles/lab-coordinator/README.md) | medical write、followup write | 无接诊参数的 `/ydental/clinical` 曾返回 422；当前不冒称该入口可用。 | 采购、供应商、工单及库存前置未准备；按 [LAB-001](../30-functions/followup-lab/cases/UAT-LAB-001.md)、[LAB-002](../30-functions/followup-lab/cases/UAT-LAB-002.md)、[LAB-003](../30-functions/rework-lab-evidence/cases/UAT-LAB-003.md)、[LAB-004](../30-functions/rework-lab-evidence/cases/UAT-LAB-004.md) 分别由医疗、采购、仓库和复诊有权人员配合，不能认为 A09 拥有全部权限。 |
 | A10 | [报表](../10-roles/report-user/README.md) | settlement read、export write | `/ydental/reports` 看页面入口；本机仅核路径和全页文字，指标与来源未核。参见 [RPT-001](../30-functions/documents-reporting/cases/UAT-RPT-001.md)。 | 有获准来源后按 [RPT-001](../30-functions/documents-reporting/cases/UAT-RPT-001.md)、[RPT-002](../30-functions/documents-reporting/cases/UAT-RPT-002.md) 验证报表和导出；不得把 export 当成全部来源或审计读取权限。 |
 
-当前没有已任命的店长账号：任命依赖尚未批准的政策，不能以集团或系统管理员冒称。所有业务对象只用环境负责人分配的合成对象；用户自述本次 Windows 前台登录、当前门店及患者列表正常；其他账号及未来运行窗口中的页面、列表和完整浏览器交互仍需实际核实。历史 P14-V2 T09 FAIL、P12 A04 和旧 P14/T09 FAIL、R3 PARTIAL 不因本页改变。
+当前没有已任命的店长账号：任命依赖尚未批准的政策，不能以集团或系统管理员冒称。所有业务对象只用环境负责人分配的合成对象；用户已更正此前成功反馈，Windows 前台访问及其他账号的页面、列表和完整浏览器交互仍需实际核实。历史 P14-V2 T09 FAIL、P12 A04 和旧 P14/T09 FAIL、R3 PARTIAL 不因本页改变。

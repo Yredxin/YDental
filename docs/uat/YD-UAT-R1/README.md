@@ -1,6 +1,6 @@
 # YDental 用户验收手册｜YD-UAT-R1 / 1.1
 
-**HANDBOOK_PARTIAL · ENVIRONMENT_NOT_READY**。用户自述本次 Windows 前台登录、当前门店及患者列表正常；指定服务现已停止，下一次体验须另行明确运行窗口。此有限反馈不代表其他岗位通过，49 个完整用例仍为 NOT_RUN；见[本次用户会话](00-guide/l1-user-session-current.md)。本材料用于计划、操作导航和用户记录；所有用户用例初始为 **NOT_RUN**。源码存在或历史技术测试不等于用户验收通过，也不证明候选已部署。产品候选 `12f3f299b07ab324f7279413a928097b7ce858a8`，文档起点 `c6cd8cbb6bef956ab05d7b9c7ecfd6d4d150cb0a`。正式开始前由环境负责人完成[环境及数据准备](00-guide/environment-and-data.md)，使用私有副本登记和保存截图。
+**HANDBOOK_PARTIAL · ENVIRONMENT_NOT_READY**。用户已明确更正此前的成功反馈，用户现已确认看到 Windows 登录页，账号登录及当前门店等尚未确认；此前服务停止，03:23 UTC 已受控启动；实时状态以会话记录及负责人现场核实为准。49 个完整用例仍为 NOT_RUN；见[本次用户会话](00-guide/l1-user-session-current.md)。本材料用于计划、操作导航和用户记录；所有用户用例初始为 **NOT_RUN**。源码存在或历史技术测试不等于用户验收通过，也不证明候选已部署。产品候选 `12f3f299b07ab324f7279413a928097b7ce858a8`，文档起点 `c6cd8cbb6bef956ab05d7b9c7ecfd6d4d150cb0a`。正式开始前由环境负责人完成[环境及数据准备](00-guide/environment-and-data.md)，使用私有副本登记和保存截图。
 
 先从[按测试账号进行验收](00-guide/account-based-testing.md)选择您正在使用的账号，再查看该账号的功能、只读入口及对应验收用例。按[验收计划](00-guide/acceptance-plan.md)先体验页面，后续业务操作以[唯一执行清单](00-guide/execution-checklist.md)和[逻辑对象映射](00-guide/scenario-data-map.md)的前置条件为准；记录方法见[使用与截图方法](00-guide/how-to-use.md)。岗位是体验视角，实际操作取决于门店、能力等级及其他必要授权；不得使用历史受保护业务对象重放。具体步骤和记录只在各用例中。
 
