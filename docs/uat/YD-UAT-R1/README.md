@@ -6,6 +6,8 @@
 
 L1 首次体验请查看[只读路线](00-guide/l1-first-session.md)、[访问与受控启停](00-guide/l1-access-and-startup.md)及[L1 独立审查](00-guide/l1-readiness-review.md)。目前本机服务已停止、用户端访问未验证；实际操作时在该账号已授权的页面核对当前门店，无法核实时停止。
 
+按测试账号开始：[账号功能与验收导航](00-guide/account-based-testing.md)。
+
 ## 按岗位进入
 
 [集团管理](10-roles/group-admin/README.md) · [店长](10-roles/store-manager/README.md) · [前台](10-roles/front-desk/README.md) · [治疗医生](10-roles/treatment-doctor/README.md) · [检查医生](10-roles/exam-doctor/README.md) · [药房](10-roles/pharmacy/README.md) · [仓库](10-roles/warehouse/README.md) · [收费](10-roles/cashier/README.md) · [财务审批](10-roles/finance-approver/README.md) · [复诊联络](10-roles/followup-contact/README.md) · [外加工](10-roles/lab-coordinator/README.md) · [经营报表](10-roles/report-user/README.md)

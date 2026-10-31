@@ -11,3 +11,5 @@ L1 本机测试后服务已停止，用户端访问未验证；先看[只读首�
 - [源码入口索引](source-index.md)
 - [手册生产报告](handbook-production-report.md)
 - [结果登记](../40-results/README.md)
+
+- [按测试账号进行验收](account-based-testing.md)
