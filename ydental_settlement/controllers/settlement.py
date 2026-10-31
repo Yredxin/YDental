@@ -16,10 +16,13 @@ HEADERS = [('Cache-Control', 'no-store, private, max-age=0'),
 
 
 class YDentalSettlement(http.Controller):
-    def _html_feedback(self, kind):
+    def _html_feedback(self, kind, patient_id=None):
         token = uuid.uuid4().hex
         request.session['ydental_settlement_feedback'] = {'token': token, 'kind': kind}
-        response = request.redirect('/ydental/settlement?' + urlencode({'notice': token}), code=303)
+        query = {'notice': token}
+        if patient_id:
+            query['patient_id'] = patient_id
+        response = request.redirect('/ydental/settlement?' + urlencode(query), code=303)
         for name, value in HEADERS:
             response.headers[name] = value
         return response
@@ -30,6 +33,22 @@ class YDentalSettlement(http.Controller):
         access = access._bind(session, revision)
         update_context(scope_revision=access.env.context['ydental_binding'].revision)
         return access.env['ydental.settlement.service']
+
+    def _return_patient(self, service, value):
+        """Treat the form's return context as a hint, never as financial authority."""
+        if not isinstance(value, str) or not value.isdecimal() or not 1 <= len(value) <= 12:
+            return None
+        patient_id = int(value)
+        if not 1 <= patient_id <= 2147483647:
+            return None
+        try:
+            with service.env.cr.savepoint(flush=False):
+                store = service._access()
+                patient = service._patient(patient_id)
+                service.env['ydental.patient.service']._current_relation(patient, store)
+                return patient.id
+        except (AccessError, UserError, ValidationError, ValueError, TypeError):
+            return None
 
     @http.route('/ydental/settlement', type='http', auth='user', methods=['GET'])
     @observed_http('settlement.workbench')
@@ -103,6 +122,7 @@ class YDentalSettlement(http.Controller):
     def action(self, operation, revision, key, **post):
         html_form = (post.get('output') == 'html'
                      and request.httprequest.mimetype == 'application/x-www-form-urlencoded')
+        return_patient_id = None
         def ids(name):
             values = request.httprequest.form.getlist(name)
             return [int(value) for value in values]
@@ -112,6 +132,8 @@ class YDentalSettlement(http.Controller):
             parsed_revision = int(revision)
             update_context(stage='authorization')
             service = self._service(parsed_revision)
+            if html_form:
+                return_patient_id = self._return_patient(service, post.get('return_patient_id'))
             payloads = {
                 'bill': lambda: {'fee_ids': ids('fee_ids'), 'discount': float(post.get('discount') or 0),
                                  'reason': post.get('reason') or ''},
@@ -150,17 +172,17 @@ class YDentalSettlement(http.Controller):
             parsed_payload = payloads[operation]()
             update_context(stage='business.call')
             result = service._operate(operation, parsed_payload, key)
-            if html_form:
-                return self._html_feedback('already_accepted' if result.get('result') == 'already_accepted'
-                                           else 'accepted')
-            return request.make_json_response(result, headers=HEADERS)
         except (AccessError, UserError, ValidationError, ValueError, TypeError, KeyError) as error:
             record_exception(error, 'settlement.action')
             request.env['ydental.access.service']._denial('settlement.action')
             if html_form:
-                return self._html_feedback('denied')
+                return self._html_feedback('denied', return_patient_id)
             return request.make_json_response({'error': str(error)},
                 status=403 if isinstance(error, AccessError) else 409, headers=HEADERS)
+        if html_form:
+            return self._html_feedback('already_accepted' if result.get('result') == 'already_accepted'
+                                       else 'accepted', return_patient_id)
+        return request.make_json_response(result, headers=HEADERS)
 
     @http.route('/ydental/settlement/pdf/<string:kind>/<int:source_id>', type='http', auth='user', methods=['GET'])
     @observed_http('settlement.pdf')

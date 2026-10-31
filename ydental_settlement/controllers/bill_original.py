@@ -16,14 +16,15 @@ class YDentalBillOriginal(YDentalSettlement):
             parsed_revision = int(revision)
             update_context(stage='authorization')
             service = self._service(parsed_revision)
+            return_patient_id = self._return_patient(service, kwargs.get('return_patient_id'))
             update_context(stage='request.parse')
             parsed_previous = int(previous_id) if previous_id else None
             update_context(stage='business.call')
             service._store_bill_original(invoice_id, key, parsed_previous)
-            return self._html_feedback('accepted')
         except (AccessError, UserError, ValidationError, ValueError) as error:
             record_exception(error, 'settlement.original.create')
             return request.make_json_response({'error': str(error)}, status=403 if isinstance(error, AccessError) else 409, headers=HEADERS)
+        return self._html_feedback('accepted', return_patient_id)
 
     @http.route('/ydental/settlement/bill-original/<int:original_id>', type='http', auth='user', methods=['GET'])
     @observed_http('settlement.original.download')

@@ -16,7 +16,7 @@
     <menuitem id="ydental_clinical_menu" name="Treatment workbench" parent="ydental_base.ydental_base_menu_root" action="ydental_clinical_action" sequence="80" groups="ydental_base.ydental_base_group_user"/>
     <template id="ydental_queue_page" inherit_id="ydental_queue.ydental_queue_page" name="Workstation queue inherit clinical">
         <xpath expr="//section[@id='patient-return-actions']" position="before">
-            <p><a href="/ydental/clinical">Treatment workbench and pending documents</a></p>
+            <p t-if="can_read_medical"><a href="/ydental/clinical">Treatment workbench and pending documents</a></p>
         </xpath>
     </template>
     <template id="ydental_clinical_page" name="Treatment workbench">

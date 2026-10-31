@@ -11,6 +11,7 @@
         <input type="hidden" name="revision" t-att-value="revision"/>
         <input type="hidden" name="key" t-att-value="new_key()"/>
         <input type="hidden" name="output" value="html"/>
+        <input t-if="patient" type="hidden" name="return_patient_id" t-att-value="patient.id"/>
     </template>
 
     <template id="ydental_settlement_page_links">
@@ -234,7 +235,8 @@
                         <p>Refund request · original collection <span t-out="refund.ydental_payment_id.ydental_payment_id.name"/>：<span t-out="money(refund.ydental_amount, refund.ydental_currency_id)"/>，状态 <span t-out="refund_labels[refund.ydental_state]"/>
                             <a t-if="can_export" t-att-href="'/ydental/settlement/pdf/refund/%s' % refund.id">下载退款凭据 PDF</a>
                             <span t-else="">仅供查阅</span></p>
-                        <details name="settlement-operation" class="o_ydental_access_operation" t-if="can_approve and refund.ydental_state == 'requested'"><summary>Review refund request</summary><form method="post" action="/ydental/settlement/action">
+                        <p t-if="can_approve and refund.ydental_state == 'requested' and refund.ydental_requester_id.id == request.env.uid">这是您提交的退款申请，请等待另一位有权人员审批。</p>
+                        <details name="settlement-operation" class="o_ydental_access_operation" t-if="can_approve and refund.ydental_state == 'requested' and refund.ydental_requester_id.id != request.env.uid"><summary>Review refund request</summary><form method="post" action="/ydental/settlement/action">
                             <t t-call="ydental_settlement.ydental_settlement_tokens"/>
                             <input type="hidden" name="refund_id" t-att-value="refund.id"/>
                             <label>审批原因 <input type="text" name="reason" maxlength="300" required="required"/></label>

@@ -106,10 +106,11 @@ class YDentalQueue(http.Controller):
             'revision': access._scope().ydental_revision, 'screen_lang': queue.env.user.lang or 'en_US', 'stations': station_rows, 'rows': waiting_rows,
             'own': own, 'shift_hint': queue._shift_hint(own), 'config_hint': config_hint,
             'can_write': any(levels[c] == 'write' for c in ('medical', 'exam', 'pharmacy')),
+            'can_read_medical': levels['medical'] in ('read', 'write'),
             'heartbeat': heartbeat, 'can_call': can_call, 'verifications': verifications,
             'execution': actor_execution if actor_execution and actor_execution.state == 'serving' else False,
             'can_open_medical_execution': bool(current_execution and actor_execution.ydental_category == 'medical'
-                and levels['medical'] == 'write'),
+                and levels['medical'] == 'write' and 'ydental.clinical.service' in queue.env),
             'can_open_pharmacy_execution': bool(current_execution and actor_execution.ydental_category == 'pharmacy'
                 and levels['pharmacy'] == 'write'),
             'actor_hold': actor_hold, 'can_frontdesk': levels['frontdesk'] == 'write',
