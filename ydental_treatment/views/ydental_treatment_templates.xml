@@ -16,6 +16,7 @@
                 <link rel="stylesheet" href="/ydental_treatment/static/src/workbench/workbench.css"/>
                 <h1>Treatment and pharmacy</h1>
                 <nav><a href="/ydental/queue">Workstation and explicit reporting</a> | <a t-if="role == 'medical'" href="/ydental/clinical">Independent clinical document</a> | <a href="/ydental/treatment?prices=1">Evidenced historical price review</a></nav>
+                <p t-if="role == 'pharmacy' and not execution">No current pharmacy encounter. Open the workstation queue, enter an eligible station and call the reported task.</p>
                 <p class="alert alert-warning">Demonstration pricing and synthetic medication review only. Production pricing, medication policy and clinical signing await approval. These sources are not bills or payments.</p>
                 <p><strong t-out="store.name"/> / <span t-out="status['station'] or '-'"/> / <strong t-out="patient.name if patient else '-'"/> / <span t-out="execution.id if execution else '-'"/></p>
                 <p>Save the independent document before confirming an actual project. Text confirmation, actual execution and segment finish are separate actions.</p>

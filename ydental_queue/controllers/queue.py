@@ -86,6 +86,19 @@ class YDentalQueue(http.Controller):
             and actor_execution.ydental_store_id == store and own.ydental_store_id == store
             and actor_execution.ydental_lease_id == own and own.ydental_expires_at > queue._now()
             and own.ydental_session_id == scope and own.ydental_revision == scope.ydental_revision)
+        pending_tasks = queue.env['ydental.intake.task'].sudo().search([
+            ('ydental_store_id', '=', store.id), ('state', 'in', ('pending', 'accepted'))])
+        task_patients = {}
+        if levels['frontdesk'] in ('read', 'write'):
+            access._check('frontdesk', 'read')
+            relations = queue.env['ydental.patient.service']._current_relations(
+                pending_tasks.ydental_patient_id.ids, store, required=False)
+            for task in pending_tasks:
+                relation = relations.get(task.ydental_patient_id.id)
+                patient = relation.ydental_patient_id if relation else False
+                if patient and patient.active:
+                    task_patients[task.id] = {'id': patient.id, 'name': patient.name,
+                                              'number': patient.ydental_number}
         return request.render('ydental_queue.ydental_queue_page' , {'store': store, 'status': queue._status(),
             'revision': access._scope().ydental_revision, 'screen_lang': queue.env.user.lang or 'en_US', 'stations': station_rows, 'rows': waiting_rows,
             'own': own, 'shift_hint': queue._shift_hint(own), 'config_hint': config_hint,
@@ -102,8 +115,8 @@ class YDentalQueue(http.Controller):
                 ('ydental_store_id', '=', store.id), ('state', 'in', ('pending', 'accepted'))]).filtered(
                     lambda task: bool(actor_execution and task.ydental_patient_id == actor_execution.ydental_patient_id and
                                       task.ydental_mapping_id.ydental_catalog_id.ydental_kind in ('exam', 'medicine'))),
-            'pending_tasks': queue.env['ydental.intake.task'].sudo().search([
-                ('ydental_store_id', '=', store.id), ('state', 'in', ('pending', 'accepted'))]),
+            'pending_tasks': pending_tasks, 'task_patients': task_patients,
+            'can_identify_task_patients': levels['frontdesk'] in ('read', 'write'),
             'business_rows': business_rows, 'can_capacity': levels['capacity'] == 'write',
             'screen_credentials': queue._model('screen.token').search([('ydental_store_id', '=', store.id)]) if levels['capacity'] == 'write' else [],
             'permits': queue._model('append.permit').search([('ydental_store_id', '=', store.id), ('state', 'in', ('active', 'started'))])}, headers=[('Cache-Control', 'no-store')])

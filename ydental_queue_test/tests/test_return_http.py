@@ -1,14 +1,90 @@
 import json
+from types import SimpleNamespace
+from unittest.mock import patch
 
+from lxml import html
 from odoo.tests import tagged
 
-from .common import accepted, key
+from .common import accepted, key, qualify
 from .return_common import appender, close, external, report, source
 from .test_http import TestQueueHTTP
 
 
 @tagged('post_install', '-at_install')
 class TestQueueReturnHTTP(TestQueueHTTP):
+    def test_unavailable_patient_suppresses_pending_task_actions(self):
+        task = accepted(self)
+        self.select('frontdesk')
+        service_type = type(self.env['ydental.patient.service'])
+        for relations in ({}, {task.ydental_patient_id.id: SimpleNamespace(
+                ydental_patient_id=SimpleNamespace(active=False))}):
+            with patch.object(service_type, '_current_relations', return_value=relations):
+                page = self.url_open('/ydental/queue')
+            self.assertEqual(page.status_code, 200)
+            row = html.fromstring(page.content).xpath('//div[@data-pending-task=$task]', task=str(task.id))[0]
+            self.assertTrue(any(message in row.text_content() for message in (
+                'Patient is archived or lacks a current store relationship',
+                '患者已归档或缺少本店有效关联',
+            )))
+            self.assertFalse(row.xpath('.//form[@data-queue-form="query_return" or @data-queue-form="report" or @data-queue-form="append"]'))
+
+    def test_merged_patient_task_displays_canonical_identity(self):
+        front = self.front.env['ydental.patient.service']
+        group = self.group.env['ydental.patient.service']
+        source = front._operate('create', {'values': {'name': 'Synthetic merge source'}}, key())
+        target = front._operate('create', {'values': {'name': 'Synthetic canonical patient'}}, key())
+        merge = front._operate('request_merge', {'source_id': source['id'], 'target_id': target['id'],
+                                                'reason': 'Synthetic identity verification'}, key())
+        group._operate('confirm', {'request_id': merge['id'], 'version': merge['version'],
+                                   'reason': 'Synthetic group verification'}, key())
+        qualification = qualify(self, patient_id=source['id'])
+        task = self.root['ydental.intake.task'].browse(qualification['task_id'])
+        self.select('frontdesk')
+        page = self.url_open('/ydental/queue')
+        self.assertEqual(page.status_code, 200)
+        row = html.fromstring(page.content).xpath('//div[@data-pending-task=$task]', task=str(task.id))[0]
+        self.assertIn('Synthetic canonical patient', row.text_content())
+        self.assertEqual(row.xpath('.//form[@data-queue-form="query_return"]/input[@name="patient_id"]/@value'), [str(target['id'])])
+        self.assertTrue(row.xpath('.//form[@data-queue-form="report"]'))
+
+    def test_pending_patient_return_is_scoped_to_frontdesk_and_store(self):
+        task = accepted(self)
+        patient = task.ydental_patient_id
+        self.select('frontdesk')
+        page = self.url_open('/ydental/queue')
+        self.assertEqual(page.status_code, 200)
+        row = html.fromstring(page.content).xpath('//div[@data-pending-task=$task]', task=str(task.id))[0]
+        self.assertIn(patient.name, row.text_content())
+        self.assertIn(patient.ydental_number, row.text_content())
+        self.assertEqual(row.xpath('.//form[@data-queue-form="query_return"]/input[@name="patient_id"]/@value'), [str(patient.id)])
+        result = self.action('query_return', {'patient_id': patient.id})
+        self.assertEqual(result.status_code, 200)
+        self.assertEqual(result.json()['state'], 'no_hold')
+
+        self.admin._grant(self.users['doctor'].id, self.stores[0].id,
+                          {'medical': 'none', 'exam': 'none', 'pharmacy': 'read'})
+        self.select('doctor')
+        page = self.url_open('/ydental/queue')
+        self.assertEqual(page.status_code, 200)
+        row = html.fromstring(page.content).xpath('//div[@data-pending-task=$task]', task=str(task.id))[0]
+        self.assertNotIn(patient.name, row.text_content())
+        self.assertNotIn(patient.ydental_number, row.text_content())
+        self.assertFalse(row.xpath('.//form[@data-queue-form="query_return"]'))
+
+        self.select('frontdesk')
+        switch = self.url_open('/ydental/access/action', data={
+            'csrf_token': self.csrf, 'revision': self.revision, 'operation': 'switch',
+            'payload': json.dumps({'store_id': self.stores[1].id}), 'output': 'json'})
+        self.assertEqual(switch.status_code, 200)
+        self.revision = switch.json()['revision']
+        page = self.url_open('/ydental/queue')
+        self.assertEqual(page.status_code, 200)
+        self.assertFalse(html.fromstring(page.content).xpath('//div[@data-pending-task=$task]', task=str(task.id)))
+        self.assertEqual(self.action('query_return', {'patient_id': patient.id}).status_code, 403)
+
+        self.admin._grant(self.users['frontdesk'].id, self.stores[1].id, {'frontdesk': 'none'})
+        self.assertEqual(self.action('query_return', {'patient_id': patient.id}).status_code, 403)
+
     def start_http(self):
         task = accepted(self)
         self.select()

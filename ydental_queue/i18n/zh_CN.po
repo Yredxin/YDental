@@ -18,6 +18,21 @@ msgstr ""
 
 #. module: ydental_queue
 #: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Patient is archived or lacks a current store relationship. Ask patient records staff to review before handling this task."
+msgstr "患者已归档或缺少本店有效关联，请联系患者资料人员核查后再办理此任务。"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Patient:"
+msgstr "患者："
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Query this patient's return destination"
+msgstr "查询该患者的返回去向"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
 msgid ". Connection expires:"
 msgstr "。连接到期："
 

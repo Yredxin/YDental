@@ -137,6 +137,90 @@ class TestTreatmentHTTP(TestClinicalHTTP):
             'source':key(),'reason':'Synthetic actual four','already_performed':False,'policy':'demo_confirmation'})
         self.assertEqual(dispense.status_code,200,dispense.text)
 
+    def test_pharmacy_current_patient_order_survives_more_than_100_other_orders(self):
+        receive(self, kind='medicine')
+        price(self, catalog=self.drug_catalog, amount=10)
+        self.admin._grant(self.users['doctor'].id, self.stores[0].id, {'pharmacy': 'write'})
+        self.select()
+        without_execution = self.url_open('/ydental/treatment')
+        self.assertEqual(without_execution.status_code, 200, without_execution.text)
+        workbench = html.fromstring(without_execution.content).xpath('//main[contains(concat(" ", normalize-space(@class), " "), " o_ydental_treatment ")]')[0]
+        self.assertIn(workbench.get('data-execution'), (None, '0'))
+        line = {'mapping_id': self.drug_mapping.id, 'quantity': 1, 'uom_id': self.uom.id,
+                'product_id': self.products['medicine'], 'specification': 'Synthetic specification',
+                'usage': 'Synthetic usage', 'frequency': 'Synthetic frequency', 'course': 'Synthetic course'}
+
+        def issue(args):
+            draft = self.t_action('order', args | {'kind': 'prescription', 'purpose': 'Synthetic scoped list', 'lines': [line]})
+            self.assertEqual(draft.status_code, 200, draft.text)
+            issued = self.t_action('issue', args | {'order_id': draft.json()['order_id'], 'version': draft.json()['version']})
+            self.assertEqual(issued.status_code, 200, issued.text)
+            return issued.json()
+
+        def handover():
+            result = self.action('handover', self.args() | {'lease_id': self.lease['lease_id'], 'lease_token': self.lease['token']})
+            self.assertEqual(result.status_code, 200, result.text)
+            result = self.action('exit', {'lease_id': self.lease['lease_id'], 'token': self.lease['token']}, True)
+            self.assertEqual(result.status_code, 200, result.text)
+
+        order = issue(self.medical())
+        handover()
+        other_args = self.medical()
+        newer = [issue(other_args) for _ in range(101)]
+        handover()
+        task = self.root['ydental.intake.task'].browse(order['task_ids'][0])
+        self.front._operate('arrive', {'patient_id': task.ydental_patient_id.id}, key())
+        self.front._operate('report', {'task_id': task.id, 'version': task.ydental_version}, key())
+        entered = self.action('enter', {'station_id': self.pharmacy_station.id}, True)
+        self.assertEqual(entered.status_code, 200, entered.text)
+        lease = entered.json()
+        held = {'lease_id': lease['lease_id'], 'token': lease['token']}
+        call = self.action('call', held, True)
+        self.assertEqual(call.status_code, 200, call.text)
+        started = self.action('start', held | {'entry_id': call.json()['entry_id']}, True)
+        self.assertEqual(started.status_code, 200, started.text)
+        page = self.url_open('/ydental/treatment')
+        self.assertEqual(page.status_code, 200, page.text)
+        self.assertIn('data-order="%s"' % order['order_id'], page.text)
+        self.assertNotIn('data-order="%s"' % newer[-1]['order_id'], page.text)
+        self.admin._grant(self.users['doctor'].id, self.stores[0].id, {'pharmacy': 'none'})
+        self.assertEqual(self.url_open('/ydental/treatment').status_code, 403)
+
+    def test_pharmacy_without_current_execution_cannot_view_prescriptions(self):
+        args = self.medical()
+        line = {'mapping_id': self.drug_mapping.id, 'quantity': 1, 'uom_id': self.uom.id,
+                'product_id': self.products['medicine'], 'specification': 'Synthetic specification',
+                'usage': 'Synthetic usage', 'frequency': 'Synthetic frequency', 'course': 'Synthetic course'}
+        draft = self.t_action('order', args | {'kind': 'prescription', 'purpose': 'Synthetic idle check', 'lines': [line]})
+        self.assertEqual(draft.status_code, 200, draft.text)
+        issued = self.t_action('issue', args | {'order_id': draft.json()['order_id'], 'version': draft.json()['version']})
+        self.assertEqual(issued.status_code, 200, issued.text)
+        handed = self.action('handover', self.args() | {'lease_id': self.lease['lease_id'], 'lease_token': self.lease['token']})
+        self.assertEqual(handed.status_code, 200, handed.text)
+        exited = self.action('exit', {'lease_id': self.lease['lease_id'], 'token': self.lease['token']}, True)
+        self.assertEqual(exited.status_code, 200, exited.text)
+        self.admin._grant(self.users['doctor'].id, self.stores[0].id, {'medical': 'none', 'pharmacy': 'write'})
+        self.select()
+        page = self.url_open('/ydental/treatment')
+        self.assertEqual(page.status_code, 200, page.text)
+        self.assertIn('data-role="pharmacy"', page.text)
+        self.assertTrue(any(message in page.text for message in (
+            'No current pharmacy encounter', '当前没有可办理的药房接诊',
+        )))
+        self.assertNotIn('data-order="%s"' % issued.json()['order_id'], page.text)
+        self.assertNotIn('data-event=', page.text)
+        self.admin._grant(self.users['doctor'].id, self.stores[1].id, {'medical': 'none', 'pharmacy': 'write'})
+        switch = self.url_open('/ydental/access/action', data={
+            'csrf_token': self.csrf, 'revision': self.revision, 'operation': 'switch',
+            'payload': json.dumps({'store_id': self.stores[1].id}), 'output': 'json'})
+        self.assertEqual(switch.status_code, 200, switch.text)
+        self.revision = switch.json()['revision']
+        page = self.url_open('/ydental/treatment')
+        self.assertEqual(page.status_code, 200, page.text)
+        self.assertNotIn('data-order="%s"' % issued.json()['order_id'], page.text)
+        self.admin._grant(self.users['doctor'].id, self.stores[1].id, {'pharmacy': 'none'})
+        self.assertEqual(self.url_open('/ydental/treatment').status_code, 403)
+
     def test_http_rework_blank_rx_draft_issue_reject_then_complete(self):
         args=self.medical()
         line={'mapping_id':self.drug_mapping.id,'quantity':6,'uom_id':self.uom.id,'product_id':self.products['medicine'],

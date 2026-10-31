@@ -84,10 +84,14 @@
                     <h2>Pending explicit tasks</h2>
                     <p>Continuation keeps the outpatient service requirements. Independent services need a new qualification.</p>
                     <div t-foreach="pending_tasks" t-as="task" t-att-data-pending-task="task.id">
-                        <span><t t-out="task.id"/> / <t t-out="task.name"/> / <t t-out="task.state"/></span>
-                        <form t-if="can_frontdesk" data-queue-form="report"><input type="hidden" name="task_id" t-att-value="task.id"/><input type="hidden" name="version" t-att-value="task.ydental_version"/>
+                        <span><t t-out="task.name"/> / <t t-out="task.state"/></span>
+                        <t t-set="task_patient" t-value="task_patients.get(task.id)"/>
+                        <p t-if="task_patient">Patient: <t t-out="task_patient['name']"/> / <t t-out="task_patient['number']"/></p>
+                        <p t-if="can_identify_task_patients and not task_patient">Patient is archived or lacks a current store relationship. Ask patient records staff to review before handling this task.</p>
+                        <form t-if="task_patient" data-queue-form="query_return"><input type="hidden" name="patient_id" t-att-value="task_patient['id']"/><button type="submit">Query this patient's return destination</button></form>
+                        <form t-if="can_frontdesk and task_patient" data-queue-form="report"><input type="hidden" name="task_id" t-att-value="task.id"/><input type="hidden" name="version" t-att-value="task.ydental_version"/>
                             <button type="submit">Report this explicit task</button></form>
-                        <form t-if="can_append" data-queue-form="append"><input type="hidden" name="task_id" t-att-value="task.id"/>
+                        <form t-if="can_append and task_patient" data-queue-form="append"><input type="hidden" name="task_id" t-att-value="task.id"/>
                             <label>Append reason <input name="reason" required="required" maxlength="1000"/></label><button type="submit">Authorize task append</button></form>
                     </div>
                     <div t-foreach="permits" t-as="permit" t-att-data-permit="permit.id"><span><t t-out="permit.ydental_task_id.id"/> / <t t-out="permit.state"/></span>

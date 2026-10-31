@@ -47,22 +47,31 @@ class YDentalTreatment(http.Controller):
                 {'store': store, 'can_open_queue': role != 'price'}, status=422,
                 headers=[('Cache-Control', 'no-store')])
         heartbeat = queue._settings()[0]
+        scope = service.env['ydental.access.service']._scope()
         if execution and (execution.ydental_category != role or execution.ydental_store_id != store):
+            execution = False
+        if role == 'pharmacy' and not (execution and execution.state == 'serving' and lease
+                and lease.ydental_store_id == store and lease == execution.ydental_lease_id
+                and lease.ydental_expires_at > queue._now()
+                and lease.ydental_session_id == scope and lease.ydental_revision == scope.ydental_revision):
             execution = False
         patient = execution.ydental_patient_id if execution else False
         doc = service.env['ydental.clinical.service']._model().search([
             ('ydental_current_execution_id', '=', execution.id)], limit=1) if execution and role == 'medical' else False
         domain = [('ydental_store_id', '=', store.id)]
-        orders = service._model('order').search(domain + ([('ydental_kind', '=', 'prescription'), ('state', 'in', ('issued', 'done'))]
-            if role == 'pharmacy' else []), order='id desc', limit=100)
+        order_domain = domain + ([('ydental_kind', '=', 'prescription'), ('state', 'in', ('issued', 'done'))]
+            if role == 'pharmacy' else [])
+        if patient:
+            order_domain += [('ydental_patient_id', '=', patient.id)]
+        orders = (service._model('order').search(order_domain, order='id desc', limit=100)
+                  if role != 'pharmacy' or execution else service._model('order'))
         if role == 'price':
             orders = service._model('order')
-        if patient:
-            orders = orders.filtered(lambda o: o.ydental_patient_id == patient)
         lines = service._model('line').search([('ydental_order_id', 'in', orders.ids)], order='id')
         segments = service._model('segment').search([('ydental_order_id', 'in', orders.ids)], order='id')
-        events = service._model('event').search(domain + ([('ydental_pending_reason', '=', 'missing_price')] if role == 'price' else [('ydental_category', '=', role)]) +
+        events = (service._model('event').search(domain + ([('ydental_pending_reason', '=', 'missing_price')] if role == 'price' else [('ydental_category', '=', role)]) +
             ([('ydental_patient_id', '=', patient.id)] if patient else []), order='id desc', limit=100)
+            if role != 'pharmacy' or execution else service._model('event'))
         consumptions = service._model('consumption').search([('ydental_event_id', 'in', events.ids)])
         mappings = service.env['ydental.intake.service']._model('mapping').search([('ydental_store_id', '=', store.id), ('active', '=', True)])
         target_mappings = service.env['ydental.intake.service']._model('mapping').search([

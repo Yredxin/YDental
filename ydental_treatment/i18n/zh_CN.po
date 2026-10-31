@@ -17,6 +17,11 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "No current pharmacy encounter. Open the workstation queue, enter an eligible station and call the reported task."
+msgstr "当前没有可办理的药房接诊。请进入工位队列，选择合格工位并叫取已报到任务。"
+
+#. module: ydental_treatment
 #: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_queue_page_inherit_treatment
 msgid "Open the current clinical document"
 msgstr "打开当前接诊文书"
