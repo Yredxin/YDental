@@ -205,6 +205,22 @@ class TestIntakeHTTP(HttpCase):
         self.assertEqual(response.status_code, 403)
         self.assertFalse(self.root['ydental.intake.entitlement'].search([('ydental_patient_id', '=', stale_patient)]))
 
+    def test_suggested_services_share_slot_only_for_matching_area_and_capability(self):
+        catalog = self.group._operate('catalog', {'code': 's05_shared_' + key(),
+            'name': 'Synthetic shared capability service', 'kind': 'care',
+            'capability_id': self.capabilities[0].id, 'uom_id': self.uom.id}, key())
+        mapping = self.group._operate('mapping', {'catalog_id': catalog['id'],
+            'area_id': self.areas[0][0].id, 'execution_area_id': self.areas[0][0].id}, key())
+        self.select()
+        page = self.url_open('/ydental/intake')
+        options = html.fromstring(page.content).xpath('//form[@id="choose-available"]//select[@name="available"]/option/@value')
+        for mapping_id in (self.mappings[0][0].id, mapping['id']):
+            self.assertTrue(any(value.startswith(str(mapping_id) + '|') and value.endswith('|reservation') for value in options))
+        other = [value for value in options if value.startswith(str(self.mappings[0][1].id) + '|')]
+        self.assertTrue(other)
+        self.assertFalse(any(value.startswith(str(mapping['id']) + '|') and value.split('|')[1:3] != [
+            fields.Datetime.to_string(self.start), fields.Datetime.to_string(self.end)] for value in options))
+
     def test_http_arrival_report_void_idempotency(self):
         q = qualify(self)
         self.select()

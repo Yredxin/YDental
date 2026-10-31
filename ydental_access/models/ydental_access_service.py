@@ -254,6 +254,10 @@ class YDentalAccessService(models.AbstractModel):
             ('文书原件', '/ydental/documents', 'ydental.print.service', ('medical', 'exam', 'pharmacy', 'settlement')),
             ('业务报表', '/ydental/reports', 'ydental.reporting.service', ('frontdesk', 'medical', 'exam', 'pharmacy', 'warehouse', 'settlement', 'followup')),
             ('目录与价格', '/ydental/intake/prices', 'ydental.intake.service', ('price',)),
+            ('历史价格复核与药品关联', '/ydental/treatment?prices=1', 'ydental.treatment.service', ('price',)),
+            ('楼层配置', '/odoo/action-ydental_space.ydental_space_floor_action', 'ydental.space.floor', ('space',)),
+            ('区域配置', '/odoo/action-ydental_space.ydental_space_area_action', 'ydental.space.area', ('space',)),
+            ('工位配置', '/odoo/action-ydental_space.ydental_space_station_action', 'ydental.space.station', ('space',)),
             ('排班与供给', '/ydental/supply', 'ydental.supply.service', ('capacity',)),
         ]
         links = [{'label': label, 'url': url}

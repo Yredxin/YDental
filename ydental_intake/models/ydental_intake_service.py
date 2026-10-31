@@ -2,6 +2,7 @@ import hashlib
 import inspect
 import json
 import math
+from collections import defaultdict
 from dataclasses import dataclass
 from datetime import timezone
 from zoneinfo import ZoneInfo
@@ -45,13 +46,20 @@ class YDentalIntakeService(models.AbstractModel):
         slots = slots[:500]
         zone = ZoneInfo(store.ydental_timezone)
         options, seen, saleable = [], set(), {}
+        slots_by_area_capability = defaultdict(list)
+        for slot in slots:
+            for capability_id in slot.ydental_capability_ids.ids:
+                slots_by_area_capability[(slot.ydental_area_id.id, capability_id)].append(slot)
+        now = supply._now()
+        business_date = supply._date(store, now)
+        business_by_area = {}
         for mapping in mappings:
             try:
                 self._target(mapping.id, store)
             except (AccessError, UserError):
                 continue
             capability = mapping.ydental_catalog_id.ydental_capability_id
-            for slot in slots.filtered(lambda row: row.ydental_area_id == mapping.ydental_area_id and capability in row.ydental_capability_ids):
+            for slot in slots_by_area_capability[(mapping.ydental_area_id.id, capability.id)]:
                 for channel in ('reservation', 'walkin'):
                     availability_key = (slot.id, channel)
                     if availability_key not in saleable:
@@ -60,12 +68,15 @@ class YDentalIntakeService(models.AbstractModel):
                         continue
                     remaining = slot.ydental_reservation_free if channel == 'reservation' else slot.ydental_walkin_free
                     if channel == 'walkin':
-                        if supply._date(store, slot.ydental_start) != supply._date(store):
+                        if supply._date(store, slot.ydental_start) != business_date:
                             continue
-                        business = supply._business_record(store, mapping.ydental_area_id.id)
+                        area_id = mapping.ydental_area_id.id
+                        if area_id not in business_by_area:
+                            business_by_area[area_id] = supply._business_record(store, area_id, now)
+                        business = business_by_area[area_id]
                         if not business or business.state != 'open':
                             continue
-                        if slot.ydental_start <= supply._now() < slot.ydental_end and not slot.ydental_converted:
+                        if slot.ydental_start <= now < slot.ydental_end and not slot.ydental_converted:
                             remaining += slot.ydental_reservation_free
                     key = (mapping.id, slot.ydental_start, slot.ydental_end, channel)
                     if remaining <= 0 or key in seen:
