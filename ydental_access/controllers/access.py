@@ -5,9 +5,22 @@ from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.http import request
 
 from odoo.addons.web.controllers.dataset import DataSet
+from odoo.addons.ydental_base.controllers.baseline import YDentalBaseline
 
 from ..diagnostics import update_context
 from .diagnostics import observed_http
+
+
+class YDentalWorkspace(YDentalBaseline):
+    @http.route()
+    def baseline(self, **kwargs):
+        self._check_access()
+        service = request.env['ydental.access.service']
+        session = service._session_for_key(request.session.sid[:42])
+        service = service._bind(session)
+        values = service._workspace()
+        return request.render('ydental_access.ydental_workspace_page', values,
+                              headers=[('Cache-Control', 'no-store, private')])
 
 
 class YDentalAccess(http.Controller):

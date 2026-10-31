@@ -6,6 +6,7 @@ from datetime import datetime
 
 from odoo import fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
+from odoo.addons.ydental_supply.models.ydental_supply_service import _is_configured_isolated_test_target
 
 
 def _is_allowed_synthetic_target(enabled, database, oid, cluster, store_id):
@@ -14,13 +15,37 @@ def _is_allowed_synthetic_target(enabled, database, oid, cluster, store_id):
             and store_id in (541, 542))
 
 
+def _is_allowed_s13_finance_target(enabled, database, oid, cluster, store_id, config):
+    # This second gate is intentionally fixed to the newly authorized test
+    # database. Process configuration alone must never select another target.
+    return ((database, oid, cluster, store_id) == (
+        'yd_s13_integration_r1', 16385, '7702673650619342879', 1)
+        and _is_configured_isolated_test_target(enabled, database, oid, cluster, store_id, config))
+
+
+def _synthetic_source_spec(store_id, s13=False):
+    if s13:
+        return {
+            'account_codes': ['S13F%s' % code for code in ('I', 'P', 'X', 'C', 'W', 'A', 'D', 'LC', 'LW', 'LA', 'LD')],
+            'journal_codes': ['S13%s' % code for code in ('S', 'G', 'C', 'W', 'A', 'D')],
+            'name': 'YD-S13-INTEGRATION-R1 synthetic',
+            'cutoff': datetime(2026, 10, 31),
+        }
+    suffix = str(store_id)
+    return {
+        'account_codes': ['E2E%s%s' % (suffix, code) for code in ('I', 'P', 'X', 'C', 'W', 'A', 'D', 'LC', 'LW', 'LA', 'LD')],
+        'journal_codes': ['T%s%s' % (suffix, code) for code in ('S', 'G', 'C', 'W', 'A', 'D')],
+        'name': 'E2ER1-20261027-%s synthetic' % suffix,
+        'cutoff': datetime(2026, 10, 27, 14, 0, 0),
+    }
+
+
 class YDentalSettlementSyntheticSetup(models.AbstractModel):
     _inherit = 'ydental.settlement.service'
 
     def _synthetic_setup_allowed(self, store):
         user = self.env.user
-        if (self.env.su or os.environ.get('YDENTAL_E2E_ISOLATED_FINANCE') != '1'
-                or not store or store.id not in (541, 542)
+        if (self.env.su or not store
                 or not user.active or not user.has_group('base.group_system')
                 or not user.has_group('ydental_access.ydental_group_manager')
                 or not user.has_group('ydental_access.ydental_system_manager')):
@@ -39,8 +64,24 @@ class YDentalSettlementSyntheticSetup(models.AbstractModel):
                 identity = self.env.cr.fetchone()
         except psycopg2.Error:
             return False
-        return _is_allowed_synthetic_target(os.environ.get('YDENTAL_E2E_ISOLATED_FINANCE'),
-                                            *identity, store.id)
+        return (_is_allowed_synthetic_target(os.environ.get('YDENTAL_E2E_ISOLATED_FINANCE'),
+                                             *identity, store.id)
+                or (store.company_id.id == 1 and _is_allowed_s13_finance_target(
+                    os.environ.get('YDENTAL_S13_ISOLATED_FINANCE'), *identity, store.id,
+                    os.environ.get('YDENTAL_S13_FINANCE_TARGET'))))
+
+    def _s13_synthetic_source(self, store):
+        try:
+            with self.env.cr.savepoint(flush=False):
+                self.env.cr.execute("""SELECT current_database(),
+                    (SELECT oid FROM pg_database WHERE datname=current_database()),
+                    (pg_control_system()).system_identifier::text""")
+                identity = self.env.cr.fetchone()
+        except psycopg2.Error as error:
+            raise AccessError(self.env._('access_denied: Synthetic finance target identity is unavailable.')) from error
+        return (store.company_id.id == 1 and _is_allowed_s13_finance_target(
+            os.environ.get('YDENTAL_S13_ISOLATED_FINANCE'), *identity, store.id,
+            os.environ.get('YDENTAL_S13_FINANCE_TARGET')))
 
     def _lock_synthetic_actor(self, access):
         # Follow the existing print/access order. The same-value session fence
@@ -81,10 +122,10 @@ class YDentalSettlementSyntheticSetup(models.AbstractModel):
         if Config.search_count([('ydental_store_id', '=', store.id)]):
             raise UserError(self.env._('Synthetic finance setup cannot replace an existing policy.'))
         company = store.company_id
-        suffix = str(store.id)
-        account_codes = ['E2E%s%s' % (suffix, code) for code in ('I', 'P', 'X', 'C', 'W', 'A', 'D', 'LC', 'LW', 'LA', 'LD')]
-        journal_codes = ['T%s%s' % (suffix, code) for code in ('S', 'G', 'C', 'W', 'A', 'D')]
-        name = 'E2ER1-20261027-%s synthetic' % suffix
+        spec = _synthetic_source_spec(store.id, self._s13_synthetic_source(store))
+        account_codes = spec['account_codes']
+        journal_codes = spec['journal_codes']
+        name = spec['name']
         account_names = [name + ' income', name + ' cash gain', name + ' cash loss'] + [
             name + ' ' + channel + ' outstanding' for channel in ('cash', 'wechat', 'alipay', 'card')] + [
             name + ' ' + channel + ' liquidity' for channel in ('cash', 'wechat', 'alipay', 'card')]
@@ -121,7 +162,7 @@ class YDentalSettlementSyntheticSetup(models.AbstractModel):
             raise UserError(self.env._('version_conflict: The store changed. Refresh this page.'))
         if not self._synthetic_setup_allowed(store):
             raise AccessError(self.env._('access_denied: Synthetic finance setup is unavailable.'))
-        cutoff = datetime(2026, 10, 27, 14, 0, 0)
+        cutoff = spec['cutoff']
         for index, account in enumerate(accounts):
             expected_type = ('income' if index in (0, 1) else 'expense' if index == 2
                              else 'asset_current' if index < 7 else 'asset_cash')

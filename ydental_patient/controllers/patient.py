@@ -51,6 +51,7 @@ class YDentalPatient(http.Controller):
                 'contact_labels': service.env['ydental.patient.contact']._fields['ydental_relation']._description_selection(service.env),
                 'merge_decisions': [('confirm', confirm_label), ('refresh_merge', refresh_label), ('reject', reject_label)],
                 'can_admin': any(levels[c] == 'write' for c in ('patient', 'frontdesk')),
+                'can_frontdesk': levels['frontdesk'] == 'write',
                 'can_care': any(levels[c] in ('read', 'write') for c in ('medical', 'exam')),
                 'can_medical_write': levels['medical'] == 'write', 'can_export': levels['export'] == 'write',
                 'is_group': access._is_group_manager(), 'status_labels': {

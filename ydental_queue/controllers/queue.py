@@ -81,12 +81,21 @@ class YDentalQueue(http.Controller):
             config_hint = request.env._('configuration_required: Publish an explicit positive missed-call displacement.')
         areas = queue.env['ydental.space.area'].sudo().search([('ydental_store_id', '=', store.id), ('ydental_reporting', '=', True)])
         business_rows = [{'area': a, 'business': queue.env['ydental.supply.service']._business_record(store, a.id)} for a in areas]
+        scope = access._scope()
+        current_execution = bool(actor_execution and own and actor_execution.state == 'serving'
+            and actor_execution.ydental_store_id == store and own.ydental_store_id == store
+            and actor_execution.ydental_lease_id == own and own.ydental_expires_at > queue._now()
+            and own.ydental_session_id == scope and own.ydental_revision == scope.ydental_revision)
         return request.render('ydental_queue.ydental_queue_page' , {'store': store, 'status': queue._status(),
             'revision': access._scope().ydental_revision, 'screen_lang': queue.env.user.lang or 'en_US', 'stations': station_rows, 'rows': waiting_rows,
             'own': own, 'shift_hint': queue._shift_hint(own), 'config_hint': config_hint,
             'can_write': any(levels[c] == 'write' for c in ('medical', 'exam', 'pharmacy')),
             'heartbeat': heartbeat, 'can_call': can_call, 'verifications': verifications,
             'execution': actor_execution if actor_execution and actor_execution.state == 'serving' else False,
+            'can_open_medical_execution': bool(current_execution and actor_execution.ydental_category == 'medical'
+                and levels['medical'] == 'write'),
+            'can_open_pharmacy_execution': bool(current_execution and actor_execution.ydental_category == 'pharmacy'
+                and levels['pharmacy'] == 'write'),
             'actor_hold': actor_hold, 'can_frontdesk': levels['frontdesk'] == 'write',
             'can_append': levels['frontdesk'] == 'write' and queue.env.user.has_group('ydental_queue.ydental_group_append'),
             'return_targets': queue.env['ydental.intake.task'].sudo().search([

@@ -1,11 +1,19 @@
+import json
+from datetime import datetime
 from types import SimpleNamespace
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
+
+import psycopg2
 
 from odoo import Command, fields
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tests import HttpCase, TransactionCase, new_test_user, tagged
 
-from odoo.addons.ydental_settlement.models.ydental_settlement_synthetic_setup import _is_allowed_synthetic_target
+from odoo.addons.ydental_settlement.models.ydental_settlement_synthetic_setup import (
+    _is_allowed_s13_finance_target,
+    _is_allowed_synthetic_target,
+    _synthetic_source_spec,
+)
 
 
 @tagged('post_install', '-at_install', 's13_synthetic_finance')
@@ -22,38 +30,39 @@ class TestSyntheticFinanceSetup(TransactionCase):
         })
         cls.service = cls.env['ydental.settlement.service'].with_user(cls.actor)
 
-    def _sources(self):
+    def _sources(self, s13=False):
         Account = self.env['account.account'].with_user(2).with_company(self.company).with_context(
             skip_auto_account_journal_creation=True)
         Journal = self.env['account.journal'].with_user(2).with_company(self.company)
-        suffix = str(self.store.id)
-        name = 'E2ER1-20261027-%s synthetic' % suffix
+        spec = _synthetic_source_spec(self.store.id, s13)
+        name = spec['name']
+        codes = spec['account_codes']
         accounts = Account.create([{
-            'name': name + ' income', 'code': 'E2E%sI' % suffix,
+            'name': name + ' income', 'code': codes[0],
             'account_type': 'income', 'company_ids': [Command.link(self.company.id)],
         }, {
-            'name': name + ' cash gain', 'code': 'E2E%sP' % suffix,
+            'name': name + ' cash gain', 'code': codes[1],
             'account_type': 'income', 'company_ids': [Command.link(self.company.id)],
         }, {
-            'name': name + ' cash loss', 'code': 'E2E%sX' % suffix,
+            'name': name + ' cash loss', 'code': codes[2],
             'account_type': 'expense', 'company_ids': [Command.link(self.company.id)],
         }] + [{
-            'name': name + ' ' + channel + ' outstanding', 'code': 'E2E%s%s' % (suffix, letter),
+            'name': name + ' ' + channel + ' outstanding', 'code': code,
             'account_type': 'asset_current', 'company_ids': [Command.link(self.company.id)],
-        } for channel, letter in zip(('cash', 'wechat', 'alipay', 'card'), ('C', 'W', 'A', 'D'))] + [{
-            'name': name + ' ' + channel + ' liquidity', 'code': 'E2E%sL%s' % (suffix, letter),
+        } for channel, code in zip(('cash', 'wechat', 'alipay', 'card'), codes[3:7])] + [{
+            'name': name + ' ' + channel + ' liquidity', 'code': code,
             'account_type': 'asset_cash', 'company_ids': [Command.link(self.company.id)],
-        } for channel, letter in zip(('cash', 'wechat', 'alipay', 'card'), ('C', 'W', 'A', 'D'))])
+        } for channel, code in zip(('cash', 'wechat', 'alipay', 'card'), codes[7:])])
         journals = Journal.create([{
-            'name': name + ' sales', 'code': 'T%sS' % suffix, 'type': 'sale', 'company_id': self.company.id,
+            'name': name + ' sales', 'code': spec['journal_codes'][0], 'type': 'sale', 'company_id': self.company.id,
             'default_account_id': accounts[0].id,
         }, {
-            'name': name + ' adjustments', 'code': 'T%sG' % suffix, 'type': 'general', 'company_id': self.company.id,
+            'name': name + ' adjustments', 'code': spec['journal_codes'][1], 'type': 'general', 'company_id': self.company.id,
         }] + [{
-            'name': name + ' ' + channel, 'code': 'T%s%s' % (suffix, letter),
+            'name': name + ' ' + channel, 'code': code,
             'type': 'bank', 'company_id': self.company.id, 'default_account_id': liquidity.id,
             'profit_account_id': accounts[1].id, 'loss_account_id': accounts[2].id,
-        } for channel, letter, liquidity in zip(('cash', 'wechat', 'alipay', 'card'), ('C', 'W', 'A', 'D'), accounts[7:])])
+        } for channel, code, liquidity in zip(('cash', 'wechat', 'alipay', 'card'), spec['journal_codes'][2:], accounts[7:])])
         for journal, account in zip(journals[2:], accounts[3:7]):
             methods = (journal.inbound_payment_method_line_ids | journal.outbound_payment_method_line_ids).filtered(
                 lambda row: row.payment_method_id.code == 'manual')
@@ -67,6 +76,63 @@ class TestSyntheticFinanceSetup(TransactionCase):
             candidate = list(args)
             candidate[index] = value
             self.assertFalse(_is_allowed_synthetic_target(*candidate))
+
+    def test_s13_target_requires_fixed_identity_and_independent_config(self):
+        target = {'database': 'yd_s13_integration_r1', 'oid': 16385,
+                  'cluster': '7702673650619342879', 'store_id': 1}
+        args = ('1', target['database'], target['oid'], target['cluster'], target['store_id'])
+        self.assertTrue(_is_allowed_s13_finance_target(*args, json.dumps(target)))
+        for index, value in enumerate(('0', 'other', 16386, '42', 2)):
+            changed = list(args)
+            changed[index] = value
+            self.assertFalse(_is_allowed_s13_finance_target(*changed, json.dumps(target)))
+        for invalid in (None, '{}', json.dumps(target | {'store_id': True}),
+                        json.dumps(target | {'extra': 1}),
+                        '{"database":"yd_s13_integration_r1","database":"yd_s13_integration_r1",'
+                        '"oid":16385,"cluster":"7702673650619342879","store_id":1}'):
+            self.assertFalse(_is_allowed_s13_finance_target(*args, invalid))
+        legacy = ('1', 'ydental_s11_synth_20261023_01', 2171423, '7694897083368259627', 541)
+        self.assertFalse(_is_allowed_s13_finance_target(*legacy, json.dumps(target)))
+        self.assertFalse(_is_allowed_synthetic_target(*args))
+
+    def test_legacy_and_s13_source_specs_are_fixed(self):
+        legacy = _synthetic_source_spec(541)
+        self.assertEqual(legacy['name'], 'E2ER1-20261027-541 synthetic')
+        self.assertEqual(legacy['account_codes'], ['E2E541' + code for code in
+                         ('I', 'P', 'X', 'C', 'W', 'A', 'D', 'LC', 'LW', 'LA', 'LD')])
+        self.assertEqual(legacy['journal_codes'], ['T541' + code for code in ('S', 'G', 'C', 'W', 'A', 'D')])
+        self.assertEqual(legacy['cutoff'], datetime(2026, 10, 27, 14))
+        s13 = _synthetic_source_spec(1, True)
+        self.assertEqual(len(set(s13['account_codes'])), 11)
+        self.assertEqual(len(set(s13['journal_codes'])), 6)
+        self.assertTrue(all(len(code) <= 5 for code in s13['journal_codes']))
+
+    def test_s13_source_identity_failure_cannot_select_legacy_sources(self):
+        cursor = MagicMock()
+        cursor.execute.side_effect = psycopg2.OperationalError('identity unavailable')
+        fake_service = SimpleNamespace(env=SimpleNamespace(cr=cursor, _=lambda message: message))
+        with self.assertRaisesRegex(AccessError, 'target identity is unavailable'):
+            type(self.service)._s13_synthetic_source(fake_service, self.store)
+
+    def test_s13_sources_keep_validation_and_do_not_replace_config(self):
+        accounts, journals = self._sources(s13=True)
+        access = type(self.env['ydental.access.service'])
+        setup = type(self.service)
+        with patch.object(access, '_scope', return_value=SimpleNamespace(ydental_store_id=self.store)), \
+                patch.object(setup, '_lock_synthetic_actor', return_value=SimpleNamespace(ydental_store_id=self.store)), \
+                patch.object(setup, '_synthetic_setup_allowed', return_value=True), \
+                patch.object(setup, '_s13_synthetic_source', return_value=True):
+            inbound = journals[2].inbound_payment_method_line_ids.filtered(
+                lambda row: row.payment_method_id.code == 'manual')
+            inbound.with_user(2).write({'payment_account_id': accounts[4].id})
+            with self.assertRaises(UserError), self.cr.savepoint():
+                self.service._create_synthetic_finance(True)
+            inbound.with_user(2).write({'payment_account_id': accounts[3].id})
+            result = self.service._create_synthetic_finance(True)
+            self.assertEqual(result['account_ids'], accounts.ids)
+            self.assertEqual(result['journal_ids'], journals.ids)
+            with self.assertRaises(UserError), self.cr.savepoint():
+                self.service._create_synthetic_finance(True)
 
     def test_default_closed_and_explicit_confirmation(self):
         self.assertFalse(self.service._synthetic_setup_allowed(self.store))

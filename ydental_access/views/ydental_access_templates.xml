@@ -1,4 +1,49 @@
 <odoo>
+    <template id="ydental_workspace_page" name="YDental workspace">
+        <t t-call="web.layout">
+            <main class="container py-4 o_ydental_access_workspace">
+                <h1>牙科工作台</h1>
+                <t t-if="not store">
+                    <p>尚未选择可用门店，或当前门店的成员资格已失效。</p>
+                    <a href="/ydental/access" class="btn btn-primary">选择门店或查看成员资格</a>
+                </t>
+                <t t-else="">
+                    <p>当前门店：<strong t-out="store"/> · <a href="/ydental/access">切换门店</a></p>
+                    <section aria-labelledby="workspace-capabilities">
+                        <h2 id="workspace-capabilities">当前可用能力</h2>
+                        <p t-if="not roles">当前门店尚无业务权限，请联系有权管理员。</p>
+                        <ul t-if="roles"><li t-foreach="roles" t-as="role"><t t-out="role[0]"/>：<t t-if="role[1] == 'write'">可办理</t><t t-else="">只读</t></li></ul>
+                    </section>
+                    <section aria-labelledby="workspace-today">
+                        <h2 id="workspace-today">今天的工作</h2>
+                        <p t-if="station">工位：<strong t-out="station"/>。
+                            <t t-if="station_state == 'connected'">已连接。</t>
+                            <t t-elif="station_state == 'holding'">等待患者返回。</t>
+                            <t t-elif="station_state == 'expired'">连接已过期，请到队列核对。</t>
+                            <t t-elif="station_state == 'verify'">需要现场核验，请到队列处理。</t>
+                            <t t-else="">请到队列核对状态。</t>
+                        </p>
+                        <p t-else="">当前没有登记工位；需要坐诊的岗位请先进入工位队列。</p>
+                        <p t-if="execution == 'serving'">当前有正在办理的接诊，请进入工位队列继续。</p>
+                        <p t-if="execution == 'verify'">当前接诊需要现场核验，请进入工位队列处理。</p>
+                        <t t-if="supply_available">
+                            <p t-if="not assignments">当前门店今天没有您的排班；如应当坐诊，请联系排班人员核对。</p>
+                            <ul t-if="assignments"><li t-foreach="assignments" t-as="assignment"><t t-out="assignment['start']"/> — <t t-out="assignment['end']"/> · <t t-out="assignment['place']"/></li></ul>
+                            <p><a href="/ydental/supply/today">查看我的安排</a></p>
+                        </t>
+                        <p t-else="">排班功能未安装，无法显示今日安排。</p>
+                    </section>
+                    <section aria-labelledby="workspace-tasks">
+                        <h2 id="workspace-tasks">工作入口与待办</h2>
+                        <p>各业务待办请进入对应工作页面查看；首页暂未汇总全部待办。</p>
+                        <p t-if="not links">当前没有可显示的业务入口，请联系有权管理员核对权限与模块配置。</p>
+                        <ul t-if="links"><li t-foreach="links" t-as="link"><a t-att-href="link['url']" t-out="link['label']"/></li></ul>
+                    </section>
+                </t>
+                <p class="mt-4"><a href="/odoo">返回应用</a></p>
+            </main>
+        </t>
+    </template>
     <template id="ydental_access_page" name="YDental store and staff">
         <t t-set="head"><t t-call-assets="web.assets_frontend" t-js="false"/></t><t t-call="web.layout">
             <main class="container py-4 o_ydental_access_page">

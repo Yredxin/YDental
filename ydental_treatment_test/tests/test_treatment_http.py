@@ -1,5 +1,7 @@
 import json
 
+from lxml import html
+
 from odoo.tests import HttpCase, tagged
 
 from .test_http import TestClinicalHTTP
@@ -36,6 +38,38 @@ class TestTreatmentHTTP(TestClinicalHTTP):
         same=self.t_action('execute',dose,request);self.assertEqual(same.status_code,200);self.assertEqual(same.json()['event_id'],result['event_id'])
         page=self.url_open('/ydental/treatment');self.assertEqual(page.status_code,200,page.text);self.assertIn('data-event="'+str(result['event_id'])+'"',page.text)
 
+    def test_current_medical_navigation_preserves_tab_and_checks_live_grant(self):
+        self.select()
+        page = self.url_open('/ydental/queue')
+        self.assertEqual(page.status_code, 200, page.text)
+        self.assertNotIn('Open the current clinical document', page.text)
+
+        self.begin_reception()
+        page = self.url_open('/ydental/queue')
+        self.assertEqual(page.status_code, 200, page.text)
+        document = html.fromstring(page.text)
+        links = document.xpath('//section[@id="patient-return-actions"]//a')
+        self.assertEqual([link.get('href') for link in links], ['/ydental/clinical', '/ydental/treatment'])
+        self.assertTrue(all(link.get('target') is None for link in links))
+
+        clinical = self.url_open('/ydental/clinical')
+        self.assertEqual(clinical.status_code, 200, clinical.text)
+        treatment_link = html.fromstring(clinical.text).xpath('//nav/a[@href="/ydental/treatment"]')
+        self.assertEqual(len(treatment_link), 1)
+        self.assertIsNone(treatment_link[0].get('target'))
+        treatment = self.url_open('/ydental/treatment')
+        self.assertEqual(treatment.status_code, 200, treatment.text)
+        clinical_link = html.fromstring(treatment.text).xpath('//nav/a[@href="/ydental/clinical"]')
+        self.assertEqual(len(clinical_link), 1)
+        self.assertIsNone(clinical_link[0].get('target'))
+
+        # A remaining unrelated write grant must not expose a stale medical link.
+        self.admin._grant(self.users['doctor'].id, self.stores[0].id, {'exam': 'write', 'medical': 'none'})
+        self.env.flush_all()
+        page = self.url_open('/ydental/queue')
+        self.assertEqual(page.status_code, 200, page.text)
+        self.assertFalse(html.fromstring(page.text).xpath('//section[@id="patient-return-actions"]//a[@href="/ydental/clinical"]'))
+
     def test_http_rpc_attachment_export_and_readonly_boundaries(self):
         receive(self);price(self);args=self.medical();r=self.t_action('execute',self.dose(args));self.assertEqual(r.status_code,200,r.text);event=r.json()['event_id']
         self.assertIn('error',self.rpc('ydental.treatment.service','_operate',['execute',{},key()]))
@@ -44,6 +78,19 @@ class TestTreatmentHTTP(TestClinicalHTTP):
         self.assertIn('error',self.rpc('ir.attachment','create',[{'name':'blocked','res_model':'ydental.treatment.event','res_id':event,'datas':'YQ=='}]))
         self.select('reader');self.assertEqual(self.url_open('/ydental/treatment').status_code,200);self.assertEqual(self.t_action('execute',self.dose(args)).status_code,403)
         self.select('none');self.assertEqual(self.url_open('/ydental/treatment').status_code,403)
+
+    def test_missing_workstation_settings_blocks_workbench_with_explanation(self):
+        self.select('doctor')
+        self.env['ir.config_parameter'].sudo().set_str('ydental_queue.heartbeat_seconds', '')
+        self.env.flush_all()
+        page = self.url_open('/ydental/treatment')
+        self.assertEqual(page.status_code, 422)
+        self.assertIn('工位心跳或超时设置缺失或无效', page.text)
+        self.assertIn('/ydental/queue', page.text)
+        self.assertNotIn('workbench.js', page.text)
+        self.assertNotIn('data-operation="execute"', page.text)
+        self.select('none')
+        self.assertEqual(self.url_open('/ydental/treatment').status_code, 403)
 
     def test_http_csrf_unknown_arguments_oldtab_and_no_price(self):
         args=self.medical();self.assertEqual(self.t_action('execute',self.dose(args)).status_code,409)
@@ -76,6 +123,11 @@ class TestTreatmentHTTP(TestClinicalHTTP):
         call=self.action('call',held,True);self.assertEqual(call.status_code,200,call.text)
         started=self.action('start',held|{'entry_id':call.json()['entry_id']},True)
         self.assertEqual(started.status_code,200,started.text)
+        queue_page = self.url_open('/ydental/queue')
+        self.assertEqual(queue_page.status_code, 200, queue_page.text)
+        current_links = html.fromstring(queue_page.text).xpath('//section[@id="patient-return-actions"]//a')
+        self.assertEqual([link.get('href') for link in current_links], ['/ydental/treatment'])
+        self.assertIsNone(current_links[0].get('target'))
         page=self.url_open('/ydental/treatment');self.assertEqual(page.status_code,200,page.text)
         self.assertIn('data-role="pharmacy"',page.text)
         self.assertIn('data-execution="'+str(started.json()['execution_id'])+'"',page.text)

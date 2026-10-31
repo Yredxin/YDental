@@ -18,6 +18,11 @@ msgstr ""
 
 #. module: ydental_clinical
 #: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "This connection no longer holds editing access. Click Open for editing again to request access."
+msgstr "此连接已不再持有文书编辑权，请再次点击打开编辑以申请编辑权限。"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
 msgid ". Last server save:"
 msgstr "。最近服务端保存："
 

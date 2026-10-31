@@ -220,6 +220,71 @@ class YDentalAccessService(models.AbstractModel):
                 'templates': self.env['ydental.access.template'].sudo().search([('active', '=', True)]).read(['name'])
                 if can_manage else [], 'audits': self._audit_rows()}
 
+    def _workspace(self):
+        """Build an overview from the current server-bound store and grants."""
+        session = self._scope()
+        store = session.ydental_store_id
+        member = self._membership(self.env.uid, store.id) if store and store.active else False
+        if not member or not member.ydental_employee_id.active or store.company_id not in self.env.user.company_ids:
+            return {'store': False, 'roles': [], 'links': [], 'assignments': [],
+                    'station': False, 'station_state': False, 'execution': False, 'supply_available': False}
+
+        levels = self._levels(member)
+        labels = {
+            'frontdesk': '前台', 'patient': '患者管理', 'medical': '医疗', 'exam': '检查',
+            'pharmacy': '药房', 'warehouse': '仓库', 'followup': '复诊', 'outsourcing': '外加工',
+            'settlement': '收费', 'finance_approval': '财务审批', 'personnel': '人员权限',
+            'space': '空间', 'capacity': '排班与供给', 'price': '价格',
+            'supplier': '供应商协作', 'export': '报表导出',
+        }
+        roles = [(labels[category], level) for category, level in levels.items() if level != 'none']
+        # Fixed server-side entries, never supplied by an HTTP parameter. Each
+        # target retains its own authorization and business-state checks.
+        entries = [
+            ('患者档案', '/ydental/patients', 'ydental.patient.service', ('patient', 'frontdesk', 'medical', 'exam')),
+            ('预约、受理与报到', '/ydental/intake', 'ydental.intake.service', ('frontdesk', 'medical', 'exam')),
+            ('工位与候诊队列', '/ydental/queue', 'ydental.queue.service', ('frontdesk', 'medical', 'exam', 'pharmacy')),
+            ('诊疗与文书', '/ydental/clinical', 'ydental.clinical.service', ('medical',)),
+            ('治疗、处方与发药', '/ydental/treatment', 'ydental.treatment.service', ('medical', 'pharmacy')),
+            ('检查任务与结果', '/ydental/exam', 'ydental.exam.service', ('medical', 'exam')),
+            ('仓库与批次', '/ydental/inventory', 'ydental.inventory.service', ('warehouse',)),
+            ('收费与退款', '/ydental/settlement', 'ydental.settlement.service', ('settlement',)),
+            ('复诊待办', '/ydental/followups', 'ydental.followup.service', ('followup',)),
+            ('外加工工单', '/odoo/action-ydental_lab.ydental_lab_order_action', 'ydental.lab.order', ('medical',)),
+            ('文书原件', '/ydental/documents', 'ydental.print.service', ('medical', 'exam', 'pharmacy', 'settlement')),
+            ('业务报表', '/ydental/reports', 'ydental.reporting.service', ('frontdesk', 'medical', 'exam', 'pharmacy', 'warehouse', 'settlement', 'followup')),
+            ('目录与价格', '/ydental/intake/prices', 'ydental.intake.service', ('price',)),
+            ('排班与供给', '/ydental/supply', 'ydental.supply.service', ('capacity',)),
+        ]
+        links = [{'label': label, 'url': url}
+                 for label, url, model, categories in entries
+                 if model in self.env.registry and any(levels[c] != 'none' for c in categories)]
+        station = station_state = execution = False
+        if 'ydental.queue.service' in self.env.registry and any(levels[c] != 'none' for c in ('medical', 'exam', 'pharmacy')):
+            queue = self.env['ydental.queue.service']
+            own = queue._own()
+            current = queue._actor_execution()
+            hold = queue._hold(actor_id=self.env.uid)
+            status_source = hold or (current if current and (not own or current.state == 'verify') else own)
+            if status_source and status_source.ydental_store_id == store:
+                status = queue._status()
+                station = status.get('station')
+                station_state = status.get('state')
+            if current and current.ydental_store_id == store and levels.get(current.ydental_category) != 'none':
+                execution = current.state
+
+        assignments = []
+        supply_available = 'ydental.supply.service' in self.env.registry
+        if supply_available:
+            today = self.env['ydental.supply.service']._today()
+            assignments = [{'place': a.ydental_station_id.name or a.ydental_area_id.name,
+                            'start': today['format_time'](a, a.ydental_start),
+                            'end': today['format_time'](a, a.ydental_end)}
+                           for a in today['assignments'] if a.ydental_store_id == store]
+        return {'store': store.name, 'roles': roles, 'links': links, 'assignments': assignments,
+                'station': station, 'station_state': station_state, 'execution': execution,
+                'supply_available': supply_available}
+
     def _bind(self, session, revision=None):
         self._require_internal()
         session.ensure_one()

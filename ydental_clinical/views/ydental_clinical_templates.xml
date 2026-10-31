@@ -1,4 +1,15 @@
 <odoo>
+    <template id="ydental_clinical_configuration_required" name="Clinical workstation configuration required">
+        <t t-call="web.layout">
+            <main class="container py-4 o_ydental_clinical_configuration">
+                <h1>诊疗文书暂不可办理</h1>
+                <p>当前门店：<strong t-out="store.name"/></p>
+                <p>工位心跳或超时设置缺失或无效，暂时不能打开文书编辑或办理接诊。</p>
+                <p>请联系有技术配置权限的人员检查工位心跳与超时设置，然后重新进入。</p>
+                <p><a href="/ydental/queue">查看工位与队列</a> · <a href="/ydental">返回牙科工作台</a></p>
+            </main>
+        </t>
+    </template>
     <record id="ydental_clinical_action" model="ir.actions.act_url">
         <field name="name">Treatment workbench</field><field name="url">/ydental/clinical</field><field name="target">self</field>
     </record>
@@ -46,6 +57,7 @@
                 </section>
                 <section><h2>Documents awaiting completion</h2><table class="table"><thead><tr><th>Document</th><th>Patient</th><th>Responsible person</th><th>Server version</th></tr></thead><tbody><tr t-foreach="pending" t-as="item"><td><a t-att-href="'/ydental/clinical?document_id=%s' % item.id" t-out="item.id"/></td><td t-out="item.ydental_patient_id.name"/><td t-out="item.ydental_responsible_id.name"/><td t-out="item.ydental_version"/></tr></tbody></table></section>
                 <span hidden="hidden" id="unsynced-message">Unsynchronized changes. The server has not confirmed this content.</span><span hidden="hidden" id="saved-message">Saved on the server.</span><span hidden="hidden" id="offline-message">Connection unavailable. Changes remain unsynchronized. Refresh and compare the server version before retrying.</span><span hidden="hidden" id="readonly-message">Read only. Acquire the independent editor before changing text.</span>
+                <span hidden="hidden" id="editor-expired-retry-message">This connection no longer holds editing access. Click Open for editing again to request access.</span>
                 <span hidden="hidden" id="terminal-committed-message">The document operation was committed. This page still has unsynchronized changes. Compare the server version before making a legitimate correction; keep the local text.</span>
                 <span hidden="hidden" id="handover-committed-message">Handover was committed and cannot be undone here. Local changes remain unsynchronized. Check the server version and use the pending document for legitimate supplementation.</span>
                 <span hidden="hidden" id="completion-committed-message">Reception completion was committed. Local changes remain unsynchronized. Check the server version and use the pending document for legitimate supplementation.</span>

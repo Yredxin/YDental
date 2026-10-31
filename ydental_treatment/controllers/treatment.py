@@ -36,6 +36,17 @@ class YDentalTreatment(http.Controller):
             except AccessError:
                 role = 'pharmacy'
                 store = service._access(role, write=False)
+        params = service.env['ir.config_parameter'].sudo()
+        try:
+            configured_heartbeat = int(params.get_str('ydental_queue.heartbeat_seconds', ''))
+            configured_timeout = int(params.get_str('ydental_queue.timeout_seconds', ''))
+        except (TypeError, ValueError):
+            configured_heartbeat = configured_timeout = 0
+        if not 1 <= configured_heartbeat < configured_timeout <= 86400:
+            return request.render('ydental_treatment.ydental_treatment_configuration_required',
+                {'store': store, 'can_open_queue': role != 'price'}, status=422,
+                headers=[('Cache-Control', 'no-store')])
+        heartbeat = queue._settings()[0]
         if execution and (execution.ydental_category != role or execution.ydental_store_id != store):
             execution = False
         patient = execution.ydental_patient_id if execution else False
@@ -75,7 +86,7 @@ class YDentalTreatment(http.Controller):
             'mappings': mappings, 'target_mappings': target_mappings, 'lots': lots, 'products': products,
             'remaining': service._remaining, 'event_result': service._event_result,
             'revision': service.env['ydental.access.service']._scope().ydental_revision,
-            'heartbeat': queue._settings()[0], 'status': queue._status(),
+            'heartbeat': heartbeat, 'status': queue._status(),
         }, headers=[('Cache-Control', 'no-store')])
 
     @http.route('/ydental/treatment/action', type='http', auth='user', methods=['POST'], max_content_length=100000)

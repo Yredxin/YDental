@@ -2,6 +2,7 @@ from datetime import timedelta
 import json
 import re
 
+from lxml import html
 from odoo import fields
 from odoo.tests import HttpCase
 
@@ -35,6 +36,174 @@ class TestIntakeHTTP(HttpCase):
             'jsonrpc': '2.0', 'method': 'call', 'id': 1, 'params': {'model': model, 'method': method,
                 'args': args, 'kwargs': {'context': dict(context or {}, ydental_revision=self.revision)}}}),
             headers={'Content-Type': 'application/json'}).json()
+
+    def test_patient_context_continues_after_arrival_and_rejects_invalid_ids(self):
+        patient_id = patient(self)
+        self.select()
+        detail = self.url_open('/ydental/patients/%s' % patient_id)
+        self.assertEqual(detail.status_code, 200)
+        self.assertIn('/ydental/intake?patient_id=%s' % patient_id, detail.text)
+        page = self.url_open('/ydental/intake?patient_id=%s' % patient_id)
+        self.assertEqual(page.status_code, 200)
+        options = re.findall(r'<option\b[^>]*value="%s"[^>]*>' % patient_id, page.text)
+        self.assertGreaterEqual(len(options), 2)
+        self.assertTrue(all('selected' in option for option in options))
+        response = self.url_open('/ydental/intake/action', data={
+            'csrf_token': self.token, 'key': key(), 'revision': self.revision,
+            'operation': 'arrive', 'patient_id': patient_id,
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('patient_id=%s' % patient_id, response.url)
+        for invalid in ('abc', '-1', '99999999999999999999999999999'):
+            page = self.url_open('/ydental/intake?patient_id=' + invalid)
+            self.assertEqual(page.status_code, 200)
+            self.assertIn('The selected patient is unavailable', page.text)
+
+    def test_store_local_form_time_and_json_utc_both_match_slot(self):
+        self.stores[0].sudo().ydental_timezone = 'Asia/Shanghai'
+        form_patient = patient(self)
+        json_patient = patient(self)
+        self.select()
+        page = self.url_open('/ydental/intake')
+        self.assertIn('Asia/Shanghai', page.text)
+        self.assertIn('name="ui" value="intake"', page.text)
+        self.assertIn('name="time_basis" value="store"', page.text)
+        response = self.url_open('/ydental/intake/action', data={
+            'csrf_token': self.token, 'key': key(), 'revision': self.revision,
+            'operation': 'reserve', 'patient_id': form_patient, 'mapping_id': self.mappings[0][0].id,
+            'ui': 'intake', 'time_basis': 'store',
+            'channel': 'reservation', 'start': (self.start + timedelta(hours=8)).isoformat(timespec='seconds'),
+            'end': (self.end + timedelta(hours=8)).isoformat(timespec='seconds'),
+        }, allow_redirects=False)
+        self.assertEqual(response.status_code, 303, response.text)
+        entitlement = self.root['ydental.intake.entitlement'].search([('ydental_patient_id', '=', form_patient)])
+        self.assertEqual(len(entitlement), 1)
+        self.assertEqual(entitlement.ydental_claim_id.ydental_slot_id, self.slots[0][0])
+
+        response = self.action('reserve', {'patient_id': json_patient, 'mapping_id': self.mappings[0][0].id,
+            'channel': 'reservation', 'start': fields.Datetime.to_string(self.start),
+            'end': fields.Datetime.to_string(self.end)})
+        self.assertEqual(response.status_code, 200, response.text)
+        entitlement = self.root['ydental.intake.entitlement'].browse(response.json()['id'])
+        self.assertEqual(entitlement.ydental_claim_id.ydental_slot_id, self.slots[0][0])
+
+    def test_invalid_dst_form_time_fails_without_creating_qualification(self):
+        self.stores[0].sudo().ydental_timezone = 'America/New_York'
+        patient_id = patient(self)
+        self.select()
+        data = {'csrf_token': self.token, 'revision': self.revision, 'operation': 'reserve',
+                'ui': 'intake', 'time_basis': 'store',
+                'patient_id': patient_id, 'mapping_id': self.mappings[0][0].id,
+                'channel': 'reservation', 'end': '2026-11-01T04:00'}
+        for value, message in (
+            ('2026-03-08T02:30', 'does not exist'),
+            ('2026-11-01T01:30', 'ambiguous'),
+            ('not-a-time', 'valid local date and time'),
+            ('2026-11-01T04:00+08:00', 'without a UTC offset'),
+            ('', 'Enter both the start and end time'),
+        ):
+            response = self.url_open('/ydental/intake/action', data=dict(data, key=key(), start=value))
+            self.assertEqual(response.status_code, 409, response.text)
+            self.assertIn(message, response.text)
+            self.assertIn('href="/ydental/intake?patient_id=%s"' % patient_id, response.text)
+        self.assertFalse(self.root['ydental.intake.entitlement'].search([('ydental_patient_id', '=', patient_id)]))
+        invalid_patient = self.url_open('/ydental/intake/action', data=dict(data, key=key(),
+            patient_id='2147483648', start='2026-11-01T01:30'))
+        self.assertEqual(invalid_patient.status_code, 409)
+        self.assertIn('href="/ydental/intake"', invalid_patient.text)
+        self.assertNotIn('2147483648', invalid_patient.text)
+        self.select('reader')
+        response = self.url_open('/ydental/intake/action', data=dict(data, csrf_token=self.token,
+            revision=self.revision, key=key(), start='2026-11-01T01:30'))
+        self.assertEqual(response.status_code, 403)
+        self.assertIn('Unable to complete this action', response.text)
+        self.assertIn('href="/ydental/intake?patient_id=%s"' % patient_id, response.text)
+
+    def test_price_form_remains_explicit_utc(self):
+        self.stores[0].sudo().ydental_timezone = 'Asia/Shanghai'
+        self.select('price')
+        page = self.url_open('/ydental/intake/prices')
+        self.assertIn('Slot start (UTC)', page.text)
+        self.assertNotIn('Slot start (store local time)', page.text)
+        response = self.url_open('/ydental/intake/action', data={
+            'csrf_token': self.token, 'key': key(), 'revision': self.revision,
+            'operation': 'price', 'catalog_id': self.catalogs[0].id, 'currency_id': self.currency.id,
+            'unit_price': '600', 'start': self.start.isoformat(timespec='seconds'),
+            'end': self.end.isoformat(timespec='seconds'), 'reason': 'Synthetic UTC price',
+        }, allow_redirects=False)
+        self.assertEqual(response.status_code, 303, response.text)
+        price_row = self.root['ydental.intake.price'].search([
+            ('ydental_store_id', '=', self.stores[0].id), ('ydental_catalog_id', '=', self.catalogs[0].id)])
+        self.assertEqual(len(price_row), 1)
+        self.assertEqual(price_row.ydental_start, self.start)
+        self.assertEqual(price_row.ydental_end, self.end)
+
+    def test_form_errors_render_escaped_and_json_errors_stay_json(self):
+        self.select()
+        response = self.url_open('/ydental/intake/action', data={
+            'csrf_token': self.token, 'key': key(), 'revision': self.revision,
+            'operation': 'arrive', 'patient_id': '<script>bad</script>', 'ui': 'intake',
+        })
+        self.assertEqual(response.status_code, 409)
+        self.assertIn('Unable to complete this action', response.text)
+        self.assertNotIn('<script>bad</script>', response.text)
+        self.assertIn('href="/ydental/intake"', response.text)
+        response = self.action('arrive', {'patient_id': '<script>bad</script>'})
+        self.assertEqual(response.status_code, 409)
+        self.assertIn('error', response.json())
+
+    def test_legacy_form_utc_and_error_json_are_preserved(self):
+        self.stores[0].sudo().ydental_timezone = 'Asia/Shanghai'
+        patient_id = patient(self)
+        self.select()
+        form = {'csrf_token': self.token, 'key': key(), 'revision': self.revision,
+                'operation': 'reserve', 'patient_id': patient_id, 'mapping_id': self.mappings[0][0].id,
+                'channel': 'reservation', 'start': fields.Datetime.to_string(self.start),
+                'end': fields.Datetime.to_string(self.end)}
+        response = self.url_open('/ydental/intake/action', data=form, allow_redirects=False)
+        self.assertEqual(response.status_code, 303, response.text)
+        entitlement = self.root['ydental.intake.entitlement'].search([('ydental_patient_id', '=', patient_id)])
+        self.assertEqual(len(entitlement), 1)
+        self.assertEqual(entitlement.ydental_claim_id.ydental_slot_id, self.slots[0][0])
+        response = self.url_open('/ydental/intake/action', data=dict(form, key=key(), patient_id='invalid'))
+        self.assertEqual(response.status_code, 409)
+        self.assertIn('error', response.json())
+
+    def test_suggested_service_rechecks_store_revocation_and_capacity(self):
+        first_patient = patient(self)
+        stale_patient = patient(self)
+        self.select()
+        page = self.url_open('/ydental/intake')
+        choices = html.fromstring(page.content).xpath('//form[@id="choose-available"]//select[@name="available"]/option/@value')
+        candidates = [value for value in choices if value.startswith(str(self.mappings[0][0].id) + '|') and value.endswith('|reservation')]
+        self.assertTrue(candidates)
+        choice = candidates[0]
+        labels = html.fromstring(page.content).xpath('//form[@id="choose-available"]//select[@name="available"]/option[@value=$choice]/text()', choice=choice)
+        self.assertIn(self.start.strftime('%Y-%m-%d %H:%M:%S +0000'), ''.join(labels))
+        form = {'csrf_token': self.token, 'revision': self.revision, 'operation': 'choose_available',
+                'patient_id': first_patient, 'available': choice}
+        response = self.url_open('/ydental/intake/action', data=dict(form, key=key()), allow_redirects=False)
+        self.assertEqual(response.status_code, 303, response.text)
+        entitlement = self.root['ydental.intake.entitlement'].search([('ydental_patient_id', '=', first_patient)])
+        self.assertEqual(len(entitlement), 1)
+        self.assertEqual(entitlement.ydental_claim_id.ydental_slot_id, self.slots[0][0])
+        qualify(self)
+        response = self.url_open('/ydental/intake/action', data=dict(form, key=key(), patient_id=stale_patient))
+        self.assertEqual(response.status_code, 409)
+        self.assertFalse(self.root['ydental.intake.entitlement'].search([('ydental_patient_id', '=', stale_patient)]))
+
+        self.select('frontdesk', self.stores[1])
+        response = self.url_open('/ydental/intake/action', data=dict(form, key=key(), csrf_token=self.token,
+            revision=self.revision, patient_id=stale_patient))
+        self.assertIn(response.status_code, (403, 409))
+        self.assertFalse(self.root['ydental.intake.entitlement'].search([('ydental_patient_id', '=', stale_patient)]))
+
+        self.select()
+        self.admin._grant(self.users['frontdesk'].id, self.stores[0].id, {'frontdesk': 'none'})
+        response = self.url_open('/ydental/intake/action', data=dict(form, key=key(), csrf_token=self.token,
+            revision=self.revision, patient_id=stale_patient))
+        self.assertEqual(response.status_code, 403)
+        self.assertFalse(self.root['ydental.intake.entitlement'].search([('ydental_patient_id', '=', stale_patient)]))
 
     def test_http_arrival_report_void_idempotency(self):
         q = qualify(self)

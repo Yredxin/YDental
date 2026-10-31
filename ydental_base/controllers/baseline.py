@@ -13,7 +13,7 @@ class YDentalBaseline(http.Controller):
         ):
             raise AccessError(request.env._('YDental application access is required.'))
 
-    @http.route('/ydental', type='http', auth='user', methods=['GET'], readonly=True)
+    @http.route('/ydental', type='http', auth='user', methods=['GET'])
     def baseline(self, **kwargs):
         self._check_access()
         response = request.render('ydental_base.baseline_page', {

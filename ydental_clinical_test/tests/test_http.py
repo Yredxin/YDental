@@ -62,6 +62,20 @@ class TestClinicalHTTP(HttpCase):
         self.select('none');self.assertEqual(self.url_open('/ydental/clinical').status_code,403)
         self.assertIn('error',self.rpc('ydental.clinical.document','search_read',[[]]))
 
+    def test_missing_workstation_settings_explains_block_without_editor(self):
+        self.select('doctor')
+        params = self.env['ir.config_parameter'].sudo()
+        params.set_str('ydental_queue.heartbeat_seconds', '')
+        self.env.flush_all()
+        page = self.url_open('/ydental/clinical')
+        self.assertEqual(page.status_code, 422)
+        self.assertIn('工位心跳或超时设置缺失或无效', page.text)
+        self.assertIn('/ydental/queue', page.text)
+        self.assertNotIn('document.js', page.text)
+        self.assertNotIn('id="open-document"', page.text)
+        self.select('none')
+        self.assertEqual(self.url_open('/ydental/clinical').status_code, 403)
+
     def test_csrf_unknown_and_fdi_backend(self):
         self.begin_reception();a=self.args();a['content']['teeth']=[{'tooth':99,'state':'present','surfaces':['M']}]
         self.assertEqual(self.action('save',a).status_code,409)

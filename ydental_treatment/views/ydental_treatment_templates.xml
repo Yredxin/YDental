@@ -1,10 +1,21 @@
 <odoo>
+    <template id="ydental_treatment_configuration_required" name="Treatment workstation configuration required">
+        <t t-call="web.layout">
+            <main class="container py-4 o_ydental_treatment_configuration">
+                <h1>治疗与发药暂不可办理</h1>
+                <p>当前门店：<strong t-out="store.name"/></p>
+                <p>工位心跳或超时设置缺失或无效，暂时不能打开治疗或发药工作台。</p>
+                <p>请联系有技术配置权限的人员检查工位心跳与超时设置，然后重新进入。</p>
+                <p><a t-if="can_open_queue" href="/ydental/queue">查看工位与队列</a><t t-if="can_open_queue"> · </t><a href="/ydental">返回牙科工作台</a></p>
+            </main>
+        </t>
+    </template>
     <template id="ydental_treatment_page" name="Treatment and pharmacy workbench">
         <t t-call="web.frontend_layout">
             <main class="container o_ydental_treatment" t-att-data-write="1 if can_write else 0" t-att-data-revision="revision" t-att-data-role="role" t-att-data-execution="execution.id if execution else 0" t-att-data-document="doc.id if doc else 0" t-att-data-version="doc.ydental_version if doc else 0" t-att-data-heartbeat="heartbeat" t-att-data-currency="currency_id">
                 <link rel="stylesheet" href="/ydental_treatment/static/src/workbench/workbench.css"/>
                 <h1>Treatment and pharmacy</h1>
-                <nav><a href="/ydental/queue">Workstation and explicit reporting</a> | <a href="/ydental/clinical" target="_blank" rel="noopener">Independent clinical document</a> | <a href="/ydental/treatment?prices=1">Evidenced historical price review</a></nav>
+                <nav><a href="/ydental/queue">Workstation and explicit reporting</a> | <a t-if="role == 'medical'" href="/ydental/clinical">Independent clinical document</a> | <a href="/ydental/treatment?prices=1">Evidenced historical price review</a></nav>
                 <p class="alert alert-warning">Demonstration pricing and synthetic medication review only. Production pricing, medication policy and clinical signing await approval. These sources are not bills or payments.</p>
                 <p><strong t-out="store.name"/> / <span t-out="status['station'] or '-'"/> / <strong t-out="patient.name if patient else '-'"/> / <span t-out="execution.id if execution else '-'"/></p>
                 <p>Save the independent document before confirming an actual project. Text confirmation, actual execution and segment finish are separate actions.</p>
@@ -109,6 +120,12 @@
         </t>
     </template>
     <template id="ydental_clinical_page_inherit_treatment" inherit_id="ydental_clinical.ydental_clinical_page" name="Clinical treatment entry">
-        <xpath expr="//nav" position="inside"><span> | </span><a href="/ydental/treatment" target="_blank" rel="noopener">Actual treatment, orders and referrals</a></xpath>
+        <xpath expr="//nav" position="inside"><span> | </span><a href="/ydental/treatment">Actual treatment, orders and referrals</a></xpath>
+    </template>
+    <template id="ydental_queue_page_inherit_treatment" inherit_id="ydental_queue.ydental_queue_page" name="Current reception entry">
+        <xpath expr="//section[@id='patient-return-actions']" position="inside">
+            <p t-if="can_open_medical_execution"><a href="/ydental/clinical">Open the current clinical document</a> | <a href="/ydental/treatment">Open treatment and orders</a></p>
+            <p t-if="can_open_pharmacy_execution"><a href="/ydental/treatment">Open the current pharmacy task</a></p>
+        </xpath>
     </template>
 </odoo>

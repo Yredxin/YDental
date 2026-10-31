@@ -6,6 +6,7 @@ if (root) {
     let token = null;
     let dirty = false;
     let saving = false;
+    let opening = false;
     let failed = false;
     let terminalPending = false;
     let needsReconcile = false;
@@ -33,7 +34,7 @@ if (root) {
         root.querySelectorAll('[data-tooth]').forEach(button => { button.disabled = locked; });
         root.querySelector('#no-tooth').disabled = !token || locked;
         root.querySelector('#correction-reason').disabled = locked;
-        root.querySelector('#open-document').disabled = saving || needsReconcile || (!documentId && !Number(root.dataset.execution));
+        root.querySelector('#open-document').disabled = opening || saving || needsReconcile || (!documentId && !Number(root.dataset.execution));
         if (root.querySelector('#transfer-document')) { root.querySelector('#transfer-document').disabled = saving || needsReconcile; }
         for (const id of ['save-document', 'confirm-document', 'correct-document', 'handover-document', 'release-document']) {
             root.querySelector('#' + id).disabled = !token || saving || failed;
@@ -98,7 +99,13 @@ if (root) {
             csrf_token: root.querySelector('[name=csrf_token]').value,
         })});
         const data = await response.json();
-        if (!response.ok) { throw new Error(data.error || data.result); }
+        if (!response.ok) {
+            const error = new Error(data.error || data.result);
+            if (response.status === 403 && typeof data.error === 'string' && data.error.startsWith('editor_expired:')) {
+                error.code = 'editor_expired';
+            }
+            throw error;
+        }
         if (data.result !== 'accepted') { throw new Error(data.result || 'Operation outcome requires verification.'); }
         return data;
     }
@@ -179,9 +186,13 @@ if (root) {
         }
     }
     root.querySelector('#open-document').addEventListener('click', async () => {
+        if (opening) { return; }
         if (dirty || saving || needsReconcile) { result.textContent = message('unsynced-message'); return; }
+        opening = true;
+        permissions();
+        let stored;
         try {
-            const stored = sessionStorage.getItem(editorKey());
+            stored = sessionStorage.getItem(editorKey());
             if (documentId && stored) {
                 await action('heartbeat', {document_id: documentId, editor_token: stored});
                 token = stored;
@@ -198,7 +209,21 @@ if (root) {
             failed = false;
             result.textContent = message('saved-message');
             permissions();
-        } catch (error) { result.textContent = failureMessage(error); }
+        } catch (error) {
+            if (stored && error.code === 'editor_expired' && !dirty && !saving && !needsReconcile &&
+                    sessionStorage.getItem(editorKey()) === stored) {
+                sessionStorage.removeItem(editorKey());
+                token = null;
+                failed = false;
+                result.textContent = message('editor-expired-retry-message');
+                permissions();
+            } else {
+                result.textContent = failureMessage(error);
+            }
+        } finally {
+            opening = false;
+            permissions();
+        }
     });
     root.querySelector('#release-document').addEventListener('click', async () => {
         if (dirty || saving || needsReconcile) { result.textContent = message('unsynced-message'); return; }

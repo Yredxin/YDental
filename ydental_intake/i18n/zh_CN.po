@@ -18,6 +18,108 @@ msgstr ""
 
 #. module: ydental_intake
 #. odoo-python
+#: code:addons/ydental_intake/controllers/intake.py:0
+msgid "Choose an available service and time."
+msgstr "请选择可办理的服务和时段。"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Choose an available service and time"
+msgstr "请选择可办理的服务和时段"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Available service and time"
+msgstr "可办理的服务和时段"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Available services and times are suggestions; availability is checked again when submitted."
+msgstr "以下服务和时段仅供选择，提交时系统会再次核对是否可用。"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "The list is limited. Refine available supply with the scheduling team if the desired time is not shown."
+msgstr "列表数量有限；如未显示所需时段，请与排班人员确认供给。"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "No currently available service and time was found. Ask the scheduling team to check store supply and opening."
+msgstr "当前没有找到可办理的服务和时段，请联系排班人员检查供给和营业状态。"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Enter a time manually"
+msgstr "手动输入时段"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_time_error
+msgid "Return to catalog and prices"
+msgstr "返回目录与价目"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_time_error
+msgid "Unable to complete this action"
+msgstr "无法完成此操作"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/controllers/intake.py:0
+msgid "Enter both the start and end time in the store timezone."
+msgstr "请输入门店当地时间的开始和结束时间。"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_times
+msgid "Times use the current store timezone:"
+msgstr "时间按当前门店时区填写："
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_times
+msgid "Slot start (store local time)"
+msgstr "时段开始（门店当地时间）"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_times
+msgid "Slot end (store local time)"
+msgstr "时段结束（门店当地时间）"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_time_error
+msgid "Unable to use this time"
+msgstr "无法使用所选时间"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_time_error
+msgid "Return to service intake"
+msgstr "返回受理页面"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_patient_select
+msgid "Select a patient"
+msgstr "请选择患者"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_patient_intake_link
+msgid "Continue to appointment and arrival"
+msgstr "继续办理预约和到店"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "The selected patient is unavailable. Return to the patient list and select an active patient."
+msgstr "所选患者不可用，请返回患者列表选择有效患者。"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Qualification, actual arrival and reporting are separate. A pending task has no queue number. After reporting, continue to the workstation queue for calling."
+msgstr "预约或登记资格、实际到店和报到分别办理。待处理任务尚无排队号码；报到后可进入工位队列叫号。"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Open workstation queue"
+msgstr "进入工位队列"
+
+#. module: ydental_intake
+#. odoo-python
 #: code:addons/ydental_intake/models/ydental_intake_service.py:0
 msgid "A cancelled task cannot be revived by voiding its position."
 msgstr "已取消任务不能通过作废位置恢复。"
@@ -865,12 +967,12 @@ msgid "Service tasks"
 msgstr "服务任务"
 
 #. module: ydental_intake
-#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_times
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_times
 msgid "Slot end (UTC)"
 msgstr "时段结束（UTC）"
 
 #. module: ydental_intake
-#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_times
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_times
 msgid "Slot start (UTC)"
 msgstr "时段开始（UTC）"
 

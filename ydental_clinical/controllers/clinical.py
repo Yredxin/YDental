@@ -47,6 +47,16 @@ class YDentalClinical(http.Controller):
         members = service.env['ydental.access.membership'].sudo().search([
             ('ydental_store_id', '=', store.id), ('active', '=', True)])
         candidates = members.ydental_user_id.filtered(lambda user: doc and service._eligible_responsible(doc, user))
+        params = service.env['ir.config_parameter'].sudo()
+        try:
+            configured_heartbeat = int(params.get_str('ydental_queue.heartbeat_seconds', ''))
+            configured_timeout = int(params.get_str('ydental_queue.timeout_seconds', ''))
+        except (TypeError, ValueError):
+            configured_heartbeat = configured_timeout = 0
+        if not 1 <= configured_heartbeat < configured_timeout <= 86400:
+            return request.render('ydental_clinical.ydental_clinical_configuration_required',
+                {'store': store}, status=422, headers=[('Cache-Control', 'no-store')])
+        heartbeat = queue._settings()[0]
         return request.render('ydental_clinical.ydental_clinical_page', {
             'store': store, 'execution': execution, 'doc': doc, 'snapshot': snapshot, 'pending': pending,
             'tooth_labels': {'present': request.env._('Present'), 'missing': request.env._('Missing'),
@@ -61,7 +71,7 @@ class YDentalClinical(http.Controller):
                 [[q * 10 + n for n in (range(5, 0, -1) if q in (5, 8) else range(1, 6))] for q in range(5, 9)],
             'versions': service._model('version').search([('ydental_document_id', '=', doc.id)], limit=50) if doc else [],
             'content': snapshot['content'] if snapshot else service._empty(), 'candidates': candidates,
-            'status': queue._status(), 'heartbeat': queue._settings()[0],
+            'status': queue._status(), 'heartbeat': heartbeat,
         }, headers=[('Cache-Control', 'no-store')])
 
     @http.route('/ydental/clinical/action', type='http', auth='user', methods=['POST'], max_content_length=100000)

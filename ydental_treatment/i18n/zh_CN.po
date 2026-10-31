@@ -17,6 +17,21 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_queue_page_inherit_treatment
+msgid "Open the current clinical document"
+msgstr "打开当前接诊文书"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_queue_page_inherit_treatment
+msgid "Open treatment and orders"
+msgstr "打开治疗与医嘱"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_queue_page_inherit_treatment
+msgid "Open the current pharmacy task"
+msgstr "打开当前发药任务"
+
+#. module: ydental_treatment
 #: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
 msgid "/ amount"
 msgstr "/ 金额"

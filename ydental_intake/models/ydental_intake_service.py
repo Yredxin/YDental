@@ -3,6 +3,8 @@ import inspect
 import json
 import math
 from dataclasses import dataclass
+from datetime import timezone
+from zoneinfo import ZoneInfo
 
 from odoo import fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
@@ -29,6 +31,53 @@ class YDentalIntakeService(models.AbstractModel):
 
     def _now(self):
         return fields.Datetime.now()
+
+    def _available_intake_options(self):
+        """Offer bounded front-desk hints without granting capacity-record access."""
+        store = self.env['ydental.access.service']._check('frontdesk', 'write').ydental_store_id
+        supply = self.env['ydental.supply.service']
+        mappings = self.env['ydental.intake.mapping'].search([('ydental_store_id', '=', store.id), ('active', '=', True)])
+        slots = supply._model('slot').search([
+            ('ydental_store_id', '=', store.id), ('state', '=', 'published'),
+            ('ydental_end', '>', supply._now()), ('ydental_area_id', 'in', mappings.ydental_area_id.ids),
+        ], order='ydental_start, id', limit=501)
+        truncated = len(slots) > 500
+        slots = slots[:500]
+        zone = ZoneInfo(store.ydental_timezone)
+        options, seen, saleable = [], set(), {}
+        for mapping in mappings:
+            try:
+                self._target(mapping.id, store)
+            except (AccessError, UserError):
+                continue
+            capability = mapping.ydental_catalog_id.ydental_capability_id
+            for slot in slots.filtered(lambda row: row.ydental_area_id == mapping.ydental_area_id and capability in row.ydental_capability_ids):
+                for channel in ('reservation', 'walkin'):
+                    availability_key = (slot.id, channel)
+                    if availability_key not in saleable:
+                        saleable[availability_key] = supply._saleable(store, slot, channel)
+                    if not saleable[availability_key]:
+                        continue
+                    remaining = slot.ydental_reservation_free if channel == 'reservation' else slot.ydental_walkin_free
+                    if channel == 'walkin':
+                        if supply._date(store, slot.ydental_start) != supply._date(store):
+                            continue
+                        business = supply._business_record(store, mapping.ydental_area_id.id)
+                        if not business or business.state != 'open':
+                            continue
+                        if slot.ydental_start <= supply._now() < slot.ydental_end and not slot.ydental_converted:
+                            remaining += slot.ydental_reservation_free
+                    key = (mapping.id, slot.ydental_start, slot.ydental_end, channel)
+                    if remaining <= 0 or key in seen:
+                        continue
+                    seen.add(key)
+                    start = slot.ydental_start.replace(tzinfo=timezone.utc).astimezone(zone)
+                    end = slot.ydental_end.replace(tzinfo=timezone.utc).astimezone(zone)
+                    options.append({'value': '%s|%s|%s|%s' % (mapping.id, fields.Datetime.to_string(slot.ydental_start), fields.Datetime.to_string(slot.ydental_end), channel),
+                                    'service': mapping.ydental_catalog_id.name, 'area': mapping.ydental_area_id.name,
+                                    'start': start.strftime('%Y-%m-%d %H:%M:%S %z'), 'end': end.strftime('%Y-%m-%d %H:%M:%S %z'),
+                                    'channel': channel})
+        return options, truncated
 
     def _read_access(self, catalog=False):
         access = self.env['ydental.access.service']
