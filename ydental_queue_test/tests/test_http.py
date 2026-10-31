@@ -88,6 +88,67 @@ class TestQueueHTTP(HttpCase):
         self.assertEqual(self.action('heartbeat', args).status_code, 403)
         self.assertIn('error', self.rpc('ydental.queue.lease', 'read', [[lease.id], ['ydental_token_hash']]))
 
+    def test_expire_station_scope_permission_and_recheck(self):
+        self.select()
+        args = self.lease()
+        lease = self.root['ydental.queue.lease'].browse(args['lease_id'])
+        station = self.stations[0][0]
+        lease._save({'ydental_expires_at': self.front._now() - timedelta(seconds=1)})
+        page = self.url_open('/ydental/queue')
+        self.assertIn('data-operation="expire_station"', page.text)
+        self.assertEqual(self.action('expire_station', {'station_id': self.stations[1][0].id}).status_code, 403)
+        self.assertTrue(lease.ydental_active)
+        # A renewal that wins the lock after the page was rendered must survive.
+        lease._save({'ydental_expires_at': self.front._now() + timedelta(minutes=5)})
+        self.assertEqual(self.action('expire_station', {'station_id': station.id}).status_code, 200)
+        self.assertTrue(lease.ydental_active)
+        lease._save({'ydental_expires_at': self.front._now() - timedelta(seconds=1)})
+        self.assertEqual(self.url_open('/ydental/queue/action', data={'revision': self.revision,
+            'connection': self.connection, 'operation': 'expire_station',
+            'payload': json.dumps({'station_id': station.id})}).status_code, 400)
+        self.assertEqual(self.action('expire_station', {'station_id': station.id}).status_code, 200)
+        self.assertFalse(lease.ydental_active)
+        self.assertEqual(lease.ydental_release_reason, 'timeout')
+        self.assertEqual(self.action('expire_station', {'station_id': station.id}).status_code, 200)
+        audits = self.root['ydental.access.audit'].search([('ydental_event', '=', 'queue.connection_timeout'),
+            ('ydental_target_id', '=', lease.id)])
+        self.assertEqual(len(audits), 1)
+        self.assertEqual(audits.ydental_user_id, self.root.ref('base.user_root'))
+        requests = self.root['ydental.access.audit'].search([('ydental_event', '=', 'queue.expire_station'),
+            ('ydental_target_id', '=', station.id)], order='id')
+        self.assertEqual(len(requests), 3)
+        self.assertEqual(requests.mapped('ydental_user_id'), self.users['doctor'])
+        self.assertEqual(requests.mapped('ydental_after'), [
+            {'station_id': station.id, 'released_lease_ids': [], 'changed': False},
+            {'station_id': station.id, 'released_lease_ids': [lease.id], 'changed': True},
+            {'station_id': station.id, 'released_lease_ids': [], 'changed': False}])
+
+    def test_expire_station_denies_revoked_or_stale_scope(self):
+        self.select()
+        args = self.lease()
+        lease = self.root['ydental.queue.lease'].browse(args['lease_id'])
+        lease._save({'ydental_expires_at': self.front._now() - timedelta(seconds=1)})
+        stale = self.action('expire_station', {'station_id': self.stations[0][0].id},
+                            revision=self.revision - 1)
+        self.assertEqual(stale.status_code, 409, stale.text)
+        self.assertIn('version_conflict', stale.json()['error'])
+        self.assertTrue(lease.ydental_active)
+        self.admin._grant(self.users['doctor'].id, self.stores[0].id, {'medical': 'none'})
+        self.assertEqual(self.action('expire_station', {'station_id': self.stations[0][0].id}).status_code, 403)
+        self.assertTrue(lease.ydental_active)
+
+    def test_expire_station_requeues_call(self):
+        accepted(self)
+        self.select()
+        args = self.lease()
+        call = self.action('call', args).json()
+        lease = self.root['ydental.queue.lease'].browse(args['lease_id'])
+        lease._save({'ydental_expires_at': self.front._now() - timedelta(seconds=1)})
+        self.assertEqual(self.action('expire_station', {'station_id': self.stations[0][0].id}).status_code, 200)
+        entry = self.root['ydental.queue.entry'].browse(call['entry_id'])
+        self.assertEqual(entry.state, 'waiting')
+        self.assertFalse(entry.ydental_lease_id)
+
     def test_http_switch_and_old_lease(self):
         self.select()
         args = self.lease()

@@ -29,12 +29,15 @@ class YDentalQueue(http.Controller):
             category = {'care': 'medical', 'exam': 'exam', 'pharmacy': 'pharmacy'}.get(station.ydental_kind)
             qualified = set(station.ydental_capability_ids.filtered('active').ids) <= set(queue.env.user.sudo().ydental_capability_ids.filtered('active').ids)
             occupied = queue._model('lease').search_count([('ydental_station_id', '=', station.id), ('ydental_active', '=', True)])
+            expired = queue._model('lease').search_count([('ydental_station_id', '=', station.id),
+                ('ydental_store_id', '=', store.id), ('ydental_active', '=', True), ('ydental_expires_at', '<=', queue._now())])
             unresolved = queue._model('execution').search_count([('ydental_lease_id.ydental_station_id', '=', station.id), ('state', 'in', ('serving', 'verify'))])
             unresolved += queue._model('hold').search_count([('ydental_station_id', '=', station.id), ('state', 'in', ('active', 'verify'))])
             can_enter = bool(category and levels[category] == 'write' and qualified and station.ydental_capability_ids and
                              station.active and station.ydental_enabled and station.ydental_callable and not occupied and not unresolved and not actor_execution and not actor_hold)
             station_rows.append({'id': station.id, 'name': station.name, 'area': station.ydental_queue_area_id.name,
                 'capabilities': ', '.join(station.ydental_capability_ids.mapped('name')), 'can_enter': can_enter,
+                'can_expire': bool(expired and category and levels[category] == 'write'),
                 'reason': request.env._('Resolve your existing execution or on-site verification before entering another workstation.') if actor_execution or actor_hold else (
                     request.env._('Occupied or awaiting on-site verification') if occupied or unresolved else (
                         request.env._('Available for qualified authorized staff') if can_enter else request.env._('Disabled, insufficient permission or capability')))})

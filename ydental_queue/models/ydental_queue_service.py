@@ -136,6 +136,9 @@ class YDentalQueueService(models.AbstractModel):
     def _expire(self):
         now = self._now()
         expired = self._model('lease').search([('ydental_active', '=', True), ('ydental_expires_at', '<=', now)])
+        return self._expire_leases(expired)
+
+    def _expire_leases(self, expired):
         for lease in expired:
             calls = self._model('entry').search([('ydental_lease_id', '=', lease.id), ('state', '=', 'calling')])
             for entry in calls:
@@ -165,6 +168,29 @@ class YDentalQueueService(models.AbstractModel):
                     'heartbeat': self._heartbeat, 'call': self._call, 'missed': self._missed, 'start': self._start}
 
     def _operate(self, operation, payload):
+        if operation == 'expire_station':
+            if not isinstance(payload, dict) or set(payload) != {'station_id'}:
+                raise ValidationError(self.env._('Unknown or missing workstation arguments.'))
+            self._connection()
+            with self.env.cr.savepoint():
+                self._locks()
+                self._connection()
+                access = self.env['ydental.access.service']
+                store = access._scope(write=True).ydental_store_id
+                station = self.env['ydental.space.station'].sudo().browse(
+                    self.env['ydental.intake.service']._id(payload['station_id'])).exists()
+                if not station or station.ydental_store_id != store:
+                    raise AccessError(self.env._('access_denied: Select a workstation in the current store.'))
+                category = self._category(station)
+                access._check(category, 'write', write=True)
+                expired = self._model('lease').search([
+                    ('ydental_station_id', '=', station.id), ('ydental_store_id', '=', store.id),
+                    ('ydental_active', '=', True), ('ydental_expires_at', '<=', self._now())])
+                released = self._expire_leases(expired)
+                access._audit('queue.expire_station', category, station, store.id,
+                    after={'station_id': station.id, 'released_lease_ids': released,
+                           'changed': bool(released)}, source='workstation_timeout_request')
+                return {'result': 'accepted'}
         handlers = self._handlers()
         if operation not in handlers or not isinstance(payload, dict):
             raise AccessError(self.env._('access_denied: Unknown workstation action.'))

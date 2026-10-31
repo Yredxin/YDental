@@ -103,6 +103,26 @@ class TestQueueReturn(TransactionCase):
         with self.assertRaises(AccessError):
             queue._operate('restore', dict(lease_args(lease), hold_id=hold.id, confirmed=True))
 
+    def test_expire_station_keeps_serving_and_hold_verification(self):
+        queue, lease, execution = serving(self)
+        station = execution.ydental_lease_id.ydental_station_id
+        execution.ydental_lease_id._save({'ydental_expires_at': queue._now() - timedelta(seconds=1)})
+        self.assertEqual(queue._operate('expire_station', {'station_id': station.id})['result'], 'accepted')
+        self.assertEqual(execution.state, 'verify')
+        self.assertEqual(execution.ydental_entry_id.state, 'verify')
+        with self.assertRaises(UserError):
+            queue_bind(self, self.second)._operate('enter', {'station_id': station.id})
+
+    def test_expire_station_keeps_reserved_hold_verification(self):
+        queue, lease, execution = serving(self)
+        hold, task = reserve(self, queue, lease, execution)
+        station = hold.ydental_station_id
+        hold.ydental_lease_id._save({'ydental_expires_at': queue._now() - timedelta(seconds=1)})
+        queue._operate('expire_station', {'station_id': station.id})
+        self.assertEqual(hold.state, 'verify')
+        with self.assertRaises(UserError):
+            queue_bind(self, self.second)._operate('enter', {'station_id': station.id})
+
     def test_handover_fail_closed_then_save_failure_and_atomic_retry(self):
         queue, lease, execution = serving(self)
         doc = DocumentSource(key(), lease['lease_id'], lease['token'])

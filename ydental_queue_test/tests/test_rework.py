@@ -1,4 +1,5 @@
 from datetime import timedelta
+from unittest.mock import patch
 
 from odoo.exceptions import AccessError, UserError
 from odoo.tests import TransactionCase, tagged
@@ -18,6 +19,27 @@ class TestQueueRework(TransactionCase):
 
     def entry(self, task):
         return self.root['ydental.queue.entry'].search([('ydental_task_id', '=', task.id)])
+
+    def test_expire_station_request_audit_failure_rolls_back_timeout(self):
+        queue, lease = enter(self)
+        record = queue._model('lease').browse(lease['lease_id'])
+        record._save({'ydental_expires_at': queue._now() - timedelta(seconds=1)})
+        access_type = type(queue.env['ydental.access.service'])
+        original = access_type._audit
+
+        def fail_request_audit(service, event, *args, **kwargs):
+            if event == 'queue.expire_station':
+                raise UserError('synthetic audit failure')
+            return original(service, event, *args, **kwargs)
+
+        with patch.object(access_type, '_audit', fail_request_audit):
+            with self.assertRaisesRegex(UserError, 'synthetic audit failure'):
+                queue._operate('expire_station', {'station_id': record.ydental_station_id.id})
+        record.invalidate_recordset()
+        self.assertTrue(record.ydental_active)
+        self.assertFalse(record.ydental_release_reason)
+        self.assertFalse(self.root['ydental.access.audit'].search_count([
+            ('ydental_event', '=', 'queue.connection_timeout'), ('ydental_target_id', '=', record.id)]))
 
     def serving(self):
         task = accepted(self)

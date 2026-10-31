@@ -17,7 +17,7 @@ if (workspace) {
         sessionStorage.removeItem(storageKey);
     }
     async function action(operation, extra = {}, quiet = false) {
-        const reception = ['enter', 'append', 'revoke', 'query_return', 'report', 'takeover_verify', 'handover_verify_hold', 'business', 'screen_create', 'screen_revoke'].includes(operation);
+        const reception = ['enter', 'expire_station', 'append', 'revoke', 'query_return', 'report', 'takeover_verify', 'handover_verify_hold', 'business', 'screen_create', 'screen_revoke'].includes(operation);
         const payload = reception ? extra : {...extra, lease_id: holder?.lease_id, token: holder?.token};
         try {
             const response = await fetch(operation === 'report' ? '/ydental/intake/action' : '/ydental/queue/action', {
@@ -60,7 +60,7 @@ if (workspace) {
     }
     for (const button of workspace.querySelectorAll('[data-operation]')) {
         const operation = button.dataset.operation;
-        button.disabled = button.disabled || (operation !== 'enter' && !holder);
+        button.disabled = button.disabled || (!['enter', 'expire_station'].includes(operation) && !holder);
         button.addEventListener('click', () => action(operation, {
             ...(button.dataset.station ? {station_id: Number(button.dataset.station)} : {}),
             ...(button.dataset.entry ? {entry_id: Number(button.dataset.entry)} : {}),

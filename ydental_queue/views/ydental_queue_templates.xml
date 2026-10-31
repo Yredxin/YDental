@@ -103,7 +103,7 @@
                 <table class="table"><thead><tr><th>Station</th><th>Area</th><th>Exact capabilities</th><th>Availability and action</th></tr></thead>
                     <tbody><tr t-foreach="stations" t-as="station" t-att-data-station="station['id']">
                         <td t-out="station['name']"/><td t-out="station['area']"/><td t-out="station['capabilities']"/>
-                        <td><span t-out="station['reason']"/> <button t-if="station['can_enter']" type="button" t-att-data-operation="'switch' if own else 'enter'" t-att-data-station="station['id']"><t t-if="own">Switch to this idle workstation</t><t t-else="">Enter workstation</t></button></td>
+                        <td><span t-out="station['reason']"/> <button t-if="station['can_enter']" type="button" t-att-data-operation="'switch' if own else 'enter'" t-att-data-station="station['id']"><t t-if="own">Switch to this idle workstation</t><t t-else="">Enter workstation</t></button><button t-if="station['can_expire']" type="button" data-operation="expire_station" t-att-data-station="station['id']">处理已超时连接</button></td>
                     </tr></tbody>
                 </table>
                 <h2>Accepted tasks</h2>

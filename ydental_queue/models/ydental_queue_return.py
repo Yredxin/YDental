@@ -76,6 +76,16 @@ class YDentalQueueService(models.AbstractModel):
     def _expire(self):
         result = super()._expire()
         holds = self._model('hold').search([('state', '=', 'active'), ('ydental_lease_id.ydental_active', '=', False)])
+        self._expire_holds(holds)
+        return result
+
+    def _expire_leases(self, leases):
+        result = super()._expire_leases(leases)
+        holds = self._model('hold').search([('state', '=', 'active'), ('ydental_lease_id', 'in', result)])
+        self._expire_holds(holds)
+        return result
+
+    def _expire_holds(self, holds):
         holds._save({'state': 'verify'})
         for hold in holds:
             self.env['ydental.access.service'].with_user(self.env.ref('base.user_root'))._audit(
@@ -83,7 +93,6 @@ class YDentalQueueService(models.AbstractModel):
                 after={'holder_user_id': hold.ydental_actor_id.id, 'hold_id': hold.id,
                        'station_id': hold.ydental_station_id.id, 'verification_required': True},
                 source='workstation_timeout_automation')
-        return result
 
     def _status(self):
         hold = self._hold(actor_id=self.env.uid)
