@@ -6,22 +6,22 @@
                 <p>Store: <strong t-out="store.name"/>. Appointment, actual arrival, treatment and contact status remain separate.</p>
                 <section class="card my-3">
                     <div class="card-body">
-                        <details t-if="can_write"><summary>Create follow-up from an actual treatment event</summary><form action="/ydental/followups/action" method="post" class="row g-2">
+                        <details t-if="can_write" t-att-open="'open' if source_q or source_cursor else None"><summary>从实际治疗创建复诊计划</summary>
+                            <p t-if="not medical_read">创建复诊计划需要本店医疗来源读取权限，请联系授权人员。</p>
+                            <form t-if="medical_read" method="get" action="/ydental/followups"><label>患者姓名或编号 <input name="source_q" maxlength="100" t-att-value="source_q"/></label><button type="submit">搜索治疗来源</button></form>
+                            <p t-if="medical_read and not source_events and source_next">本批没有可用来源；仍有记录，请继续查找或用患者编号缩小范围。</p>
+                            <p t-if="medical_read and not source_events and not source_next">没有更多可用治疗来源；请检查患者或重新搜索。</p>
+                            <form t-if="medical_read and source_events" action="/ydental/followups/action" method="post" class="row g-2">
                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                             <input type="hidden" name="revision" t-att-value="revision"/>
                             <input type="hidden" name="operation" value="create"/>
-                            <label class="col-md-3">Patient
-                                <select class="form-select" name="patient_id" required="required">
-                                    <option value="">Choose a patient with a confirmed visit</option>
-                                    <t t-foreach="patients" t-as="patient"><option t-att-value="patient.id"><t t-out="patient.name"/> — <t t-out="patient.ydental_number"/></option></t>
-                                </select>
-                            </label>
-                            <label class="col-md-3">Confirmed treatment event
-                                <select class="form-select" name="source_event_id" required="required">
-                                    <option value="">Choose a completed treatment event</option>
+                            <input type="hidden" name="ui_source" value="patient_event"/>
+                            <label class="col-md-6">选择患者及已确认治疗
+                                <select class="form-select" name="source_choice" required="required">
+                                    <option value="">请选择实际治疗来源</option>
                                     <t t-foreach="source_events" t-as="event">
                                         <t t-set="event_patient" t-value="event.ydental_execution_id.ydental_patient_id"/>
-                                        <option t-att-value="event.id"><t t-out="event_patient.name"/> — <t t-out="event.ydental_business_date"/> — <t t-out="event.ydental_catalog_id.name"/> — event <t t-out="event.id"/></option>
+                                        <option t-att-value="'%s:%s' % (event_patient.id, event.id)"><t t-out="event_patient.name"/> · <t t-out="event_patient.ydental_number"/> · <t t-out="event.ydental_actual_at"/> UTC · <t t-out="event.ydental_catalog_id.name"/> · <t t-out="event.ydental_actor_id.name"/></option>
                                     </t>
                                 </select>
                             </label>
@@ -32,7 +32,7 @@
                             <label class="col-md-2">Deadline <input class="form-control" name="deadline_at" type="datetime-local"/></label>
                             <input type="hidden" name="responsible_id" t-att-value="current_user.id"/>
                             <div class="col-12"><button class="btn btn-primary" type="submit">Create plan</button></div>
-                        </form>
+                        </form><nav t-if="medical_read" aria-label="治疗来源分页"><a t-if="source_next" t-att-href="source_page_url(source_next)">继续查找</a> <a href="/ydental/followups">重新搜索</a><span>可使用浏览器后退查看上一批。</span></nav>
                     </details></div>
                 </section>
                 <section class="table-responsive">
@@ -121,7 +121,10 @@
                                                 <button class="btn btn-secondary" type="submit">Link actual arrival</button>
                                             </form>
                                         </details>
-                                        <details t-if="can_write and (row.state not in ('closed', 'done') and (row.ydental_lab_contact_stage not in ('waiting', 'stopped')))"><summary>Complete from actual treatment</summary>
+                                        <a t-if="can_complete and focused_followup != row.id and row.state not in ('closed', 'done') and row.ydental_lab_contact_stage not in ('waiting', 'stopped')" t-att-href="event_page_url(row, '')">选择该患者的后续治疗来源</a>
+                                        <details t-if="can_complete and focused_followup == row.id and (row.state not in ('closed', 'done') and (row.ydental_lab_contact_stage not in ('waiting', 'stopped')))" open="open"><summary>从实际治疗完成复诊</summary>
+                                            <p t-if="row.ydental_appointment_id and row.ydental_appointment_status != 'arrived'">已关联预约，须先记录该预约实际到店，才能选择对应治疗来源。</p>
+                                            <p t-elif="not events_by_patient.get(row.ydental_patient_id.id, [])">本页没有可选的后续治疗来源；请核对患者、预约、权限或上一页。</p>
                                             <form action="/ydental/followups/action" method="post">
                                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                                 <input type="hidden" name="revision" t-att-value="revision"/>
@@ -131,7 +134,7 @@
                                                     <select class="form-select" name="event_id" required="required">
                                                         <option value="">Choose a completed treatment event</option>
                                                         <t t-foreach="events_by_patient.get(row.ydental_patient_id.id, [])" t-as="event">
-                                                            <option t-att-value="event.id"><t t-out="event.ydental_business_date"/> — <t t-out="event.ydental_catalog_id.name"/> — event <t t-out="event.id"/></option>
+                                                            <option t-att-value="event.id"><t t-out="event.ydental_execution_id.ydental_patient_id.name"/> · <t t-out="event.ydental_execution_id.ydental_patient_id.ydental_number"/> · <t t-out="event.ydental_actual_at"/> UTC · <t t-out="event.ydental_catalog_id.name"/> · <t t-out="event.ydental_actor_id.name"/> · <t t-out="event.ydental_store_id.name"/></option>
                                                         </t>
                                                     </select>
                                                 </label>
@@ -139,6 +142,7 @@
                                                 <input class="form-control" name="reason" maxlength="300" placeholder="Required when unlinked"/>
                                                 <button class="btn btn-secondary" type="submit">Complete from event</button>
                                             </form>
+                                            <nav aria-label="后续治疗来源分页"><a t-if="event_next" t-att-href="event_page_url(row, event_next)">继续查找</a> <a t-att-href="event_page_url(row, '')">回到第一批</a><span>可使用浏览器后退查看上一批。</span></nav>
                                         </details>
                                         <details><summary>Contact history</summary>
                                             <p class="text-muted">Latest readable attempts, up to 1,000 for this page.</p>
@@ -171,7 +175,7 @@
                             </t>
                         </tbody>
                     </table>
-                </div></section>
+                </div><nav t-if="not focused_followup" aria-label="复诊待办分页"><a t-if="followup_page &gt; 1" t-att-href="followup_page_url(followup_page - 1)">上一页</a> 第 <t t-out="followup_page"/> 页 <a t-if="followup_more and followup_page &lt; 1000" t-att-href="followup_page_url(followup_page + 1)">下一页</a><span t-if="followup_more and followup_page == 1000">待办过多，请联系负责人处理。</span></nav><a t-if="focused_followup" href="/ydental/followups">返回复诊待办</a></section>
                 <section class="card my-3">
                     <div class="card-body">
                         <h2>Notification failures and unknown outcomes</h2>

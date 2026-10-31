@@ -237,7 +237,7 @@ def main():
                 doctor.goto(base + '/ydental/exam#current-exam-handoff', wait_until='domcontentloaded')
                 check('new doctor sees current confirmed result',
                       doctor.locator('#current-exam-handoff').locator(
-                          f'a[href="/ydental/exam/result/{fixture["panorama_line"]}"]').count() == 1)
+                          f'a[href="/ydental/exam/result-view/{fixture["panorama_line"]}"]').count() == 1)
                 screenshot('08-new-doctor-current-result', doctor)
 
                 doctor.goto(base + '/ydental/clinical', wait_until='domcontentloaded')
@@ -312,7 +312,7 @@ def main():
                 doctor.goto(base + f'/ydental/exam?area_id={fixture["care_area"]}#area-exam-handoff',
                             wait_until='domcontentloaded')
                 check('area keeps both confirmed results for one S06 continuation', all(doctor.locator(
-                    f'#area-exam-handoff a[href="/ydental/exam/result/{fixture[key]}"]').count() >= 1
+                    f'#area-exam-handoff a[href="/ydental/exam/result-view/{fixture[key]}"]').count() >= 1
                     for key in ('panorama_line', 'cbct_line')))
                 screenshot('12-area-both-results', doctor)
 

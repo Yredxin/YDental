@@ -16,15 +16,16 @@
                 <h1>检查工作台</h1>
                 <nav><a href="/ydental/queue">工位叫号</a> | <a href="/ydental/treatment">医疗医嘱</a></nav>
                 <p class="alert alert-warning">演示字段与报告未审核签发；实际检查、结果文字、费用和附件分别确认。专业影像设备与PACS未连接。</p>
-                <p>门店 <strong t-out="store.name"/> / 实际服务 <strong t-out="execution.id if execution else '-'"/> / 工位 <strong t-out="execution.ydental_lease_id.ydental_station_id.name if execution else '-'"/></p>
+                <p>门店 <strong t-out="store.name"/> / 当前工位 <strong t-out="execution.ydental_lease_id.ydental_station_id.name if execution else '未接诊'"/></p>
                 <p id="exam-message" role="status">请核对真实医嘱行和当前工位后操作。</p>
                 <a id="exam-reconcile" href="/ydental/exam" target="_blank" rel="noopener" hidden="hidden">响应未知：在新页核对真实记录，勿自动重放。</a>
+                <button id="exam-check-submission" type="button" hidden="hidden">核对本次提交</button>
+                <p>若关闭本页面，本次提交核对信息将丢失；未确认前请由有权人员核查，不要重试。</p>
                 <section id="current-exam-handoff" class="border rounded p-3 my-3">
                     <h2>当前接诊患者检查结果</h2>
                     <p t-if="not current_lines">当前无医疗接诊中的检查医嘱。</p>
                     <p t-foreach="current_lines" t-as="current_line">
-                        <a t-att-href="'/ydental/exam/result/%s' % current_line.id" t-out="current_line.name"/>
-                        / 医嘱行 <t t-out="current_line.id"/>
+                        <a t-att-href="'/ydental/exam/result-view/%s' % current_line.id" t-out="current_line.name"/>
                         / 状态 <t t-out="line_labels[current_line.state]"/>
                     </p>
                 </section>
@@ -39,10 +40,10 @@
                     </form>
                     <p t-if="selected_area_id and not handoff_rows">该区域没有待续诊的检查结果。</p>
                     <article t-foreach="handoff_rows" t-as="handoff">
-                        <strong>原S06续诊任务 <t t-out="handoff[0].id"/></strong>
+                        <strong>续诊任务</strong>
                         / 患者 <t t-out="handoff[0].ydental_patient_id.name"/>
                         <p t-foreach="handoff[1]" t-as="handoff_line">
-                            <a t-att-href="'/ydental/exam/result/%s' % handoff_line.id" t-out="handoff_line.name"/>
+                            <a t-att-href="'/ydental/exam/result-view/%s' % handoff_line.id" t-out="handoff_line.name"/>
                             / <t t-out="line_labels[handoff_line.state]"/>
                         </p>
                     </article>
@@ -96,12 +97,12 @@
                 <section t-foreach="lines" t-as="line" t-att-data-line="line.id" class="border rounded p-3 my-3">
                     <t t-set="row" t-value="results.filtered(lambda r: r.ydental_line_id == line)[:1]"/>
                     <t t-set="event" t-value="row.ydental_event_id if row else False"/>
-                    <h2><t t-out="line.name"/> #<t t-out="line.id"/> / <t t-out="line_labels[line.state]"/></h2>
-                    <p>患者 <t t-out="line.ydental_patient_id.name"/> / 冻结医嘱 <t t-out="line.ydental_order_id.id"/> / 全景或CBCT任务 <t t-out="line.ydental_task_id.id"/> / 方向 <t t-out="line.ydental_mapping_id.ydental_catalog_id.name"/></p>
-                    <p>原开单人 <t t-out="line.ydental_order_id.ydental_actor_id.name"/> / 真实执行 <t t-out="event.ydental_actor_id.name if event else '-'"/> / 费用来源 <t t-out="event.id if event else '-'"/> / 状态 <t t-out="result_labels[row.state] if row else '未填写'"/></p>
+                    <h2><t t-out="line.name"/> / <t t-out="line_labels[line.state]"/></h2>
+                    <p>患者 <t t-out="line.ydental_patient_id.name"/> / 检查项目 <t t-out="line.ydental_mapping_id.ydental_catalog_id.name"/></p>
+                    <p>原开单人 <t t-out="line.ydental_order_id.ydental_actor_id.name"/> / 真实执行 <t t-out="event.ydental_actor_id.name if event else '-'"/> / 状态 <t t-out="result_labels[row.state] if row else '未填写'"/></p>
                     <p t-if="row">原结果作者 <t t-out="row.ydental_original_author_id.name"/> / 当前文书责任人 <t t-out="row.ydental_responsible_id.name"/></p>
-                    <p t-if="event">价格快照 <t t-out="event.ydental_price_snapshot_id.id or '-'"/> / 待核对 <t t-out="event.ydental_pending_reason or '-'"/> / 费源状态 <t t-out="event.state"/></p>
-                    <p><a t-att-href="'/ydental/exam/result/%s' % line.id" target="_blank" rel="noopener">查看独立结果与版本</a>
+                    <p t-if="event">费库状态：<t t-out="'已确认' if event.state == 'confirmed' else '待核对'"/>。<t t-if="event.state != 'confirmed'" t-out="pending_labels.get(event.ydental_pending_reason, '请联系相关人员核对。')"/></p>
+                    <p><a t-att-href="'/ydental/exam/result-view/%s' % line.id" target="_blank" rel="noopener">查看检查结果与办理状态</a>
                        <a t-if="row and row.ydental_version" t-att-href="'/ydental/exam/report/%s/%s' % (line.id,row.ydental_version)">下载未签演示PDF</a></p>
                     <p t-if="row and attachments.filtered(lambda attachment: attachment.res_id == row.id)">
                         受控附件：
@@ -220,5 +221,38 @@
         <xpath expr="//nav/a[@href='/ydental/access']" position="after">
             <a href="/ydental/exam#area-exam-handoff">区域检查结果待办</a> |
         </xpath>
+    </template>
+    <template id="ydental_exam_result_view" name="Examination result detail">
+        <t t-call="web.frontend_layout">
+            <main class="container py-4">
+                <h1>检查结果与办理状态</h1>
+                <p>患者 <strong t-out="patient.name"/> / 项目 <strong t-out="line.ydental_mapping_id.ydental_catalog_id.name"/></p>
+                <p>医嘱状态：<t t-out="line_labels[line.state]"/>；结果状态：<t t-out="result_labels[result.state] if result else '尚未填写'"/></p>
+                <p t-if="result">原结果作者：<t t-out="result.ydental_original_author_id.name"/>；当前责任人：<t t-out="result.ydental_responsible_id.name"/></p>
+                <p t-if="result">结果变更序号：<strong t-out="result.ydental_version"/>；序号变化可能由其他操作产生，不能单凭序号确认本次提交。</p>
+                <p t-if="execution and execution.ydental_category == 'exam'">检查接诊状态：<strong t-out="execution_labels.get(execution.state, '状态待核对')"/>。</p>
+                <p t-if="execution and execution.ydental_category == 'medical'">原医疗接诊状态：<strong t-out="execution_labels.get(execution.state, '状态待核对')"/>。同工位检查结束不会改变该状态，不能据此确认本次结束是否提交；请由有权人员核对操作记录，未确认前不要重试。</p>
+                <p t-if="not result">尚无结果草稿，请从检查工作台办理。</p>
+                <section t-if="result">
+                    <h2>所见与测量</h2><p t-out="snapshot['findings'] or '尚未填写所见'"/>
+                    <p t-foreach="(snapshot['measurements'] or {}).items()" t-as="measurement">
+                        <t t-out="measurement[0]"/>：<t t-if="measurement[1].get('status') == 'known'" t-out="measurement[1].get('value')"/>
+                        <t t-elif="measurement[1].get('status') == 'unknown'">未知</t><t t-else="">不适用</t>
+                        <t t-out="measurement[1].get('unit', '')"/>
+                    </p>
+                    <h2>人工结论</h2><p t-out="snapshot['conclusion'] or '尚未填写结论'"/>
+                    <h2>已保存检查附件</h2><p t-if="not attachments">当前结果没有附件。</p>
+                    <ul t-if="attachments"><li t-foreach="attachments" t-as="attachment"><t t-out="attachment.name"/>（<t t-out="attachment.file_size"/> 字节）</li></ul>
+                    <p>同名同大小附件可能无法区分。若上传响应未知，请由有权人员核对操作记录；未确认前不要重试。</p>
+                </section>
+                <p t-if="event">实际检查已记录；费库状态：<t t-out="'已确认' if event.state == 'confirmed' else '待核对'"/>。<t t-if="event.state != 'confirmed'" t-out="pending_labels.get(event.ydental_pending_reason, '请返回工作台联系相关人员核对。')"/></p>
+                <p t-else="">尚未记录实际检查；草稿不会产生检查费用。</p>
+                <p>结果确认、实际检查和检查段结束分别办理。若刚才响应未知，请先核对这里的状态，不要重复提交。</p>
+                <a href="/ydental/exam">返回检查工作台</a>
+            </main>
+        </t>
+    </template>
+    <template id="ydental_exam_result_unavailable" name="Examination result unavailable">
+        <t t-call="web.frontend_layout"><main class="container py-4"><h1>无法查看检查结果</h1><p>请核对当前门店、患者关系和查看权限，再从检查工作台进入。</p><a href="/ydental/exam">返回检查工作台</a></main></t>
     </template>
 </odoo>

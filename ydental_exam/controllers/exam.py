@@ -4,11 +4,20 @@ from odoo import http
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.http import request
 
-from odoo.addons.ydental_exam.models.ydental_exam_service import TEMPLATES
+from odoo.addons.ydental_exam.models.ydental_exam_service import TEMPLATES, fingerprint
 
 
 HEADERS = [('Cache-Control', 'no-store, private, max-age=0'),
            ('X-Content-Type-Options', 'nosniff'), ('Referrer-Policy', 'no-referrer')]
+PENDING_LABELS = {
+    'missing_price': '缺少有效价格，请联系价目人员核对。',
+    'inventory_pending': '库存待核对，请联系仓库处理。',
+    'material_evidence_missing': '耗材依据待核对，请由原操作人员补充。',
+}
+EXECUTION_LABELS = {
+    'serving': '进行中', 'completed': '已完成', 'verify': '待现场核实',
+    'interrupted': '已中断', 'reserved': '已保留并转外部服务', 'handover': '已交还',
+}
 
 
 class YDentalExam(http.Controller):
@@ -19,6 +28,30 @@ class YDentalExam(http.Controller):
         if connection:
             access = access.env['ydental.queue.service']._bind_connection(connection)
         return access.env['ydental.exam.service']
+
+    @http.route('/ydental/exam/check-submission', type='http', auth='user', methods=['POST'], max_content_length=7500000)
+    def check_submission(self, operation, payload, key):
+        try:
+            if operation not in ('draft', 'perform', 'confirm', 'correct', 'abort', 'finish',
+                                  'reconcile', 'verify_materials', 'attach'):
+                raise ValidationError(request.env._('Invalid examination action.'))
+            args = json.loads(payload)
+            if not isinstance(args, dict) or not isinstance(key, str) or not 1 <= len(key) <= 120:
+                raise ValidationError(request.env._('Invalid examination action.'))
+            line_id = args.get('line_id')
+            if type(line_id) is not int or not 0 < line_id <= 2147483647:
+                raise ValidationError(request.env._('Invalid examination source.'))
+            service = self._service()
+            service._view(line_id)
+            line = service._line(line_id)
+            receipt = service._model('receipt').search([
+                ('ydental_actor_id', '=', request.env.uid), ('ydental_store_id', '=', line.ydental_store_id.id),
+                ('name', '=', operation), ('ydental_key', '=', key)], limit=1)
+            committed = bool(receipt and receipt.ydental_fingerprint == fingerprint([operation, args]))
+            return request.make_json_response({'status': 'committed' if committed else 'unknown'}, headers=HEADERS)
+        except (AccessError, UserError, ValidationError, ValueError, TypeError, KeyError):
+            request.env['ydental.access.service']._denial('exam.view')
+            return request.make_json_response({'status': 'unavailable'}, status=403, headers=HEADERS)
 
     @http.route('/ydental/exam', type='http', auth='user', methods=['GET'])
     def workbench(self, **kwargs):
@@ -128,6 +161,7 @@ class YDentalExam(http.Controller):
                 request.env.user.has_group('ydental_access.ydental_group_manager'),
             'current_lines': current_lines, 'care_areas': care_areas,
             'selected_area_id': area_id, 'handoff_rows': handoff_rows,
+            'pending_labels': PENDING_LABELS,
         }, headers=HEADERS)
 
     @http.route('/ydental/exam/action', type='http', auth='user', methods=['POST'], max_content_length=7500000)
@@ -149,6 +183,33 @@ class YDentalExam(http.Controller):
         except (AccessError, UserError, ValidationError) as error:
             request.env['ydental.access.service']._denial('exam.view')
             return request.make_json_response({'error': str(error)}, status=403, headers=HEADERS)
+
+    @http.route('/ydental/exam/result-view/<int:line_id>', type='http', auth='user', methods=['GET'])
+    def result_view(self, line_id, **kwargs):
+        try:
+            service = self._service().with_context(lang='zh_CN')
+            snapshot = service._view(line_id)
+            line = service._line(line_id)
+            result = service._result(line)
+            event = result.ydental_event_id if result else False
+            execution = result.ydental_execution_id if result else False
+            if execution and (execution.ydental_store_id != line.ydental_store_id or
+                              execution.ydental_patient_id != line.ydental_patient_id):
+                raise AccessError(request.env._('access_denied: The examination execution is unavailable.'))
+            attachments = service.env['ir.attachment'].sudo().search([
+                ('res_model', '=', 'ydental.exam.result'), ('res_id', '=', result.id), ('public', '=', False)],
+                order='id') if result else service.env['ir.attachment']
+            return request.render('ydental_exam.ydental_exam_result_view', {
+                'patient': line.ydental_patient_id, 'line': line, 'result': result,
+                'snapshot': snapshot, 'event': event, 'execution': execution, 'attachments': attachments,
+                'line_labels': dict(line._fields['state']._description_selection(service.env)),
+                'result_labels': dict(service._model('result')._fields['state']._description_selection(service.env)),
+                'execution_labels': EXECUTION_LABELS,
+                'pending_labels': PENDING_LABELS,
+            }, headers=HEADERS)
+        except (AccessError, UserError, ValidationError):
+            request.env['ydental.access.service']._denial('exam.view')
+            return request.render('ydental_exam.ydental_exam_result_unavailable', {}, status=403, headers=HEADERS)
 
     @http.route('/ydental/exam/report/<int:line_id>/<int:version>', type='http', auth='user', methods=['GET'])
     def report(self, line_id, version, **kwargs):

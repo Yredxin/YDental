@@ -1,9 +1,11 @@
 from datetime import timedelta
+import json
+from lxml import html
 from unittest.mock import patch
 
 from odoo import Command, fields
 from odoo.exceptions import AccessError, ValidationError
-from odoo.tests import TransactionCase, new_test_user, tagged
+from odoo.tests import HttpCase, new_test_user, tagged
 
 from odoo.addons.ydental_treatment_test.tests.common import (
     bind,
@@ -13,6 +15,7 @@ from odoo.addons.ydental_treatment_test.tests.common import (
     save_args,
 )
 from odoo.addons.ydental_treatment_test.tests.treatment_common import (
+    cross_legal_target,
     execute_args,
     receive,
 )
@@ -22,7 +25,7 @@ from odoo.addons.ydental_treatment_test.tests.treatment_common import (
 
 
 @tagged('post_install', '-at_install')
-class TestFollowupCrossStore(TransactionCase):
+class TestFollowupCrossStore(HttpCase):
 
     @classmethod
     def setUpClass(cls):
@@ -65,6 +68,18 @@ class TestFollowupCrossStore(TransactionCase):
             'medical': 'write', 'exam': 'write',
         })
         cls.admin._grant(cls.users['manager'].id, cls.stores[1].id, {'warehouse': 'write'})
+
+        cls.legal_store, cls.legal_mapping, _slot = cross_legal_target(cls)
+        area = cls.legal_mapping.ydental_execution_area_id
+        area.write({'ydental_missed_limit': 2, 'ydental_version': area.ydental_version})
+        cls.legal_station = cls.legal_mapping.ydental_execution_area_id.ydental_station_ids.filtered(
+            lambda station: station.ydental_kind == 'care')[:1]
+        cls.admin._grant(cls.users['manager'].id, cls.legal_store.id, {'warehouse': 'write'})
+        for user in (cls.source_clinician, cls.limited_source_clinician, cls.users['doctor']):
+            user.write({'company_ids': [Command.link(cls.legal_store.company_id.id)]})
+            cls.admin._join(user.id, cls.legal_store.id)
+        cls.admin._grant(cls.source_clinician.id, cls.legal_store.id, {'medical': 'read'})
+        cls.admin._grant(cls.users['doctor'].id, cls.legal_store.id, {'medical': 'write', 'exam': 'write'})
 
     def _source_actual_visit(self, patient_id):
         service, lease, execution, document = self._open_actual(
@@ -121,8 +136,8 @@ class TestFollowupCrossStore(TransactionCase):
         source_service, source_treatment, source_lease, source_execution, source_document, source_event = (
             self._source_actual_visit(source_patient_id))
         source_task = source_execution.ydental_task_id
-        target_store = self.stores[1]
-        target_mapping = self.mappings[1][0]
+        target_store = self.legal_store
+        target_mapping = self.legal_mapping
         source_treatment._operate('refer', {
             'execution_id': source_execution.id,
             'lease_id': source_lease['lease_id'],
@@ -148,6 +163,7 @@ class TestFollowupCrossStore(TransactionCase):
         })
         source_execution.invalidate_recordset(['state'])
         self.assertEqual(source_execution.state, 'handover')
+        source_service.env['ydental.queue.service']._operate('exit', {'lease_id': source_lease['lease_id'], 'token': source_lease['token']})
 
         # Acceptance establishes the same patient's target-store relation and
         # creates the target intake task through the real referral service.
@@ -196,11 +212,9 @@ class TestFollowupCrossStore(TransactionCase):
             }],
         }, key())
         target_event = self.root['ydental.treatment.event'].browse(target_event_result['event_id'])
-        target_clinical._operate('handover', handover_args(target_document, target_lease) | {
-            'reason': 'Synthetic target encounter ended after actual treatment',
-        })
+        target_clinical._operate('complete', handover_args(target_document, target_lease))
         target_execution.invalidate_recordset(['state'])
-        self.assertEqual(target_execution.state, 'handover')
+        self.assertEqual(target_execution.state, 'completed')
         self.assertEqual((target_event.state, target_event.ydental_kind), ('confirmed', 'treatment'))
         self.assertEqual(target_event.ydental_execution_id.ydental_task_id.ydental_entitlement_id, entitlement)
 
@@ -215,6 +229,66 @@ class TestFollowupCrossStore(TransactionCase):
         followup_result = followup_service._operate('create', payload)
         followup = self.root['ydental.followup'].browse(followup_result['id'])
         self.assertFalse(followup.ydental_appointment_id, 'a target-store reservation is never linked as source-store appointment')
+
+        # Real local follow-up treatment, plus the already completed cross-store
+        # referral. Only appointment status below is synthetic test setup.
+        local_clinical, local_lease, local_execution, local_document = self._open_actual(
+            self.source_clinician, self.stores[0], source_patient_id)
+        local_document.update(local_clinical._operate('save', save_args(local_document)))
+        local_event_data = local_clinical.env['ydental.treatment.service']._operate('execute',
+            execute_args(self, self._execution_args(local_execution, local_lease, local_document)), key())
+        local_event = self.root['ydental.treatment.event'].browse(local_event_data['event_id'])
+        local_clinical._operate('complete', handover_args(local_document, local_lease))
+        local_appointment = local_execution.ydental_task_id.ydental_entitlement_id
+        self.assertTrue(local_appointment)
+
+        self.authenticate(self.source_clinician.login, 's11-test-password')
+        access_page = self.url_open('/ydental/access')
+        access_tree = html.fromstring(access_page.content)
+        csrf = access_tree.xpath('//input[@name="csrf_token"]/@value')[0]
+        revision = access_tree.xpath('//input[@name="revision"]/@value')[0]
+        switched = self.url_open('/ydental/access/action', data={
+            'csrf_token': csrf, 'revision': revision, 'operation': 'switch',
+            'payload': json.dumps({'store_id': self.stores[0].id}), 'output': 'json'})
+        self.assertEqual(switched.status_code, 200)
+        def source_choices():
+            self.env.flush_all()
+            page = self.url_open('/ydental/followups?followup_id=%s' % followup.id)
+            self.assertEqual(page.status_code, 200)
+            return html.fromstring(page.content).xpath('//select[@name="event_id"]/option/@value')
+
+        followup._save({'ydental_appointment_id': local_appointment.id, 'ydental_appointment_status': 'booked'})
+        self.assertNotIn(str(local_event.id), source_choices())
+        self.assertNotIn(str(target_event.id), source_choices())
+        followup._save({'ydental_appointment_status': 'arrived'})
+        choices = source_choices()
+        self.assertIn(str(local_event.id), choices)
+        self.assertNotIn(str(target_event.id), choices)
+        followup._save({'ydental_appointment_id': source_task.ydental_entitlement_id.id})
+        self.assertNotIn(str(local_event.id), source_choices())
+        followup._save({'ydental_appointment_id': False, 'ydental_appointment_status': 'none'})
+
+        # Keep the target-store membership and medical grant; revoke only the
+        # separate target company's authorization, then check GET and POST.
+        self.assertIn(str(target_event.id), source_choices())
+        target_company = self.legal_store.company_id
+        self.source_clinician.write({'company_ids': [Command.unlink(target_company.id)]})
+        self.source_clinician.invalidate_recordset(['company_ids'])
+        self.assertNotIn(target_company, self.source_clinician.company_ids)
+        self.assertTrue(self.admin._membership(self.source_clinician.id, self.legal_store.id))
+        self.assertEqual(self.admin._levels(self.admin._membership(self.source_clinician.id, self.legal_store.id))['medical'], 'read')
+        self.assertNotIn(str(target_event.id), source_choices())
+        denied_http = self.url_open('/ydental/followups/action', data={
+            'csrf_token': csrf, 'revision': switched.json()['revision'], 'operation': 'complete',
+            'payload': json.dumps({'followup_id': followup.id, 'event_id': target_event.id,
+                'confirmed_unlinked': True, 'reason': 'Synthetic revoked target company'})})
+        self.assertEqual(denied_http.status_code, 403)
+        with self.assertRaises(AccessError):
+            followup_service._operate('complete', {'followup_id': followup.id, 'event_id': target_event.id,
+                'confirmed_unlinked': True, 'reason': 'Synthetic revoked target company'})
+        self.assertNotEqual(followup.state, 'done')
+        self.source_clinician.write({'company_ids': [Command.link(target_company.id)]})
+        self.source_clinician.invalidate_recordset(['company_ids'])
 
         # A source actor with no target medical-read grant cannot complete from
         # the remote event, even when a valid referral exists.
@@ -264,7 +338,7 @@ class TestFollowupCrossStore(TransactionCase):
 
     def _open_task(self, user, store, task):
         queue = bind(self, user, store).env['ydental.queue.service']._bind_connection(key() + key())
-        lease = queue._operate('enter', {'station_id': self.stations[1][0].id})
+        lease = queue._operate('enter', {'station_id': self.legal_station.id})
         call = queue._operate('call', {'lease_id': lease['lease_id'], 'token': lease['token']})
         self.assertEqual(call['task_id'], task.id)
         actual = queue._operate('start', {

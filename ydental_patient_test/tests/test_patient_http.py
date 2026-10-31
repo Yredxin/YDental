@@ -2,7 +2,9 @@ import json
 import re
 import secrets
 from unittest.mock import patch
+from urllib.parse import urlencode
 
+from lxml import html
 from odoo.tests import HttpCase
 from odoo.tools import mute_logger
 from odoo.tools.misc import limited_field_access_token
@@ -119,6 +121,106 @@ class TestPatientHTTP(HttpCase):
         self.assertEqual(result.status_code, 200)
         self.assertEqual(self.action('confirm', args, key='http-confirm').json()['result'], 'already_accepted')
         self.assertIn(b['number'], self.url_open('/ydental/patients?q=' + a['number']).text)
+
+    def test_merge_selector_paginates_same_names_and_preserves_legacy_form(self):
+        source = create(self, name='Merge source unique')
+        candidates = [create(self, name='S13 Same Merge Candidate') for _ in range(53)]
+        self.select()
+        def page(number):
+            return self.url_open('/ydental/patients/%s?%s' % (source['id'], urlencode({
+                'merge_q': 'S13 Same Merge Candidate', 'merge_page': number})))
+        selected = []
+        for number, expected in ((1, 20), (2, 20), (3, 13)):
+            response = page(number)
+            self.assertEqual(response.status_code, 200, response.text)
+            document = html.fromstring(response.content)
+            options = document.xpath('//input[@name="target_id"]/@value')
+            self.assertEqual(len(options), expected)
+            selected.extend(int(value) for value in options)
+            self.assertEqual(len(document.xpath('//input[@name="target_id"]/../span[2]')), expected)
+            self.assertEqual(bool(document.xpath('//a[text()="下一页"]')), number < 3)
+        self.assertEqual(set(selected), {candidate['id'] for candidate in candidates})
+        self.assertEqual(len(selected), len(set(selected)))
+        self.assertNotIn(source['id'], selected)
+        response = self.url_open('/ydental/patients/action', data={'csrf_token': self.token,
+            'revision': self.revision, 'key': secrets.token_hex(8), 'operation': 'request_merge',
+            'patient_id': source['id'], 'target_id': candidates[0]['id'], 'reason': 'Synthetic legacy form'},
+            allow_redirects=False)
+        self.assertIn(response.status_code, (302, 303))
+        self.assertFalse(self.root['ydental.patient'].browse(source['id']).ydental_merged_into_id)
+        self.assertEqual(self.root['ydental.patient.merge'].search_count([
+            ('ydental_source_id', '=', source['id']), ('ydental_target_id', '=', candidates[0]['id']),
+            ('state', '=', 'requested')]), 1)
+
+    def test_merge_selector_rechecks_permissions_scope_and_patient_state(self):
+        source = create(self, name='S13 Merge Source')
+        target = create(self, name='S13 Merge Target')
+        archived = create(self, name='S13 Merge Archived')
+        service = self.service
+        service._operate('archive', {'patient_id': archived['id'], 'version': 1, 'reason': 'Synthetic archive'}, secrets.token_hex(8))
+        self.select()
+        query = '/ydental/patients/%s?%s' % (source['id'], urlencode({'merge_q': 'S13 Merge'}))
+        page = self.url_open(query)
+        document = html.fromstring(page.content)
+        options = document.xpath('//input[@name="target_id"]/@value')
+        self.assertIn(str(target['id']), options)
+        self.assertNotIn(str(source['id']), options)
+        self.assertNotIn(str(archived['id']), options)
+        payload = {'source_id': source['id'], 'target_id': source['id'], 'reason': 'Synthetic request'}
+        self.assertEqual(self.action('request_merge', payload).status_code, 409)
+        payload['target_id'] = archived['id']
+        self.assertEqual(self.action('request_merge', payload).status_code, 409)
+        self.assertEqual(self.url_open('/ydental/patients/%s?merge_q=S13&merge_page=0' % source['id']).status_code, 400)
+        no_csrf = self.url_open('/ydental/patients/action', data={'revision': self.revision,
+            'key': secrets.token_hex(8), 'operation': 'request_merge', 'patient_id': source['id'],
+            'target_id': target['id'], 'reason': 'Synthetic request'})
+        self.assertEqual(no_csrf.status_code, 400)
+        self.select('reader')
+        page = self.url_open(query)
+        self.assertEqual(page.status_code, 200)
+        self.assertNotIn('name="target_id"', page.text)
+        payload['target_id'] = target['id']
+        self.assertEqual(self.action('request_merge', payload).status_code, 403)
+        self.select('frontdesk')
+        old_revision = self.revision
+        self.admin._grant(self.users['frontdesk'].id, self.stores[0].id, {'frontdesk': 'read'})
+        self.assertEqual(self.action('request_merge', payload).status_code, 403)
+        self.assertNotIn('name="target_id"', self.url_open(query).text)
+        self.assertEqual(self.action('request_merge', payload, revision=old_revision - 1).status_code, 409)
+
+    def test_merge_selector_rejects_target_changed_after_search_and_cross_store(self):
+        source, target, canonical = create(self), create(self), create(self)
+        self.select('manager')
+        query = '/ydental/patients/%s?%s' % (source['id'], urlencode({'merge_q': target['number']}))
+        self.assertIn('value="%s"' % target['id'], self.url_open(query).text)
+        request = merge(self, target['id'], canonical['id'])
+        self.group._operate('confirm', {'request_id': request['id'], 'version': request['version'],
+            'reason': 'Synthetic verified merge'}, secrets.token_hex(8))
+        payload = {'source_id': source['id'], 'target_id': target['id'], 'reason': 'Synthetic request'}
+        self.assertEqual(self.action('request_merge', payload).status_code, 409)
+        response = self.url_open(query)
+        self.assertNotIn('value="%s"' % target['id'], response.text)
+        self.assertIn('value="%s"' % canonical['id'], response.text)
+        self.assertIn(canonical['number'], response.text)
+        canonical_query = '/ydental/patients/%s?%s' % (canonical['id'], urlencode({'merge_q': target['number']}))
+        canonical_page = self.url_open(canonical_query)
+        options = html.fromstring(canonical_page.content).xpath('//input[@name="target_id"]/@value')
+        self.assertNotIn(str(canonical['id']), options)
+        self.select('manager', self.stores[1])
+        payload['target_id'] = canonical['id']
+        self.assertEqual(self.action('request_merge', payload).status_code, 403)
+
+    def test_merge_selector_rechecks_archived_target_after_search(self):
+        source, target = create(self), create(self)
+        self.select()
+        query = '/ydental/patients/%s?%s' % (source['id'], urlencode({'merge_q': target['number']}))
+        self.assertIn('value="%s"' % target['id'], self.url_open(query).text)
+        self.service._operate('archive', {'patient_id': target['id'], 'version': 1,
+            'reason': 'Synthetic archive after selection'}, secrets.token_hex(8))
+        response = self.action('request_merge', {'source_id': source['id'], 'target_id': target['id'],
+            'reason': 'Synthetic request'})
+        self.assertEqual(response.status_code, 409, response.text)
+        self.assertNotIn('value="%s"' % target['id'], self.url_open(query).text)
 
     def test_http_csrf_write_revision_and_read_only_permissions(self):
         self.select('reader')

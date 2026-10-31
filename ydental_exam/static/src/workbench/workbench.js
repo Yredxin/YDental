@@ -9,7 +9,34 @@ if (root) {
     const message = root.querySelector('#exam-message');
     let pending = false;
     let uncertain = false;
+    let attempt = null;
+    const checkable = new Set(['draft', 'perform', 'confirm', 'correct', 'abort', 'finish',
+        'reconcile', 'verify_materials', 'attach']);
+    const checkSubmission = root.querySelector('#exam-check-submission');
+    checkSubmission.addEventListener('click', async () => {
+        if (!attempt || pending) { return; }
+        pending = true;
+        checkSubmission.disabled = true;
+        try {
+            const response = await fetch('/ydental/exam/check-submission', {method: 'POST', credentials: 'same-origin', body: attempt});
+            const result = await response.json();
+            message.textContent = response.ok && result.status === 'committed' ? '本次操作已提交。请核对结果后返回工作台。' :
+                '尚不能确认本次操作。请求可能仍在处理中，请由有权人员核查，未确认前不要重试。';
+        } catch (_error) {
+            message.textContent = '尚不能确认本次操作，请由有权人员核查，未确认前不要重试。';
+        } finally {
+            pending = false;
+            checkSubmission.disabled = false;
+        }
+    });
     const random = () => Array.from(crypto.getRandomValues(new Uint8Array(24)), b => b.toString(16).padStart(2, '0')).join('');
+    function showReconcile(form) {
+        const reconcile = root.querySelector('#exam-reconcile');
+        const lineId = Number(form.dataset.line);
+        reconcile.href = Number.isSafeInteger(lineId) && lineId > 0 ?
+            '/ydental/exam/result-view/' + lineId : '/ydental/exam';
+        reconcile.hidden = false;
+    }
     function measurements(form) {
         const result = {};
         for (const row of form.querySelectorAll('[data-measurement]')) {
@@ -101,7 +128,7 @@ if (root) {
         form.dataset.allowed = String(Boolean(permission && (!needsExecution ||
             (Number(root.dataset.execution) > 0 && holder?.lease_id && holder?.token))));
         form.querySelectorAll('input,textarea,select,button').forEach(control => { control.disabled = form.dataset.allowed !== 'true'; });
-        form.dataset.key = random();
+        const actionKey = random();
         form.addEventListener('submit', async event => {
             event.preventDefault();
             if (pending || uncertain || form.dataset.allowed !== 'true') { return; }
@@ -111,11 +138,21 @@ if (root) {
             const argsPromise = payload(form);
             pending = true;
             root.querySelectorAll('input,textarea,select,button').forEach(control => { control.disabled = true; });
+            let dispatched = false;
             try {
                 const args = await argsPromise;
+                const check = new URLSearchParams({operation, payload: JSON.stringify(args), key: actionKey,
+                    csrf_token: odoo.csrf_token});
+                const action = new URLSearchParams({operation, revision: root.dataset.revision, connection,
+                    payload: JSON.stringify(args), key: actionKey, csrf_token: odoo.csrf_token});
+                if (check.toString().length > 7500000 || action.toString().length > 7500000) {
+                    throw new Error('内容过大，本次未发送；请重新打开页面并缩小附件。');
+                }
+                attempt = checkable.has(operation) && Number.isSafeInteger(args.line_id) &&
+                    args.line_id > 0 && args.line_id <= 2147483647 ? check : null;
+                dispatched = true;
                 const response = await fetch('/ydental/exam/action', {method: 'POST', credentials: 'same-origin',
-                    body: new URLSearchParams({operation, revision: root.dataset.revision, connection,
-                        payload: JSON.stringify(args), key: form.dataset.key, csrf_token: odoo.csrf_token})});
+                    body: action});
                 const result = await response.json();
                 if (!response.ok) { throw new Error(result.error); }
                 root.querySelectorAll('input,textarea,select,button').forEach(control => {
@@ -124,8 +161,11 @@ if (root) {
                 if (before !== JSON.stringify([...new FormData(form)].map(([name, value]) =>
                     [name, value instanceof File ? [value.name, value.size, value.lastModified] : value]))) {
                     uncertain = true;
-                    root.querySelector('#exam-reconcile').hidden = false;
-                    message.textContent = '表单在响应期间变化，请核对原始记录。';
+                    showReconcile(form);
+                    checkSubmission.hidden = !attempt;
+                    checkSubmission.disabled = false;
+                    message.textContent = attempt ? '表单在响应期间变化，请核对原始记录。' :
+                        '表单在响应期间变化，请由有权人员人工核查，未确认前不要重试。';
                     return;
                 }
                 if (operation === 'finish' && root.dataset.category === 'exam') {
@@ -133,9 +173,19 @@ if (root) {
                 }
                 window.location.reload();
             } catch (error) {
-                message.textContent = error.message || '结果未知，请核对服务端原始记录。';
+                if (!dispatched) {
+                    message.textContent = error.message || '本次未发送，请核对输入。';
+                    root.querySelectorAll('input,textarea,select,button').forEach(control => {
+                        control.disabled = control.closest('form')?.dataset.allowed !== 'true';
+                    });
+                    return;
+                }
+                message.textContent = attempt ? (error.message || '结果未知，请核对服务端原始记录。') :
+                    ((error.message || '结果未知。') + ' 请由有权人员人工核查，未确认前不要重试。');
                 uncertain = true;
-                root.querySelector('#exam-reconcile').hidden = false;
+                showReconcile(form);
+                checkSubmission.hidden = !attempt;
+                checkSubmission.disabled = false;
             } finally {
                 pending = false;
             }

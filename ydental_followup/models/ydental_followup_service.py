@@ -1,3 +1,5 @@
+import base64
+import binascii
 import hashlib
 import hmac
 import json
@@ -10,6 +12,7 @@ from psycopg2 import IntegrityError
 
 from odoo import SUPERUSER_ID, api, fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
+from odoo.tools.misc import hmac as odoo_hmac
 from odoo.orm.registry import Registry
 
 
@@ -160,6 +163,80 @@ class YDentalFollowupService(models.AbstractModel):
         if store and execution.ydental_store_id != store:
             raise AccessError(self.env._('access_denied: The treatment event belongs to another store.'))
         return event
+
+    def _event_cursor(self, context, event):
+        session = self.env['ydental.access.service']._scope()
+        data = {'context': context, 'uid': self.env.uid, 'store': session.ydental_store_id.id,
+                'session': session.id, 'revision': session.ydental_revision,
+                'at': fields.Datetime.to_string(event.ydental_actual_at), 'id': event.id}
+        raw = base64.urlsafe_b64encode(json.dumps(data, sort_keys=True, separators=(',', ':')).encode()).decode().rstrip('=')
+        signature = odoo_hmac(self.sudo().env, 'ydental.followup.event.cursor', raw)
+        return raw + '.' + signature
+
+    def _event_cursor_domain(self, context, cursor):
+        if not cursor:
+            return fields.Domain.TRUE
+        try:
+            if not isinstance(cursor, str) or len(cursor) > 1024:
+                raise ValueError()
+            raw, signature = cursor.split('.')
+            expected = odoo_hmac(self.sudo().env, 'ydental.followup.event.cursor', raw)
+            if not hmac.compare_digest(signature, expected):
+                raise ValueError()
+            data = json.loads(base64.urlsafe_b64decode(raw + '=' * (-len(raw) % 4)))
+            session = self.env['ydental.access.service']._scope()
+            if (data['context'] != context or data['uid'] != self.env.uid or
+                    data['store'] != session.ydental_store_id.id or data['session'] != session.id or
+                    data['revision'] != session.ydental_revision or type(data['id']) is not int or
+                    not 0 < data['id'] <= 2147483647):
+                raise ValueError()
+            at = fields.Datetime.to_datetime(data['at'])
+            if not at or fields.Datetime.to_string(at) != data['at']:
+                raise ValueError()
+            return fields.Domain.OR([fields.Domain('ydental_actual_at', '<', at),
+                fields.Domain('ydental_actual_at', '=', at) & fields.Domain('id', '<', data['id'])])
+        except (ValueError, TypeError, KeyError, binascii.Error, UnicodeError):
+            raise ValidationError(self.env._('Invalid follow-up source cursor.')) from None
+
+    def _check_target_store_company(self, store):
+        # Cross-store candidates use sudo; membership alone does not constrain
+        # the user's allowed companies, so check the current company grant too.
+        if not store or not store.company_id or store.company_id.id not in self.env.user.company_ids.ids:
+            raise AccessError(self.env._('access_denied: The store company is outside this account scope.'))
+
+    def _source_choices(self, term, cursor=''):
+        session, _member = self._scope()
+        self.env['ydental.access.service']._check('medical', 'read')
+        if not isinstance(term, str) or len(term) > 100:
+            raise ValidationError(self.env._('Invalid follow-up selection.'))
+        domain = fields.Domain('ydental_store_id', '=', session.ydental_store_id.id) & fields.Domain('ydental_kind', '=', 'treatment') & fields.Domain('state', '=', 'confirmed')
+        if term:
+            domain &= fields.Domain.OR([fields.Domain('ydental_patient_id.name', 'ilike', term),
+                fields.Domain('ydental_patient_id.ydental_number', '=', term)])
+        context = {'kind': 'create', 'term': term}
+        domain &= self._event_cursor_domain(context, cursor)
+        model = self.env['ydental.treatment.event']
+        eligible_ids = []
+        found = model.search(domain, order='ydental_actual_at desc, id desc', limit=201)
+        patients = found[:200].mapped('ydental_execution_id.ydental_patient_id')
+        relations = self.env['ydental.patient.service']._current_relations(
+            patients.ids, session.ydental_store_id, required=False)
+        last = model
+        checked = 0
+        for event in found[:200]:
+            checked += 1
+            last = event
+            patient = event.ydental_execution_id.ydental_patient_id
+            relation = relations.get(patient.id)
+            if (patient.active and event.ydental_patient_id == patient and event.ydental_document_id
+                    and event.ydental_document_id.ydental_patient_id == patient
+                    and event.ydental_execution_id.ydental_store_id == session.ydental_store_id
+                    and relation and relation.ydental_patient_id == patient):
+                eligible_ids.append(event.id)
+            if len(eligible_ids) == 50:
+                break
+        next_cursor = self._event_cursor(context, last) if last and len(found) > checked else ''
+        return model.browse(eligible_ids), next_cursor
 
     def _responsible(self, user_id, store, *, medical=False):
         user_id = self._id(user_id)
@@ -659,6 +736,7 @@ class YDentalFollowupService(models.AbstractModel):
             # provenance retained by intake, after checking current authority at both ends.
             target_store = execution.ydental_store_id
             access = self.env['ydental.access.service']
+            self._check_target_store_company(target_store)
             access._check('medical', 'read', target_store.id)
             self.env['ydental.patient.service']._current_relation(row.ydental_patient_id, target_store)
             source_event = self._source_event(row.ydental_source_event_id.id,
@@ -675,7 +753,7 @@ class YDentalFollowupService(models.AbstractModel):
             event = candidate
             cross_store_referral = True
         execution = event.ydental_execution_id
-        if event.state != 'confirmed' or execution.state not in ('reserved', 'handover', 'interrupted'):
+        if event.state != 'confirmed' or execution.state not in ('reserved', 'handover', 'interrupted', 'completed'):
             raise UserError(self.env._('Only a confirmed event from an ended actual encounter can complete follow-up.'))
         source_event = row.ydental_source_event_id
         if (event == source_event or execution == source_event.ydental_execution_id or

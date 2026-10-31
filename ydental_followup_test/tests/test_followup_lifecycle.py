@@ -4,7 +4,7 @@ from unittest.mock import patch
 import pytz
 
 from odoo import Command, fields
-from odoo.exceptions import AccessError, UserError
+from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tests import TransactionCase, tagged
 
 from odoo.addons.ydental_treatment_test.tests.common import (
@@ -50,6 +50,65 @@ class TestFollowupLifecycle(TransactionCase):
         treatment_setup(cls)
         for store in cls.stores:
             cls.admin._grant(cls.users['manager'].id, store.id, {'followup': 'write'})
+
+    def test_source_choices_page_over_500_and_recheck_medical_permission(self):
+        price(self, amount=137.25)
+        receive(self)
+        treatment, clinical, _queue, lease, execution, document, args = opened_actual(self)
+        result = treatment._operate('execute', execute_args(self, args), key())
+        event = self.root['ydental.treatment.event'].browse(result['event_id'])
+        clinical._operate('complete', handover_args(document, lease))
+        self.assertEqual(execution.state, 'completed')
+        # Synthetic source records stress pagination only; they are not claimed
+        # to be 501 actual treatments or accounting transactions.
+        Event = self.root['ydental.treatment.event']
+        base = event.copy_data()[0]
+        base.update(ydental_store_id=event.ydental_store_id.id, ydental_category=event.ydental_category,
+            ydental_patient_id=event.ydental_patient_id.id, ydental_actor_id=event.ydental_actor_id.id,
+            ydental_document_id=event.ydental_document_id.id, ydental_execution_id=event.ydental_execution_id.id,
+            ydental_actual_at=event.ydental_actual_at, ydental_business_date=event.ydental_business_date,
+            ydental_kind=event.ydental_kind, state=event.state)
+        service = bind(self, self.users['manager']).env['ydental.followup.service']
+        term = execution.ydental_patient_id.ydental_number
+        initial, _cursor = service._source_choices(term, '')
+        self.assertIn(event.id, initial.ids, 'the real confirmed treatment must be selectable before synthetic pagination fixtures')
+        valid_ids = []
+        for index in range(51):
+            values = dict(base, ydental_source='s11-pagination-%s-%s' % (key(), index))
+            valid_ids.append(Event._new(values).id)
+        first_batch, next_batch = service._source_choices(term, '')
+        self.assertEqual(len(first_batch), 50, 'real copied fixture rows must remain eligible')
+        self.assertTrue(next_batch)
+        self.assertTrue(set(first_batch.ids) <= set(valid_ids) | {event.id})
+        inconsistent = []
+        for index in range(501):
+            invalid = Event._new(dict(base, ydental_source='s11-inconsistent-%s-%s' % (key(), index), ydental_document_id=False))
+            inconsistent.append(invalid.id)
+        all_ids = []
+        cursor = ''
+        empty_with_next = 0
+        for _index in range(10):
+            choices, next_cursor = service._source_choices(term, cursor)
+            all_ids.extend(choices.ids)
+            if not choices and next_cursor:
+                empty_with_next += 1
+            if not next_cursor:
+                break
+            with self.assertRaises(ValidationError):
+                service._source_choices(term, next_cursor[:-1] + ('0' if next_cursor[-1] != '0' else '1'))
+            with self.assertRaises(ValidationError):
+                service._source_choices(term + 'changed', next_cursor)
+            cursor = next_cursor
+        else:
+            self.fail('cursor did not terminate')
+        self.assertGreaterEqual(empty_with_next, 2)
+        self.assertEqual(len(all_ids), 52)
+        self.assertEqual(len(set(all_ids)), 52)
+        self.assertIn(event.id, all_ids)
+        self.assertFalse(set(inconsistent) & set(all_ids))
+        self.admin._grant(self.users['manager'].id, self.stores[0].id, {'medical': 'none'})
+        with self.assertRaises(AccessError):
+            service._source_choices(term, '')
 
     def test_followup_operator_links_arrival_and_missed_visit_without_capacity_access(self):
         price(self, amount=137.25)

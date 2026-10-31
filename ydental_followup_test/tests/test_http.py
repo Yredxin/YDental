@@ -4,6 +4,7 @@ import secrets
 
 from odoo import fields
 from odoo.tests import HttpCase, new_test_user, tagged
+from odoo.addons.ydental_followup.controllers.followup import YDentalFollowup
 
 
 def _key():
@@ -122,11 +123,25 @@ class TestFollowupHTTP(HttpCase):
         self.assertIn('Cache-Control', page.headers)
         self.assertIn('no-store', page.headers['Cache-Control'])
 
+    def test_source_search_pagination_validation_and_legacy_form_contract(self):
+        self.select('desk')
+        page = self.url_open('/ydental/followups?source_q=synthetic')
+        self.assertEqual(page.status_code, 200, page.text)
+        self.assertIn('name="source_q"', page.text)
+        self.assertEqual(self.url_open('/ydental/followups?source_cursor=tampered').status_code, 400)
+        form = {'followup_type': 'post_visit', 'planned_at': '2026-10-31T09:00', 'responsible_id': '7'}
+        controller = YDentalFollowup()
+        legacy = controller._form_arguments('create', form | {'patient_id': '12', 'source_event_id': '34'})
+        selected = controller._form_arguments('create', form | {'ui_source': 'patient_event', 'source_choice': '12:34'})
+        self.assertEqual(legacy, selected)
+        with self.assertRaises(ValueError):
+            controller._form_arguments('create', form | {'ui_source': 'patient_event', 'source_choice': '12:34:56'})
+
     def test_http_followup_medical_actor_without_frontdesk_can_open_workbench(self):
         self.select('clinician')
         page = self.url_open('/ydental/followups')
         self.assertEqual(page.status_code, 200, page.text)
-        self.assertIn('Follow-up workbench', page.text)
+        self.assertTrue('复诊工作台' in page.text or 'Follow-up workbench' in page.text)
         self.assertIn('Cache-Control', page.headers)
         self.assertIn('no-store', page.headers['Cache-Control'])
 

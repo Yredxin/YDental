@@ -290,7 +290,8 @@ class TestFollowupNotification(TransactionCase):
         view = self.env.ref('ydental_followup.followup_list')
         arch = view.arch_db
         self.assertIn('Contact history', arch)
-        self.assertIn('name="source_event_id"', arch)
+        self.assertIn('name="source_choice"', arch)
+        self.assertIn('name="ui_source" value="patient_event"', arch)
         self.assertIn('name="appointment_id"', arch)
         self.assertIn('name="arrival_id"', arch)
         self.assertIn('name="event_id"', arch)

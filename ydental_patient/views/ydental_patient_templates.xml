@@ -106,7 +106,16 @@
                     <label class="d-block">Relationship <input name="relationship" required="required"/></label><label class="d-block">Phone <input name="phone"/></label><label class="d-block">Phone region, ISO code or unknown <input name="phone_region" maxlength="2"/></label><label class="d-block">Email <input name="email" type="email"/></label>
                     <label class="d-block">Verification recorded <input name="verified" type="checkbox" value="yes"/></label><label class="d-block">Verification basis <input name="verification_note" maxlength="300"/></label><button>Add contact</button>
                 </form></details>
-                <details id="request-merge" class="my-3"><summary>Request group identity merge</summary><form method="post" action="/ydental/patients/action"><t t-call="ydental_patient.ydental_patient_form_scope"/><input type="hidden" name="operation" value="request_merge"/><input type="hidden" name="patient_id" t-att-value="patient.id"/><label>Canonical patient ID <input type="number" name="target_id" min="1" required="required"/></label><label>Reason <input name="reason" maxlength="300" required="required"/></label><button>Submit for group verification</button></form></details>
+                <details id="request-merge" class="my-3" t-att-open="'open' if merge_q else None"><summary>申请集团核验合并身份</summary>
+                    <p>按姓名或患者编号查找目标，核对两人的身份。搜索结果不是身份核验证明；提交后仍由集团人员审核。</p>
+                    <form method="get" t-att-action="'/ydental/patients/%s' % patient.id"><label>目标姓名或患者编号 <input name="merge_q" maxlength="100" required="required" t-att-value="merge_q"/></label><button>查找目标患者</button></form>
+                    <p t-if="merge_q and not merge_candidates">本页没有符合条件的有效患者，请检查姓名、患者编号或上一页。</p>
+                    <form t-if="merge_candidates" method="post" action="/ydental/patients/action"><t t-call="ydental_patient.ydental_patient_form_scope"/><input type="hidden" name="operation" value="request_merge"/><input type="hidden" name="patient_id" t-att-value="patient.id"/>
+                        <fieldset><legend>选择要保留的目标身份</legend><label t-foreach="merge_candidates" t-as="candidate"><input type="radio" name="target_id" t-att-value="candidate.id" required="required"/> <span t-out="candidate.name"/> · <span t-out="candidate.ydental_number"/></label></fieldset>
+                        <label>申请原因 <input name="reason" maxlength="300" required="required"/></label><button>提交集团核验</button>
+                    </form>
+                    <nav t-if="merge_q" aria-label="目标患者分页"><a t-if="merge_page &gt; 1" t-att-href="merge_page_url(merge_page - 1)">上一页</a> <span>第 <t t-out="merge_page"/> 页</span> <a t-if="merge_has_more and merge_page &lt; 1000" t-att-href="merge_page_url(merge_page + 1)">下一页</a><span t-if="merge_has_more and merge_page == 1000">结果过多，请细化姓名或使用患者编号。</span></nav>
+                </details>
                 <details id="archive-patient" class="my-3"><summary>Archive patient identity</summary><form method="post" action="/ydental/patients/action"><t t-call="ydental_patient.ydental_patient_form_scope"/><input type="hidden" name="operation" value="archive"/><input type="hidden" name="patient_id" t-att-value="patient.id"/><input type="hidden" name="version" t-att-value="patient.ydental_version"/><label>Reason <input name="reason" required="required"/></label><button>Archive patient</button></form></details>
             </t>
         </t>

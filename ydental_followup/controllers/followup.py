@@ -1,4 +1,5 @@
 import json
+from urllib.parse import urlencode
 
 from odoo import fields, http
 from odoo.exceptions import AccessError, UserError, ValidationError
@@ -20,6 +21,16 @@ class YDentalFollowup(http.Controller):
         request.update_context(lang='zh_CN')
         service = self._service().with_context(lang='zh_CN')
         session, _member = service._scope()
+        levels = service.env['ydental.access.service']._levels(_member)
+        try:
+            source_q = kwargs.get('source_q', '').strip()
+            if len(source_q) > 100:
+                raise ValueError()
+            followup_page = int(kwargs.get('followup_page', '1'))
+            if not 1 <= followup_page <= 1000:
+                raise ValueError()
+        except (ValueError, TypeError, AttributeError):
+            return request.make_json_response({'error': request.env._('Invalid follow-up selection.')}, status=400)
         model = service.env['ydental.followup']
         domain = fields.Domain('ydental_store_id', '=', session.ydental_store_id.id) & fields.Domain('state', '!=', 'done')
         try:
@@ -29,14 +40,17 @@ class YDentalFollowup(http.Controller):
             return request.make_json_response({'error': request.env._('Invalid follow-up selection.')}, status=400)
         rows = model.search_fetch(domain, ['name', 'ydental_patient_id', 'ydental_followup_type', 'ydental_planned_at',
             'ydental_appointment_at', 'ydental_appointment_status', 'ydental_responsible_id', 'state'],
-            limit=100, order='ydental_planned_at, id')
-        events = service.env['ydental.treatment.event'].search_fetch([
-            ('ydental_store_id', '=', session.ydental_store_id.id), ('ydental_kind', '=', 'treatment'),
-            ('state', '=', 'confirmed'),
-            ('ydental_execution_id.state', 'in', ('reserved', 'handover', 'interrupted')),
-        ], ['ydental_execution_id', 'ydental_business_date', 'ydental_catalog_id', 'state'],
-            limit=500, order='ydental_business_date desc, id desc')
-        event_patients = events.mapped('ydental_execution_id.ydental_patient_id')
+            offset=(followup_page - 1) * 50 if not kwargs.get('followup_id') else 0,
+            limit=51, order='ydental_planned_at, id')
+        followup_more, rows = len(rows) > 50, rows[:50]
+        medical_read = levels['medical'] in ('read', 'write')
+        events = service.env['ydental.treatment.event']
+        source_next = ''
+        if medical_read:
+            try:
+                events, source_next = service._source_choices(source_q, kwargs.get('source_cursor', ''))
+            except ValidationError:
+                return request.make_json_response({'error': request.env._('Invalid follow-up selection.')}, status=400)
         appointments = service.env['ydental.intake.service']._followup_reservation_options(
             rows.mapped('ydental_patient_id').ids)
         arrivals = service.env['ydental.intake.arrival'].search_fetch([
@@ -53,37 +67,71 @@ class YDentalFollowup(http.Controller):
         appointments_by_patient = {}
         arrivals_by_patient = {}
         contacts_by_followup = {}
-        for event in events:
-            patient_id = event.ydental_execution_id.ydental_patient_id.id
-            events_by_patient.setdefault(patient_id, []).append(event)
+        event_next = ''
         # Cross-store event choices are listed only through the exact retained intake
         # referral source-task link and only when the current user has target-store
         # medical read authority plus a current patient relation there.
-        for row in rows:
+        focused = rows if kwargs.get('followup_id') else model
+        for row in focused:
+            if not medical_read:
+                continue
+            if not service.env['ydental.patient.service']._current_relation(
+                    row.ydental_patient_id, session.ydental_store_id, required=False):
+                continue
             source_task = row.ydental_source_event_id.ydental_execution_id.ydental_task_id
             if not source_task:
                 continue
-            referrals = service.env['ydental.intake.entitlement'].sudo().search([
-                ('ydental_source_task_id', '=', source_task.id), ('ydental_patient_id', '=', row.ydental_patient_id.id),
-                # Untimed referrals are accepted as walk-ins by native intake.
-                ('ydental_channel', 'in', ('reservation', 'walkin')), ('state', 'in', ('held', 'started')),
-            ], limit=100)
-            for referral in referrals:
-                target_store = referral.ydental_store_id
+            if row.ydental_appointment_id and row.ydental_appointment_status != 'arrived':
+                continue
+            allowed_stores = []
+            memberships = service.env['ydental.access.membership']
+            if not row.ydental_appointment_id:
+                memberships = memberships.sudo().search([
+                    ('ydental_user_id', '=', service.env.uid), ('active', '=', True)])
+            for member in memberships:
+                target_store = member.ydental_store_id
                 if target_store == session.ydental_store_id:
                     continue
                 try:
+                    service._check_target_store_company(target_store)
                     service.env['ydental.access.service']._check('medical', 'read', target_store.id)
                     service.env['ydental.patient.service']._current_relation(row.ydental_patient_id, target_store)
                 except AccessError:
                     continue
-                referred_events = service.env['ydental.treatment.event'].sudo().search([
-                    ('ydental_store_id', '=', target_store.id), ('ydental_kind', '=', 'treatment'),
-                    ('ydental_patient_id', '=', row.ydental_patient_id.id),
-                    ('state', '=', 'confirmed'), ('ydental_execution_id.state', 'in', ('reserved', 'handover', 'interrupted')),
-                    ('ydental_execution_id.ydental_task_id.ydental_entitlement_id', '=', referral.id),
-                ], limit=100, order='ydental_business_date desc, id desc')
-                events_by_patient.setdefault(row.ydental_patient_id.id, []).extend(referred_events)
+                allowed_stores.append(target_store.id)
+            event_domain = fields.Domain('ydental_kind', '=', 'treatment') & fields.Domain('state', '=', 'confirmed')
+            event_domain &= fields.Domain('ydental_category', '=', 'medical') & fields.Domain('ydental_patient_id', '=', row.ydental_patient_id.id)
+            event_domain &= fields.Domain('ydental_execution_id.ydental_patient_id', '=', row.ydental_patient_id.id)
+            event_domain &= fields.Domain('ydental_document_id.ydental_patient_id', '=', row.ydental_patient_id.id)
+            event_domain &= fields.Domain('ydental_execution_id.state', 'in', ('reserved', 'handover', 'interrupted', 'completed'))
+            event_domain &= fields.Domain('id', '!=', row.ydental_source_event_id.id)
+            event_domain &= fields.Domain('ydental_execution_id', '!=', row.ydental_source_event_id.ydental_execution_id.id)
+            event_domain &= fields.Domain('ydental_actual_at', '>=', row.ydental_source_event_id.ydental_actual_at)
+            local_scope = fields.Domain('ydental_store_id', '=', session.ydental_store_id.id) & fields.Domain(
+                'ydental_execution_id.ydental_store_id', '=', session.ydental_store_id.id)
+            if row.ydental_appointment_id:
+                local_scope &= fields.Domain('ydental_execution_id.ydental_task_id.ydental_entitlement_id', '=', row.ydental_appointment_id.id)
+            scopes = [local_scope]
+            if not row.ydental_appointment_id:
+                for target_store_id in allowed_stores:
+                    entitlement = 'ydental_execution_id.ydental_task_id.ydental_entitlement_id.'
+                    scopes.append(fields.Domain('ydental_store_id', '=', target_store_id) &
+                        fields.Domain('ydental_execution_id.ydental_store_id', '=', target_store_id) &
+                        fields.Domain(entitlement + 'ydental_source_task_id', '=', source_task.id) &
+                        fields.Domain(entitlement + 'ydental_patient_id', '=', row.ydental_patient_id.id) &
+                        fields.Domain(entitlement + 'ydental_store_id', '=', target_store_id) &
+                        fields.Domain(entitlement + 'ydental_channel', 'in', ('reservation', 'walkin')) &
+                        fields.Domain(entitlement + 'state', 'in', ('held', 'started')))
+            event_domain &= fields.Domain.OR(scopes)
+            context = {'kind': 'complete', 'followup': row.id}
+            try:
+                event_domain &= service._event_cursor_domain(context, kwargs.get('event_cursor', ''))
+            except ValidationError:
+                return request.make_json_response({'error': request.env._('Invalid follow-up selection.')}, status=400)
+            found = service.env['ydental.treatment.event'].sudo().search(event_domain,
+                order='ydental_actual_at desc, id desc', limit=51)
+            events_by_patient[row.ydental_patient_id.id] = found[:50]
+            event_next = service._event_cursor(context, found[49]) if len(found) > 50 else ''
         for appointment in appointments:
             appointments_by_patient.setdefault(appointment['patient_id'], []).append(appointment)
         for arrival in arrivals:
@@ -98,6 +146,7 @@ class YDentalFollowup(http.Controller):
         return self._render('ydental_followup.followup_list', {
             'rows': rows, 'store': session.ydental_store_id,
             'can_write': service.env['ydental.access.service']._levels(_member)['followup'] == 'write',
+            'can_complete': levels['followup'] == 'write' and levels['medical'] == 'write',
             'state_labels': dict(model._fields['state']._description_selection(service.env)),
             'contact_method_labels': dict(service.env['ydental.followup.contact']._fields['ydental_method']._description_selection(service.env)),
             'contact_outcome_labels': dict(service.env['ydental.followup.contact']._fields['ydental_outcome']._description_selection(service.env)),
@@ -108,7 +157,14 @@ class YDentalFollowup(http.Controller):
             'lab_contact_allowed': {row.id: row.state not in ('done', 'closed') and row.ydental_lab_contact_stage != 'stopped' and (
                 row.ydental_lab_contact_stage != 'waiting' or service._lab_reservation_is_current(row)) for row in rows},
             'jobs': jobs, 'revision': session.ydental_revision, 'current_user': service.env.user,
-            'patients': event_patients, 'source_events': events,
+            'source_events': events, 'medical_read': medical_read,
+            'source_q': source_q, 'source_next': source_next, 'source_cursor': kwargs.get('source_cursor', ''),
+            'event_next': event_next,
+            'followup_page': followup_page, 'followup_more': followup_more,
+            'focused_followup': focused[:1].id if focused else False,
+            'followup_page_url': lambda page: '/ydental/followups?' + urlencode({'followup_page': page}),
+            'source_page_url': lambda cursor: '/ydental/followups?' + urlencode({'source_q': source_q, 'source_cursor': cursor}),
+            'event_page_url': lambda row, cursor: '/ydental/followups?' + urlencode({'followup_id': row.id, 'event_cursor': cursor}) + '#followup-%s' % row.id,
             'events_by_patient': events_by_patient, 'appointments_by_patient': appointments_by_patient,
             'arrivals_by_patient': arrivals_by_patient, 'contacts_by_followup': contacts_by_followup,
         })
@@ -132,7 +188,11 @@ class YDentalFollowup(http.Controller):
 
     def _form_arguments(self, operation, form):
         if operation == 'create':
-            return {'patient_id': int(form['patient_id']), 'source_event_id': int(form['source_event_id']),
+            if form.get('ui_source') == 'patient_event':
+                patient_id, source_event_id = form['source_choice'].split(':')
+            else:
+                patient_id, source_event_id = form['patient_id'], form['source_event_id']
+            return {'patient_id': int(patient_id), 'source_event_id': int(source_event_id),
                     'followup_type': form['followup_type'], 'planned_at': form['planned_at'],
                     'deadline_at': form.get('deadline_at') or False,
                     'responsible_id': int(form.get('responsible_id') or request.env.uid)}

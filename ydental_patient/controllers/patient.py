@@ -1,8 +1,9 @@
 import json
 import logging
 import secrets
+from urllib.parse import urlencode
 
-from odoo import http
+from odoo import fields, http
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.http import request
 from odoo.addons.ydental_access.controllers.access import YDentalDataSet
@@ -72,17 +73,40 @@ class YDentalPatient(http.Controller):
         return self._render('ydental_patient.ydental_patient_list', values)
 
     @http.route('/ydental/patients/<int:patient_id>', type='http', auth='user', methods=['GET'])
-    def patient(self, patient_id, **kwargs):
+    def patient(self, patient_id, merge_q='', merge_page='1', **kwargs):
         service = self._service()
         values = self._values(service)
         patient = service._patient(patient_id)
         patient = service.env['ydental.patient'].browse(patient.id)
         patient.read(['name', 'ydental_number'])
+        candidates = service.env['ydental.patient']
+        term = ''
+        page = 1
+        has_more = False
+        if values['can_admin'] and patient.active:
+            term = service._text(merge_q, 100)
+            if not isinstance(merge_page, str) or not merge_page.isdecimal() or not 1 <= len(merge_page) <= 4 or not 1 <= int(merge_page) <= 1000:
+                return request.make_response('无效的候选页码。', status=400, headers=[('Cache-Control', 'no-store')])
+            page = int(merge_page)
+            if term:
+                service._access(write=True)
+                domain = fields.Domain('id', '!=', patient.id) & fields.Domain('active', '=', True) & fields.Domain('ydental_merged_into_id', '=', False)
+                matches = fields.Domain.OR([fields.Domain('name', 'ilike', term), fields.Domain('ydental_number', '=', term)])
+                mapping = service.env['ydental.patient.number'].search([('name', '=', term)], limit=1)
+                if mapping:
+                    matches |= fields.Domain('id', '=', mapping.ydental_patient_id.id)
+                domain &= matches
+                found = service.env['ydental.patient'].search(domain, order='id', offset=(page - 1) * 20, limit=21)
+                candidates, has_more = found[:20], len(found) > 20
+        def merge_page_url(number):
+            return '/ydental/patients/%s?%s#request-merge' % (patient.id, urlencode({'merge_q': term, 'merge_page': number}))
         values.update(patient=patient, duplicates=service._duplicates(patient.id), prompts=service._prompts(patient.id),
             relations=service.env['ydental.patient.relation'].search([
                 ('ydental_patient_id', '=', patient.id), ('ydental_superseded_by_id', '=', False)]),
             contacts=service.env['ydental.patient.contact'].with_context(active_test=False).search([('ydental_patient_id', '=', patient.id)]),
-            numbers=service.env['ydental.patient.number'].search([('ydental_patient_id', '=', patient.id)]))
+            numbers=service.env['ydental.patient.number'].search([('ydental_patient_id', '=', patient.id)]),
+            merge_candidates=candidates, merge_q=term, merge_page=page, merge_has_more=has_more,
+            merge_page_url=merge_page_url)
         return self._render('ydental_patient.ydental_patient_detail', values)
 
     @http.route('/ydental/patients/<int:patient_id>/clinical', type='http', auth='user', methods=['GET'])
