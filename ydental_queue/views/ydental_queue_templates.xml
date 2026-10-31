@@ -48,6 +48,8 @@
                         <h2>Current execution segment</h2>
                         <p t-if="can_open_medical_execution">请回到原文书编辑标签保存并交还接诊；如未打开文书，可在当前持有工位的标签进入文书工作台。</p>
                         <a t-if="can_open_medical_execution" href="/ydental/clinical">进入当前接诊文书工作台</a>
+                        <form t-if="not clinical_installed" data-queue-form="handover"><input type="hidden" name="execution_id" t-att-value="execution.id"/>
+                            <button type="submit">Save and hand over this segment</button></form>
                         <form t-if="return_targets" data-queue-form="reserve">
                             <input type="hidden" name="execution_id" t-att-value="execution.id"/>
                             <label>Explicit external task <select name="target_task_id"><option t-foreach="return_targets" t-as="target" t-att-value="target.id"><t t-out="target.id"/> / <t t-out="target.name"/></option></select></label>
@@ -60,7 +62,9 @@
                             <form data-queue-form="restore"><input type="hidden" name="hold_id" t-att-value="actor_hold.id"/>
                                 <label><input type="checkbox" name="confirmed" required="required"/> I see the patient actually returned</label>
                                 <button type="submit">Confirm return and resume</button></form>
-                            <p>患者尚未返回时，暂不能从此处保存并交还；确认患者返回后，在文书工作台办理。</p>
+                            <p t-if="clinical_installed">患者尚未返回时，暂不能从此处保存并交还；确认患者返回后，在文书工作台办理。</p>
+                            <form t-if="not clinical_installed" data-queue-form="handover"><input type="hidden" name="execution_id" t-att-value="actor_hold.ydental_execution_id.id"/>
+                                <button type="submit">Save and hand over reserved segment</button></form>
                         </t>
                     </div>
                     <form data-queue-form="query_return"><label>Patient ID for return query <input type="number" name="patient_id" min="1" required="required"/></label>

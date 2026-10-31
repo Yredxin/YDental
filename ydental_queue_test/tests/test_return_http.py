@@ -103,8 +103,12 @@ class TestQueueReturnHTTP(TestQueueHTTP):
         self.assertEqual(held.status_code, 200, held.text)
         page = self.url_open('/ydental/queue')
         self.assertIn('Reserved return', page.text)
-        self.assertIn('患者尚未返回时', page.text)
-        self.assertNotIn('data-queue-form="handover"', page.text)
+        if 'ydental.clinical.service' in self.env:
+            self.assertIn('患者尚未返回时', page.text)
+            self.assertNotIn('data-queue-form="handover"', page.text)
+        else:
+            self.assertIn('data-queue-form="handover"', page.text)
+            self.assertNotIn('患者尚未返回时', page.text)
         report(self, target)
         query = self.action('query_return', {'patient_id': target.ydental_patient_id.id})
         self.assertEqual(query.json()['result'], 'hint_only')
@@ -117,6 +121,10 @@ class TestQueueReturnHTTP(TestQueueHTTP):
 
     def test_http_save_failure_retry_and_continuation(self):
         args, execution = self.start_http()
+        page = self.url_open('/ydental/queue')
+        if 'ydental.clinical.service' not in self.env:
+            self.assertIn('data-queue-form="handover"', page.text)
+            self.assertNotIn('进入当前接诊文书工作台', page.text)
         payload = dict(args, execution_id=execution.id)
         self.assertEqual(self.action('handover', payload).status_code, 403)
         queue = self.front.env['ydental.queue.service']

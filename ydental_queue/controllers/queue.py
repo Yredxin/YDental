@@ -107,6 +107,7 @@ class YDentalQueue(http.Controller):
             'own': own, 'shift_hint': queue._shift_hint(own), 'config_hint': config_hint,
             'can_write': any(levels[c] == 'write' for c in ('medical', 'exam', 'pharmacy')),
             'can_read_medical': levels['medical'] in ('read', 'write'),
+            'clinical_installed': 'ydental.clinical.service' in queue.env,
             'heartbeat': heartbeat, 'can_call': can_call, 'verifications': verifications,
             'execution': actor_execution if actor_execution and actor_execution.state == 'serving' else False,
             'can_open_medical_execution': bool(current_execution and actor_execution.ydental_category == 'medical'
