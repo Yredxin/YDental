@@ -52,9 +52,10 @@
                             <button type="submit">Save and hand over this segment</button></form>
                         <form t-if="return_targets" data-queue-form="reserve">
                             <input type="hidden" name="execution_id" t-att-value="execution.id"/>
-                            <label>Explicit external task <select name="target_task_id"><option t-foreach="return_targets" t-as="target" t-att-value="target.id"><t t-out="target.id"/> / <t t-out="target.name"/></option></select></label>
+                            <label>选择当前患者的外部任务 <select name="target_task_id"><option t-foreach="return_targets" t-as="target" t-att-value="target['id']" t-out="target['label']"/></select></label>
                             <button type="submit">Reserve workstation for external service</button>
                         </form>
+                        <p t-if="ambiguous_return_targets">有多项任务的信息相同，暂不能安全区分；请核对医嘱并联系有权人员处理。</p>
                     </div>
                     <div t-if="actor_hold" t-att-data-hold="actor_hold.id">
                         <h2>Reserved return</h2><p><t t-out="status.get('state_label', actor_hold.state)"/> / <t t-out="actor_hold.ydental_station_id.name"/></p>
@@ -67,8 +68,17 @@
                                 <button type="submit">Save and hand over reserved segment</button></form>
                         </t>
                     </div>
-                    <form data-queue-form="query_return"><label>Patient ID for return query <input type="number" name="patient_id" min="1" required="required"/></label>
-                        <button type="submit">Query return destination</button></form>
+                    <form t-if="can_identify_task_patients" action="/ydental/queue/search" method="post"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><label>按患者姓名或当前患者编号查找归位 <input name="return_q" maxlength="100" required="required" t-att-value="return_q"/></label>
+                        <button type="submit">查找患者</button></form>
+                    <a t-if="return_q" href="/ydental/queue">返回队列</a>
+                    <form t-if="own_return_patient" data-queue-form="query_own_return"><span>当前患者：<t t-out="own_return_patient.name"/> / <t t-out="own_return_patient.ydental_number"/></span>
+                        <input type="hidden" name="patient_id" t-att-value="own_return_patient.id"/><button type="submit">查询当前患者归位去向</button></form>
+                    <p t-if="return_q and not return_patients">本店没有匹配的有效患者，请核对姓名或当前患者编号。</p>
+                    <p t-if="return_patients_more">结果超过 50 位，请输入更完整的姓名或当前患者编号。</p>
+                    <form t-foreach="return_patients" t-as="patient" data-queue-form="query_return">
+                        <span><t t-out="patient['name']"/> / <t t-out="patient['number']"/></span>
+                        <input type="hidden" name="patient_id" t-att-value="patient['id']"/><button type="submit">查询归位去向</button>
+                    </form>
                 </section>
                 <section id="onsite-verifications" t-if="verifications">
                     <h2>Handle on-site verification</h2>
@@ -96,8 +106,11 @@
                         <form t-if="can_append and task_patient" data-queue-form="append"><input type="hidden" name="task_id" t-att-value="task.id"/>
                             <label>Append reason <input name="reason" required="required" maxlength="1000"/></label><button type="submit">Authorize task append</button></form>
                     </div>
-                    <div t-foreach="permits" t-as="permit" t-att-data-permit="permit.id"><span><t t-out="permit.ydental_task_id.id"/> / <t t-out="permit.state"/></span>
-                        <form t-if="can_append and permit.state == 'active'" data-queue-form="revoke"><input type="hidden" name="permit_id" t-att-value="permit.id"/>
+                    <div t-foreach="permits" t-as="permit" t-att-data-permit="permit.id"><t t-set="permit_patient" t-value="permit_patients.get(permit.id)"/>
+                        <span t-if="permit_patient" t-out="permit_labels[permit.id]"/>
+                        <span t-else="">患者已归档或缺少本店有效关联，请先核对患者资料。</span>
+                        <p t-if="permit_patient and permit_label_counts[permit_labels[permit.id]] &gt; 1">有多项许可的信息相同，暂不能安全区分，请先核对。</p>
+                        <form t-if="can_append and permit_patient and permit_label_counts[permit_labels[permit.id]] == 1 and permit.state == 'active'" data-queue-form="revoke"><input type="hidden" name="permit_id" t-att-value="permit.id"/>
                             <label>Revoke reason <input name="reason" required="required" maxlength="1000"/></label><button type="submit">Revoke append permit</button></form>
                     </div>
                 </section>

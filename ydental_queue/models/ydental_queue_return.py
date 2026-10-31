@@ -13,7 +13,8 @@ class YDentalQueueService(models.AbstractModel):
     def _operate(self, operation, payload):
         onsite = {'takeover_verify': self._takeover_verify, 'handover_verify_hold': self._handover_verify_hold,
                   'recover_empty_execution': self._recover_empty_execution}
-        handlers = onsite | {'query_return': self._query_return, 'append': self._append, 'revoke': self._revoke}
+        handlers = onsite | {'query_return': self._query_return, 'query_own_return': self._query_own_return,
+                             'append': self._append, 'revoke': self._revoke}
         if operation not in handlers:
             return super()._operate(operation, payload)
         if not isinstance(payload, dict):
@@ -22,13 +23,14 @@ class YDentalQueueService(models.AbstractModel):
             inspect.signature(handlers[operation]).bind(**payload)
         except TypeError as error:
             raise ValidationError(self.env._('Unknown or missing workstation arguments.')) from error
-        self.env['ydental.access.service']._scope(write=operation != 'query_return')
+        queries = ('query_return', 'query_own_return')
+        self.env['ydental.access.service']._scope(write=operation not in queries)
         if operation in onsite:
             self._connection()
         with self.env.cr.savepoint():
             self._locks()
             # Query is deliberately read-only: no expiry, task, entry or audit writes.
-            if operation != 'query_return':
+            if operation not in queries:
                 if operation not in onsite:
                     self._append_access()
                 # A recovery acts on a lease already released by the fixed timeout
@@ -45,7 +47,7 @@ class YDentalQueueService(models.AbstractModel):
                 'qualification': catalog.ydental_qualification or '', 'area_id': mapping.ydental_area_id.id,
                 'execution_area_id': mapping.ydental_execution_area_id.id}
 
-    def _hold(self, patient_id=None, lease_id=None, actor_id=None):
+    def _hold(self, patient_id=None, lease_id=None, actor_id=None, store_id=None):
         domain = [('state', 'in', ('active', 'verify'))]
         if patient_id is not None:
             domain.append(('ydental_patient_id', '=', patient_id))
@@ -53,6 +55,8 @@ class YDentalQueueService(models.AbstractModel):
             domain.append(('ydental_lease_id', '=', lease_id))
         if actor_id is not None:
             domain.append(('ydental_actor_id', '=', actor_id))
+        if store_id is not None:
+            domain.append(('ydental_store_id', '=', store_id))
         return self._model('hold').search(domain, limit=1)
 
     def _busy(self, lease):
@@ -304,13 +308,47 @@ class YDentalQueueService(models.AbstractModel):
         store = self.env['ydental.intake.service']._business_read_access()
         patient = self.env['ydental.patient.service']._business_patient(patient_id)
         self.env['ydental.patient.service']._current_relation(patient, store)
-        hold = self._hold(patient_id=patient.id)
-        if not hold or hold.ydental_store_id != store:
+        hold = self._hold(patient_id=patient.id, store_id=store.id)
+        if not hold:
             return {'result': 'hint_only', 'state': 'no_hold', 'message': self.env._('Use the explicit target task for ordinary reporting.')}
         valid = hold.state == 'active' and hold.ydental_lease_id.ydental_active and hold.ydental_lease_id.ydental_expires_at > self._now()
         return {'result': 'hint_only', 'hold_id': hold.id, 'station': hold.ydental_station_id.name,
                 'area': hold.ydental_area_id.name, 'state': 'holding' if valid else 'verify',
                 'message': self.env._('Return to the original workstation.') if valid else self.env._('On-site verification required')}
+
+    def _own_return_patient(self):
+        store = self.env['ydental.intake.service']._business_read_access()
+        access = self.env['ydental.access.service']
+        scope = access._scope()
+        execution, lease = self._actor_execution(), self._own()
+        hold = self._hold(actor_id=self.env.uid)
+        patient = False
+        category = False
+        if (execution and lease and execution.state == 'serving' and execution.ydental_store_id == store and
+                execution.ydental_lease_id == lease and lease.ydental_store_id == store and
+                lease.ydental_expires_at > self._now() and lease.ydental_session_id == scope and
+                lease.ydental_revision == scope.ydental_revision):
+            patient, category = execution.ydental_patient_id, execution.ydental_category
+        elif (hold and hold.ydental_store_id == store and hold.state in ('active', 'verify') and
+              hold.ydental_lease_id.ydental_store_id == store and
+              hold.ydental_lease_id.ydental_actor_id.id == self.env.uid and
+              hold.ydental_lease_id.ydental_session_id == scope and
+              hold.ydental_lease_id.ydental_revision == scope.ydental_revision and
+              (hold.state == 'verify' or (hold.ydental_lease_id.ydental_active and
+                                          hold.ydental_lease_id.ydental_expires_at > self._now()))):
+            patient, category = hold.ydental_patient_id, hold.ydental_category
+        if not patient or category not in ('medical', 'exam'):
+            return self.env['ydental.patient']
+        access._check(category, 'read')
+        relation = self.env['ydental.patient.service']._current_relation(patient, store, required=False)
+        canonical = relation.ydental_patient_id if relation else self.env['ydental.patient']
+        return canonical if canonical and canonical.active else self.env['ydental.patient']
+
+    def _query_own_return(self, patient_id):
+        patient = self._own_return_patient()
+        if not patient or self.env['ydental.intake.service']._id(patient_id) != patient.id:
+            raise AccessError(self.env._('access_denied: Select the patient in your current execution or hold.'))
+        return self._query_return(patient.id)
 
     def _restore(self, lease_id, token, hold_id, confirmed):
         lease = self._held(lease_id, token, admission=True)

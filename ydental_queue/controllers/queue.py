@@ -1,7 +1,7 @@
 import json
 import secrets
 
-from odoo import http
+from odoo import fields, http
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.http import request
 
@@ -15,6 +15,16 @@ class YDentalQueue(http.Controller):
 
     @http.route('/ydental/queue', type='http', auth='user', methods=['GET'])
     def dashboard(self, **kwargs):
+        if 'return_q' in kwargs:
+            return request.make_response('请使用页面上的患者搜索表单。', status=400,
+                                         headers=[('Cache-Control', 'no-store')])
+        return self._dashboard()
+
+    @http.route('/ydental/queue/search', type='http', auth='user', methods=['POST'])
+    def return_search(self, return_q='', **kwargs):
+        return self._dashboard(return_q=return_q)
+
+    def _dashboard(self, **kwargs):
         queue = self._service()
         store = queue.env['ydental.intake.service']._business_read_access()
         access = queue.env['ydental.access.service']
@@ -89,19 +99,81 @@ class YDentalQueue(http.Controller):
             and actor_execution.ydental_store_id == store and own.ydental_store_id == store
             and actor_execution.ydental_lease_id == own and own.ydental_expires_at > queue._now()
             and own.ydental_session_id == scope and own.ydental_revision == scope.ydental_revision)
+        try:
+            own_return_patient = queue._own_return_patient()
+        except AccessError:
+            own_return_patient = queue.env['ydental.patient']
         pending_tasks = queue.env['ydental.intake.task'].sudo().search([
             ('ydental_store_id', '=', store.id), ('state', 'in', ('pending', 'accepted'))])
+        permits = queue._model('append.permit').search([('ydental_store_id', '=', store.id), ('state', 'in', ('active', 'started'))])
         task_patients = {}
+        permit_patients = {}
+        permit_labels = {}
+        permit_label_counts = {}
         if levels['frontdesk'] in ('read', 'write'):
             access._check('frontdesk', 'read')
             relations = queue.env['ydental.patient.service']._current_relations(
-                pending_tasks.ydental_patient_id.ids, store, required=False)
+                (pending_tasks.ydental_patient_id | permits.ydental_patient_id).ids, store, required=False)
             for task in pending_tasks:
                 relation = relations.get(task.ydental_patient_id.id)
                 patient = relation.ydental_patient_id if relation else False
                 if patient and patient.active:
                     task_patients[task.id] = {'id': patient.id, 'name': patient.name,
                                               'number': patient.ydental_number}
+            for permit in permits:
+                relation = relations.get(permit.ydental_patient_id.id)
+                patient = relation.ydental_patient_id if relation else False
+                if patient and patient.active:
+                    permit_patients[permit.id] = {'name': patient.name, 'number': patient.ydental_number}
+                    label = '%s / %s / %s / %s / %s / %s UTC / %s / %s' % (
+                        patient.name, patient.ydental_number, permit.ydental_mapping_id.ydental_catalog_id.name,
+                        permit.ydental_mapping_id.ydental_area_id.name, permit.ydental_business_date,
+                        permit.ydental_created_at, permit.ydental_actor_id.name, permit.state)
+                    permit_labels[permit.id] = label
+                    permit_label_counts[label] = permit_label_counts.get(label, 0) + 1
+        search_term = kwargs.get('return_q', '')
+        if not isinstance(search_term, str) or len(search_term) > 100:
+            return request.make_response('查询内容无效。', status=400, headers=[('Cache-Control', 'no-store')])
+        search_term = search_term.strip()
+        return_patients = []
+        return_patients_more = False
+        if search_term:
+            if levels['frontdesk'] not in ('read', 'write'):
+                raise AccessError(request.env._('access_denied: Frontdesk read is required for patient search.'))
+            access._check('frontdesk', 'read')
+            # Only a live frontdesk grant may enumerate current-store relations.
+            domain = (fields.Domain('ydental_store_id', '=', store.id) &
+                      fields.Domain('ydental_superseded_by_id', '=', False) &
+                      fields.Domain('ydental_patient_id.active', '=', True) &
+                      fields.Domain('ydental_patient_id.ydental_merged_into_id', '=', False) &
+                      (fields.Domain('ydental_patient_id.name', 'ilike', search_term) |
+                       fields.Domain('ydental_patient_id.ydental_number', '=', search_term)))
+            matches = queue.env['ydental.patient.relation'].sudo().search(domain, limit=51, order='id')
+            return_patients_more = len(matches) > 50
+            return_patients = [{'id': relation.ydental_patient_id.id, 'name': relation.ydental_patient_id.name,
+                                'number': relation.ydental_patient_id.ydental_number} for relation in matches[:50]]
+        return_targets = []
+        ambiguous_return_targets = False
+        if current_execution and actor_execution.ydental_category == 'medical' and levels['medical'] == 'write':
+            candidates = pending_tasks.filtered(lambda task: (
+                task.ydental_patient_id == actor_execution.ydental_patient_id and
+                task.ydental_mapping_id.ydental_catalog_id.ydental_kind in ('exam', 'medicine') and
+                queue._external_target_authorized(actor_execution, task) is True))
+            labels = {}
+            for task in candidates:
+                mapping = task.ydental_mapping_id
+                kind = '检查' if mapping.ydental_catalog_id.ydental_kind == 'exam' else '药房'
+                state = '待报到' if task.state == 'pending' else '已报到'
+                # UTC is explicit; identical labels are unsafe to choose by eye.
+                label = '%s · %s · %s · %s UTC · %s' % (
+                    kind, mapping.ydental_catalog_id.name, mapping.ydental_area_id.name,
+                    task.create_date, state)
+                labels.setdefault(label, []).append(task.id)
+            for label, task_ids in labels.items():
+                if len(task_ids) == 1:
+                    return_targets.append({'id': task_ids[0], 'label': label})
+                else:
+                    ambiguous_return_targets = True
         return request.render('ydental_queue.ydental_queue_page' , {'store': store, 'status': queue._status(),
             'revision': access._scope().ydental_revision, 'screen_lang': queue.env.user.lang or 'en_US', 'stations': station_rows, 'rows': waiting_rows,
             'own': own, 'shift_hint': queue._shift_hint(own), 'config_hint': config_hint,
@@ -116,15 +188,16 @@ class YDentalQueue(http.Controller):
                 and levels['pharmacy'] == 'write'),
             'actor_hold': actor_hold, 'can_frontdesk': levels['frontdesk'] == 'write',
             'can_append': levels['frontdesk'] == 'write' and queue.env.user.has_group('ydental_queue.ydental_group_append'),
-            'return_targets': queue.env['ydental.intake.task'].sudo().search([
-                ('ydental_store_id', '=', store.id), ('state', 'in', ('pending', 'accepted'))]).filtered(
-                    lambda task: bool(actor_execution and task.ydental_patient_id == actor_execution.ydental_patient_id and
-                                      task.ydental_mapping_id.ydental_catalog_id.ydental_kind in ('exam', 'medicine'))),
+            'return_targets': return_targets, 'ambiguous_return_targets': ambiguous_return_targets,
             'pending_tasks': pending_tasks, 'task_patients': task_patients,
+            'return_q': search_term, 'return_patients': return_patients, 'return_patients_more': return_patients_more,
+            'own_return_patient': own_return_patient,
+            'permit_patients': permit_patients,
+            'permit_labels': permit_labels, 'permit_label_counts': permit_label_counts,
             'can_identify_task_patients': levels['frontdesk'] in ('read', 'write'),
             'business_rows': business_rows, 'can_capacity': levels['capacity'] == 'write',
             'screen_credentials': queue._model('screen.token').search([('ydental_store_id', '=', store.id)]) if levels['capacity'] == 'write' else [],
-            'permits': queue._model('append.permit').search([('ydental_store_id', '=', store.id), ('state', 'in', ('active', 'started'))])}, headers=[('Cache-Control', 'no-store')])
+            'permits': permits}, headers=[('Cache-Control', 'no-store')])
 
     @http.route('/ydental/queue/action', type='http', auth='user', methods=['POST'], max_content_length=16384)
     def action(self, operation, revision, connection, payload):

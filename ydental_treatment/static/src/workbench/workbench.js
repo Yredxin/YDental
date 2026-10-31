@@ -90,6 +90,14 @@ if (root) {
                     body: new URLSearchParams({operation: form.dataset.operation, revision: root.dataset.revision, connection,
                         key: form.dataset.key, payload: JSON.stringify(args), csrf_token: odoo.csrf_token})});
                 const result = await response.json();
+                // The stock guard raises inside the operation savepoint. A
+                // recognized 409 therefore rolls this attempt back; unlike a
+                // lost response, it can be corrected without losing the lease.
+                if (response.status === 409 && typeof result.error === 'string' &&
+                    result.error.startsWith('insufficient_balance:')) {
+                    message.textContent = result.error;
+                    return;
+                }
                 if (!response.ok) { throw new Error(result.error); }
                 // Keep a reviewable receipt and never replay a possibly committed
                 // execution. Reload only when the full visible form is unchanged.

@@ -1,11 +1,12 @@
 import json
+from datetime import timedelta
 from types import SimpleNamespace
 from unittest.mock import patch
 
 from lxml import html
 from odoo.tests import tagged
 
-from .common import accepted, key, qualify
+from .common import accepted, bind, key, qualify
 from .return_common import appender, close, external, report, source
 from .test_http import TestQueueHTTP
 
@@ -85,6 +86,111 @@ class TestQueueReturnHTTP(TestQueueHTTP):
         self.admin._grant(self.users['frontdesk'].id, self.stores[1].id, {'frontdesk': 'none'})
         self.assertEqual(self.action('query_return', {'patient_id': patient.id}).status_code, 403)
 
+    def test_return_search_uses_current_store_patient_and_rechecks_authority(self):
+        task = accepted(self)
+        patient = task.ydental_patient_id
+        self.select('frontdesk')
+        page = self.url_open('/ydental/queue/search', data={'csrf_token': self.csrf, 'return_q': patient.ydental_number})
+        self.assertEqual(page.status_code, 200)
+        doc = html.fromstring(page.content)
+        section = doc.xpath('//section[@id="patient-return-actions"]')[0]
+        self.assertTrue(section.xpath('.//form[@action="/ydental/queue/search" and @method="post"]/input[@name="csrf_token"]'))
+        self.assertTrue(section.xpath('.//a[@href="/ydental/queue"]'))
+        self.assertEqual(self.url_open('/ydental/queue/search', data={'return_q': patient.ydental_number}).status_code, 400)
+        self.assertEqual(self.url_open('/ydental/queue?return_q=synthetic').status_code, 400)
+        self.assertEqual(section.xpath('.//form[@data-queue-form="query_return"]/input[@name="patient_id"]/@value'), [str(patient.id)])
+        self.assertIn(patient.name, section.text_content())
+        self.assertFalse(section.xpath('.//input[@name="patient_id" and @type="number"]'))
+        switch = self.url_open('/ydental/access/action', data={
+            'csrf_token': self.csrf, 'revision': self.revision, 'operation': 'switch',
+            'payload': json.dumps({'store_id': self.stores[1].id}), 'output': 'json'})
+        self.assertEqual(switch.status_code, 200)
+        self.revision = switch.json()['revision']
+        page = self.url_open('/ydental/queue/search', data={'csrf_token': self.csrf, 'return_q': patient.ydental_number})
+        self.assertEqual(page.status_code, 200)
+        self.assertNotIn(patient.ydental_number, html.fromstring(page.content).xpath('//section[@id="patient-return-actions"]')[0].text_content())
+        self.assertEqual(self.action('query_return', {'patient_id': patient.id}).status_code, 403)
+        self.admin._grant(self.users['frontdesk'].id, self.stores[1].id, {'frontdesk': 'none'})
+        self.assertEqual(self.action('query_return', {'patient_id': patient.id}).status_code, 403)
+
+    def test_return_search_rejects_medical_and_exam_without_frontdesk(self):
+        task = accepted(self)
+        term = task.ydental_patient_id.ydental_number
+        for grants in ({'medical': 'write', 'exam': 'none'}, {'medical': 'none', 'exam': 'read'}):
+            self.admin._grant(self.users['doctor'].id, self.stores[0].id, grants)
+            self.select('doctor')
+            page = self.url_open('/ydental/queue')
+            self.assertEqual(page.status_code, 200)
+            self.assertFalse(html.fromstring(page.content).xpath('//input[@name="return_q"]'))
+            denied = self.url_open('/ydental/queue/search', data={'csrf_token': self.csrf, 'return_q': term})
+            self.assertEqual(denied.status_code, 403)
+            self.assertNotIn(term, denied.text)
+
+    def test_current_execution_and_hold_have_scoped_return_query(self):
+        args, execution = self.start_http()
+        patient = execution.ydental_patient_id
+        page = self.url_open('/ydental/queue')
+        section = html.fromstring(page.content).xpath('//section[@id="patient-return-actions"]')[0]
+        self.assertEqual(section.xpath('.//form[@data-queue-form="query_own_return"]/input[@name="patient_id"]/@value'), [str(patient.id)])
+        self.assertEqual(self.action('query_own_return', {'patient_id': patient.id}).json()['state'], 'no_hold')
+        self.assertEqual(self.action('query_own_return', {'patient_id': 2147483647}).status_code, 403)
+        target = external(self, execution)
+        source(self.front.env['ydental.queue.service'], execution, target)
+        self.assertEqual(self.action('reserve', dict(args, execution_id=execution.id, target_task_id=target.id)).status_code, 200)
+        page = self.url_open('/ydental/queue')
+        section = html.fromstring(page.content).xpath('//section[@id="patient-return-actions"]')[0]
+        self.assertEqual(section.xpath('.//form[@data-queue-form="query_own_return"]/input[@name="patient_id"]/@value'), [str(patient.id)])
+        self.assertEqual(self.action('query_own_return', {'patient_id': patient.id}).json()['state'], 'holding')
+        lease = self.root['ydental.queue.lease'].browse(args['lease_id'])
+        lease._save({'ydental_expires_at': self.front.env['ydental.queue.service']._now() - timedelta(seconds=1)})
+        self.assertEqual(self.action('expire_station', {'station_id': lease.ydental_station_id.id}).status_code, 200)
+        page = self.url_open('/ydental/queue')
+        section = html.fromstring(page.content).xpath('//section[@id="patient-return-actions"]')[0]
+        self.assertTrue(section.xpath('.//form[@data-queue-form="query_own_return"]'))
+        self.assertEqual(self.action('query_own_return', {'patient_id': patient.id}).json()['state'], 'verify')
+        self.admin._grant(self.users['doctor'].id, self.stores[0].id, {'medical': 'none'})
+        self.assertEqual(self.action('query_own_return', {'patient_id': patient.id}).status_code, 403)
+
+    def test_exam_only_current_execution_can_query_own_patient(self):
+        task = accepted(self, mapping=self.mappings[0][2])
+        self.admin._grant(self.users['doctor'].id, self.stores[0].id, {'medical': 'none', 'exam': 'write'})
+        self.select('doctor')
+        response = self.action('enter', {'station_id': self.stations[0][2].id})
+        self.assertEqual(response.status_code, 200)
+        args = {'lease_id': response.json()['lease_id'], 'token': response.json()['token']}
+        call = self.action('call', args)
+        self.assertEqual(call.status_code, 200)
+        started = self.action('start', dict(args, entry_id=call.json()['entry_id']))
+        self.assertEqual(started.status_code, 200)
+        page = self.url_open('/ydental/queue')
+        section = html.fromstring(page.content).xpath('//section[@id="patient-return-actions"]')[0]
+        self.assertEqual(section.xpath('.//form[@data-queue-form="query_own_return"]/input[@name="patient_id"]/@value'), [str(task.ydental_patient_id.id)])
+        self.assertEqual(self.action('query_own_return', {'patient_id': task.ydental_patient_id.id}).json()['state'], 'no_hold')
+        self.assertEqual(self.action('query_own_return', {'patient_id': 2147483647}).status_code, 403)
+
+    def test_hold_context_denies_new_session_and_other_store(self):
+        args, execution = self.start_http()
+        patient = execution.ydental_patient_id
+        target = external(self, execution)
+        source(self.front.env['ydental.queue.service'], execution, target)
+        self.assertEqual(self.action('reserve', dict(args, execution_id=execution.id, target_task_id=target.id)).status_code, 200)
+        self.assertEqual(self.action('query_own_return', {'patient_id': patient.id}).json()['state'], 'holding')
+        front_other = bind(self, self.users['frontdesk'], self.stores[1]).env['ydental.patient.service']
+        front_other._operate('relation', {'patient_id': patient.id}, key())
+        self.select('doctor')  # HttpCase creates a fresh authenticated browser session.
+        page = self.url_open('/ydental/queue')
+        section = html.fromstring(page.content).xpath('//section[@id="patient-return-actions"]')[0]
+        self.assertFalse(section.xpath('.//form[@data-queue-form="query_own_return"]'))
+        self.assertNotIn(patient.ydental_number, section.text_content())
+        self.assertEqual(self.action('query_own_return', {'patient_id': patient.id}).status_code, 403)
+        switch = self.url_open('/ydental/access/action', data={
+            'csrf_token': self.csrf, 'revision': self.revision, 'operation': 'switch',
+            'payload': json.dumps({'store_id': self.stores[1].id}), 'output': 'json'})
+        self.assertEqual(switch.status_code, 200)
+        self.revision = switch.json()['revision']
+        self.assertEqual(self.action('query_own_return', {'patient_id': patient.id}).status_code, 403)
+        self.assertEqual(self.action('query_return', {'patient_id': patient.id}).json()['state'], 'no_hold')
+
     def start_http(self):
         task = accepted(self)
         self.select()
@@ -93,6 +199,38 @@ class TestQueueReturnHTTP(TestQueueHTTP):
         result = self.action('start', dict(args, entry_id=call['entry_id']))
         self.assertEqual(result.status_code, 200, result.text)
         return args, self.root['ydental.queue.execution'].browse(result.json()['execution_id'])
+
+    def test_reserve_choices_use_business_labels_and_recheck_source(self):
+        args, execution = self.start_http()
+        target = external(self, execution)
+        other = external(self, execution)
+        queue = self.front.env['ydental.queue.service']
+        source(queue, execution, target)
+        page = self.url_open('/ydental/queue')
+        self.assertEqual(page.status_code, 200)
+        options = html.fromstring(page.content).xpath('//select[@name="target_task_id"]/option')
+        self.assertEqual([item.get('value') for item in options], [str(target.id)])
+        label = options[0].text_content()
+        self.assertIn(target.ydental_mapping_id.ydental_catalog_id.name, label)
+        self.assertIn(target.ydental_mapping_id.ydental_area_id.name, label)
+        self.assertIn('UTC', label)
+        self.assertNotIn(' / ', label)
+        self.assertEqual(self.action('reserve', dict(args, execution_id=execution.id,
+                                                    target_task_id=other.id)).status_code, 403)
+        service_type = type(self.env['ydental.queue.service'])
+        with patch.object(service_type, '_external_target_authorized', return_value=True):
+            page = self.url_open('/ydental/queue')
+        self.assertEqual(page.status_code, 200)
+        doc = html.fromstring(page.content)
+        self.assertFalse(doc.xpath('//select[@name="target_task_id"]/option'))
+        self.assertIn('有多项任务的信息相同', doc.text_content())
+
+        self.admin._grant(self.users['doctor'].id, self.stores[0].id, {'medical': 'none'})
+        page = self.url_open('/ydental/queue')
+        if page.status_code == 200:
+            self.assertFalse(html.fromstring(page.content).xpath('//select[@name="target_task_id"]/option'))
+        self.assertEqual(self.action('reserve', dict(args, execution_id=execution.id,
+                                                    target_task_id=target.id)).status_code, 403)
 
     def test_http_hold_query_and_confirmed_restore(self):
         args, execution = self.start_http()
@@ -150,6 +288,12 @@ class TestQueueReturnHTTP(TestQueueHTTP):
         permit = self.action('append', payload)
         self.assertEqual(permit.status_code, 200, permit.text)
         self.assertEqual(self.action('append', payload).json()['permit_id'], permit.json()['permit_id'])
+        page = self.url_open('/ydental/queue')
+        row = html.fromstring(page.content).xpath('//div[@data-permit=$permit]', permit=str(permit.json()['permit_id']))[0]
+        self.assertIn(task.ydental_patient_id.name, row.text_content())
+        self.assertIn(task.ydental_patient_id.ydental_number, row.text_content())
+        self.assertIn(task.ydental_mapping_id.ydental_catalog_id.name, row.text_content())
+        self.assertTrue(row.xpath('.//form[@data-queue-form="revoke"]'))
         self.select()
         args = self.lease()
         call = self.action('call', args)
